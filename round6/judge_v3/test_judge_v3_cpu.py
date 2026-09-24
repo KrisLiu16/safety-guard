@@ -65,6 +65,7 @@ class PromptTests(unittest.TestCase):
         self.assertIn("负面传言", exception)
         self.assertIn("A.1.g", exception)
         self.assertIn("规避写法", exception)
+        self.assertIn("政治局常委", exception.split("。")[0])   # same leader scope as word screen v3
 
     def test_request_only_carries_prompt_and_text(self):
         item = {"item_id": "x", "user_prompt": "问题", "assistant_text": "回答", "expected_old": "safe", "kind": "safe_whole"}

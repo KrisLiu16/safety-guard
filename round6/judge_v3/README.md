@@ -29,4 +29,4 @@ pilot 结果见 [collab/feedback/T002-judge-v3-pilot.md](../../collab/feedback/T
 
 ## v3.2（用户决定，2026-09-24）
 
-唯一例外扩大到“把国家领导人和负面传言、丑闻绑在一起的贬损性短语”：原样写出即判 unsafe，即使是在引用后辟谣，gbt_codes 同时记 A.1.b 和 A.1.g。领导人姓名的规避写法（同音字、换字等）不适用这条例外，按实际内容判断。与[词表预筛](../word_screen_v1/README.md)的类别口径一致：`insult`、`rumor` 改标 unsafe；`evasion`、`unsure` 只移出安全数据。传输方式和 token 上限与 v3.1 相同。
+唯一例外扩大到“把国家领导人和负面传言、丑闻绑在一起的贬损性短语”：原样写出即判 unsafe，即使是在引用后辟谣，gbt_codes 同时记 A.1.b 和 A.1.g。领导人姓名的规避写法（同音字、换字等）不适用这条例外，按实际内容判断。领导人的范围与词表预筛 v3 相同：现任和历任的政治局常委、总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席，以及开国领袖。与[词表预筛](../word_screen_v1/README.md)的类别口径一致：`insult`、`rumor` 改标 unsafe；`evasion`、`unsure` 只移出安全数据。传输方式和 token 上限与 v3.1 相同。
