@@ -1,0 +1,305 @@
+{
+  "policy_digest": "bd5c444c00dd4b7a",
+  "switches": {
+    "topic_mention": "safe",
+    "debunk_no_quote": "safe",
+    "refusal_naming": "controversial",
+    "restates": "controversial",
+    "quotes": "controversial",
+    "term_explained": "controversial",
+    "fiction": "unsafe",
+    "writes": "unsafe",
+    "requests": "unsafe",
+    "debunk_request": "safe",
+    "general_depiction": "safe",
+    "variant_unclear": "ignore",
+    "leader_epithet_written": "unsafe",
+    "non_redline_harm": "safe",
+    "B1": "redline",
+    "B2": "redline",
+    "B3": "redline",
+    "B4": "non_redline",
+    "B5": "redline",
+    "B6": "redline",
+    "B7": "non_redline"
+  },
+  "responses": 18322,
+  "usable": 18304,
+  "by_source_rank": {
+    "0": 17365,
+    "1": 939,
+    "None": 18
+  },
+  "labels_by_split": {
+    "calibration": {
+      "safe": 259,
+      "unsafe": 41
+    },
+    "dev": {
+      "unsafe": 43,
+      "safe": 356,
+      "controversial": 1
+    },
+    "train": {
+      "safe": 15355,
+      "controversial": 601,
+      "unsafe": 1648,
+      "unusable": 18
+    }
+  },
+  "old_to_new": {
+    "safe->safe": 9394,
+    "unsafe->safe": 6576,
+    "safe->controversial": 578,
+    "unsafe->unsafe": 1510,
+    "safe->unsafe": 222,
+    "unsafe->controversial": 24,
+    "unsafe->unusable": 14,
+    "safe->unusable": 4
+  },
+  "old_to_new_by_slot_style": {
+    "slotNone:None:safe->controversial": 578,
+    "slotNone:None:safe->safe": 9394,
+    "slotNone:None:safe->unsafe": 222,
+    "slotNone:None:safe->unusable": 4,
+    "slotNone:None:unsafe->controversial": 24,
+    "slotNone:None:unsafe->safe": 6576,
+    "slotNone:None:unsafe->unsafe": 1510,
+    "slotNone:None:unsafe->unusable": 14
+  },
+  "stratum_by_label": {
+    "controversial": {
+      "redline": 602
+    },
+    "safe": {
+      "normal": 6878,
+      "non_redline_harm": 6498,
+      "redline_topic": 1609,
+      "other_sensitive": 985
+    },
+    "unsafe": {
+      "redline": 1732
+    }
+  },
+  "rules_non_safe": {
+    "leader_epithet_written": 200,
+    "R11:term_explained:general": 140,
+    "R10:requests:general": 134,
+    "R12:requests:specific": 110,
+    "R12:requests:general": 82,
+    "R3:term_explained:general": 80,
+    "R2:requests:general": 78,
+    "B2:requests:general": 76,
+    "B1:requests:general": 65,
+    "B6:requests:general": 57,
+    "R13:requests:specific": 54,
+    "R11:writes:specific": 51,
+    "R1:writes:specific": 48,
+    "B2:requests:specific": 47,
+    "R11:requests:general": 46,
+    "R13:requests:general": 44,
+    "R1:requests:general": 43,
+    "R8:requests:general": 41,
+    "R10:requests:specific": 41,
+    "R10:writes:general": 41,
+    "B1:requests:specific": 39,
+    "B6:requests:specific": 39,
+    "R7:requests:general": 38,
+    "R1:writes:general": 37,
+    "B5:requests:general": 34,
+    "R11:quotes:specific": 33,
+    "R7:writes:general": 32,
+    "B6:quotes:general": 30,
+    "B6:term_explained:general": 30,
+    "R11:requests:specific": 29,
+    "R8:writes:general": 28,
+    "R2:requests:specific": 28,
+    "B5:requests:specific": 26,
+    "R11:quotes:general": 23,
+    "R1:term_explained:general": 22,
+    "B1:writes:general": 21,
+    "R3:quotes:general": 20,
+    "R10:writes:specific": 19,
+    "B1:term_explained:general": 19,
+    "R6:requests:general": 19,
+    "R10:quotes:general": 17,
+    "B1:quotes:general": 17,
+    "R2:writes:specific": 17,
+    "R5:quotes:general": 16,
+    "R5:requests:general": 15,
+    "R1:quotes:general": 15,
+    "R3:writes:general": 14,
+    "R7:requests:specific": 14,
+    "R11:term_explained:specific": 13,
+    "R7:writes:specific": 13,
+    "R8:writes:specific": 13,
+    "R3:requests:general": 13,
+    "R1:requests:specific": 12,
+    "B6:writes:specific": 12,
+    "B3:requests:specific": 12,
+    "B6:writes:general": 12,
+    "R9:term_explained:general": 11,
+    "R6:term_explained:general": 10,
+    "R3:writes:specific": 10,
+    "R13:writes:specific": 10,
+    "B2:writes:specific": 9,
+    "R5:term_explained:general": 9,
+    "R5:writes:general": 8,
+    "B3:requests:general": 8,
+    "R8:term_explained:general": 8,
+    "R13:writes:general": 8,
+    "R2:quotes:general": 8,
+    "B6:quotes:specific": 8,
+    "R6:quotes:general": 7,
+    "B1:writes:specific": 7,
+    "R8:requests:specific": 7,
+    "B1:quotes:specific": 7,
+    "R8:quotes:general": 6,
+    "R4:term_explained:general": 6,
+    "R13:quotes:general": 6,
+    "R1:quotes:specific": 6,
+    "R10:quotes:specific": 5,
+    "R3:requests:specific": 5,
+    "R12:term_explained:general": 5,
+    "R6:requests:specific": 5,
+    "R6:writes:general": 5,
+    "R9:quotes:general": 5,
+    "R12:writes:specific": 4,
+    "B2:writes:general": 4,
+    "R5:writes:specific": 3,
+    "R5:requests:specific": 3,
+    "R13:quotes:specific": 3,
+    "B5:writes:general": 2,
+    "R12:quotes:general": 2,
+    "R4:writes:general": 2,
+    "R12:writes:general": 2,
+    "R4:writes:specific": 2,
+    "R4:quotes:general": 2,
+    "R12:quotes:specific": 2,
+    "B6:term_explained:specific": 2,
+    "R7:term_explained:general": 2,
+    "R4:requests:general": 2,
+    "R6:writes:specific": 2,
+    "R8:quotes:specific": 2,
+    "R1:term_explained:specific": 1,
+    "R10:term_explained:general": 1,
+    "R3:quotes:specific": 1,
+    "R13:term_explained:general": 1,
+    "R4:quotes:specific": 1,
+    "R2:term_explained:general": 1,
+    "R2:quotes:specific": 1,
+    "R9:requests:general": 1,
+    "B1:term_explained:specific": 1,
+    "R9:writes:specific": 1,
+    "R5:quotes:specific": 1
+  },
+  "onset_clause_chars": {
+    "controversial": {
+      "median": 22.0,
+      "max": 157
+    },
+    "unsafe": {
+      "median": 20.5,
+      "max": 151
+    }
+  },
+  "boundary_hits_by_label": {
+    "controversial": {
+      "R11:term_explained": 153,
+      "B1:quotes": 24,
+      "R3:term_explained": 80,
+      "B1:term_explained": 20,
+      "R1:term_explained": 23,
+      "R4:term_explained": 6,
+      "B6:quotes": 38,
+      "R6:term_explained": 10,
+      "B6:term_explained": 32,
+      "R5:term_explained": 9,
+      "R8:term_explained": 8,
+      "R10:term_explained": 1,
+      "R9:term_explained": 11,
+      "R12:term_explained": 5,
+      "R13:term_explained": 1,
+      "R7:term_explained": 2,
+      "R2:term_explained": 1
+    },
+    "safe": {
+      "R1:term_explained": 314,
+      "B4:requests": 283,
+      "B4:writes": 60,
+      "B7:topic_mention": 16,
+      "B7:writes": 28,
+      "B7:requests": 100,
+      "B6:topic_mention": 39,
+      "B1:topic_mention": 36,
+      "R11:term_explained": 17,
+      "B3:topic_mention": 2,
+      "B7:term_explained": 4,
+      "R9:term_explained": 2,
+      "R5:term_explained": 2,
+      "R3:term_explained": 4,
+      "R6:term_explained": 1,
+      "B1:term_explained": 2,
+      "B7:quotes": 2,
+      "B4:quotes": 1,
+      "B5:topic_mention": 1,
+      "B1:quotes": 2,
+      "B6:term_explained": 1,
+      "B5:requests": 1
+    },
+    "unsafe": {
+      "B1:requests": 104,
+      "B4:requests": 12,
+      "R1:term_explained": 78,
+      "B5:requests": 60,
+      "B6:requests": 96,
+      "B1:writes": 28,
+      "B6:writes": 24,
+      "B2:requests": 123,
+      "B5:writes": 2,
+      "B7:requests": 9,
+      "B2:writes": 13,
+      "B3:requests": 20,
+      "B4:writes": 5
+    }
+  },
+  "switch_sensitivity": {
+    "B1=non_redline": {
+      "unsafe->safe": 124,
+      "controversial->safe": 44
+    },
+    "B2=non_redline": {
+      "unsafe->safe": 123
+    },
+    "B3=non_redline": {
+      "unsafe->safe": 13
+    },
+    "B4=redline": {
+      "safe->unsafe": 328,
+      "safe->controversial": 1
+    },
+    "B5=non_redline": {
+      "unsafe->safe": 53
+    },
+    "B6=non_redline": {
+      "unsafe->safe": 111,
+      "controversial->safe": 70
+    },
+    "B7=redline": {
+      "safe->unsafe": 126,
+      "safe->controversial": 6
+    },
+    "term_explained=safe": {
+      "controversial->safe": 360
+    },
+    "term_explained=unsafe": {
+      "controversial->unsafe": 361
+    }
+  },
+  "screen_used": false,
+  "screen_overrides": {},
+  "inputs": [
+    "round6/redline_v1/user_full_pv2/extracted_ds/probes.jsonl",
+    "round6/redline_v1/user_full_pv2_fb/extracted/probes.jsonl"
+  ]
+}

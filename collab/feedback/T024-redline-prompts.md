@@ -1,7 +1,7 @@
 # T024 反馈：提问侧红线标注试跑
 
 - 卡片版本：v1（a2e8407）做了试跑；v2（6481dc4，2cbf8fa）做放量
-- 状态：试跑完成，验收通过。**放量已提交（00:05），正在跑。**
+- 状态：**完成**。试跑和放量都通过了验收，三份标签已拷到 PVC（02:02），数据集都已删除。
 - 执行时间：2026-09-24 23:40 – 00:05（北京时间）
 
 ## 单测
@@ -170,3 +170,101 @@ Run A 主跑的 11 条 judge_error 都是 DeepSeek 的临时错误：输出被�
   | user_full_runA_dev_fb | 132 | 14 | aster-dev-348 |
   | user_full_pv2_fb | 957 | 96 | aster-dev-349 |
 - 已核对：Run A 第一阶段的 18,528 条提问在 `trainable.jsonl` 里全部能按编号对上，原文逐字相同，也都带 `word`。定标签时按卡片（1480cb9）用 `trainable.jsonl` 作 `--source`。
+
+### 兜底抽取（01:58）
+
+| 份 | Run | responses | safe | located | nonmonotonic | judge_error | 每条调用（均值 / 最大） | 不可用 |
+|---|---|---|---|---|---|---|---|---|
+| user_full_runA_stage1_fb | aster-dev-347 | 1,005 | 621 | 383 | 1 | 0 | 1.25 / 4 | 1 |
+| user_full_runA_dev_fb | aster-dev-348 | 132 | 81 | 51 | 0 | 0 | 1.29 / 5 | 0 |
+| user_full_pv2_fb | aster-dev-349 | 957 | 646 | 293 | 17 | 1 | 1.65 / 17 | 18 |
+
+347 超过 100 个 Task，先冻结了 attempt 列表再抽取。实际调用：DeepSeek 约 4.37 万次，luna 约 3,000 次。luna 高于估算的 1,600 次，因为交给兜底的比例（5%）比试跑高。
+
+### 放量标签
+
+命令：
+
+```bash
+apply_policy.py <主> <兜底> --target user --screen round6/word_screen_v1/full/extracted/screen.jsonl --source round6/response_v14/batch_50k/extracted/trainable.jsonl --out labels/user_runA_stage1
+```
+
+`user_runA_dev` 同样带 `--screen`，`user_prefix_v2` 不带。policy_digest 都是 `bd5c444c00dd4b7a`。
+
+| 份 | usable | safe | controversial | unsafe | 不可用 |
+|---|---|---|---|---|---|
+| user_runA_stage1 | 18,527 / 18,528 = **99.99%** | 15,372 | 1,035 | 2,120 | 1 |
+| user_runA_dev | 2,594 / 2,594 = **100%** | 2,149 | 145 | 300 | 0 |
+| user_prefix_v2 | 18,304 / 18,322 = **99.90%** | 15,970 | 602 | 1,732 | 18 |
+
+验收（沿用试跑的标准）：usable ≥ 98%，nonmonotonic ≤ 5%（最终不可用 0.01%、0、0.1%）；**三份的 normal 分层都没有非 safe**。
+
+- `labels_by_split`：
+  - user_runA_stage1：train 为 safe 13,288 / controversial 896 / unsafe 1,815 / 不可用 1；calibration 为 2,084 / 139 / 305。
+  - user_prefix_v2：train 为 15,355 / 601 / 1,648 / 不可用 18；calibration 为 259 / 0 / 41；dev 为 356 / 1 / 43。
+- `old_to_new`：
+  - user_runA_stage1：safe→safe 8,078，safe→controversial 977，safe→unsafe 209，unsafe→safe 7,294，unsafe→unsafe 1,911，unsafe→controversial 58。
+  - user_runA_dev：safe→safe 1,132，safe→controversial 136，safe→unsafe 29，unsafe→safe 1,017，unsafe→unsafe 271，unsafe→controversial 9。
+  - user_prefix_v2：safe→safe 9,394，safe→controversial 578，safe→unsafe 222，unsafe→safe 6,576，unsafe→unsafe 1,510，unsafe→controversial 24。
+- `stratum_by_label`，safe 里的分层：
+  - user_runA_stage1：normal 4,943、non_redline_harm 7,337、redline_topic 2,095、other_sensitive 997；
+  - user_runA_dev：normal 741、non_redline_harm 1,023、redline_topic 271、other_sensitive 114；
+  - user_prefix_v2：normal 6,878、non_redline_harm 6,498、redline_topic 1,609、other_sensitive 985。
+
+  controversial 和 unsafe 都只有 redline 分层。
+- `rules_non_safe` 前几名：
+  - user_runA_stage1：R10:requests:general 361，leader_epithet_written 258，screen:insult 216，screen:rumor 184，R11:term_explained 179，R10:requests:specific 120，R3:term_explained 114，B6:term_explained 111，B6:requests 104。
+  - user_runA_dev：R10:requests:general 65，screen:insult 28，screen:rumor 24，leader_epithet_written 24，B6:term_explained 21，R11:term_explained 21。
+  - user_prefix_v2：leader_epithet_written 200，R11:term_explained 140，R10:requests:general 134，R12:requests:specific 110，R12:requests:general 82，R3:term_explained 80，R2:requests 78，B2:requests 76，B1:requests 65，B6:requests 57。
+- `boundary_hits_by_label`，主要几项：
+  - user_runA_stage1：
+    - controversial 里，R11:term_explained 197、B6:quotes 115、B6:term_explained 114、R3:term_explained 114、B1:term_explained 75；
+    - safe 里，B4:requests 703、R1:term_explained 388、B4:writes 127、B6:topic_mention 102。
+  - user_prefix_v2：
+    - safe 里，R1:term_explained 314、B4:requests 283、B7:requests 100、B7:writes 28；
+    - unsafe 里，B1:requests 104、R1:term_explained 78。
+- `switch_sensitivity`，B5–B7 目前按建议值执行：
+  - B6 改为 non_redline：user_runA_stage1 有 unsafe→safe 268、controversial→safe 229；user_prefix_v2 有 111 和 70；user_runA_dev 有 34 和 36。
+  - B5 改为 non_redline：user_prefix_v2 有 unsafe→safe 53；user_runA_stage1 有 14 和 2。
+  - B7 改为 redline：user_prefix_v2 有 safe→unsafe 126；user_runA_stage1 有 12 和 8。
+  - term_explained 改为 safe 或 unsafe：user_runA_stage1 各约 690 条变，user_prefix_v2 各约 360 条变。
+  - B4 改为 redline：user_runA_stage1 有 safe→unsafe 808，user_prefix_v2 有 328。
+- `screen_overrides`：
+  - user_runA_stage1：
+    - 往上改 104 条：insult:safe→unsafe 27、insult:controversial→unsafe 9、rumor:safe→unsafe 28、rumor:controversial→unsafe 40；
+    - 往下改 273 条：
+      - no：unsafe→safe 65、unsafe→controversial 7、controversial→safe 11；
+      - unsure：unsafe→safe 109、unsafe→controversial 2、controversial→safe 19；
+      - evasion：unsafe→safe 45、controversial→safe 15；
+    - 不变：insult 180 条、rumor 116 条，本来就是 unsafe。
+  - user_runA_dev：往上改 22 条，往下改 32 条。
+  - user_prefix_v2：没有用预筛。
+- **提醒一点**：user_prefix_v2 里有 200 条带 `leader_epithet_written`，回答侧的 prefix_v2 只有 42 条。prefix_v2 没有 `word`，预筛没法降档，所以这 200 条都按领导人严格规则标了 unsafe。建议设计方抽查一下，看有没有把领导人名字变体误当成侮辱称呼的。
+
+### 拷到 PVC（02:02，借用正在评测的 T018 Pod，它挂的是同一个 PVC）
+
+| 文件 | SHA256 |
+|---|---|
+| `/work/round6/redline_v1/labels/user_runA_stage1/labels.jsonl` | `20df6bdab856e47919f4bb5ec5c9a5c8c2efffea7fd7dd99e5b66660798d12fa` |
+| `/work/round6/redline_v1/labels/user_runA_dev/labels.jsonl` | `87dc0ee7c7b11109994b021cef24cb44167b80d4ba4c4029d9c04f99fbd71246` |
+| `/work/round6/redline_v1/labels/user_prefix_v2/labels.jsonl` | `292f2705fb5a93ad8aaf4c29dc6f557aac3ff4466080da2de8072c9964b1d8ae` |
+
+两端都用 `sha256sum -c` 核对一致。`user_runA_dev` 也拷了一份，T025 的评测和分析在 Mac 上用本地那份。
+
+### 与试跑标签比较（`compare_judges.py`）
+
+| | responses | label_agreement | cut_agreement | stratum_agreement | transitions（试跑→放量） |
+|---|---|---|---|---|---|
+| Run A dev | 200 | 0.89 | 0.89 | 0.815 | safe→safe 155，unsafe→unsafe 16，controversial→controversial 7，safe→controversial 6，safe→unsafe 5，controversial→safe 5，unsafe→safe 6 |
+| prefix_v2 dev | 100 | 0.96 | 0.96 | 0.92 | safe→safe 85，unsafe→unsafe 10，controversial→controversial 1，safe→unsafe 3，unsafe→safe 1 |
+
+执行方逐条归因：
+
+- **Run A dev 不一致 22 条：**
+  - 新边界 B5–B7：7 条；
+  - 预筛降档：2 条；
+  - 两次一个用主跑、一个用兜底：2 条；
+  - 剩下 11 条（5.5%）是裁判两次判得不一样：safe→controversial 2，controversial→safe 4，safe→unsafe 3，unsafe→safe 2。
+- **prefix_v2 dev 不一致 4 条**：3 条是新边界 B5–B7，1 条是裁判两次判得不一样。
+- 卡片预期“只相差三类新边界和预筛降档”。Run A 还多出了 11 条裁判随机差异。起点位置在两次都有的地方基本一样：controversial 23 条里有 21 条切在同一处，unsafe 16 条里有 15 条。
+- 注意：两边的标签都合并了兜底，不是 `compare_judges.py` 说明里要求的单一裁判。
