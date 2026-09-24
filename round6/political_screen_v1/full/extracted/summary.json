@@ -1,0 +1,116 @@
+{
+  "runs": [
+    {
+      "run_no": "aster-dev-359",
+      "status": "completed"
+    },
+    {
+      "run_no": "aster-dev-363",
+      "status": "completed"
+    },
+    {
+      "run_no": "aster-dev-364",
+      "status": "completed"
+    }
+  ],
+  "archives": 1897,
+  "words": 340876,
+  "batch_errors": {
+    "word_changed": 55,
+    "missing": 49,
+    "bad_index": 2,
+    "request": 1
+  },
+  "words_without_verdict": 7,
+  "passes": {
+    "p1": 340638,
+    "c1": 37978,
+    "r1": 238
+  },
+  "verdicts": {
+    "no": 283590,
+    "leader": 14295,
+    "org": 2126,
+    "other_political": 20037,
+    "unsure": 6158,
+    "event": 9860,
+    "figure": 4810
+  },
+  "ambiguous_by_verdict": {
+    "no": 128323,
+    "org": 586,
+    "leader": 5384,
+    "other_political": 6684,
+    "unsure": 5870,
+    "figure": 2606,
+    "event": 3176
+  },
+  "leader_screen_by_verdict": {
+    "event": {
+      "no": 9297,
+      "unsure": 358,
+      "rumor": 165,
+      "insult": 17,
+      "evasion": 23
+    },
+    "figure": {
+      "no": 3839,
+      "unsure": 399,
+      "evasion": 132,
+      "insult": 53,
+      "rumor": 387
+    },
+    "leader": {
+      "rumor": 2328,
+      "evasion": 2174,
+      "unsure": 5229,
+      "no": 2148,
+      "insult": 2416
+    },
+    "no": {
+      "no": 283271,
+      "unsure": 209,
+      "evasion": 87,
+      "insult": 21,
+      "rumor": 2
+    },
+    "org": {
+      "no": 2047,
+      "unsure": 55,
+      "rumor": 12,
+      "insult": 4,
+      "evasion": 8
+    },
+    "other_political": {
+      "no": 19597,
+      "unsure": 291,
+      "rumor": 99,
+      "evasion": 23,
+      "insult": 27
+    },
+    "unsure": {
+      "no": 3117,
+      "unsure": 2090,
+      "evasion": 899,
+      "rumor": 19,
+      "insult": 33
+    }
+  },
+  "matched_as": {
+    "event": 6684,
+    "event:ambiguous": 3176,
+    "figure": 2204,
+    "figure:ambiguous": 2605,
+    "leader_evasion": 1069,
+    "leader_evasion:ambiguous": 1103,
+    "leader_insult": 1666,
+    "leader_insult:ambiguous": 749,
+    "leader_rumor": 2012,
+    "leader_rumor:ambiguous": 316,
+    "leader_unsure": 2704,
+    "leader_unsure:ambiguous": 2518,
+    "org": 1540,
+    "org:ambiguous": 585
+  },
+  "confirm_words": 38008
+}
