@@ -1,162 +1,180 @@
 # T007 反馈
 
-- 对应任务卡：v1
+- 对应任务卡：v2（v1 的结果见 git 历史中本文件的上一版，以及 `round6/serving/results_v4/report.json`）
 - 状态：**完成，验收通过**
-- 执行时间：2026-09-24（北京时间）
-  - 18:38 提交；18:38:55 写入 input_ready；18:49 写入 done；18:49 取回后写入 collected；Pod 随后正常退出（Succeeded），GPU 已释放。
-  - 实际用时约 10 分钟。任务卡预计 40–70 分钟。
+- 执行时间：2026-09-24（北京时间）19:00 提交，19:00:26 写入 input_ready，19:07 写入 done。19:08 取回后写入 collected。实际用时约 7 分钟。
 - 实际执行的命令：与任务卡相同。
-  - 单测：`test_ring_attention_cpu.py` 加上 `test_batched_engine_cpu.py`，共 4 项，全过。
-  - 作业：Job `safety-guard-serving-bench-v4-r1`，Pod `safety-guard-serving-bench-v4-r1-7z6x2`，节点 172.19.1.144。提交前该节点的 GPU 分配为 0。
-  - `round6/serving/*.py` 共 13 个文件拷进 Pod，用 `sha256sum` 核对，与本地一致。
-  - `serving_v4_exit_code.txt` 为 0。report 里 `status=completed`，`training=false`，`checkpoint_sha256` 为 `bb16a3a6…4f30d2`。
+  - 单测：`test_bench_v5_cpu.py`、`test_ring_attention_cpu.py`、`test_batched_engine_cpu.py`，共 7 项，全过。
+  - Job 为 `safety-guard-serving-bench-v5-r1`，Pod 为 `safety-guard-serving-bench-v5-r1-psjxr`。提交前该节点的 GPU 分配为 0。
+  - `round6/serving/*.py` 共 15 个文件，用 `sha256sum` 核对，与本地一致。
+  - `serving_v5_exit_code.txt` 为 0，`status=completed`，`training=false`。
 
 ## 验收
 
-- `kernel_check.pass` 为 true，最大差 0.0078。
-- `v4_fp32_gather` 的 `vs_v3` 各项都是 0：max 0、argmax_flips 0。说明 v4 引擎在 fp32 + gather 下和 v3 完全一致。
-- `v4_bf16_inplace` 的 `graph_vs_eager` 各项都是 0：max 0、argmax_flips 0。
+- `sequences`=400，`positions`=374,953。
+- 4 种配置的 `decision_drift` 中，cut 和 unsafe 两组的 `positions` 都等于 374,953。
 
-## 1. kernel_check（环形缓冲原地读内核 vs torch 参考实现）
+## 1. `tiles_chosen_fp16`（会话数 → (bv, warps)）
 
-| n | lb | window | max_abs_diff |
-|---:|---:|---:|---:|
-| 1 | 1 | 512 | 0.001953 |
-| 8 | 1 | 512 | 0.0009766 |
-| 8 | 16 | 512 | 0.003906 |
-| 32 | 64 | 512 | 0.003906 |
-| 5 | 7 | 64 | 0.007812 |
+1→(32,2) 2→(32,2) 4→(32,2) 8→(32,4) 16→(32,4) 32→(128,8) 64→(32,2) 128→(32,2) 256→(8,1) 512→(64,4)
 
-## 2. 漂移
+## 2. `decision_drift`：逐位置漂移
 
-- 参考是整段一次前向；共 18,589 个位置。
-- `cut_score` 指截断分数 1 − p(safe) 的漂移。
-- 门槛：p999 ≤ max(0.03, 1.5×v3)，argmax_flips ≤ v3 + 4，cut_score max ≤ 0.15。
+参考是整段前向。`over_0.05` 和 `over_0.1` 是超过该偏差的位置数，总位置数为 374,953。
 
-| 组合 | max | p999 | argmax_flips | cut_score max | cut_score p999 | vs_v3 max | vs_v3 flips | 门槛 |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
-| v3 | 0.0389 | 0.0169 | 2 | 0.0389 | 0.0169 | — | — | 基线 |
-| v4_fp32_gather | 0.0389 | 0.0169 | 2 | 0.0389 | 0.0169 | 0.0000 | 0 | 通过 |
-| v4_fp32_inplace | 0.1433 | 0.0148 | 3 | 0.1433 | 0.0148 | 0.1044 | 1 | 通过 |
-| v4_bf16_gather | 0.3016 | 0.0213 | 4 | 0.3016 | 0.0213 | 0.2627 | 2 | 未通过 |
-| v4_fp16_gather | 0.1012 | 0.0222 | 4 | 0.1012 | 0.0221 | 0.0623 | 2 | 通过 |
-| v4_bf16_inplace | 0.2144 | 0.0175 | 5 | 0.2144 | 0.0175 | 0.1756 | 3 | 未通过 |
-| v4_fp16_inplace | 0.1319 | 0.0197 | 5 | 0.1319 | 0.0197 | 0.0931 | 3 | 通过 |
+| 配置 | 分数 | max | p999 | over_0.05 | over_0.1 |
+|---|---|---:|---:|---:|---:|
+| v3 | cut | 0.2307 | 0.0363 | 119 | 11 |
+| v3 | unsafe | 0.2307 | 0.0363 | 119 | 11 |
+| v4_fp32_inplace | cut | 0.1859 | 0.0348 | 125 | 9 |
+| v4_fp32_inplace | unsafe | 0.1859 | 0.0348 | 125 | 9 |
+| v4_fp16_gather | cut | 0.1657 | 0.0379 | 149 | 13 |
+| v4_fp16_gather | unsafe | 0.1658 | 0.0379 | 149 | 13 |
+| v4_fp16_inplace_tiles | cut | 0.2911 | 0.0367 | 144 | 15 |
+| v4_fp16_inplace_tiles | unsafe | 0.2912 | 0.0367 | 144 | 15 |
 
-`drift_gate`：bf16 的两个组合没通过，原因是 cut_score max 超过 0.15（gather 0.3016，inplace 0.2144）。fp16 和 fp32 的组合都通过了。
+## 3. `decision_drift`：判决
 
-## 3. GDN 分块参数扫描
+- `fire_differs`：流式和参考中只有一方触发截断的序列数。
+- `both_fire_other_index`：两边都触发，但触发位置不同的序列数。
+- `reference_fires`：参考触发截断的序列数。
 
-- v3 用的分块是 bv=8、warps=1。本轮选中 **bv=32、warps=2**（`gdn_tile_chosen`）。
+每项都是 400 条序列中的计数。
 
-| sessions | state | bv | warps | ms/call | max_abs_diff vs (8,1) |
-|---:|---|---:|---:|---:|---:|
-| 128 | float32 | 8 | 1 | 0.4410 | 0 |
-| 128 | float32 | 16 | 1 | 0.4323 | 3.1e-05 |
-| 128 | float32 | 16 | 2 | 0.4347 | 6.1e-05 |
-| 128 | float32 | 32 | 2 | 0.4432 | 3.1e-05 |
-| 128 | float32 | 32 | 4 | 0.4151 | 6.1e-05 |
-| 128 | float32 | 64 | 4 | 0.4023 | 3.1e-05 |
-| 128 | bfloat16 | 8 | 1 | 0.1248 | 0 |
-| 128 | bfloat16 | 16 | 1 | 0.0735 | 6.1e-05 |
-| 128 | bfloat16 | 16 | 2 | 0.0838 | 6.1e-05 |
-| 128 | bfloat16 | 32 | 2 | 0.0566 | 6.1e-05 |
-| 128 | bfloat16 | 32 | 4 | 0.0762 | 6.1e-05 |
-| 128 | bfloat16 | 64 | 4 | 0.0667 | 6.1e-05 |
-| 512 | float32 | 8 | 1 | 1.7566 | 0 |
-| 512 | float32 | 16 | 1 | 1.7146 | 6.1e-05 |
-| 512 | float32 | 16 | 2 | 1.7325 | 6.1e-05 |
-| 512 | float32 | 32 | 2 | 1.7679 | 6.1e-05 |
-| 512 | float32 | 32 | 4 | 1.6381 | 6.1e-05 |
-| 512 | float32 | 64 | 4 | 1.5938 | 6.1e-05 |
-| 512 | bfloat16 | 8 | 1 | 0.8374 | 0 |
-| 512 | bfloat16 | 16 | 1 | 0.8845 | 6.1e-05 |
-| 512 | bfloat16 | 16 | 2 | 0.8518 | 6.1e-05 |
-| 512 | bfloat16 | 32 | 2 | 0.8678 | 6.1e-05 |
-| 512 | bfloat16 | 32 | 4 | 0.8707 | 6.1e-05 |
-| 512 | bfloat16 | 64 | 4 | 0.8269 | 6.1e-05 |
+| 配置 | 分数 | 规则 | 阈值 | fire_differs | both_fire_other_index | reference_fires |
+|---|---|---|---:|---:|---:|---:|
+| v3 | cut | threshold | 0.5 | 0 | 2 | 386 |
+| v3 | cut | threshold | 0.9 | 0 | 3 | 373 |
+| v3 | cut | threshold | 0.99 | 2 | 4 | 321 |
+| v3 | cut | consecutive_2 | 0.5 | 0 | 1 | 384 |
+| v3 | cut | consecutive_2 | 0.9 | 0 | 2 | 367 |
+| v3 | cut | consecutive_2 | 0.99 | 0 | 5 | 305 |
+| v3 | unsafe | threshold | 0.5 | 0 | 3 | 386 |
+| v3 | unsafe | threshold | 0.9 | 0 | 3 | 373 |
+| v3 | unsafe | threshold | 0.99 | 1 | 6 | 321 |
+| v3 | unsafe | consecutive_2 | 0.5 | 0 | 2 | 384 |
+| v3 | unsafe | consecutive_2 | 0.9 | 0 | 2 | 367 |
+| v3 | unsafe | consecutive_2 | 0.99 | 1 | 7 | 305 |
+| v4_fp32_inplace | cut | threshold | 0.5 | 0 | 2 | 386 |
+| v4_fp32_inplace | cut | threshold | 0.9 | 0 | 4 | 373 |
+| v4_fp32_inplace | cut | threshold | 0.99 | 0 | 5 | 321 |
+| v4_fp32_inplace | cut | consecutive_2 | 0.5 | 0 | 2 | 384 |
+| v4_fp32_inplace | cut | consecutive_2 | 0.9 | 0 | 3 | 367 |
+| v4_fp32_inplace | cut | consecutive_2 | 0.99 | 1 | 5 | 305 |
+| v4_fp32_inplace | unsafe | threshold | 0.5 | 0 | 2 | 386 |
+| v4_fp32_inplace | unsafe | threshold | 0.9 | 0 | 4 | 373 |
+| v4_fp32_inplace | unsafe | threshold | 0.99 | 0 | 6 | 321 |
+| v4_fp32_inplace | unsafe | consecutive_2 | 0.5 | 0 | 2 | 384 |
+| v4_fp32_inplace | unsafe | consecutive_2 | 0.9 | 0 | 3 | 367 |
+| v4_fp32_inplace | unsafe | consecutive_2 | 0.99 | 1 | 6 | 305 |
+| v4_fp16_gather | cut | threshold | 0.5 | 0 | 4 | 386 |
+| v4_fp16_gather | cut | threshold | 0.9 | 0 | 3 | 373 |
+| v4_fp16_gather | cut | threshold | 0.99 | 0 | 4 | 321 |
+| v4_fp16_gather | cut | consecutive_2 | 0.5 | 0 | 3 | 384 |
+| v4_fp16_gather | cut | consecutive_2 | 0.9 | 0 | 1 | 367 |
+| v4_fp16_gather | cut | consecutive_2 | 0.99 | 0 | 4 | 305 |
+| v4_fp16_gather | unsafe | threshold | 0.5 | 0 | 3 | 386 |
+| v4_fp16_gather | unsafe | threshold | 0.9 | 0 | 3 | 373 |
+| v4_fp16_gather | unsafe | threshold | 0.99 | 1 | 5 | 321 |
+| v4_fp16_gather | unsafe | consecutive_2 | 0.5 | 0 | 4 | 384 |
+| v4_fp16_gather | unsafe | consecutive_2 | 0.9 | 0 | 1 | 367 |
+| v4_fp16_gather | unsafe | consecutive_2 | 0.99 | 1 | 5 | 305 |
+| v4_fp16_inplace_tiles | cut | threshold | 0.5 | 0 | 3 | 386 |
+| v4_fp16_inplace_tiles | cut | threshold | 0.9 | 0 | 3 | 373 |
+| v4_fp16_inplace_tiles | cut | threshold | 0.99 | 0 | 7 | 321 |
+| v4_fp16_inplace_tiles | cut | consecutive_2 | 0.5 | 0 | 3 | 384 |
+| v4_fp16_inplace_tiles | cut | consecutive_2 | 0.9 | 0 | 3 | 367 |
+| v4_fp16_inplace_tiles | cut | consecutive_2 | 0.99 | 1 | 7 | 305 |
+| v4_fp16_inplace_tiles | unsafe | threshold | 0.5 | 0 | 3 | 386 |
+| v4_fp16_inplace_tiles | unsafe | threshold | 0.9 | 0 | 3 | 373 |
+| v4_fp16_inplace_tiles | unsafe | threshold | 0.99 | 0 | 6 | 321 |
+| v4_fp16_inplace_tiles | unsafe | consecutive_2 | 0.5 | 0 | 4 | 384 |
+| v4_fp16_inplace_tiles | unsafe | consecutive_2 | 0.9 | 0 | 3 | 367 |
+| v4_fp16_inplace_tiles | unsafe | consecutive_2 | 0.99 | 1 | 7 | 305 |
 
-## 4. 固定负载吞吐（通过门槛的组合和 v3）
+report 还给出了 0.8、0.95、0.98 三个阈值，任务卡没有要求。所有阈值里 `fire_differs` 不为 0 的只有以下几处：
 
-| 组合 | 负载（会话×每 tick token） | tick P50 ms | tick P95 ms | ITPS |
-|---|---|---:|---:|---:|
-| v3 | 128×1 | 18.12 | 18.14 | 7,064 |
-| v3 | 128×16 | 57.58 | 57.61 | 35,564 |
-| v3 | 512×1 | 62.78 | 62.84 | 8,155 |
-| v4_fp16_inplace | 128×1 | 11.12 | 11.15 | 11,507 |
-| v4_fp16_inplace | 128×16 | 53.75 | 53.79 | 38,098 |
-| v4_fp16_inplace | 512×1 | 34.99 | 35.01 | 14,632 |
-| v4_fp16_inplace_tile | 128×1 | 11.07 | 11.10 | 11,561 |
-| v4_fp16_inplace_tile | 128×16 | 52.63 | 52.66 | 38,917 |
-| v4_fp16_inplace_tile | 512×1 | 35.24 | 35.28 | 14,526 |
-| v4_fp32_inplace | 128×1 | 15.24 | 15.26 | 8,400 |
-| v4_fp32_inplace | 128×16 | 55.83 | 55.86 | 36,685 |
-| v4_fp32_inplace | 512×1 | 51.57 | 51.61 | 9,928 |
-| v4_fp32_inplace_tile | 128×1 | 15.25 | 15.29 | 8,390 |
-| v4_fp32_inplace_tile | 128×16 | 55.12 | 55.17 | 37,155 |
-| v4_fp32_inplace_tile | 512×1 | 51.90 | 51.95 | 9,865 |
+| 配置 | cut | unsafe |
+|---|---|---|
+| v3 | threshold@0.99：2 | threshold@0.99：1；consecutive_2@0.99：1 |
+| v4_fp32_inplace | consecutive_2@0.99：1 | consecutive_2@0.99：1 |
+| v4_fp16_gather | 无 | threshold@0.99：1；consecutive_2@0.99：1 |
+| v4_fp16_inplace_tiles | threshold@0.95：1；consecutive_2@0.99：1 | threshold@0.95：1；consecutive_2@0.99：1 |
 
-`state_bytes_per_session`：v3 和 fp32 组合都是 25,845,768 字节；fp16 组合是 16,408,584 字节，减少 36.5%。
+## 4. `profile` 前 10 行
 
-## 5. 真实到达节奏下的延迟
+`aten::linear`、`aten::matmul`、`aten::mm` 是层层嵌套的调用，时间会重复计入，不能相加。
 
-| 组合 | 会话 | 实际 ITPS | P50 ms | P95 ms | P99 ms |
+**128 个会话，每 tick 1 个 token（n128_c1）**
+
+| # | 算子 | CUDA ms/tick | calls/tick |
+|---:|---|---:|---:|
+| 1 | `_gdn_slot_recurrent_kernel` | 2.987 | 18 |
+| 2 | `aten::linear` | 2.744 | 198 |
+| 3 | `aten::matmul` | 2.661 | 187 |
+| 4 | `aten::mm` | 2.660 | 186 |
+| 5 | `_ring_attention_kernel` | 1.481 | 6 |
+| 6 | `ampere_bf16_s16816gemm_bf16_128x64_ldg8_f2f_stages_32x6_tn` | 0.987 | 54 |
+| 7 | `aten::copy_` | 0.981 | 405 |
+| 8 | `aten::to` | 0.682 | 459 |
+| 9 | `aten::_to_copy` | 0.682 | 318 |
+| 10 | `ampere_bf16_s16816gemm_bf16_128x64_ldg8_f2f_stages_64x3_tn` | 0.667 | 48 |
+
+
+**192 个会话，每 tick 1 个 token（n192_c1）**
+
+| # | 算子 | CUDA ms/tick | calls/tick |
+|---:|---|---:|---:|
+| 1 | `_gdn_slot_recurrent_kernel` | 6.528 | 18 |
+| 2 | `aten::linear` | 3.617 | 198 |
+| 3 | `aten::matmul` | 3.524 | 187 |
+| 4 | `aten::mm` | 3.522 | 186 |
+| 5 | `void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16…` | 2.588 | 108 |
+| 6 | `_ring_attention_kernel` | 2.059 | 6 |
+| 7 | `aten::copy_` | 1.257 | 405 |
+| 8 | `aten::to` | 0.809 | 459 |
+| 9 | `aten::_to_copy` | 0.809 | 318 |
+| 10 | `aten::conv1d` | 0.800 | 18 |
+
+## 5. 两种分块方案的 `arrival_simulation`
+
+| 分块方案 | 会话 | 实际 ITPS | P50 ms | P95 ms | P99 ms |
 |---|---:|---:|---:|---:|---:|
-| v3 | 64 | 2,625 | 9.8 | 12.9 | 13.4 |
-| v3 | 96 | 4,082 | 13.7 | 18.2 | 18.6 |
-| v3 | 128 | 5,333 | 23.6 | 31.3 | 32.1 |
-| v3 | 160 | 6,594 | 46.5 | 61.7 | 63.0 |
-| v3 | 192 | 8,069 | 59.1 | 81.0 | 83.2 |
-| v3 | 256 | 10,801 | 68.7 | 90.6 | 212.7 |
-| v4_fp16_inplace | 64 | 2,626 | 8.3 | 10.9 | 11.2 |
-| v4_fp16_inplace | 96 | 4,084 | 8.9 | 11.5 | 12.3 |
-| v4_fp16_inplace | 128 | 5,338 | 10.7 | 14.0 | 14.4 |
-| v4_fp16_inplace | 160 | 6,614 | 11.2 | 14.7 | 17.3 |
-| v4_fp16_inplace | 192 | 8,099 | 15.5 | 20.4 | 20.9 |
-| v4_fp16_inplace | 256 | 10,841 | 33.3 | 46.5 | 226.6 |
-| v4_fp16_inplace_tile | 64 | 2,625 | 8.0 | 10.4 | 10.7 |
-| v4_fp16_inplace_tile | 96 | 4,084 | 8.5 | 11.0 | 11.3 |
-| v4_fp16_inplace_tile | 128 | 5,335 | 9.7 | 12.8 | 13.2 |
-| v4_fp16_inplace_tile | 160 | 6,619 | 10.4 | 13.7 | 14.0 |
-| v4_fp16_inplace_tile | 192 | 8,099 | 14.0 | 18.5 | 19.0 |
-| v4_fp16_inplace_tile | 256 | 10,827 | 32.6 | 52.4 | 241.5 |
-| v4_fp32_inplace | 64 | 2,626 | 9.0 | 11.7 | 12.0 |
-| v4_fp32_inplace | 96 | 4,083 | 10.2 | 13.5 | 14.4 |
-| v4_fp32_inplace | 128 | 5,339 | 12.7 | 16.7 | 17.2 |
-| v4_fp32_inplace | 160 | 6,616 | 19.6 | 26.0 | 26.6 |
-| v4_fp32_inplace | 192 | 8,084 | 40.0 | 53.2 | 54.3 |
-| v4_fp32_inplace | 256 | 10,825 | 58.9 | 77.7 | 196.0 |
-| v4_fp32_inplace_tile | 64 | 2,626 | 8.7 | 11.4 | 11.7 |
-| v4_fp32_inplace_tile | 96 | 4,084 | 9.8 | 12.9 | 13.6 |
-| v4_fp32_inplace_tile | 128 | 5,334 | 12.3 | 16.1 | 16.6 |
-| v4_fp32_inplace_tile | 160 | 6,618 | 19.0 | 25.1 | 25.8 |
-| v4_fp32_inplace_tile | 192 | 8,091 | 39.2 | 52.2 | 53.4 |
-| v4_fp32_inplace_tile | 256 | 10,829 | 59.4 | 78.3 | 193.2 |
+| v4_fp16_inplace_tiles | 160 | 6,614 | 10.7 | 14.1 | 14.5 |
+| v4_fp16_inplace_tiles | 176 | 7,158 | 13.1 | 18.0 | 18.6 |
+| v4_fp16_inplace_tiles | 192 | 8,094 | 14.5 | 19.1 | 19.5 |
+| v4_fp16_inplace_tiles | 208 | 8,819 | 15.0 | 19.8 | 20.3 |
+| v4_fp16_inplace_tiles | 224 | 9,473 | 27.2 | 43.6 | 222.5 |
+| v4_fp16_inplace_tiles | 240 | 10,208 | 32.4 | 43.2 | 44.1 |
+| v4_fp16_inplace_tiles | 256 | 10,829 | 33.5 | 47.8 | 230.3 |
+| v4_fp16_inplace_tile32x2 | 160 | 6,616 | 10.8 | 14.1 | 14.5 |
+| v4_fp16_inplace_tile32x2 | 176 | 7,161 | 12.6 | 17.8 | 18.6 |
+| v4_fp16_inplace_tile32x2 | 192 | 8,099 | 14.4 | 19.1 | 19.5 |
+| v4_fp16_inplace_tile32x2 | 208 | 8,821 | 15.1 | 19.9 | 20.3 |
+| v4_fp16_inplace_tile32x2 | 224 | 9,465 | 26.9 | 41.8 | 224.5 |
+| v4_fp16_inplace_tile32x2 | 240 | 10,208 | 30.3 | 51.7 | 242.3 |
+| v4_fp16_inplace_tile32x2 | 256 | 10,826 | 32.9 | 55.2 | 246.1 |
 
-`capacity_at_p95_20ms`（P95 ≤ 20 ms 时能承载的会话数）：
-
-| 组合 | 会话数 |
-|---|---:|
-| v3 | 96 |
-| v4_fp32_inplace | 128 |
-| v4_fp32_inplace_tile | 128 |
-| v4_fp16_inplace | 160 |
-| v4_fp16_inplace_tile | **192** |
+`capacity_at_p95_20ms`：两种方案都是 **208**，`v4_fp16_inplace_tiles` 为 208，`v4_fp16_inplace_tile32x2` 为 208。
 
 ## 执行方观察（只陈述数字）
 
-- **容量翻倍。** `v4_fp16_inplace_tile` 在 192 个会话时 P95 为 18.5 ms，实际 ITPS 约 8,100。v3 满足 20 ms 的上限是 96 个会话，约 4,080 ITPS，所以容量是 v3 的 2 倍。
-- **v3 复现了上一轮的结果。** 64 个会话时 v3 的 P95 为 12.9 ms、ITPS 约 2,625，和 v3 那一轮报告的数一致。
-- **原地读本身会带来漂移，fp32 下也有。** 同样是 fp32，把 gather 换成原地读以后，漂移 max 从 0.0389 升到 0.1433，vs_v3 max 为 0.1044。不过 p999 从 0.0169 降到了 0.0148。
-  - 这两个 max 值都接近 cut_score 门槛 0.15：fp32_inplace 为 0.1433，fp16_inplace 为 0.1319。
-- **分块扫描有两点要注意。**
-  - 只测了 float32 和 bfloat16，没测 float16，但选中的分块 (32, 2) 用在了 fp16 组合上。
-  - 选中的 (32, 2) 是 128 个会话、bf16 下最快的一档。512 个会话时，bf16 和 fp32 最快的都是 (64, 4)。
-- **256 个会话时所有组合都饱和。** P99 在 193–242 ms 之间。
+- **判决。** 阈值不超过 0.9 时，4 种配置在两种规则下的 `fire_differs` 都是 0。只有阈值在 0.95–0.99 时，才有 0–2 条序列不一致，v3 本身在 0.99 下也有 1–2 条。
+- **逐位置最大漂移。** `v4_fp16_inplace_tiles` 的最大漂移是 0.291，高于 v3 的 0.231；`over_0.1` 为 15 个位置，v3 为 11 个。p999 两者接近：0.0367 对 0.0363。
+- **样本里正常内容很少。** 400 条序列中，参考在阈值 0.5 时触发了 386 条，只有 14 条没触发。所以“漂移让本来不截的内容被截”这一方向，这次只在很少的序列上检验过。按红线口径，正常内容绝不能误判，是否要用以正常内容为主的序列再测一次，请设计方判断。
+- **容量。** 按批大小选分块和固定 (32, 2)，容量都是 208，没有差别。
+  - 208 个会话时，P95 为 19.8 ms 和 19.9 ms，已经贴近 20 ms 的上限。
+  - 192 个会话时本轮 P95 为 19.1 ms，v1 为 18.5 ms，两次运行之间有约 0.6 ms 的差异。
+  - 224 个会话起 P95 超过 40 ms，P99 超过 220 ms。
+- **剖析。** 会话数从 128 增加到 192，是 1.5 倍：
+  - GDN 内核从 2.99 ms/tick 增加到 6.53 ms/tick，是 2.2 倍，是占时最多的一项；
+  - `_ring_attention_kernel` 从 1.48 ms/tick 增加到 2.06 ms/tick；
+  - 192 个会话时，还有一个 cutlass 的 gemm+relu 占 2.59 ms/tick（108 次调用），128 个会话时它不在前 10 里；
+  - `aten::copy_` 加上 `aten::to`，约占 2 ms/tick。
 
 ## 产物
 
 | 文件 | SHA256 | 是否提交 |
 |---|---|---|
-| `round6/serving/results_v4/report.json` | `70943699053c3cc5de51b2f0f6c2c80bd16588da35faea9ba2b6333f4708069a` | 已提交 |
-| `round6/serving/results_v4/serving_v4.log` | `ddddfff56979789ecc9a50e921e742ff849b7389b657dc9aa631131f13e0656b` | 留在 Mac，不提交 |
+| `round6/serving/results_v5/report.json` | `d96022153d4cfea8f5e98b1ae464101269e224f67daffce0d8d32e6635ce39fb` | 已提交 |
+| `round6/serving/results_v5/serving_v5.log` | `4076d14cce2b4db441640d75b62e93835f99b1d725021c459525bac882d53f62` | 留在 Mac，不提交 |
