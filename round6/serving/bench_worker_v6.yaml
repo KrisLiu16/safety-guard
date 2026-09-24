@@ -1,0 +1,82 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-serving-bench-v6-r1
+  namespace: default
+  labels:
+    app: safety-guard-serving-bench
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 10800
+  template:
+    metadata:
+      labels:
+        app: safety-guard-serving-bench
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: bench
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              nvidia-smi --query-gpu=name,uuid,memory.total --format=csv,noheader
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              mkdir -p /work/round6/serving /work/output/round6
+              for i in $(seq 1 1800); do
+                if test -f /work/round6/serving_v6_input_ready; then break; fi
+                sleep 1
+              done
+              test -f /work/round6/serving_v6_input_ready
+              apt-get update > /work/output/round6/serving_v6_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> /work/output/round6/serving_v6_compiler_install.log 2>&1
+              set +e
+              cd /work/round6/serving && /work/modern/bin/python -B bench_v6_l20.py > /work/output/round6/serving_v6.log 2>&1
+              code=$?
+              set -e
+              echo "$code" > /work/output/round6/serving_v6_exit_code.txt
+              touch /work/output/round6/serving_v6_done
+              for i in $(seq 1 1800); do
+                if test -f /work/output/round6/serving_v6_collected; then exit 0; fi
+                sleep 1
+              done
+              echo 'collection timed out' >&2
+              exit 1
+          env:
+            - name: HF_HOME
+              value: /work/hf
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: OMP_NUM_THREADS
+              value: "4"
+            - name: TRITON_CACHE_DIR
+              value: /work/triton-cache
+          resources:
+            requests:
+              cpu: "4"
+              memory: 16Gi
+              nvidia.com/gpu: "8"
+            limits:
+              cpu: "8"
+              memory: 40Gi
+              nvidia.com/gpu: "8"
+          volumeMounts:
+            - name: work
+              mountPath: /work
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+        - name: work
+          persistentVolumeClaim:
+            claimName: safety-guard-base-compare-data
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 4Gi

@@ -6,7 +6,8 @@
   ring         "gather" (v3: copy ring_k/v[slots], then two matmuls) | "inplace" (ring_attention_kernel reads
                the pool by slot, fused masked online softmax; this tick's keys are still written afterwards).
   gdn_bv, gdn_warps  tile width over V and warps of the GDN slot kernel (v3: 8 and 1), for the kernel sweep;
-               gdn_tiles {session bucket: (bv, warps)} overrides them per bucket (T007 v4: the fastest tile depends on N).
+               gdn_tiles {session bucket: (bv, warps)} overrides them per bucket (T007 v2 found no gain; kept optional).
+  session_buckets  finer session buckets than v2's powers of two, so a tick pads fewer rows (T007 v2 profile).
 Everything else (buckets, CUDA Graphs, scratch slot, right padding that never touches state) is v2/v3.
 """
 from __future__ import annotations
@@ -21,7 +22,9 @@ STATE_DTYPES = {"float32": torch.float32, "bfloat16": torch.bfloat16, "float16":
 
 class SlotStreamEngineV4(SlotStreamEngine):
     def __init__(self, model, max_slots, window=512, use_graphs=True, roles=("user", "assistant"),
-                 state_dtype="float32", ring="gather", gdn_bv=8, gdn_warps=1, gdn_tiles=None):
+                 state_dtype="float32", ring="gather", gdn_bv=8, gdn_warps=1, gdn_tiles=None, session_buckets=None):
+        if session_buckets is not None:
+            self.session_buckets = tuple(session_buckets)
         super().__init__(model, max_slots, window=window, use_graphs=use_graphs, roles=roles)
         if ring not in ("gather", "inplace"):
             raise ValueError("ring must be gather or inplace")

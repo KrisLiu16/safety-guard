@@ -5,7 +5,8 @@ Adapted from FLA's fused_recurrent_gated_delta_rule_fwd_kernel (MIT License, Cop
 Changes for serving:
   - the recurrent state is read from and written back to pool[slots[n]] (no gather/scatter copies);
   - each session runs only its real lens[n] tokens of a dense [N, L] right-padded batch, so padding
-    never touches the state and padded outputs stay zero;
+    never touches the state and padded outputs stay zero; a padded session (lens = 0) does not even load
+    or store its state row (T007 v2 profile: padding to the next bucket cost a full state read + write);
   - the gate g = -exp(A_log) * softplus(a + dt_bias), beta = sigmoid(b) and the q/k L2 norm are
     computed in-kernel from the raw projections (no separate elementwise kernels).
 """
@@ -29,7 +30,7 @@ def _gdn_slot_recurrent_kernel(q, k, v, a, b, A_log, dt_bias, o, state, slots, l
     o_k = tl.arange(0, BK)
     o_v = i_v * BV + tl.arange(0, BV)
     mask_k, mask_v = o_k < K, o_v < V
-    mask_h = mask_k[:, None] & mask_v[None, :]
+    mask_h = mask_k[:, None] & mask_v[None, :] & (n_tok > 0)      # padded rows: no state traffic at all
     p_h = state + (slot * HV + i_hv) * K * V + o_k[:, None] * V + o_v[None, :]
     b_h = tl.load(p_h, mask=mask_h, other=0).to(tl.float32)
     p_q = q + (bos * H + i_h) * K + o_k

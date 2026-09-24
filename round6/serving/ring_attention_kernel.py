@@ -62,7 +62,8 @@ if triton is not None:
         l_i = tl.zeros([BM], tl.float32)
         acc = tl.zeros([BM, D], tl.float32)
         ring = (slot * HKV + h) * (W + 1)
-        for j in range(0, W, BN):
+        n_ring = W * (length > 0).to(tl.int32)                   # a padded session (lens = 0) reads no ring rows
+        for j in range(0, n_ring, BN):
             cols = j + tl.arange(0, BN)
             kpos = tl.load(RPOS + slot * (W + 1) + cols)
             k = tl.load(RK + (ring + cols[:, None]) * D + d[None, :])

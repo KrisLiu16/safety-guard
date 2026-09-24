@@ -29,6 +29,8 @@ def bucket(value, choices):
 
 
 class BucketedStreamEngine:
+    session_buckets = SESSION_BUCKETS          # subclasses may use finer buckets (less padding per tick)
+
     def __init__(self, model, max_slots, window=512, gdn_kernel="recurrent", use_graphs=True,
                  roles=("user", "assistant")):
         from fla.ops.gated_delta_rule import chunk_gated_delta_rule, fused_recurrent_gated_delta_rule
@@ -177,8 +179,8 @@ class BucketedStreamEngine:
         pending = [(i, s, list(ids)) for i, (s, ids) in enumerate(requests)]
         while pending:                                           # long appends are split into <=64-token ticks
             batch = [(i, s, ids[:largest]) for i, s, ids in pending]
-            for start in range(0, len(batch), SESSION_BUCKETS[-1]):
-                part = batch[start:start + SESSION_BUCKETS[-1]]
+            for start in range(0, len(batch), self.session_buckets[-1]):
+                part = batch[start:start + self.session_buckets[-1]]
                 probs = self._run(part)
                 for role_index, role in enumerate(self.roles):
                     for row, (i, _, ids) in enumerate(part):
@@ -187,7 +189,7 @@ class BucketedStreamEngine:
         return {role: [torch.cat(chunks) for chunks in rows] for role, rows in results.items()}
 
     def _run(self, part):
-        nb = bucket(len(part), SESSION_BUCKETS)
+        nb = bucket(len(part), self.session_buckets)
         lb = bucket(max(len(ids) for _, _, ids in part), TOKEN_BUCKETS)
         graph, static = self._static(nb, lb)
         ids = np.zeros((nb, lb), dtype=np.int64)
