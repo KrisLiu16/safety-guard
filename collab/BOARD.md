@@ -12,6 +12,7 @@
 | [T004](assignments/T004-probe-and-rules.md) | 线性探针（能否区分“复述有害请求”和“真有害”）+ T005 决策规则重拟合，一次 L20 前向（代码见 round6/probe/） | 执行方 | 待执行 | T001 ✓ |
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 执行方 | 并入 T004 任务单第 6 步 | T004 |
 | [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | v2 待执行（用户已批准提交，并发拉满） | — |
+| [T011](assignments/T011-s5-safe-pilot.md) | S5 安全的一半：40 词长篇安全思考，DeepSeek 生成 + luna 复核（代码见 round6/s5_safe_v15/） | 执行方 | 待执行（用户已要求推进，并发拉满） | — |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
 | T008 | 第六轮训练 | 设计方 | 排队 | T001–T006；训练前用户确认 |
 
