@@ -15,7 +15,7 @@
      - `round6/redline_v1/flow/levels.py` 拷到 `/work/round6/redline_v1/flow/`。
 
      用 `sha256sum` 核对后 `touch /work/round6/stage1_user_redline_v1_input_ready`。
-  3. 改标签完成后看 `/work/output/round6/stage1_labels3_user_v1/report.json`：`dropped_offsets` 应为 0。
+  3. 改标签完成后看 `/work/output/round6/stage1_labels3_user_v1/report.json`：`dropped_offsets` 规则同 T018 v3.1 第 2 步（个别记录重新分词对不上可以丢，不超过 0.01%；Run A 提问必须为 0）。
   4. 训练完成后看 `train_report.json`：
      - `role` 为 `user`；
      - `calibration_score` 为 `cut`；
@@ -29,7 +29,7 @@
 - 预期产物：提交三个 report、`train_report.json`、`compare_redline_v1.json`；权重和逐位置文件留在 Mac 和 PVC。
 - 验收：
   - 三步 exit code 都是 0；
-  - `dropped_offsets` 为 0；
+  - `dropped_offsets` 符合第 3 步；
   - 评测 `integrity_pass=true`、`max_prob_diff < 0.001`。
 - 通过标准：同 T018 v3，看用户头：
   - `normal` 层误报不高于现在的头，目标接近 0；
