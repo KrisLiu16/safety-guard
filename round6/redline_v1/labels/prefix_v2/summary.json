@@ -1,5 +1,5 @@
 {
-  "policy_digest": "9b2667295fadc6f2",
+  "policy_digest": "bd5c444c00dd4b7a",
   "switches": {
     "topic_mention": "safe",
     "debunk_no_quote": "safe",
@@ -18,7 +18,10 @@
     "B1": "redline",
     "B2": "redline",
     "B3": "redline",
-    "B4": "non_redline"
+    "B4": "non_redline",
+    "B5": "redline",
+    "B6": "redline",
+    "B7": "non_redline"
   },
   "responses": 17089,
   "usable": 17020,
@@ -258,6 +261,9 @@
       "safe->controversial": 19,
       "safe->unsafe": 62
     },
+    "B5=non_redline": {},
+    "B6=non_redline": {},
+    "B7=redline": {},
     "term_explained=safe": {
       "controversial->safe": 8
     },

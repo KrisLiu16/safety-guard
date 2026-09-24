@@ -1,7 +1,7 @@
 # T024 反馈：提问侧红线标注试跑
 
-- 卡片版本：v1（a2e8407）
-- 状态：**试跑完成，验收通过**。放量（第 5 步）等用户确认规模，估算见文末。
+- 卡片版本：v1（a2e8407）做了试跑；v2（6481dc4，2cbf8fa）做放量
+- 状态：试跑完成，验收通过。**放量已提交（00:05），正在跑。**
 - 执行时间：2026-09-24 23:40 – 00:05（北京时间）
 
 ## 单测
@@ -122,3 +122,19 @@ Run A 主跑的 11 条 judge_error 都是 DeepSeek 的临时错误：输出被�
 - **DeepSeek：** Run A 21,122 × 1.12 ≈ 2.37 万次，prefix_v2 18,322 × 1.34 ≈ 2.46 万次，**合计约 4.8 万次**。
 - **luna 兜底：** Run A 的失败率约 5.5%，prefix_v2 约 2%，**约 1,600 次**。
 - **时间：** 每个 Run 都不超过 2,000 个 Task。参照 T021 高优先级时 3.7 万条回答约 45 分钟跑完，提问更短，预计三部分 1 小时内跑完，再加兜底和抽取。
+
+## 第 5 步：放量（v2，00:05 提交）
+
+- 用户已确认规模（2cbf8fa 记录；用户在执行方对话里说“来新的活了”）。B5–B7 先按设计方的建议执行：B5、B6 算红线，B7 不算。
+- 单测：28 项全过（6481dc4 之后重跑）。
+- `make_tasks.py --target user --per-task 40`：
+
+| 目录 | 来源 | 条数 | Task | judge | policy_digest | Run |
+|---|---|---|---|---|---|---|
+| `user_full_runA_stage1` | `stage1_runA_v1.jsonl` | 18,528 | 464 | guard-judge-redline-user-v2 | bd5c444c00dd4b7a | aster-dev-344 |
+| `user_full_runA_dev` | `trainable.jsonl --splits dev` | 2,594 | 65 | 同上 | 同上 | aster-dev-345 |
+| `user_full_pv2` | `prefix_v2_user.jsonl` | 18,322 | 459 | 同上 | 同上 | aster-dev-346 |
+
+- DeepSeek，`--flow round6/redline_v1/flow`，尝试 1 次，并发 = Task 数（都不超过 512），高优先级，SDK 4.3。
+- `runs plan` 没有 blocking，三个 Run 的平台快照都与本地逐字一致。
+- 接下来：冻结 attempt 列表 → 抽取 → luna 兜底 → 定标签（Run A 两份带 `--screen`）→ 拷到 PVC → 删除数据集 → 与试跑标签比较（`compare_judges.py`）。

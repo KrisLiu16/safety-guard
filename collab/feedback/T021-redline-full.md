@@ -197,9 +197,14 @@ prefix_v2：
 
 命令与卡片相同（主跑在前、兜底在后）。Run A dev 带 `--screen round6/word_screen_v1/full/extracted/screen.jsonl --source round6/response_v14/batch_50k/extracted/trainable.jsonl`，T012 在 23:53 抽取完成。
 
+**00:00 按设计方 6481dc4 重出。** 这一版的 `apply_policy.py` 在预筛判为 no、evasion 或 unsure 时，会去掉裁判标的领导人侮辱称呼（POLICY 8e）。
+- Run A dev 重出后有 29 条标签变了：unsafe 483→459，controversial 317→315，safe 4,372→4,398。旧结果留在本地的 `labels/runA_dev_pre6481/`，不提交。
+- prefix_v2 没有用预筛。重出后 `labels.jsonl` 逐字节相同（SHA256 `7b419ffb…`），只是 summary 里的 policy_digest 变成了 `bd5c444c00dd4b7a`。这是规则表新加了 B5–B7 开关，回答侧的事实里不会出现这三类。
+- 下面的数字都是重出后的。
+
 | 份 | usable | 最终 nonmonotonic | safe | controversial | unsafe |
 |---|---|---|---|---|---|
-| runA_dev | 5,172 / 5,188 = **99.7%** | 16（0.3%） | 4,372 | 317 | 483 |
+| runA_dev | 5,172 / 5,188 = **99.7%** | 16（0.3%） | 4,398 | 315 | 459 |
 | prefix_v2 | 17,020 / 17,089 = **99.6%** | 66（0.4%）+ judge_error 3 | 14,983 | 475 | 1,562 |
 
 验收 `usable` ≥ 97%、`nonmonotonic` ≤ 5%：两份都满足。
@@ -207,34 +212,38 @@ prefix_v2：
 **runA_dev（`labels/runA_dev/summary.json`）**
 
 - `by_source_rank`：主跑 4,912、兜底 260、不可用 16。
-- `old_to_new`：safe→safe 2,225，safe→controversial 302，safe→unsafe 64，unsafe→unsafe 419，unsafe→safe 2,147，unsafe→controversial 15，不可用 16。
-- `stratum_by_label`：controversial 全部是 redline（317），unsafe 全部是 redline（483）；safe 里 normal 907、non_redline_harm 2,175、other_sensitive 959、redline_topic 331。**normal 没有非 safe**。
+- `old_to_new`：safe→safe 2,238，safe→controversial 300，safe→unsafe 53，unsafe→unsafe 406，unsafe→safe 2,160，unsafe→controversial 15，不可用 16。
+- `stratum_by_label`：controversial 全部是 redline（315），unsafe 全部是 redline（459）；safe 里 normal 907、non_redline_harm 2,187、other_sensitive 973、redline_topic 331。**normal 没有非 safe**。
 - `old_to_new_by_slot_style`，与 T020 pilot（v4.1 复测）的比例对比：
 
   | slot:style | 条数 | 本次 | T020 pilot / v4.1 复测 |
   |---|---|---|---|
   | slot0:neutral_information | 329 | safe 84% / controversial 14% / unsafe 2% | 81% / 19% / 0 |
-  | slot0:refusal | 347 | 76% / 20% / 4% | 44–62% / 31–50% / 6%（n=16） |
+  | slot0:refusal | 347 | 77% / 20% / 3% | 44–62% / 31–50% / 6%（n=16） |
   | slot0:risk_reasoning | 308 | 74% / 24% / 2% | 57–61% / 39% / 0–4% |
-  | slot0:safe_redirect | 313 | 76% / 21% / 2% | 76–86% / 14–24% / 0 |
-  | slot1:compliance | 1,297 | unsafe→safe 79% / →unsafe 20% | 79–80% / 20% |
+  | slot0:safe_redirect | 313 | 78% / 21% / 1% | 76–86% / 14–24% / 0 |
+  | slot1:compliance | 1,297 | unsafe→safe 80% / →unsafe 19% | 79–80% / 20% |
   | slot2:helpful_answer | 642 | safe 95% / controversial 3% / unsafe 2% | 95–98% / 0–2% / 2% |
-  | slot2:helpful_reasoning | 655 | 93% / 4% / 3% | 94–97% / 0–3% / 3% |
-  | slot3:drift | 1,297 | unsafe→safe 86% / →unsafe 13% / →controversial 1% | 85–86% / 11–12% / 3% |
+  | slot2:helpful_reasoning | 655 | 93% / 4% / 2% | 94–97% / 0–3% / 3% |
+  | slot3:drift | 1,297 | unsafe→safe 87% / →unsafe 12% / →controversial 1% | 85–86% / 11–12% / 3% |
 
   slot1 到 slot3 与 pilot 基本一样。slot0 的“有争议”比例比 pilot 低一些，但 pilot 每格只有 16–23 条，差距在抽样误差之内，所以没有停下。
 - `boundary_hits_by_label`：
-  - unsafe：B1:writes 37、B2:writes 37、R1:term_explained 24、B4:writes 15、B1:restates 8。
+  - unsafe：B1:writes 37、B2:writes 37、R1:term_explained 21、B4:writes 15、B1:restates 8。
   - controversial：B1:refusal_naming 23、B2:refusal_naming 19、B1:quotes 13、B1:restates 8；term_explained 共 28 条（R3、R5、R6、R7、R8、R11、B1）。
   - safe：B4:writes 280、B4:refusal_naming 98、B4:restates 26、R1:term_explained 9、B1:topic_mention 8。
 - `switch_sensitivity`：
   - B1 改为 non_redline：unsafe→safe 32，controversial→safe 33。
   - B2 改为 non_redline：unsafe→safe 31，controversial→safe 17。
   - B3：没有变化。
+  - B5–B7：没有变化。回答侧裁判不记这三类。
   - B4 改为 redline：safe→unsafe 278，safe→controversial 103。
   - term_explained 改为 safe：14 条变；改为 unsafe：25 条变。
-- `screen_overrides`：insult:safe→unsafe 25，insult:controversial→unsafe 1，insult:unsafe→unsafe 29；rumor:safe→unsafe 19，rumor:controversial→unsafe 8，rumor:unsafe→unsafe 18。**预筛实际改动标签 53 条**。
-- `rules_non_safe` 前几名：R10:writes:specific 179，R10:refusal_naming 86，leader_epithet_written 70，screen:insult 55，screen:rumor 45。
+- `screen_overrides`：
+  - 往上改：insult:safe→unsafe 25，insult:controversial→unsafe 1，rumor:safe→unsafe 19，rumor:controversial→unsafe 8，共 53 条。
+  - 往下改：no:unsafe→safe 6，no:unsafe→controversial 1，no:controversial→safe 2；unsure:unsafe→safe 10，unsure:unsafe→controversial 1，unsure:controversial→safe 2；evasion:unsafe→safe 5，evasion:unsafe→controversial 1，evasion:controversial→safe 1，共 29 条。
+  - 不变：insult:unsafe→unsafe 29，rumor:unsafe→unsafe 18。
+- `rules_non_safe` 前几名：R10:writes:specific 179，R10:refusal_naming 86，screen:insult 55，leader_epithet_written 48（重出前 70），screen:rumor 45。
 
 **prefix_v2（`labels/prefix_v2/summary.json`，不带预筛）**
 
@@ -252,7 +261,8 @@ prefix_v2：
 - `switch_sensitivity`：
   - B1 改为 non_redline：unsafe→safe 155，controversial→safe 37。
   - B2 改为 non_redline：unsafe→safe 246，controversial→safe 23。
-  - B3 改为 non_redline：unsafe→safe 15。
+  - B3 改为 non_redline：unsafe→safe 15，controversial→safe 1，unsafe→controversial 1。
+  - B5–B7：没有变化。
   - B4 改为 redline：safe→unsafe 62，safe→controversial 19。
   - term_explained 改为 safe：8 条变；改为 unsafe：9 条变。
 - `screen_overrides`：空（没有用预筛）。
