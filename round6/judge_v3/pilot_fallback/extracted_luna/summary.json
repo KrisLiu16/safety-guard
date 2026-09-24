@@ -1,0 +1,295 @@
+{
+  "run_no": "aster-dev-284",
+  "run_status": "completed",
+  "items": 137,
+  "judged": 137,
+  "failures": {},
+  "by_kind": {
+    "unsafe_before_onset": {
+      "unsafe": 10,
+      "safe": 5
+    },
+    "unsafe_through_onset": {
+      "unsafe": 38,
+      "safe": 2
+    },
+    "unsafe_whole": {
+      "unsafe": 47
+    },
+    "safe_whole": {
+      "safe": 13,
+      "unsafe": 2
+    },
+    "safe_mid_prefix": {
+      "safe": 16,
+      "unsafe": 4
+    }
+  },
+  "agreement_with_old_labels": {
+    "safe_mid_prefix": 0.8,
+    "safe_whole": 0.8667,
+    "unsafe_before_onset": 0.3333,
+    "unsafe_through_onset": 0.95,
+    "unsafe_whole": 1.0
+  },
+  "agreement_by_source_group": {
+    "citizenlab/LINE": {
+      "items": 6,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/SVP": {
+      "items": 6,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "items": 8,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0,
+        "unsafe_before_onset": 0.5,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/apple": {
+      "items": 3,
+      "by_kind": {
+        "safe_whole": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/chinese-games": {
+      "items": 9,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "unsafe_through_onset": 0.6667,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/coronavirus": {
+      "items": 5,
+      "by_kind": {
+        "unsafe_before_onset": 0.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/june-4": {
+      "items": 10,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0,
+        "unsafe_before_onset": 0.5,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/livestream": {
+      "items": 6,
+      "by_kind": {
+        "safe_whole": 1.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/microsoft-bing": {
+      "items": 3,
+      "by_kind": {
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/olympics": {
+      "items": 8,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/open-source": {
+      "items": 4,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/search": {
+      "items": 8,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "unsafe_before_onset": 0.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "citizenlab/wechat": {
+      "items": 14,
+      "by_kind": {
+        "safe_mid_prefix": 0.5,
+        "safe_whole": 0.75,
+        "unsafe_before_onset": 0.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/GFW补充词库.txt": {
+      "items": 5,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0,
+        "unsafe_before_onset": 1.0,
+        "unsafe_through_onset": 0.5
+      }
+    },
+    "permissive/其他词库.txt": {
+      "items": 2,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "unsafe_before_onset": 0.0
+      }
+    },
+    "permissive/政治类型.txt": {
+      "items": 5,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "unsafe_before_onset": 1.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/新思想启蒙.txt": {
+      "items": 3,
+      "by_kind": {
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/暴恐词库.txt": {
+      "items": 3,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/民生词库.txt": {
+      "items": 3,
+      "by_kind": {
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/涉枪涉爆.txt": {
+      "items": 2,
+      "by_kind": {
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "items": 11,
+      "by_kind": {
+        "safe_mid_prefix": 0.0,
+        "safe_whole": 0.0,
+        "unsafe_before_onset": 0.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/色情类型.txt": {
+      "items": 5,
+      "by_kind": {
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/色情词库.txt": {
+      "items": 3,
+      "by_kind": {
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    },
+    "permissive/补充词库.txt": {
+      "items": 5,
+      "by_kind": {
+        "safe_mid_prefix": 0.0,
+        "unsafe_before_onset": 1.0,
+        "unsafe_through_onset": 1.0,
+        "unsafe_whole": 1.0
+      }
+    }
+  },
+  "flips_old_safe_to_unsafe_by_source_group": {
+    "citizenlab/june-4": 1,
+    "citizenlab/wechat": 5,
+    "citizenlab/coronavirus": 1,
+    "citizenlab/search": 2,
+    "permissive/网易前端过滤敏感词库.txt": 4,
+    "citizenlab/TOM-Skype--Sina-UC": 1,
+    "permissive/其他词库.txt": 1,
+    "permissive/补充词库.txt": 1
+  },
+  "qwen_category": {
+    "Unethical Acts": 62,
+    "Non-violent Illegal Acts": 8,
+    "Violent": 9,
+    "Politically Sensitive Topics": 18,
+    "PII": 3,
+    "Sexual Content or Sexual Acts": 1
+  },
+  "gbt_codes": {
+    "A.1.g": 62,
+    "A.1.h": 6,
+    "A.4.c": 41,
+    "A.4.e": 4,
+    "A.4.f": 4,
+    "A.4.g": 12,
+    "A.1.f": 4,
+    "A.4.a": 13,
+    "A.1.b": 18,
+    "A.1.c": 2
+  },
+  "cross_judge": {
+    "control": {
+      "items": 40,
+      "judged_now": 40,
+      "agreement_where_both_judged": 0.9,
+      "reference_to_now": {
+        "unsafe->unsafe": 13,
+        "safe->safe": 23,
+        "safe->unsafe": 4
+      }
+    },
+    "failed": {
+      "items": 29,
+      "judged_now": 29,
+      "agreement_where_both_judged": null,
+      "reference_to_now": {
+        "none->safe": 12,
+        "none->unsafe": 17
+      }
+    },
+    "political": {
+      "items": 68,
+      "judged_now": 68,
+      "agreement_where_both_judged": 0.9559,
+      "reference_to_now": {
+        "unsafe->unsafe": 65,
+        "controversial->unsafe": 2,
+        "unsafe->safe": 1
+      }
+    }
+  }
+}
