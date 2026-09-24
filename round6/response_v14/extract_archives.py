@@ -66,13 +66,20 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--expected-terms", type=int, required=True)
     parser.add_argument("--download-workers", type=int, default=5)
+    parser.add_argument("--attempts-json", type=Path,
+                        help="frozen per-sample listing from freeze_attempts.py; required when the run has over 100 samples")
     args = parser.parse_args()
     out = args.out
     out.mkdir(parents=True, exist_ok=True)
     run = cli(["runs", "get", args.run])
-    selected = cli(["runs", "attempts", args.run])
+    if args.attempts_json:
+        selected = json.loads(args.attempts_json.read_text(encoding="utf-8"))
+        if selected.get("run_id") != run.get("id"):
+            raise RuntimeError(f"attempts.json is for run {selected.get('run_id')}, not {run.get('id')}")
+    else:
+        selected = cli(["runs", "attempts", args.run])
     if selected.get("truncated"):
-        raise RuntimeError("Attempt listing truncated; freeze a per-sample attempt list first")
+        raise RuntimeError("Attempt listing truncated; freeze a per-sample attempt list first (freeze_attempts.py)")
     attempts = [a for a in selected["items"] if a.get("state") == "completed" and a.get("archive")]
     unfinished = [a for a in selected["items"] if a not in attempts]
     if len({a["sample_id"] for a in attempts}) != len(attempts):

@@ -1,24 +1,31 @@
 # T001 Run A 抽取与本地复校
 
-- 目标：把 Run A（aster-dev-276，v14 格式，5 万词，luna）的全部产物取回 Mac，用冻结的 v14 校验重新校验，得到可训练的词清单。
-- 依赖：Run A 全部 352 个 Task 结束（成功或失败都算结束）。没结束就只回报当前状态，不抽取。
-- 输入：Run `aster-dev-276`；本地代码 `round6/response_v14/extract_archives.py` 和 `round6/response_v14/flow/pipeline.py`（冻结版本，不改）。
+- 版本：v2（v1 因 attempt 列表被截断在 100 条而阻塞；v2 先按 sample 逐个冻结 attempt，再用 `--attempts-json` 抽取，并补上训练过滤脚本）
+- 目标：把 Run A（aster-dev-276，v14 格式，5 万词，luna）的全部产物取回 Mac，用冻结的 v14 校验重新校验，得到带 split 的可训练集。
+- 依赖：无（Run A 已结束，352/352 成功）。
+- 输入：Run `aster-dev-276`；`round6/response_v14/batch_50k/seeds.jsonl`（Mac 上，含 split 和 family）；代码 `round6/response_v14/` 下的 `freeze_attempts.py`、`extract_archives.py`、`make_trainable.py`。`flow/pipeline.py` 仍是冻结版本，这次没有改动。
 - 步骤：
   1. `aster whoami`，确认已登录。
-  2. 查 Run 状态：成功、失败、仍在运行的 Task 数。
-  3. 运行抽取：
+  2. 单测：`.venv/bin/python -m unittest round6/response_v14/test_extract_tools_cpu.py round6/response_v14/test_pipeline.py`，应为 15 项全过（其中 1 项跳过）。
+  3. 冻结 attempt 列表（不调用模型）：
      ```bash
-     .venv/bin/python round6/response_v14/extract_archives.py aster-dev-276 --out round6/response_v14/batch_50k/extracted --expected-terms 50000
+     .venv/bin/python round6/response_v14/freeze_attempts.py aster-dev-276 --out round6/response_v14/batch_50k/extracted/attempts.json --expected-samples 352
      ```
-  4. 按 [BATCH_PLAN.md](../../round6/response_v14/BATCH_PLAN.md) 第 28 行附近的规则筛选：只保留 4 条回答全部合格的词；剔除“要求先铺垫（onset_style=delayed）但起点为 0”的回答，剔除后该词按不完整处理。
-- 预期产物（留在 Mac，不提交仓库）：`round6/response_v14/batch_50k/extracted/` 下的 `examples.jsonl`、`words.jsonl`、`summary.json`、`selected_attempts.json`。
-- 验收：`summary.json` 生成；所有归档 SHA 校验通过；下载失败的归档数为 0，或者在反馈里逐个列出。
-- 需要用户决定：无（抽取不消耗模型调用）。
+  4. 抽取：
+     ```bash
+     .venv/bin/python round6/response_v14/extract_archives.py aster-dev-276 --out round6/response_v14/batch_50k/extracted --expected-terms 50000 --attempts-json round6/response_v14/batch_50k/extracted/attempts.json
+     ```
+  5. 训练过滤（只保留 4/4 完整的词，剔除要求先铺垫但起点为 0 的回答，并挂上 split 和 family）：
+     ```bash
+     .venv/bin/python round6/response_v14/make_trainable.py --extracted round6/response_v14/batch_50k/extracted --seeds round6/response_v14/batch_50k/seeds.jsonl
+     ```
+- 预期产物（留在 Mac，不提交仓库）：`round6/response_v14/batch_50k/extracted/` 下的 `attempts.json`、`examples.jsonl`、`words.jsonl`、`summary.json`、`trainable.jsonl`、`trainable_summary.json`。
+- 验收：`attempts.json` 有 352 条且 `truncated=false`；`summary.json` 中 `word_artifacts` 为 50000、`missing_word_artifacts` 为 0；所有归档 SHA 校验通过；`trainable_summary.json` 生成。
+- 需要用户决定：无（冻结和抽取都不消耗模型调用）。
 - 反馈里必须报告：
-  1. Run 状态：Task 成功 / 失败 / 运行中各多少；
+  1. 单测结果；冻结脚本输出的 samples 和 attempts 数；
   2. `summary.json` 全文（只有统计数字，可以直接贴）；
-  3. 4/4 完整的词数，按 split（train / dev / calibration）分别列出；
-  4. 按规则 4 剔除的回答数和因此变为不完整的词数；
-  5. 错误类型前 10 名及计数（例如 `onset_quote`、`negated_onset`、`finish_reason:length`）；
-  6. `quality_flags` 中 `harm_commentary` 和 `fiction_marker` 各有多少；
-  7. 产物文件的 SHA256。
+  3. `trainable_summary.json` 全文；
+  4. 错误类型前 10 名及计数；
+  5. `quality_flags` 中 `harm_commentary` 和 `fiction_marker` 各有多少；
+  6. `examples.jsonl`、`trainable.jsonl` 的 SHA256。

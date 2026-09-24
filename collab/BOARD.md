@@ -4,8 +4,8 @@
 
 | 编号 | 任务 | 负责 | 状态 | 依赖 |
 |---|---|---|---|---|
-| [T001](assignments/T001-run-a-extract.md) | Run A（aster-dev-276）抽取与本地复校 | 执行方 | 待执行 | Run A 跑完 |
-| [T002](assignments/T002-judge-v3-pilot.md) | `judge_v3` 国内口径裁判：小规模 pilot（代码见 round6/judge_v3/） | 执行方 | 步骤 1–2 待执行；步骤 3 等用户批准并发 | — |
+| [T001](assignments/T001-run-a-extract.md) | Run A（aster-dev-276）抽取、本地复校和训练过滤 | 执行方 | v2 待执行（v1 因 attempt 列表截断阻塞，已修） | — |
+| [T002](assignments/T002-judge-v3-pilot.md) | `judge_v3` 国内口径裁判：小规模 pilot（代码见 round6/judge_v3/） | 执行方 | 步骤 1–2 完成（49 词，433 次请求）；步骤 3 等用户批准并发 | — |
 | T003 | 类别缺口统计：29 种风险在公开数据和 Run A 中各有多少样本，决定 S1 真正要补多少 | 设计方 | 排队 | T002 |
 | T004 | 线性探针：冻结主干，检验能否区分“复述有害请求”和“真有害” | 设计方 | 排队 | T001 |
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 设计方 | 排队 | T001 |
@@ -22,6 +22,6 @@
 
 ## 待用户决定
 
-1. T002 步骤 3：judge v3 pilot 的并发（约 300 次请求，建议 20）和是否提交。
+1. T002 步骤 3：judge v3 pilot 是否提交，以及并发（49 个 Task、433 次请求，建议并发 20）。
 2. 线上是否需要审核模型的思考过程（thinking）：决定 S5 的规模。
 3. 各 pilot 放量时的并发和尝试次数。
