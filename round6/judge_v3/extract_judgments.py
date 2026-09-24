@@ -33,6 +33,8 @@ def main():
     parser.add_argument("--reference-judgments", type=Path,
                         help="judgments.jsonl of another run on the same items; its labels replace the answer key's "
                              "reference_label, so cross_judge compares the two runs directly")
+    parser.add_argument("--attempts-json", type=Path,
+                        help="frozen listing from response_v14/freeze_attempts.py; required when the run has over 100 Tasks")
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     key = {json.loads(line)["item_id"]: json.loads(line) for line in args.items.open(encoding="utf-8")}
@@ -41,9 +43,14 @@ def main():
         for item_id, item in key.items():
             item["reference_label"] = other.get(item_id)
     run = cli(["runs", "get", args.run])
-    attempts = cli(["runs", "attempts", args.run])
+    if args.attempts_json:
+        attempts = json.loads(args.attempts_json.read_text(encoding="utf-8"))
+        if attempts.get("run_id") != run.get("id"):
+            raise RuntimeError(f"attempts.json is for run {attempts.get('run_id')}, not {run.get('id')}")
+    else:
+        attempts = cli(["runs", "attempts", args.run])
     if attempts.get("truncated"):
-        raise RuntimeError("attempt listing truncated")
+        raise RuntimeError("attempt listing truncated; freeze it first (response_v14/freeze_attempts.py)")
     archives = args.out / "archives"
     archives.mkdir(exist_ok=True)
     judged = {}

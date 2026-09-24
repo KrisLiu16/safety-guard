@@ -155,6 +155,18 @@ class PilotBuilderTests(unittest.TestCase):
                 task = json.loads(instruction.read_text())
                 for item in task["items"]:
                     self.assertEqual(set(item), {"item_id", "user_prompt", "assistant_text"})
+            # R-slice mode: keep only chosen splits, every word, custom Task names; split travels with the item
+            for r in rows:
+                r["split"] = "dev" if r["task_key"] in ("k0", "k1") else "train"
+            source.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n", encoding="utf-8")
+            out2 = Path(tmp) / "r"
+            subprocess.run([sys.executable, str(ROOT / "make_pilot.py"), "--source", str(source), "--words", "0",
+                            "--splits", "dev", "--name-prefix", "r-dev", "--output", str(out2)], check=True, capture_output=True)
+            manifest2 = json.loads((out2 / "manifest.json").read_text())
+            self.assertEqual((manifest2["words"], manifest2["splits"]), (2, "dev"))
+            self.assertTrue(all(p.name.startswith("r-dev-") for p in (out2 / "tasks").iterdir()))
+            with (out2 / "items.jsonl").open(encoding="utf-8") as handle:
+                self.assertEqual({json.loads(line)["split"] for line in handle}, {"dev"})
 
 
 if __name__ == "__main__":

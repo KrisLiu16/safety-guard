@@ -33,6 +33,7 @@ def number(text):
 def items_for(row):
     text, prompt = row["messages"][1]["content"], row["messages"][0]["content"]
     base = {"sample_id": row["sample_id"], "word": row["word"], "task_key": row["task_key"],
+            "split": row.get("split", "unassigned"), "language": row.get("language"),
             "source_group": row.get("source_group", ""), "generator_label": row["label"],
             "response_style": row["response_style"], "user_prompt": prompt}
     if row["label"] == "safe":
@@ -66,17 +67,23 @@ def pick_words(rows, words):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE, help="extracted v14 examples.jsonl")
-    parser.add_argument("--words", type=int, default=60)
+    parser.add_argument("--words", type=int, default=60, help="words to sample; 0 = every word in the source")
+    parser.add_argument("--splits", default="", help="comma-separated splits to keep, e.g. dev,calibration (default: all)")
+    parser.add_argument("--name-prefix", default="judge-v3-pilot")
     parser.add_argument("--output", type=Path, default=ROOT / "pilot")
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
-    rows = [json.loads(line) for line in args.source.open(encoding="utf-8")]
-    keep = pick_words(rows, args.words)
+    with args.source.open(encoding="utf-8") as handle:
+        rows = [json.loads(line) for line in handle]
+    if args.splits:
+        wanted = set(args.splits.split(","))
+        rows = [row for row in rows if row.get("split") in wanted]
+    keep = {row["task_key"] for row in rows} if args.words == 0 else pick_words(rows, args.words)
     items = [item for row in rows if row["task_key"] in keep for item in items_for(row)]
     for item in items:
         item["item_id"] = hashlib.sha256(f"{item['sample_id']}:{item['kind']}".encode()).hexdigest()[:20]
-    manifest = write_pilot(items, args.output, "judge-v3-pilot", {"source": str(args.source)})
+    manifest = write_pilot(items, args.output, args.name_prefix, {"source": str(args.source), "splits": args.splits or "all"})
     print(json.dumps({k: manifest[k] for k in ("items", "tasks", "words", "kinds")}, ensure_ascii=False))
 
 
