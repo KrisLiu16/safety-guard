@@ -16,7 +16,7 @@ from levels import LEVEL_VERSION, clause_cuts, locate, monotonic, position_level
 from pipeline import (ACTS, PROMPT_VERSION, REDLINES, SYSTEM_PROMPT, WIRE_APIS, output_schema, parse,  # noqa: E402
                       request_body, response_text, stop_ok)
 from policy import DEFAULT_SWITCHES, decide, digest, resolve  # noqa: E402
-from apply_policy import apply, label_response, sensitivity  # noqa: E402
+from apply_policy import apply, label_response, screen_override, sensitivity  # noqa: E402
 from extract_probes import join  # noqa: E402
 from compare_judges import compare  # noqa: E402
 from export_prefix_v2 import export  # noqa: E402
@@ -146,6 +146,25 @@ class PolicyTests(unittest.TestCase):
         out = sensitivity([row])
         self.assertEqual(out["B1=non_redline"], {"unsafe->safe": 1})
         self.assertEqual(out["B4=redline"], {})
+
+    def test_word_screen_makes_the_written_epithet_unsafe(self):
+        text = "前面是中性的占位文字。XX词出现在这里，后面也是占位。"
+        start = text.index("XX词")
+        row = {"sample_id": "w", "status": "safe", "response_chars": len(text), "probes": [{"cut": len(text), "facts": facts()}]}
+        labelled = label_response(row)
+        self.assertEqual(labelled["label"], "safe")
+        out = screen_override(labelled, text, "XX词", "insult")
+        self.assertEqual((out["label"], out["stratum"], out["rules"][-1]), ("unsafe", "redline", "screen:insult"))
+        self.assertEqual(out["onsets"]["unsafe"], {"prev_cut": start, "cut": start + 3})
+        self.assertEqual(position_level(start, out["probes"]), 0)            # text before the word stays safe
+        self.assertIsNone(position_level(start + 1, out["probes"]))          # inside the word: no target
+        self.assertEqual(position_level(start + 3, out["probes"]), 2)
+        self.assertEqual(position_level(len(text), out["probes"]), 2)
+        self.assertIs(screen_override(labelled, text, "XX词", "evasion"), labelled)     # evasion: the judge decides
+        self.assertIs(screen_override(labelled, text, "YY词", "insult"), labelled)      # not written out
+        rows, summary = apply([[{**row, "word": "XX词"}]], screen={"XX词": "rumor"}, texts={"w": (text, "XX词")})
+        self.assertEqual(rows[0]["label"], "unsafe")
+        self.assertEqual(summary["screen_overrides"], {"rumor:safe->unsafe": 1})
 
     def test_switches(self):
         self.assertEqual(decide(facts(harm=True), {"non_redline_harm": "exclude"})["label"], "excluded")

@@ -5,6 +5,12 @@ fallback run second); each response takes the first file where it has a usable r
 through policy.decide() with the given switches (default: the user's final table), so a policy change is a re-run
 of this script, not of the judge. Output labels.jsonl keeps the per-probe levels; position labels come from
 levels.position_level(). A response is usable when its whole text was judged and its probe levels are monotonic.
+
+With --screen (word screen T012 screen.jsonl) and --source (the rows the Tasks were built from), a response whose
+word the screen calls an insulting epithet or a rumour phrase for a national leader, and that writes the word out,
+is unsafe from the end of the word's first occurrence, whatever the judge saw (the strict leader rule; POLICY
+section 8 e: the screen decides what a leader-name variant means). Positions before the word keep the judged
+levels; positions inside it get no target.
 """
 from __future__ import annotations
 
@@ -17,10 +23,39 @@ import sys
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "flow"))
-from levels import RANK, monotonic  # noqa: E402
+from levels import RANK, monotonic, position_level  # noqa: E402
 from policy import BOUNDARY_CODES, CHOICES, decide, digest, resolve  # noqa: E402
 
 FINISHED = ("safe", "excluded", "located")
+SCREEN_UNSAFE = ("insult", "rumor")
+LEVEL_NAMES = ("safe", "controversial", "unsafe")
+
+
+def onsets_of(probes, whole_level):
+    onsets = {}
+    for name, rank in (("controversial", 1), ("unsafe", 2)):
+        if RANK[whole_level] >= rank:
+            cut = min(p["cut"] for p in probes if RANK[p["level"]] >= rank)
+            prev = max([p["cut"] for p in probes if RANK[p["level"]] < rank and p["cut"] < cut], default=0)
+            onsets[name] = {"prev_cut": prev, "cut": cut}
+    return onsets
+
+
+def screen_override(labelled, text, word, verdict):
+    """Pure. Returns the label row with the word-screen rule applied (unchanged when it does not apply)."""
+    if verdict not in SCREEN_UNSAFE or not word or word not in text:
+        return labelled
+    start = text.index(word)
+    end = start + len(word)
+    before = position_level(start, labelled["probes"]) if start > 0 else 0
+    probes = {p["cut"]: ("unsafe" if p["cut"] >= end else p["level"]) for p in labelled["probes"]}
+    probes[end] = "unsafe"
+    if start > 0 and before is not None:
+        probes[start] = LEVEL_NAMES[max(RANK[probes.get(start, "safe")], before)]
+    probes = [{"cut": cut, "level": level} for cut, level in sorted(probes.items())]
+    return {**labelled, "level": "unsafe", "label": "unsafe", "excluded": False, "stratum": "redline",
+            "rules": labelled["rules"] + [f"screen:{verdict}"], "onsets": onsets_of(probes, "unsafe"), "probes": probes,
+            "screen": {"verdict": verdict, "label_before": labelled["label"], "first_start": start, "first_end": end}}
 
 
 def label_response(row, switches=None):
@@ -31,12 +66,7 @@ def label_response(row, switches=None):
     whole = next((p for p in probes if p["cut"] == row["response_chars"]), None)
     if whole is None or not monotonic(probes):
         return None
-    onsets = {}
-    for name, rank in (("controversial", 1), ("unsafe", 2)):
-        if RANK[whole["level"]] >= rank:
-            cut = min(p["cut"] for p in probes if RANK[p["level"]] >= rank)
-            prev = max([p["cut"] for p in probes if RANK[p["level"]] < rank and p["cut"] < cut], default=0)
-            onsets[name] = {"prev_cut": prev, "cut": cut}
+    onsets = onsets_of(probes, whole["level"])
     whole_facts = next(p["facts"] for p in row["probes"] if p["cut"] == row["response_chars"])
     return {"level": whole["level"], "label": whole["label"], "excluded": whole["excluded"],
             "stratum": whole["stratum"], "rules": whole["rules"], "onsets": onsets,
@@ -62,8 +92,9 @@ def sensitivity(rows, switches=None):
     return out
 
 
-def apply(sources, switches=None):
-    """Pure. sources: lists of probe rows in priority order. Returns (label rows, summary)."""
+def apply(sources, switches=None, screen=None, texts=None):
+    """Pure. sources: lists of probe rows in priority order; screen: word -> verdict; texts: sample_id ->
+    (response text, word). Returns (label rows, summary)."""
     order, chosen = [], {}
     for rank, rows in enumerate(sources):
         for row in rows:
@@ -73,6 +104,9 @@ def apply(sources, switches=None):
             if chosen[row["sample_id"]][0] is None:
                 labelled = label_response(row, switches)
                 if labelled is not None:
+                    if screen and texts and row["sample_id"] in texts:
+                        text, word = texts[row["sample_id"]]
+                        labelled = screen_override(labelled, text, word, screen.get(word))
                     chosen[row["sample_id"]] = (rank, labelled, row)
     used_rows = [row for rank, labelled, row in chosen.values() if rank is not None]
     out = []
@@ -102,7 +136,10 @@ def apply(sources, switches=None):
                "boundary_hits_by_label": {label: dict(collections.Counter(b for r in usable if r["label"] == label
                                                                          for b in r["boundary"]))
                                           for label in sorted({r["label"] for r in usable})},
-               "switch_sensitivity": sensitivity(used_rows, switches)}
+               "switch_sensitivity": sensitivity(used_rows, switches),
+               "screen_used": bool(screen),
+               "screen_overrides": dict(collections.Counter(
+                   f"{r['screen']['verdict']}:{r['screen']['label_before']}->unsafe" for r in usable if r.get("screen")))}
     return out, summary
 
 
@@ -115,11 +152,19 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("probes", type=Path, nargs="+", help="probes.jsonl files, highest priority first")
     parser.add_argument("--switches", type=Path, help="JSON object overriding policy switches (default: final table)")
+    parser.add_argument("--screen", type=Path, help="word screen screen.jsonl (T012); needs --source")
+    parser.add_argument("--source", type=Path, help="the v14-format rows the Tasks were built from (for --screen)")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     switches = json.loads(args.switches.read_text(encoding="utf-8")) if args.switches else None
-    rows, summary = apply([read_jsonl(p) for p in args.probes], switches)
-    summary["inputs"] = [str(p) for p in args.probes]
+    screen = texts = None
+    if args.screen:
+        if not args.source:
+            parser.error("--screen needs --source")
+        screen = {r["word"]: r["verdict"] for r in read_jsonl(args.screen)}
+        texts = {r["sample_id"]: (r["messages"][-1]["content"], r.get("word")) for r in read_jsonl(args.source)}
+    rows, summary = apply([read_jsonl(p) for p in args.probes], switches, screen, texts)
+    summary["inputs"] = [str(p) for p in args.probes] + [str(p) for p in (args.screen, args.source) if p]
     args.out.mkdir(parents=True, exist_ok=True)
     with (args.out / "labels.jsonl").open("w", encoding="utf-8") as handle:
         for row in rows:

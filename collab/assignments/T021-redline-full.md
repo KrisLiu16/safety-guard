@@ -54,7 +54,15 @@
      ```bash
      .venv/bin/python round6/redline_v1/apply_policy.py round6/redline_v1/full_runA_stage1/extracted_ds/probes.jsonl round6/redline_v1/full_runA_stage1_fb/extracted/probes.jsonl --out round6/redline_v1/labels/runA_stage1
      ```
-     另外两份输出到 `labels/runA_dev`、`labels/prefix_v2`。默认规则表就是用户定的口径。T012 全量出结果后，Run A 两份要带上词表预筛重跑这一步（参数见设计方随后的更新）。
+     另外两份输出到 `labels/runA_dev`、`labels/prefix_v2`。默认规则表就是用户定的口径。
+
+     **Run A 的两份要带上词表预筛**（POLICY 第 8 节 e：领导人名字变体的词义由 T012 判定）。T012 全量抽取完成后执行：
+     ```bash
+     .venv/bin/python round6/redline_v1/apply_policy.py <同上两个 probes.jsonl> --screen round6/word_screen_v1/full/extracted/screen.jsonl --source round6/stage1_head/input_v1/stage1_runA_v1.jsonl --out round6/redline_v1/labels/runA_stage1
+     ```
+     Run A dev 的 `--source` 用 `trainable.jsonl`。规则是：被判为侮辱称呼或传言短语的词，只要回答里原样写出，从第一次出现处起标“风险”。`summary.json` 的 `screen_overrides` 会列出改了多少条。
+
+     如果 T012 还没完成，就先不带 `--screen` 出标签，T018 v3 先不要开始。
   7. 把 `labels/runA_stage1/labels.jsonl` 和 `labels/prefix_v2/labels.jsonl` 拷到 PVC 的 `/work/round6/redline_v1/labels/` 下同名目录，用 `sha256sum` 核对。T018 v3 从这里读。
   8. 抽取完成后删除数据集（已定规则）。
 - 预期产物：可提交各目录的 `manifest.json`、`run_no.txt`、`extracted*/summary.json`、`labels/*/summary.json`、`compare_v4.json`、`dataset_rm.json`；其余不提交。
@@ -64,5 +72,5 @@
   - 第 1 步的比较结果和 15 条的字段；
   - 三份 manifest 和所有 run_no；
   - 每份 `extracted*/summary.json` 的 statuses 和 `judge_calls_per_response`；
-  - 每份 `labels/*/summary.json` 的 `usable`、`labels_by_split`、`old_to_new`、`stratum_by_label`、`boundary_hits_by_label`、`switch_sensitivity`；
+  - 每份 `labels/*/summary.json` 的 `usable`、`labels_by_split`、`old_to_new`、`stratum_by_label`、`boundary_hits_by_label`、`switch_sensitivity`、`screen_overrides`；
   - 第 7 步的 SHA256。
