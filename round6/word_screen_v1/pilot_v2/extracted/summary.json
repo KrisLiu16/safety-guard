@@ -1,0 +1,139 @@
+{
+  "words": 1003,
+  "verdicts": {
+    "no": 954,
+    "insult": 11,
+    "evasion": 17,
+    "rumor": 19,
+    "unsure": 2
+  },
+  "batch_errors": {},
+  "known_positives": 3,
+  "known_positive_verdicts": {
+    "no": 1,
+    "insult": 2
+  },
+  "known_positive_recall_flagged": 0.6667,
+  "by_source_group": {
+    "citizenlab/LINE": {
+      "no": 31,
+      "evasion": 3,
+      "rumor": 2
+    },
+    "citizenlab/SVP": {
+      "no": 36
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "no": 34,
+      "rumor": 2
+    },
+    "citizenlab/apple": {
+      "no": 36
+    },
+    "citizenlab/chinese-games": {
+      "no": 34,
+      "rumor": 1,
+      "evasion": 1
+    },
+    "citizenlab/coronavirus": {
+      "no": 16
+    },
+    "citizenlab/june-4": {
+      "no": 35,
+      "rumor": 1
+    },
+    "citizenlab/livestream": {
+      "no": 36
+    },
+    "citizenlab/microsoft-bing": {
+      "no": 36
+    },
+    "citizenlab/olympics": {
+      "no": 36
+    },
+    "citizenlab/open-source": {
+      "no": 36
+    },
+    "citizenlab/qqmail": {
+      "insult": 1,
+      "no": 7,
+      "rumor": 1
+    },
+    "citizenlab/search": {
+      "no": 27,
+      "evasion": 6,
+      "insult": 3
+    },
+    "citizenlab/wechat": {
+      "no": 24,
+      "evasion": 1,
+      "rumor": 11
+    },
+    "include-only": {
+      "insult": 1
+    },
+    "permissive/COVID-19词库.txt": {
+      "no": 10
+    },
+    "permissive/GFW补充词库.txt": {
+      "no": 36,
+      "insult": 1
+    },
+    "permissive/houbb-sensitive-word-data": {
+      "no": 36
+    },
+    "permissive/其他词库.txt": {
+      "no": 35,
+      "insult": 1
+    },
+    "permissive/反动词库.txt": {
+      "no": 35,
+      "insult": 1
+    },
+    "permissive/广告类型.txt": {
+      "no": 36
+    },
+    "permissive/政治类型.txt": {
+      "no": 31,
+      "evasion": 4,
+      "unsure": 1
+    },
+    "permissive/新思想启蒙.txt": {
+      "no": 2
+    },
+    "permissive/暴恐词库.txt": {
+      "no": 35
+    },
+    "permissive/民生词库.txt": {
+      "no": 35
+    },
+    "permissive/涉枪涉爆.txt": {
+      "no": 35
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "insult": 3,
+      "no": 29,
+      "unsure": 1,
+      "evasion": 2,
+      "rumor": 1
+    },
+    "permissive/色情类型.txt": {
+      "no": 35
+    },
+    "permissive/色情词库.txt": {
+      "no": 35
+    },
+    "permissive/补充词库.txt": {
+      "no": 35
+    },
+    "permissive/贪腐词库.txt": {
+      "no": 35
+    },
+    "permissive/零时-Tencent.txt": {
+      "no": 35
+    }
+  },
+  "run_no": "aster-dev-290",
+  "run_status": "completed",
+  "archives": 6
+}

@@ -1,0 +1,14 @@
+{
+  "prompt_version": "guard-word-screen-leader-v2",
+  "mode": "pilot",
+  "words": 1003,
+  "known_positives": 3,
+  "tasks": 6,
+  "batch_words": 200,
+  "seed_rows": 340883,
+  "sha256": {
+    "pipeline": "6109409dd8390c211e4b91c54c690d5cb8dbe827cec3c20f8d07c24093b2ade1",
+    "flow": "97e8f52f738438957668ed516b599341748e119378353ad722167982bfc90e59",
+    "system_prompt": "24495a0a7f16ddd56b0d58517e6d60f3b5e7537018726fb3e3875fa3ffe9ca94"
+  }
+}
