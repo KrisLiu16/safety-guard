@@ -1,0 +1,22 @@
+{
+  "version": "official-thinking-export-v1",
+  "split": "thinking",
+  "source_sha256": "d4619085c7744a0a596344e2d6edc70a49805452d9712df061ecfcba1b256a7f",
+  "output_sha256": "b2675f58edcc9dd0c0a95a28fa42d4c4ba939b8d53fb9923e9a998677d47b2ad",
+  "records": 1059,
+  "by_label_language": {
+    "safe:en": 490,
+    "unsafe:en": 569
+  },
+  "unsafe_type": {
+    "": 490,
+    "Copyright Violation": 3,
+    "Non-violent Illegal Acts": 195,
+    "PII, Personally Identifiable Information": 31,
+    "Politically Sensitive Topics": 18,
+    "Sexual Content or Sexual Acts": 22,
+    "Suicide & Self-Harm": 7,
+    "Unethical Acts": 175,
+    "Violent": 118
+  }
+}
