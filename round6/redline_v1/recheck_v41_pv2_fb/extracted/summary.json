@@ -1,0 +1,19 @@
+{
+  "responses": 2,
+  "statuses": {
+    "nonmonotonic": 1,
+    "safe": 1
+  },
+  "judge_calls_per_response": {
+    "mean": 5.5,
+    "max": 10
+  },
+  "runs": [
+    {
+      "run_no": "aster-dev-325",
+      "status": "completed"
+    }
+  ],
+  "archives": 1,
+  "failed_ids": 1
+}

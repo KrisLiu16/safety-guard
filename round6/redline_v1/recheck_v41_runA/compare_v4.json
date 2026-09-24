@@ -1,0 +1,28 @@
+{
+  "responses": 300,
+  "both_usable": 299,
+  "label_agreement": 0.9331,
+  "cut_agreement": 0.9331,
+  "stratum_agreement": 0.8763,
+  "transitions": {
+    "safe->safe": 237,
+    "safe->unsafe": 5,
+    "unsafe->safe": 8,
+    "controversial->controversial": 22,
+    "unsafe->unsafe": 20,
+    "safe->controversial": 2,
+    "controversial->safe": 5
+  },
+  "onset_shift_chars": {
+    "controversial": {
+      "n": 42,
+      "same_cut": 33,
+      "median": 0.0
+    },
+    "unsafe": {
+      "n": 20,
+      "same_cut": 17,
+      "median": 0.0
+    }
+  }
+}

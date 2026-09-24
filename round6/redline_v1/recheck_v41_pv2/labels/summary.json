@@ -1,0 +1,113 @@
+{
+  "policy_digest": "bf493df68929e10b",
+  "switches": {
+    "topic_mention": "safe",
+    "debunk_no_quote": "safe",
+    "refusal_naming": "controversial",
+    "restates": "controversial",
+    "quotes": "controversial",
+    "term_explained": "controversial",
+    "fiction": "unsafe",
+    "writes": "unsafe",
+    "general_depiction": "safe",
+    "variant_unclear": "ignore",
+    "leader_epithet_written": "unsafe",
+    "non_redline_harm": "safe",
+    "B1": "redline",
+    "B2": "redline",
+    "B3": "redline",
+    "B4": "non_redline"
+  },
+  "responses": 100,
+  "usable": 99,
+  "by_source_rank": {
+    "0": 98,
+    "None": 1,
+    "1": 1
+  },
+  "labels_by_split": {
+    "dev": {
+      "safe": 81,
+      "unusable": 1,
+      "unsafe": 18
+    }
+  },
+  "old_to_new": {
+    "unsafe->safe": 33,
+    "safe->safe": 48,
+    "unsafe->unusable": 1,
+    "unsafe->unsafe": 16,
+    "safe->unsafe": 2
+  },
+  "old_to_new_by_slot_style": {
+    "slotNone:None:safe->safe": 48,
+    "slotNone:None:safe->unsafe": 2,
+    "slotNone:None:unsafe->safe": 33,
+    "slotNone:None:unsafe->unsafe": 16,
+    "slotNone:None:unsafe->unusable": 1
+  },
+  "stratum_by_label": {
+    "safe": {
+      "non_redline_harm": 31,
+      "other_sensitive": 17,
+      "normal": 29,
+      "redline_topic": 4
+    },
+    "unsafe": {
+      "redline": 18
+    }
+  },
+  "rules_non_safe": {
+    "B2:writes:specific": 4,
+    "R8:writes:specific": 2,
+    "B3:writes:specific": 2,
+    "B1:writes:general": 2,
+    "B3:writes:general": 1,
+    "R12:writes:specific": 1,
+    "R12:writes:general": 1,
+    "B2:writes:general": 1,
+    "R10:writes:general": 1,
+    "B1:writes:specific": 1,
+    "R13:writes:specific": 1,
+    "R2:writes:specific": 1
+  },
+  "onset_clause_chars": {
+    "controversial": {
+      "median": 59.0,
+      "max": 241
+    },
+    "unsafe": {
+      "median": 59.0,
+      "max": 241
+    }
+  },
+  "boundary_hits_by_label": {
+    "safe": {},
+    "unsafe": {
+      "B3:writes": 3,
+      "B1:writes": 3,
+      "B2:writes": 5,
+      "B1:restates": 1
+    }
+  },
+  "switch_sensitivity": {
+    "B1=non_redline": {
+      "unsafe->safe": 3
+    },
+    "B2=non_redline": {
+      "unsafe->safe": 4
+    },
+    "B3=non_redline": {
+      "unsafe->safe": 3
+    },
+    "B4=redline": {},
+    "term_explained=safe": {},
+    "term_explained=unsafe": {}
+  },
+  "screen_used": false,
+  "screen_overrides": {},
+  "inputs": [
+    "round6/redline_v1/recheck_v41_pv2/extracted_ds/probes.jsonl",
+    "round6/redline_v1/recheck_v41_pv2_fb/extracted/probes.jsonl"
+  ]
+}
