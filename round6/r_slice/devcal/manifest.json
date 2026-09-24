@@ -1,0 +1,53 @@
+{
+  "prompt_version": "guard-judge-domestic-v3.2",
+  "items": 24390,
+  "tasks": 2561,
+  "words": 2561,
+  "kinds": {
+    "safe_whole": 5122,
+    "safe_mid_prefix": 5122,
+    "unsafe_through_onset": 5122,
+    "unsafe_whole": 5122,
+    "unsafe_before_onset": 3902
+  },
+  "source_groups": {
+    "citizenlab/livestream": 5224,
+    "citizenlab/open-source": 4240,
+    "citizenlab/chinese-games": 2916,
+    "permissive/houbb-sensitive-word-data": 2975,
+    "permissive/零时-Tencent.txt": 1637,
+    "citizenlab/SVP": 1556,
+    "citizenlab/search": 1276,
+    "permissive/网易前端过滤敏感词库.txt": 1055,
+    "permissive/GFW补充词库.txt": 935,
+    "citizenlab/TOM-Skype--Sina-UC": 441,
+    "citizenlab/olympics": 370,
+    "citizenlab/microsoft-bing": 390,
+    "permissive/补充词库.txt": 247,
+    "permissive/反动词库.txt": 163,
+    "citizenlab/june-4": 173,
+    "citizenlab/LINE": 116,
+    "citizenlab/apple": 96,
+    "permissive/涉枪涉爆.txt": 116,
+    "permissive/民生词库.txt": 77,
+    "permissive/政治类型.txt": 78,
+    "permissive/贪腐词库.txt": 69,
+    "permissive/色情类型.txt": 39,
+    "permissive/色情词库.txt": 39,
+    "permissive/暴恐词库.txt": 47,
+    "permissive/其他词库.txt": 28,
+    "permissive/广告类型.txt": 28,
+    "citizenlab/wechat": 29,
+    "citizenlab/coronavirus": 10,
+    "permissive/COVID-19词库.txt": 10,
+    "citizenlab/qqmail": 10
+  },
+  "source": "round6/response_v14/batch_50k/extracted/trainable.jsonl",
+  "splits": "dev,calibration",
+  "sha256": {
+    "pipeline": "94d5750df6641b138cfe56770495295dc1d177d7aa443689e39d33b71350bca3",
+    "flow": "6a53f0bd97abad271908a359cd4ae7bca2f3e93f8ece90d9bb4f83337cad0cd9",
+    "taxonomy": "e29bf17ab6b3d34a20ad020493abab45b33e17791a36ce548f4d331a8739a297",
+    "system_prompt": "8c80ea7b1553c1bdd4be3c10f2d15e979da69ec5cbab6a311f4d065ecd518e29"
+  }
+}
