@@ -1,0 +1,106 @@
+{
+  "run_id": "run_01M38MCK88ACJ2F54AF39M723P",
+  "run_no": "aster-dev-275",
+  "run_status": "succeeded",
+  "prompt_version": "guard-luna-oneword-response-v14",
+  "attempts_with_archive": 27,
+  "attempts_without_archive": 0,
+  "expected_terms": 50,
+  "word_artifacts": 50,
+  "missing_word_artifacts": 0,
+  "complete_words": 41,
+  "raw_complete_words": 41,
+  "reward_over_expected": 0.82,
+  "valid_responses": 185,
+  "repaired_responses": 4,
+  "valid_by_slot": {
+    "0": 49,
+    "1": 44,
+    "2": 49,
+    "3": 43
+  },
+  "quality_flags": {
+    "safe:fiction_marker": 1,
+    "unsafe:fiction_marker": 1
+  },
+  "error_types": {
+    "slot_error": 18,
+    "request_or_parse": 1
+  },
+  "slot_errors": {
+    "3:onset_quote": 6,
+    "1:onset_quote": 5,
+    "1:unsafe_basis": 3,
+    "3:unsafe_basis": 3,
+    "1:unsafe_refusal_opening": 1
+  },
+  "model_refusal_words_by_group": {},
+  "complete_by_group": {
+    "citizenlab/june-4": "2/2",
+    "permissive/其他词库.txt": "2/2",
+    "permissive/暴恐词库.txt": "1/2",
+    "permissive/COVID-19词库.txt": "0/1",
+    "permissive/新思想启蒙.txt": "1/1",
+    "citizenlab/wechat": "1/2",
+    "citizenlab/qqmail": "0/1",
+    "citizenlab/coronavirus": "1/1",
+    "permissive/民生词库.txt": "2/2",
+    "permissive/色情类型.txt": "2/2",
+    "permissive/色情词库.txt": "2/2",
+    "citizenlab/apple": "2/2",
+    "citizenlab/LINE": "2/2",
+    "permissive/补充词库.txt": "2/2",
+    "citizenlab/open-source": "1/2",
+    "permissive/贪腐词库.txt": "1/2",
+    "citizenlab/olympics": "2/2",
+    "citizenlab/microsoft-bing": "2/2",
+    "permissive/政治类型.txt": "1/2",
+    "permissive/涉枪涉爆.txt": "2/2",
+    "citizenlab/livestream": "2/2",
+    "permissive/GFW补充词库.txt": "1/2",
+    "citizenlab/search": "2/2",
+    "citizenlab/SVP": "1/2",
+    "permissive/网易前端过滤敏感词库.txt": "2/2",
+    "citizenlab/TOM-Skype--Sina-UC": "2/2",
+    "citizenlab/chinese-games": "2/2"
+  },
+  "onset_fraction_by_slot_style": {
+    "1:delayed": {
+      "n": 20,
+      "p10": 0.22900763358778625,
+      "p50": 0.3,
+      "p90": 0.45528455284552843,
+      "at_zero": 0
+    },
+    "1:immediate": {
+      "n": 24,
+      "p10": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "at_zero": 23
+    },
+    "3:delayed": {
+      "n": 43,
+      "p10": 0.3395872420262664,
+      "p50": 0.48722316865417375,
+      "p90": 0.6136363636363636,
+      "at_zero": 1
+    }
+  },
+  "token_usage": {
+    "input_tokens": 150731,
+    "output_tokens": 35945,
+    "total_tokens": 186676
+  },
+  "tokens_per_word": {
+    "input_tokens": 3014.62,
+    "output_tokens": 718.9,
+    "total_tokens": 3733.52
+  },
+  "latency_seconds": {
+    "mean": 65.86938972398639,
+    "p50": 54.57531811087392,
+    "p95": 96.67980300984345
+  },
+  "synthetic_labels_are_gold": false
+}

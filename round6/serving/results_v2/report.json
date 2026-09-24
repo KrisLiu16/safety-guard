@@ -1,0 +1,1216 @@
+{
+  "status": "completed",
+  "kind": "round6_bucketed_engine_v2",
+  "training": false,
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "device": "NVIDIA L20",
+  "drift": {
+    "v1_vs_whole": {
+      "positions": 18589,
+      "max": 0.3059556484222412,
+      "p999": 0.0341532826423645,
+      "p99": 0.004399597644805908,
+      "mean": 0.0002327317281424597,
+      "argmax_flips": 4,
+      "worst": [
+        {
+          "abs_dp": 0.3059556484222412,
+          "seq": 353,
+          "pos": 897,
+          "ref_p_unsafe": 0.5524389147758484,
+          "got_p_unsafe": 0.24648328125476837
+        },
+        {
+          "abs_dp": 0.058272480964660645,
+          "seq": 248,
+          "pos": 92,
+          "ref_p_unsafe": 0.5659841895103455,
+          "got_p_unsafe": 0.6242566704750061
+        },
+        {
+          "abs_dp": 0.048410117626190186,
+          "seq": 261,
+          "pos": 25,
+          "ref_p_unsafe": 0.48040419816970825,
+          "got_p_unsafe": 0.43199408054351807
+        },
+        {
+          "abs_dp": 0.04728138446807861,
+          "seq": 248,
+          "pos": 103,
+          "ref_p_unsafe": 0.5640591979026794,
+          "got_p_unsafe": 0.6113405823707581
+        },
+        {
+          "abs_dp": 0.04646188020706177,
+          "seq": 248,
+          "pos": 168,
+          "ref_p_unsafe": 0.4320274293422699,
+          "got_p_unsafe": 0.47848930954933167
+        },
+        {
+          "abs_dp": 0.0440371036529541,
+          "seq": 248,
+          "pos": 167,
+          "ref_p_unsafe": 0.5466763973236084,
+          "got_p_unsafe": 0.5907135009765625
+        },
+        {
+          "abs_dp": 0.04375410079956055,
+          "seq": 248,
+          "pos": 114,
+          "ref_p_unsafe": 0.2553084194660187,
+          "got_p_unsafe": 0.2990625202655792
+        },
+        {
+          "abs_dp": 0.043177783489227295,
+          "seq": 248,
+          "pos": 94,
+          "ref_p_unsafe": 0.6477285623550415,
+          "got_p_unsafe": 0.6909063458442688
+        },
+        {
+          "abs_dp": 0.04231846332550049,
+          "seq": 248,
+          "pos": 166,
+          "ref_p_unsafe": 0.5389302372932434,
+          "got_p_unsafe": 0.5812487006187439
+        },
+        {
+          "abs_dp": 0.0418282151222229,
+          "seq": 248,
+          "pos": 132,
+          "ref_p_unsafe": 0.31571388244628906,
+          "got_p_unsafe": 0.35754209756851196
+        }
+      ]
+    },
+    "v2_graph_vs_whole": {
+      "positions": 18589,
+      "max": 0.11469924449920654,
+      "p999": 0.01459968090057373,
+      "p99": 0.002809688448905945,
+      "mean": 0.00014501343956257125,
+      "argmax_flips": 2,
+      "worst": [
+        {
+          "abs_dp": 0.11469924449920654,
+          "seq": 353,
+          "pos": 897,
+          "ref_p_unsafe": 0.5524389147758484,
+          "got_p_unsafe": 0.43773967027664185
+        },
+        {
+          "abs_dp": 0.03997403383255005,
+          "seq": 353,
+          "pos": 2066,
+          "ref_p_unsafe": 0.9126814007759094,
+          "got_p_unsafe": 0.8727073669433594
+        },
+        {
+          "abs_dp": 0.03469407558441162,
+          "seq": 59,
+          "pos": 46,
+          "ref_p_unsafe": 0.4262980818748474,
+          "got_p_unsafe": 0.46099215745925903
+        },
+        {
+          "abs_dp": 0.031233280897140503,
+          "seq": 215,
+          "pos": 25,
+          "ref_p_unsafe": 0.5096744298934937,
+          "got_p_unsafe": 0.47844114899635315
+        },
+        {
+          "abs_dp": 0.030942142009735107,
+          "seq": 248,
+          "pos": 103,
+          "ref_p_unsafe": 0.5640591979026794,
+          "got_p_unsafe": 0.5331170558929443
+        },
+        {
+          "abs_dp": 0.030902370810508728,
+          "seq": 215,
+          "pos": 27,
+          "ref_p_unsafe": 0.2508869171142578,
+          "got_p_unsafe": 0.21998454630374908
+        },
+        {
+          "abs_dp": 0.02820916473865509,
+          "seq": 132,
+          "pos": 280,
+          "ref_p_unsafe": 0.2226821631193161,
+          "got_p_unsafe": 0.2508913278579712
+        },
+        {
+          "abs_dp": 0.027241945266723633,
+          "seq": 132,
+          "pos": 342,
+          "ref_p_unsafe": 0.45711052417755127,
+          "got_p_unsafe": 0.4843524694442749
+        },
+        {
+          "abs_dp": 0.0268365740776062,
+          "seq": 132,
+          "pos": 215,
+          "ref_p_unsafe": 0.7294724583625793,
+          "got_p_unsafe": 0.7563090324401855
+        },
+        {
+          "abs_dp": 0.023975610733032227,
+          "seq": 248,
+          "pos": 126,
+          "ref_p_unsafe": 0.6297200322151184,
+          "got_p_unsafe": 0.6057444214820862
+        }
+      ]
+    },
+    "v2_graph_vs_v2_eager": {
+      "positions": 18589,
+      "max": 0.0,
+      "p999": 0.0,
+      "p99": 0.0,
+      "mean": 0.0,
+      "argmax_flips": 0,
+      "worst": [
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1350,
+          "ref_p_unsafe": 0.9965546131134033,
+          "got_p_unsafe": 0.9965546131134033
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1349,
+          "ref_p_unsafe": 0.9935051202774048,
+          "got_p_unsafe": 0.9935051202774048
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1348,
+          "ref_p_unsafe": 0.9965810179710388,
+          "got_p_unsafe": 0.9965810179710388
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1347,
+          "ref_p_unsafe": 0.996758759021759,
+          "got_p_unsafe": 0.996758759021759
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1346,
+          "ref_p_unsafe": 0.9953481554985046,
+          "got_p_unsafe": 0.9953481554985046
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1345,
+          "ref_p_unsafe": 0.9945753812789917,
+          "got_p_unsafe": 0.9945753812789917
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1344,
+          "ref_p_unsafe": 0.9950154423713684,
+          "got_p_unsafe": 0.9950154423713684
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1343,
+          "ref_p_unsafe": 0.9958862662315369,
+          "got_p_unsafe": 0.9958862662315369
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1342,
+          "ref_p_unsafe": 0.9972932934761047,
+          "got_p_unsafe": 0.9972932934761047
+        },
+        {
+          "abs_dp": 0.0,
+          "seq": 388,
+          "pos": 1341,
+          "ref_p_unsafe": 0.9969909191131592,
+          "got_p_unsafe": 0.9969909191131592
+        }
+      ]
+    },
+    "v2_graph_vs_v1": {
+      "positions": 18589,
+      "max": 0.19125638902187347,
+      "p999": 0.036500632762908936,
+      "p99": 0.004205439239740372,
+      "mean": 0.00023045623847836285,
+      "argmax_flips": 2,
+      "worst": [
+        {
+          "abs_dp": 0.19125638902187347,
+          "seq": 353,
+          "pos": 897,
+          "ref_p_unsafe": 0.24648328125476837,
+          "got_p_unsafe": 0.43773967027664185
+        },
+        {
+          "abs_dp": 0.07822352647781372,
+          "seq": 248,
+          "pos": 103,
+          "ref_p_unsafe": 0.6113405823707581,
+          "got_p_unsafe": 0.5331170558929443
+        },
+        {
+          "abs_dp": 0.07412731647491455,
+          "seq": 353,
+          "pos": 2066,
+          "ref_p_unsafe": 0.9468346834182739,
+          "got_p_unsafe": 0.8727073669433594
+        },
+        {
+          "abs_dp": 0.06019234657287598,
+          "seq": 248,
+          "pos": 92,
+          "ref_p_unsafe": 0.6242566704750061,
+          "got_p_unsafe": 0.5640643239021301
+        },
+        {
+          "abs_dp": 0.054620325565338135,
+          "seq": 248,
+          "pos": 100,
+          "ref_p_unsafe": 0.6825205087661743,
+          "got_p_unsafe": 0.6279001832008362
+        },
+        {
+          "abs_dp": 0.048543453216552734,
+          "seq": 248,
+          "pos": 94,
+          "ref_p_unsafe": 0.6909063458442688,
+          "got_p_unsafe": 0.6423628926277161
+        },
+        {
+          "abs_dp": 0.04801046848297119,
+          "seq": 59,
+          "pos": 46,
+          "ref_p_unsafe": 0.41298168897628784,
+          "got_p_unsafe": 0.46099215745925903
+        },
+        {
+          "abs_dp": 0.04656645655632019,
+          "seq": 248,
+          "pos": 102,
+          "ref_p_unsafe": 0.41673973202705383,
+          "got_p_unsafe": 0.37017327547073364
+        },
+        {
+          "abs_dp": 0.04612773656845093,
+          "seq": 248,
+          "pos": 101,
+          "ref_p_unsafe": 0.6991912126541138,
+          "got_p_unsafe": 0.6530634760856628
+        },
+        {
+          "abs_dp": 0.04291701316833496,
+          "seq": 248,
+          "pos": 98,
+          "ref_p_unsafe": 0.6260279417037964,
+          "got_p_unsafe": 0.5831109285354614
+        }
+      ]
+    },
+    "engine_stats": {
+      "graph_replays": 238,
+      "eager_steps": 0,
+      "captures": 18
+    }
+  },
+  "throughput": [
+    {
+      "kernel": "recurrent",
+      "sessions": 1,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 4.161277785897255,
+      "tick_p95_ms": 4.167187958955765,
+      "itps": 240.24955266255478,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 1,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 5.079787224531174,
+      "tick_p95_ms": 5.088645964860916,
+      "itps": 393.6351863961577,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 1,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 5.143076181411743,
+      "tick_p95_ms": 5.1506031304597855,
+      "itps": 777.7560045484314,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 1,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 5.226679146289825,
+      "tick_p95_ms": 5.233479663729668,
+      "itps": 1530.2666589232329,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 1,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 5.700638517737389,
+      "tick_p95_ms": 5.709530785679817,
+      "itps": 2806.1203198093367,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 8,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 6.822410970926285,
+      "tick_p95_ms": 6.8306829780340195,
+      "itps": 1172.5481872686737,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 8,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 7.301062345504761,
+      "tick_p95_ms": 7.30942003428936,
+      "itps": 2191.3766483442546,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 8,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 7.17565231025219,
+      "tick_p95_ms": 7.18415342271328,
+      "itps": 4459.564324374073,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 8,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 7.616974413394928,
+      "tick_p95_ms": 7.628923282027245,
+      "itps": 8402.435709567257,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 8,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 8.95259901881218,
+      "tick_p95_ms": 8.970189839601517,
+      "itps": 14293.28394375423,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 32,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 17.808042466640472,
+      "tick_p95_ms": 17.834192141890526,
+      "itps": 1796.9443193578866,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 32,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 18.313799053430557,
+      "tick_p95_ms": 18.338678404688835,
+      "itps": 3494.423583690426,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 32,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 19.366992637515068,
+      "tick_p95_ms": 19.379783421754837,
+      "itps": 6609.31108321117,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 32,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 21.318262442946434,
+      "tick_p95_ms": 21.33619226515293,
+      "itps": 12008.936832596468,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 32,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 26.638343930244446,
+      "tick_p95_ms": 26.661088690161705,
+      "itps": 19220.927020838357,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 3.3286147117614746
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 64,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 35.47770529985428,
+      "tick_p95_ms": 35.521771758794785,
+      "itps": 1803.697332773677,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 4.51850700378418
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 64,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 36.52752935886383,
+      "tick_p95_ms": 36.574097350239754,
+      "itps": 3503.707465731172,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 4.51850700378418
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 64,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 38.65973465144634,
+      "tick_p95_ms": 38.687413558363914,
+      "itps": 6621.684357917831,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 4.51850700378418
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 64,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 43.289992958307266,
+      "tick_p95_ms": 43.32730732858181,
+      "itps": 11828.032283088829,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 4.51850700378418
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 64,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 55.11151812970638,
+      "tick_p95_ms": 55.18531799316406,
+      "itps": 18580.472251615854,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 4.51850700378418
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 128,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 69.99495066702366,
+      "tick_p95_ms": 70.04458084702492,
+      "itps": 1828.64377395587,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 7.315998077392578
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 128,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 72.16124795377254,
+      "tick_p95_ms": 72.19631597399712,
+      "itps": 3547.8328489094965,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 7.315998077392578
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 128,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 76.67421735823154,
+      "tick_p95_ms": 76.7268929630518,
+      "itps": 6677.4442844754085,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 7.315998077392578
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 128,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 85.59039421379566,
+      "tick_p95_ms": 85.66564507782459,
+      "itps": 11962.460470229425,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 7.315998077392578
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 128,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 111.42926849424839,
+      "tick_p95_ms": 111.50140687823296,
+      "itps": 18378.293610358156,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 7.315998077392578
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 256,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 136.01374253630638,
+      "tick_p95_ms": 136.06053963303566,
+      "itps": 1882.227632996056,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 12.912938594818115
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 256,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 141.0088874399662,
+      "tick_p95_ms": 141.04931615293026,
+      "itps": 3631.047494857185,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 12.912938594818115
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 256,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 150.96146054565907,
+      "tick_p95_ms": 151.06518007814884,
+      "itps": 6782.34869108274,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 12.912938594818115
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 256,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 170.6682350486517,
+      "tick_p95_ms": 170.7150712609291,
+      "itps": 12000.119398299104,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 12.912938594818115
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 256,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 234.38126407563686,
+      "tick_p95_ms": 234.4548013061285,
+      "itps": 17476.16174368549,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 12.912938594818115
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 384,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 260.38009114563465,
+      "tick_p95_ms": 260.51781699061394,
+      "itps": 1474.6911560788215,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 21.02867078781128
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 384,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 271.46984450519085,
+      "tick_p95_ms": 271.673321723938,
+      "itps": 2828.8113406801485,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 21.02867078781128
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 384,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 292.77012683451176,
+      "tick_p95_ms": 292.9122243076563,
+      "itps": 5246.440308575741,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 21.02867078781128
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 384,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 346.30007669329643,
+      "tick_p95_ms": 346.3701531291008,
+      "itps": 8871.042153255508,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 21.02867078781128
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 384,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 476.8014941364527,
+      "tick_p95_ms": 476.8946021795273,
+      "itps": 12885.922785299794,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 21.02867078781128
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 512,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 268.1629844009876,
+      "tick_p95_ms": 268.2842928916216,
+      "itps": 1909.4120461989585,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 512,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 279.2997248470783,
+      "tick_p95_ms": 279.57213297486305,
+      "itps": 3666.101767457418,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 512,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 300.79050175845623,
+      "tick_p95_ms": 300.9762763977051,
+      "itps": 6808.16764848663,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 512,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 355.35984486341476,
+      "tick_p95_ms": 355.4400522261858,
+      "itps": 11526.149459231716,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "recurrent",
+      "sessions": 512,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 486.0980361700058,
+      "tick_p95_ms": 486.20221205055714,
+      "itps": 16852.61795368894,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 4.681292921304703,
+      "tick_p95_ms": 4.686072468757629,
+      "itps": 213.64537780799068,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 5.564991384744644,
+      "tick_p95_ms": 5.577072501182556,
+      "itps": 359.2949032705505,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 5.6085120886564255,
+      "tick_p95_ms": 5.617611110210419,
+      "itps": 713.1208758220462,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 5.654668435454369,
+      "tick_p95_ms": 5.661599338054657,
+      "itps": 1414.4985579250297,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 6.032010540366173,
+      "tick_p95_ms": 6.041292101144791,
+      "itps": 2652.636242395731,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 7.64148123562336,
+      "tick_p95_ms": 7.649322971701622,
+      "itps": 1046.800923624226,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 8.09880904853344,
+      "tick_p95_ms": 8.10788944363594,
+      "itps": 1975.2355411873002,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 7.9620610922575,
+      "tick_p95_ms": 7.980283349752426,
+      "itps": 4018.2114269143467,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 8.298413828015327,
+      "tick_p95_ms": 8.312204852700233,
+      "itps": 7709.990356772815,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 9.412728250026703,
+      "tick_p95_ms": 9.42268781363964,
+      "itps": 13598.971112058789,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 19.855160266160965,
+      "tick_p95_ms": 19.873008131980896,
+      "itps": 1611.6757381381576,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 20.529862493276596,
+      "tick_p95_ms": 20.553071051836014,
+      "itps": 3117.455342458082,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 21.710313856601715,
+      "tick_p95_ms": 21.72757498919964,
+      "itps": 5895.906804256432,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 23.567507043480873,
+      "tick_p95_ms": 23.595666512846947,
+      "itps": 10860.721710567845,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 28.262224048376083,
+      "tick_p95_ms": 28.28885056078434,
+      "itps": 18115.55473945895,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 40.2564350515604,
+      "tick_p95_ms": 40.28840363025665,
+      "itps": 1589.76655809942,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 41.51028394699097,
+      "tick_p95_ms": 41.54663719236851,
+      "itps": 3083.297925957554,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 43.59995201230049,
+      "tick_p95_ms": 43.630680069327354,
+      "itps": 5871.554707333109,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 47.8383582085371,
+      "tick_p95_ms": 47.86335863173008,
+      "itps": 10702.683881424406,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 58.48507583141327,
+      "tick_p95_ms": 58.53807181119919,
+      "itps": 17508.43244086371,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 77.4465948343277,
+      "tick_p95_ms": 77.47716642916203,
+      "itps": 1652.8394001641882,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 79.65845242142677,
+      "tick_p95_ms": 79.68068309128284,
+      "itps": 3214.0208619452337,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 84.27363820374012,
+      "tick_p95_ms": 84.31654796004295,
+      "itps": 6075.39394850217,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 93.56151893734932,
+      "tick_p95_ms": 93.58683042228222,
+      "itps": 10945.051341824343,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 117.55011789500713,
+      "tick_p95_ms": 117.60019697248936,
+      "itps": 17421.869202993996,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 256,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 150.46515315771103,
+      "tick_p95_ms": 150.52299201488495,
+      "itps": 1701.4341915317902,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 256,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 155.8054517954588,
+      "tick_p95_ms": 155.8920107781887,
+      "itps": 3286.1387179597696,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 256,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 166.28350131213665,
+      "tick_p95_ms": 166.35005176067352,
+      "itps": 6158.038844553118,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 256,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 186.7903769016266,
+      "tick_p95_ms": 186.83533556759357,
+      "itps": 10964.114708919937,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 256,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 247.9401882737875,
+      "tick_p95_ms": 247.9987647384405,
+      "itps": 16520.160341402938,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 384,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 289.5621955394745,
+      "tick_p95_ms": 289.68641348183155,
+      "itps": 1326.0960586501014,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 384,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 301.39724537730217,
+      "tick_p95_ms": 301.5297744423151,
+      "itps": 2548.0758716558694,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 384,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 323.9216096699238,
+      "tick_p95_ms": 324.01706650853157,
+      "itps": 4741.733639561359,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 384,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 379.1478145867586,
+      "tick_p95_ms": 379.27653081715107,
+      "itps": 8102.091046018885,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 384,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 504.4265929609537,
+      "tick_p95_ms": 504.5472402125597,
+      "itps": 12180.129453206539,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 512,
+      "tokens_per_tick": 1,
+      "tick_p50_ms": 298.18946681916714,
+      "tick_p95_ms": 298.27024415135384,
+      "itps": 1717.0783886147562,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 512,
+      "tokens_per_tick": 2,
+      "tick_p50_ms": 310.19125133752823,
+      "tick_p95_ms": 310.29868870973587,
+      "itps": 3301.1962835079717,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 512,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 332.8338097780943,
+      "tick_p95_ms": 332.9508267343044,
+      "itps": 6153.357543243826,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 512,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 388.2847726345062,
+      "tick_p95_ms": 388.3795887231827,
+      "itps": 10549.02222449032,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 512,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 513.8294082134962,
+      "tick_p95_ms": 513.9454454183578,
+      "itps": 15942.95238377559,
+      "graph": true,
+      "state_mib_per_session": 24.64844512939453,
+      "max_memory_gib": 24.10837697982788
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "task_count": 352,
+  "repetition_count": 1,
+  "total_samples": 352,
+  "sandbox_count": 352,
+  "concurrency": 285,
+  "max_attempts": 1,
+  "peak_cpu": 428,
+  "peak_memory_gib": 570,
+  "images": [],
+  "datasets": [
+    {
+      "version_id": "dsv_01M38NHH6W0X14K477E8NQKJWK",
+      "dataset_id": "ds_01M38NDEGD5JB9GHPKA1MKPPYF",
+      "dataset_name": "guard-response-v14-run-a-50k",
+      "version_no": 1,
+      "task_count": 352
+    }
+  ],
+  "quota_required": 1,
+  "quota_available": null,
+  "blocking": []
+}

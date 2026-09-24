@@ -1,0 +1,89 @@
+{
+  "run_id": "run_01M38VA7JXW7D28W2QKPGWGTXV",
+  "run_no": "aster-dev-279",
+  "run_status": "completed",
+  "prompt_version": "guard-luna-oneword-response-v14",
+  "attempts_with_archive": 60,
+  "attempts_without_archive": 0,
+  "expected_terms": 60,
+  "word_artifacts": 60,
+  "missing_word_artifacts": 0,
+  "complete_words": 53,
+  "raw_complete_words": 53,
+  "reward_over_expected": 0.8833333333333333,
+  "valid_responses": 212,
+  "repaired_responses": 0,
+  "valid_by_slot": {
+    "0": 53,
+    "1": 53,
+    "2": 53,
+    "3": 53
+  },
+  "quality_flags": {
+    "safe:fiction_marker": 2
+  },
+  "error_types": {
+    "finish_reason": 7
+  },
+  "slot_errors": {},
+  "filtered_or_failed_words_by_group": {
+    "citizenlab/search": 1,
+    "permissive/houbb-sensitive-word-data": 1,
+    "permissive/GFW补充词库.txt": 1,
+    "citizenlab/SVP": 1,
+    "citizenlab/TOM-Skype--Sina-UC": 1,
+    "citizenlab/open-source": 1,
+    "citizenlab/livestream": 1
+  },
+  "complete_by_group": {
+    "permissive/houbb-sensitive-word-data": "5/6",
+    "citizenlab/search": "5/6",
+    "citizenlab/open-source": "5/6",
+    "permissive/GFW补充词库.txt": "5/6",
+    "permissive/网易前端过滤敏感词库.txt": "6/6",
+    "permissive/零时-Tencent.txt": "6/6",
+    "citizenlab/TOM-Skype--Sina-UC": "5/6",
+    "citizenlab/SVP": "5/6",
+    "citizenlab/chinese-games": "6/6",
+    "citizenlab/livestream": "5/6"
+  },
+  "onset_fraction_by_slot_style": {
+    "1:delayed": {
+      "n": 27,
+      "p10": 0.17153284671532848,
+      "p50": 0.224283305227656,
+      "p90": 0.3232169954476479,
+      "at_zero": 0
+    },
+    "1:immediate": {
+      "n": 26,
+      "p10": 0.0,
+      "p50": 0.0,
+      "p90": 0.047217537942664416,
+      "at_zero": 23
+    },
+    "3:delayed": {
+      "n": 53,
+      "p10": 0.2513274336283186,
+      "p50": 0.38009049773755654,
+      "p90": 0.5078534031413613,
+      "at_zero": 0
+    }
+  },
+  "token_usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 505704
+  },
+  "tokens_per_word": {
+    "input_tokens": 0.0,
+    "output_tokens": 0.0,
+    "total_tokens": 8428.4
+  },
+  "latency_seconds": {
+    "mean": 30.536638806919413,
+    "p50": 30.049269204959273,
+    "p95": 39.13469256507233
+  },
+  "synthetic_labels_are_gold": false
+}

@@ -1,0 +1,1920 @@
+{
+  "prompt_version": "guard-luna-oneword-response-v14",
+  "words": 50000,
+  "tasks": 352,
+  "words_per_task_max": 150,
+  "responses_per_word": 4,
+  "calls_per_word": 1,
+  "splits": {
+    "train": 46998,
+    "dev": 1509,
+    "calibration": 1493
+  },
+  "unsafe_prompt_language": {
+    "zh": 24701,
+    "en": 25299
+  },
+  "allocation": {
+    "citizenlab/livestream": {
+      "selected": 10386,
+      "available_families": 123012
+    },
+    "citizenlab/open-source": {
+      "selected": 8493,
+      "available_families": 82257
+    },
+    "citizenlab/chinese-games": {
+      "selected": 6197,
+      "available_families": 43799
+    },
+    "permissive/houbb-sensitive-word-data": {
+      "selected": 6197,
+      "available_families": 43805
+    },
+    "permissive/零时-Tencent.txt": {
+      "selected": 3438,
+      "available_families": 13479
+    },
+    "citizenlab/SVP": {
+      "selected": 3157,
+      "available_families": 11364
+    },
+    "citizenlab/search": {
+      "selected": 2661,
+      "available_families": 8076
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "selected": 2164,
+      "available_families": 5339
+    },
+    "permissive/GFW补充词库.txt": {
+      "selected": 1945,
+      "available_families": 4315
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "selected": 946,
+      "available_families": 1021
+    },
+    "citizenlab/olympics": {
+      "selected": 788,
+      "available_families": 788
+    },
+    "citizenlab/microsoft-bing": {
+      "selected": 771,
+      "available_families": 771
+    },
+    "permissive/补充词库.txt": {
+      "selected": 490,
+      "available_families": 490
+    },
+    "permissive/反动词库.txt": {
+      "selected": 360,
+      "available_families": 360
+    },
+    "citizenlab/june-4": {
+      "selected": 336,
+      "available_families": 336
+    },
+    "citizenlab/LINE": {
+      "selected": 277,
+      "available_families": 277
+    },
+    "citizenlab/apple": {
+      "selected": 235,
+      "available_families": 235
+    },
+    "permissive/涉枪涉爆.txt": {
+      "selected": 227,
+      "available_families": 227
+    },
+    "permissive/民生词库.txt": {
+      "selected": 190,
+      "available_families": 190
+    },
+    "permissive/政治类型.txt": {
+      "selected": 164,
+      "available_families": 164
+    },
+    "permissive/贪腐词库.txt": {
+      "selected": 114,
+      "available_families": 114
+    },
+    "permissive/色情类型.txt": {
+      "selected": 85,
+      "available_families": 85
+    },
+    "permissive/色情词库.txt": {
+      "selected": 81,
+      "available_families": 81
+    },
+    "permissive/暴恐词库.txt": {
+      "selected": 76,
+      "available_families": 76
+    },
+    "permissive/其他词库.txt": {
+      "selected": 75,
+      "available_families": 75
+    },
+    "permissive/广告类型.txt": {
+      "selected": 60,
+      "available_families": 60
+    },
+    "citizenlab/wechat": {
+      "selected": 50,
+      "available_families": 50
+    },
+    "citizenlab/coronavirus": {
+      "selected": 16,
+      "available_families": 16
+    },
+    "permissive/COVID-19词库.txt": {
+      "selected": 10,
+      "available_families": 10
+    },
+    "citizenlab/qqmail": {
+      "selected": 9,
+      "available_families": 9
+    },
+    "permissive/新思想启蒙.txt": {
+      "selected": 2,
+      "available_families": 2
+    }
+  },
+  "excluded_used_task_keys": 6420,
+  "holdout_excludes_used_families": 6373,
+  "family_rule": "NFKC + casefold + remove whitespace/punctuation; exact match only, no alias or near-duplicate merge",
+  "selection_salt": "v14-batch50k-2026-09-24",
+  "source_snapshot": "round2/oneword2_v12/full_snapshot_final_v2",
+  "flow_frozen_from_pilot": "aster-dev-275",
+  "run_a_seeds_sha256": null,
+  "run_a_families_excluded": 0,
+  "sha256": {
+    "pipeline": "7fa29e86906766df953c8d043b629b58d89b520f81febfbccc1a53cd1723c9a6",
+    "flow": "e34d367de8164c5532801dcbbc578d6f8d2cc9d899a932bbeb019e673b8270cb",
+    "schema": "fbd27e5bd24afc1c1bc3af3310d0b7e7bd9273cc24ba10211618b95661f4ed38",
+    "system_prompt": "c51894e0822d45c5e1c34c78760b43f18b042521d6054f30cc610666c0210e59",
+    "seeds": "ec93f189f2887485de9dd00803e7dae5f6a4d2400404c2389adf0c823d7f07f6"
+  },
+  "tasks_index": [
+    {
+      "task_key": "v14-50k-g00-000",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-001",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-002",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-003",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-004",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-005",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-006",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-007",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-008",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-009",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-010",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-011",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-012",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-013",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-014",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-015",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-016",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-017",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-018",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-019",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-020",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-021",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-022",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-023",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-024",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-025",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-026",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-027",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-028",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-029",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-030",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-031",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-032",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-033",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-034",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-035",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-036",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-037",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-038",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-039",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-040",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-041",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-042",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-043",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-044",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-045",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-046",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-047",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-048",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-049",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-050",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-051",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-052",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-053",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-054",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-055",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-056",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-057",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-058",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-059",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-060",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-061",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-062",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-063",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-064",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-065",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-066",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-067",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-068",
+      "source_group": "citizenlab/livestream",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g00-069",
+      "source_group": "citizenlab/livestream",
+      "words": 36
+    },
+    {
+      "task_key": "v14-50k-g01-000",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-001",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-002",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-003",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-004",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-005",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-006",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-007",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-008",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-009",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-010",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-011",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-012",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-013",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-014",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-015",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-016",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-017",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-018",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-019",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-020",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-021",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-022",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-023",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-024",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-025",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-026",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-027",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-028",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-029",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-030",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-031",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-032",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-033",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-034",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-035",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-036",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-037",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-038",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-039",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-040",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-041",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-042",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-043",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-044",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-045",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-046",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-047",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-048",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-049",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-050",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-051",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-052",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-053",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-054",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-055",
+      "source_group": "citizenlab/open-source",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g01-056",
+      "source_group": "citizenlab/open-source",
+      "words": 93
+    },
+    {
+      "task_key": "v14-50k-g02-000",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-001",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-002",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-003",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-004",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-005",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-006",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-007",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-008",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-009",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-010",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-011",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-012",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-013",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-014",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-015",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-016",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-017",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-018",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-019",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-020",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-021",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-022",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-023",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-024",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-025",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-026",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-027",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-028",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-029",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-030",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-031",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-032",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-033",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-034",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-035",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-036",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-037",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-038",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-039",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-040",
+      "source_group": "citizenlab/chinese-games",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g02-041",
+      "source_group": "citizenlab/chinese-games",
+      "words": 47
+    },
+    {
+      "task_key": "v14-50k-g03-000",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-001",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-002",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-003",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-004",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-005",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-006",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-007",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-008",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-009",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-010",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-011",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-012",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-013",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-014",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-015",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-016",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-017",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-018",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-019",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-020",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-021",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-022",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-023",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-024",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-025",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-026",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-027",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-028",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-029",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-030",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-031",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-032",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-033",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-034",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-035",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-036",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-037",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-038",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-039",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-040",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g03-041",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "words": 47
+    },
+    {
+      "task_key": "v14-50k-g04-000",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-001",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-002",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-003",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-004",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-005",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-006",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-007",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-008",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-009",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-010",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-011",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-012",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-013",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-014",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-015",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-016",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-017",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-018",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-019",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-020",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-021",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g04-022",
+      "source_group": "permissive/零时-Tencent.txt",
+      "words": 138
+    },
+    {
+      "task_key": "v14-50k-g05-000",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-001",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-002",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-003",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-004",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-005",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-006",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-007",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-008",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-009",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-010",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-011",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-012",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-013",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-014",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-015",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-016",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-017",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-018",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-019",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-020",
+      "source_group": "citizenlab/SVP",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g05-021",
+      "source_group": "citizenlab/SVP",
+      "words": 7
+    },
+    {
+      "task_key": "v14-50k-g06-000",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-001",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-002",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-003",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-004",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-005",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-006",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-007",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-008",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-009",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-010",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-011",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-012",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-013",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-014",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-015",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-016",
+      "source_group": "citizenlab/search",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g06-017",
+      "source_group": "citizenlab/search",
+      "words": 111
+    },
+    {
+      "task_key": "v14-50k-g07-000",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-001",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-002",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-003",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-004",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-005",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-006",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-007",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-008",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-009",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-010",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-011",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-012",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-013",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g07-014",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "words": 64
+    },
+    {
+      "task_key": "v14-50k-g08-000",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-001",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-002",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-003",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-004",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-005",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-006",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-007",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-008",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-009",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-010",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-011",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g08-012",
+      "source_group": "permissive/GFW补充词库.txt",
+      "words": 145
+    },
+    {
+      "task_key": "v14-50k-g09-000",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g09-001",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g09-002",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g09-003",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g09-004",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g09-005",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g09-006",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "words": 46
+    },
+    {
+      "task_key": "v14-50k-g10-000",
+      "source_group": "citizenlab/olympics",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g10-001",
+      "source_group": "citizenlab/olympics",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g10-002",
+      "source_group": "citizenlab/olympics",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g10-003",
+      "source_group": "citizenlab/olympics",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g10-004",
+      "source_group": "citizenlab/olympics",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g10-005",
+      "source_group": "citizenlab/olympics",
+      "words": 38
+    },
+    {
+      "task_key": "v14-50k-g11-000",
+      "source_group": "citizenlab/microsoft-bing",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g11-001",
+      "source_group": "citizenlab/microsoft-bing",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g11-002",
+      "source_group": "citizenlab/microsoft-bing",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g11-003",
+      "source_group": "citizenlab/microsoft-bing",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g11-004",
+      "source_group": "citizenlab/microsoft-bing",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g11-005",
+      "source_group": "citizenlab/microsoft-bing",
+      "words": 21
+    },
+    {
+      "task_key": "v14-50k-g12-000",
+      "source_group": "permissive/补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g12-001",
+      "source_group": "permissive/补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g12-002",
+      "source_group": "permissive/补充词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g12-003",
+      "source_group": "permissive/补充词库.txt",
+      "words": 40
+    },
+    {
+      "task_key": "v14-50k-g13-000",
+      "source_group": "permissive/反动词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g13-001",
+      "source_group": "permissive/反动词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g13-002",
+      "source_group": "permissive/反动词库.txt",
+      "words": 60
+    },
+    {
+      "task_key": "v14-50k-g14-000",
+      "source_group": "citizenlab/june-4",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g14-001",
+      "source_group": "citizenlab/june-4",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g14-002",
+      "source_group": "citizenlab/june-4",
+      "words": 36
+    },
+    {
+      "task_key": "v14-50k-g15-000",
+      "source_group": "citizenlab/LINE",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g15-001",
+      "source_group": "citizenlab/LINE",
+      "words": 127
+    },
+    {
+      "task_key": "v14-50k-g16-000",
+      "source_group": "citizenlab/apple",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g16-001",
+      "source_group": "citizenlab/apple",
+      "words": 85
+    },
+    {
+      "task_key": "v14-50k-g17-000",
+      "source_group": "permissive/涉枪涉爆.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g17-001",
+      "source_group": "permissive/涉枪涉爆.txt",
+      "words": 77
+    },
+    {
+      "task_key": "v14-50k-g18-000",
+      "source_group": "permissive/民生词库.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g18-001",
+      "source_group": "permissive/民生词库.txt",
+      "words": 40
+    },
+    {
+      "task_key": "v14-50k-g19-000",
+      "source_group": "permissive/政治类型.txt",
+      "words": 150
+    },
+    {
+      "task_key": "v14-50k-g19-001",
+      "source_group": "permissive/政治类型.txt",
+      "words": 14
+    },
+    {
+      "task_key": "v14-50k-g20-000",
+      "source_group": "permissive/贪腐词库.txt",
+      "words": 114
+    },
+    {
+      "task_key": "v14-50k-g21-000",
+      "source_group": "permissive/色情类型.txt",
+      "words": 85
+    },
+    {
+      "task_key": "v14-50k-g22-000",
+      "source_group": "permissive/色情词库.txt",
+      "words": 81
+    },
+    {
+      "task_key": "v14-50k-g23-000",
+      "source_group": "permissive/暴恐词库.txt",
+      "words": 76
+    },
+    {
+      "task_key": "v14-50k-g24-000",
+      "source_group": "permissive/其他词库.txt",
+      "words": 75
+    },
+    {
+      "task_key": "v14-50k-g25-000",
+      "source_group": "permissive/广告类型.txt",
+      "words": 60
+    },
+    {
+      "task_key": "v14-50k-g26-000",
+      "source_group": "citizenlab/wechat",
+      "words": 50
+    },
+    {
+      "task_key": "v14-50k-g27-000",
+      "source_group": "citizenlab/coronavirus",
+      "words": 16
+    },
+    {
+      "task_key": "v14-50k-g28-000",
+      "source_group": "permissive/COVID-19词库.txt",
+      "words": 10
+    },
+    {
+      "task_key": "v14-50k-g29-000",
+      "source_group": "citizenlab/qqmail",
+      "words": 9
+    },
+    {
+      "task_key": "v14-50k-g30-000",
+      "source_group": "permissive/新思想启蒙.txt",
+      "words": 2
+    }
+  ]
+}

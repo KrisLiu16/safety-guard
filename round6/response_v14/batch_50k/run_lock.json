@@ -1,0 +1,33 @@
+{
+  "run_id": "run_01M38P6E4HZ027ZSNG1CDX2VD3",
+  "run_no": "aster-dev-276",
+  "status_at_lock": "queued",
+  "name": "[造数] guard-response-v14 Run A · 5万词 · gpt-5.6-luna",
+  "dataset_id": "ds_01M38NDEGD5JB9GHPKA1MKPPYF",
+  "dataset_version_id": "dsv_01M38NHH6W0X14K477E8NQKJWK",
+  "dataset_tree_sha256": "f29457cbdeccece29dbc774323f74cbf069fca18df532c25e96e80b8a6bf62ef",
+  "config_digest": "29019a7c5366093188c043c5788510e1db9460ffc4b6850e88b227ae82a40579",
+  "model_profile_id": "mdl_01M2W0QMTH0KFNJQFTBYY2QTVG",
+  "placement_id": "sg-public",
+  "concurrency": 285,
+  "max_attempts": 1,
+  "repetition_count": 1,
+  "physical_tasks": 352,
+  "total_terms": 50000,
+  "splits": {
+    "train": 46998,
+    "dev": 1509,
+    "calibration": 1493
+  },
+  "prompt_version": "guard-luna-oneword-response-v14",
+  "flow_sha256": {
+    "pipeline": "7fa29e86906766df953c8d043b629b58d89b520f81febfbccc1a53cd1723c9a6",
+    "flow": "e34d367de8164c5532801dcbbc578d6f8d2cc9d899a932bbeb019e673b8270cb",
+    "schema": "fbd27e5bd24afc1c1bc3af3310d0b7e7bd9273cc24ba10211618b95661f4ed38",
+    "system_prompt": "c51894e0822d45c5e1c34c78760b43f18b042521d6054f30cc610666c0210e59",
+    "seeds": "ec93f189f2887485de9dd00803e7dae5f6a4d2400404c2389adf0c823d7f07f6"
+  },
+  "flow_snapshot_identical": true,
+  "seeds_sha256": "ec93f189f2887485de9dd00803e7dae5f6a4d2400404c2389adf0c823d7f07f6",
+  "idempotency_key": "guard-response-v14-run-a-20260924-r1"
+}

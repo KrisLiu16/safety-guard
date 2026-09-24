@@ -1,0 +1,32 @@
+{
+  "run_id": "run_01M36NWG2G4NF17NYJAX95HPN5",
+  "run_no": "aster-dev-272",
+  "run_status": "succeeded",
+  "attempts": 1517,
+  "word_artifacts": 449575,
+  "complete_words": 368019,
+  "partial_snapshot": true,
+  "selected_attempts_sha256": "811b33458ea675d674feb429876ffbc0c933ea259dfe9a8b489fcaeb84cd2909",
+  "expected_terms": 449575,
+  "missing_word_artifacts": 0,
+  "raw_complete_words": 368019,
+  "valid_examples": 814287,
+  "repaired_examples": 3167,
+  "token_usage": {
+    "input_tokens": 650847003,
+    "output_tokens": 140002015,
+    "total_tokens": 790849018
+  },
+  "error_types": {
+    "0": 65727,
+    "1": 21791,
+    "root_mismatch": 797,
+    "request_or_parse": 15
+  },
+  "latency_seconds": {
+    "mean": 19.643769928094784,
+    "p50": 16.731588277965784,
+    "p95": 42.8886813998688
+  },
+  "synthetic_labels_are_gold": false
+}

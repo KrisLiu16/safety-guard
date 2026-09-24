@@ -1,0 +1,22 @@
+{
+  "prompt_version": "guard-luna-oneword-response-v14",
+  "words": 60,
+  "tasks": 60,
+  "per_group": {
+    "citizenlab/SVP": 6,
+    "citizenlab/TOM-Skype--Sina-UC": 6,
+    "citizenlab/chinese-games": 6,
+    "citizenlab/livestream": 6,
+    "citizenlab/open-source": 6,
+    "citizenlab/search": 6,
+    "permissive/GFW补充词库.txt": 6,
+    "permissive/houbb-sensitive-word-data": 6,
+    "permissive/网易前端过滤敏感词库.txt": 6,
+    "permissive/零时-Tencent.txt": 6
+  },
+  "unsafe_prompt_language": {
+    "zh": 27,
+    "en": 33
+  },
+  "pipeline_sha256": "7fa29e86906766df953c8d043b629b58d89b520f81febfbccc1a53cd1723c9a6"
+}

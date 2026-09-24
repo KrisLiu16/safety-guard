@@ -50,3 +50,13 @@ by_word/
 tokenizer.json
 vocab.json
 merges.txt
+
+# Generated sample text and upload echoes (public repo: kept locally and on Aster)
+**/extracted/*.txt
+selected_attempts.json
+attempts.json
+samples_snapshot.json
+samples_page_*.json
+dataset_add.json
+dataset_publish.json
+example_request.json

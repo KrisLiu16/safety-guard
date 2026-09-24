@@ -1,0 +1,189 @@
+{
+  "status": "running",
+  "kind": "round6_batched_engine_v1",
+  "training": false,
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "device": "NVIDIA L20",
+  "versions": {
+    "torch": "2.7.1+cu128",
+    "transformers": "5.17.0",
+    "flash-linear-attention": "0.5.2",
+    "fla-core": "0.5.2",
+    "safetensors": "0.8.0",
+    "tokenizers": "0.23.2",
+    "triton": "3.3.1",
+    "huggingface-hub": "1.32.0"
+  },
+  "drift": {
+    "sequences": 14,
+    "positions": 18589,
+    "max_abs_dp_unsafe": 0.24680441617965698,
+    "p999": 0.015978261828422546,
+    "p99": 0.0026924610137939453,
+    "mean": 0.00014764736862390488,
+    "argmax_flips": 6,
+    "note": "engine: random interleaved chunks 1-24 after a 700/64-token first append; reference: one whole-sequence forward of the same weights"
+  },
+  "throughput": [
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 42.55470260977745,
+      "tick_p95_ms": 42.89269633591175,
+      "itps": 93.90521143215604,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 42.59335249662399,
+      "tick_p95_ms": 42.93816350400448,
+      "itps": 187.4375980680871,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 1,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 42.56283491849899,
+      "tick_p95_ms": 43.78297179937363,
+      "itps": 374.1947685241779,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 43.09067130088806,
+      "tick_p95_ms": 43.463701382279396,
+      "itps": 741.2871851267374,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 43.31689327955246,
+      "tick_p95_ms": 43.69363375008106,
+      "itps": 1475.0344807532865,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 8,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 43.75126399099827,
+      "tick_p95_ms": 44.98550295829773,
+      "itps": 2913.4492199182437,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 51.90860293805599,
+      "tick_p95_ms": 52.03438922762871,
+      "itps": 2464.9677741868586,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 52.243635058403015,
+      "tick_p95_ms": 52.64709331095219,
+      "itps": 4892.413190003678,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 32,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 53.11276391148567,
+      "tick_p95_ms": 53.39823663234711,
+      "itps": 9637.462900902208,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.4676103591918945
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 64.19225223362446,
+      "tick_p95_ms": 64.51352126896381,
+      "itps": 3987.157264175004,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.751766681671143
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 66.23739190399647,
+      "tick_p95_ms": 66.39142706990242,
+      "itps": 7728.201934415988,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.751766681671143
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 64,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 80.90878091752529,
+      "tick_p95_ms": 80.97327686846256,
+      "itps": 12655.374961089976,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 4.751766681671143
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 99.17441196739674,
+      "tick_p95_ms": 99.4742140173912,
+      "itps": 5161.5145769422625,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 6.568066120147705
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 8,
+      "tick_p50_ms": 116.10843427479267,
+      "tick_p95_ms": 116.24087207019329,
+      "itps": 8819.167133626179,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 6.615036487579346
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 128,
+      "tokens_per_tick": 16,
+      "tick_p50_ms": 153.34350056946278,
+      "tick_p95_ms": 153.4540057182312,
+      "itps": 13356.54755977726,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 6.7094292640686035
+    },
+    {
+      "kernel": "chunk",
+      "sessions": 256,
+      "tokens_per_tick": 4,
+      "tick_p50_ms": 188.93874436616898,
+      "tick_p95_ms": 189.10643085837364,
+      "itps": 5419.48896418632,
+      "state_mib_per_session": 24.63671875,
+      "max_memory_gib": 11.695494174957275
+    }
+  ]
+}

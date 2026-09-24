@@ -1,0 +1,17 @@
+{
+  "prompt_version": "guard-judge-single-v1",
+  "items": 438,
+  "tasks": 54,
+  "kinds": {
+    "safe_whole": 98,
+    "safe_mid_prefix": 98,
+    "unsafe_before_onset": 63,
+    "unsafe_through_onset": 87,
+    "unsafe_whole": 87,
+    "control_v13_negated_whole": 5
+  },
+  "source": {
+    "v14": "response_v14/pilot/extracted/examples.jsonl",
+    "v13_controls": "response_v13/pilot/extracted/examples.jsonl"
+  }
+}

@@ -1,0 +1,36 @@
+----------------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                                  Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+----------------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                    aten::scaled_dot_product_attention         0.08%     197.525us         2.40%       5.617ms     312.079us       0.000us         0.00%     111.507ms       6.195ms            18  
+                              aten::_scaled_dot_product_attention_math         0.12%     287.181us         1.97%       4.621ms     256.721us       0.000us         0.00%     111.376ms       6.188ms            18  
+                                                          aten::matmul         0.73%       1.715ms         5.82%      13.644ms      22.854us       0.000us         0.00%      62.408ms     104.536us           597  
+                                                           aten::copy_         2.23%       5.229ms        41.62%      97.542ms      64.769us      57.139ms        22.18%      57.167ms      37.960us          1506  
+                                                           aten::clone         0.24%     556.404us         1.90%       4.445ms      13.469us       0.000us         0.00%      40.452ms     122.583us           330  
+void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_...         0.00%       0.000us         0.00%       0.000us       0.000us      37.255ms        14.46%      37.255ms     776.142us            48  
+                                               aten::repeat_interleave         0.06%     152.017us         0.30%     705.621us      19.601us       0.000us         0.00%      37.236ms       1.034ms            36  
+                                                             aten::mul         1.91%       4.478ms         3.14%       7.355ms       8.227us      34.701ms        13.47%      34.701ms      38.815us           894  
+                                                          aten::linear         0.57%       1.345ms        15.93%      37.327ms      62.839us       0.000us         0.00%      31.672ms      53.319us           594  
+                                                             aten::bmm         0.27%     639.355us         0.35%     813.851us      20.868us      31.329ms        12.16%      31.329ms     803.305us            39  
+                                                              aten::mm         3.20%       7.495ms         4.34%      10.169ms      18.225us      31.079ms        12.06%      31.079ms      55.697us           558  
+void at::native::vectorized_elementwise_kernel<4, at::native::AUnar...         0.00%       0.000us         0.00%       0.000us       0.000us      30.519ms        11.85%      30.519ms     726.633us            42  
+                                                           aten::index         0.69%       1.624ms         1.32%       3.085ms      20.984us      29.227ms        11.34%      29.664ms     201.797us           147  
+                                                FusedRecurrentFunction         2.47%       5.799ms         2.83%       6.631ms     122.805us      26.371ms        10.24%      26.371ms     488.356us            54  
+                           fused_recurrent_gated_delta_rule_fwd_kernel         0.00%       0.000us         0.00%       0.000us       0.000us      26.371ms        10.24%      26.371ms     488.356us            54  
+                                                      aten::index_put_         0.08%     189.456us         2.22%       5.199ms      35.370us       0.000us         0.00%      21.830ms     148.501us           147  
+                                                aten::_index_put_impl_         0.57%       1.329ms         2.14%       5.010ms      34.081us      21.745ms         8.44%      21.830ms     148.501us           147  
+void at::native::index_elementwise_kernel<128, 4, at::native::gpu_i...         0.00%       0.000us         0.00%       0.000us       0.000us      20.629ms         8.01%      20.629ms     382.021us            54  
+void at::native::index_elementwise_kernel<128, 4, at::native::gpu_i...         0.00%       0.000us         0.00%       0.000us       0.000us      20.509ms         7.96%      20.509ms     379.789us            54  
+                                                              aten::to         0.40%     934.959us        11.09%      25.999ms      15.615us       0.000us         0.00%      16.690ms      10.024us          1665  
+                                                        aten::_to_copy         0.90%       2.119ms        10.69%      25.064ms      21.757us       0.000us         0.00%      16.690ms      14.488us          1152  
+void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemv...         0.00%       0.000us         0.00%       0.000us       0.000us      16.372ms         6.35%      16.372ms     909.556us            18  
+void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16...         0.00%       0.000us         0.00%       0.000us       0.000us      15.218ms         5.91%      15.218ms      76.859us           198  
+void gemmSN_NN_kernel<float, 128, 2, 4, 8, 4, 4, false, cublasGemvT...         0.00%       0.000us         0.00%       0.000us       0.000us      14.951ms         5.80%      14.951ms     830.635us            18  
+void at::native::unrolled_elementwise_kernel<at::native::direct_cop...         0.00%       0.000us         0.00%       0.000us       0.000us      14.794ms         5.74%      14.794ms      21.440us           690  
+               ampere_bf16_s1688gemm_bf16_128x64_sliced1x2_ldg8_f2f_tn         0.00%       0.000us         0.00%       0.000us       0.000us      14.754ms         5.73%      14.754ms      68.308us           216  
+                                                             aten::cat         2.14%       5.019ms         8.27%      19.385ms      20.579us      12.225ms         4.75%      13.331ms      14.152us           942  
+void at::native::index_elementwise_kernel<128, 4, at::native::gpu_i...         0.00%       0.000us         0.00%       0.000us       0.000us       8.705ms         3.38%       8.705ms      96.720us            90  
+                                                          aten::conv1d         0.06%     150.436us         1.19%       2.781ms      51.506us       0.000us         0.00%       6.798ms     125.884us            54  
+                                                     aten::convolution         0.04%      97.019us         1.12%       2.631ms      48.720us       0.000us         0.00%       6.798ms     125.884us            54  
+----------------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 234.377ms
+Self CUDA time total: 257.631ms
