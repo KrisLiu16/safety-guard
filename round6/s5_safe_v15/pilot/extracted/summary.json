@@ -1,0 +1,95 @@
+{
+  "prompt_version": "guard-s5-safe-long-thinking-v1",
+  "words": 40,
+  "states": {
+    "complete": 35,
+    "failed": 5
+  },
+  "assistant_rows": 70,
+  "errors": {
+    "unsafe_reasoning:length": 5
+  },
+  "length_units_by_language_style": {
+    "en:helpful_reasoning_long": {
+      "p10": 622,
+      "p50": 702,
+      "p90": 872
+    },
+    "en:risk_reasoning_long": {
+      "p10": 598,
+      "p50": 738,
+      "p90": 841
+    },
+    "zh:helpful_reasoning_long": {
+      "p10": 847,
+      "p50": 1000,
+      "p90": 1354
+    },
+    "zh:risk_reasoning_long": {
+      "p10": 833,
+      "p50": 1020,
+      "p90": 1211
+    }
+  },
+  "quality_flags": {
+    "fiction_marker": 5
+  },
+  "by_shape": {
+    "context_check": {
+      "complete": 8,
+      "failed": 2
+    },
+    "draft_revise": {
+      "complete": 10
+    },
+    "interpretations": {
+      "complete": 9,
+      "failed": 1
+    },
+    "stepwise": {
+      "failed": 2,
+      "complete": 8
+    }
+  },
+  "by_source_group": {
+    "citizenlab/SVP": {
+      "complete": 4
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "complete": 4
+    },
+    "citizenlab/chinese-games": {
+      "failed": 1,
+      "complete": 3
+    },
+    "citizenlab/livestream": {
+      "complete": 3,
+      "failed": 1
+    },
+    "citizenlab/open-source": {
+      "complete": 4
+    },
+    "citizenlab/search": {
+      "complete": 4
+    },
+    "permissive/GFW补充词库.txt": {
+      "complete": 4
+    },
+    "permissive/houbb-sensitive-word-data": {
+      "complete": 4
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "complete": 2,
+      "failed": 2
+    },
+    "permissive/零时-Tencent.txt": {
+      "failed": 1,
+      "complete": 3
+    }
+  },
+  "synthetic_labels_are_gold": false,
+  "judge_verified": false,
+  "run_no": "aster-dev-287",
+  "run_status": "completed",
+  "archives": 40
+}

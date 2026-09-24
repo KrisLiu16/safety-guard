@@ -1,0 +1,29 @@
+{
+  "prompt_version": "guard-judge-domestic-v3.1",
+  "items": 140,
+  "tasks": 35,
+  "words": 35,
+  "kinds": {
+    "safe_whole": 70,
+    "safe_mid_prefix": 70
+  },
+  "source_groups": {
+    "permissive/网易前端过滤敏感词库.txt": 8,
+    "citizenlab/open-source": 16,
+    "permissive/零时-Tencent.txt": 12,
+    "permissive/GFW补充词库.txt": 16,
+    "citizenlab/livestream": 12,
+    "citizenlab/search": 16,
+    "citizenlab/TOM-Skype--Sina-UC": 16,
+    "citizenlab/SVP": 16,
+    "permissive/houbb-sensitive-word-data": 16,
+    "citizenlab/chinese-games": 12
+  },
+  "source": "round6/s5_safe_v15/pilot/extracted/examples.jsonl",
+  "sha256": {
+    "pipeline": "b5028924c3e927a415d370d084d0d45df9048f9e81e3ba33ba9d57f715cc671b",
+    "flow": "6a53f0bd97abad271908a359cd4ae7bca2f3e93f8ece90d9bb4f83337cad0cd9",
+    "taxonomy": "e29bf17ab6b3d34a20ad020493abab45b33e17791a36ce548f4d331a8739a297",
+    "system_prompt": "367c136b102e50b80cce84ef447e821e97d7b78ef0bef03e25bcc9e0aff5d37d"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "prompt_version": "guard-s5-safe-long-thinking-v1",
+  "words": 40,
+  "tasks": 40,
+  "excluded_task_keys": 60,
+  "unsafe_prompt_language": {
+    "en": 21,
+    "zh": 19
+  },
+  "shapes": {
+    "context_check": 10,
+    "draft_revise": 10,
+    "interpretations": 10,
+    "stepwise": 10
+  },
+  "splits": {
+    "train": 40
+  },
+  "source_groups": {
+    "citizenlab/SVP": 4,
+    "citizenlab/TOM-Skype--Sina-UC": 4,
+    "citizenlab/chinese-games": 4,
+    "citizenlab/livestream": 4,
+    "citizenlab/open-source": 4,
+    "citizenlab/search": 4,
+    "permissive/GFW补充词库.txt": 4,
+    "permissive/houbb-sensitive-word-data": 4,
+    "permissive/网易前端过滤敏感词库.txt": 4,
+    "permissive/零时-Tencent.txt": 4
+  },
+  "seeds_source": "/Users/liuzhihao/Work/safety-guard/round6/response_v14/batch_rest/seeds.jsonl",
+  "sha256": {
+    "pipeline": "022fe6bf919c6b48d0282c49855fc5d0f4fd7416f7ee6e30e272064d5b62a93b",
+    "flow": "c21774c88dfd0dcd34d95e34a0cfbfedb9b2da8ddd51dab2287f7f5ec24ab20e",
+    "schema": "6040c631e0ecfb68a22e63a824deafe687f247a5ae7652a5596c248c9185dcdb",
+    "system_prompt": "72e4850b4a035f1bb55f28664b3cc1f62e2e4013a46210657e7c64b575f9be50"
+  }
+}

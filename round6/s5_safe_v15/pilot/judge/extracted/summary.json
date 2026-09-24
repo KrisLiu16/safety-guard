@@ -1,0 +1,102 @@
+{
+  "run_no": "aster-dev-288",
+  "run_status": "completed",
+  "items": 140,
+  "judged": 140,
+  "failures": {},
+  "by_kind": {
+    "safe_whole": {
+      "safe": 69,
+      "unsafe": 1
+    },
+    "safe_mid_prefix": {
+      "safe": 70
+    }
+  },
+  "agreement_with_old_labels": {
+    "safe_mid_prefix": 1.0,
+    "safe_whole": 0.9857
+  },
+  "agreement_by_source_group": {
+    "citizenlab/SVP": {
+      "items": 16,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "items": 16,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/chinese-games": {
+      "items": 12,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/livestream": {
+      "items": 12,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/open-source": {
+      "items": 16,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 0.875
+      }
+    },
+    "citizenlab/search": {
+      "items": 16,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/GFW补充词库.txt": {
+      "items": 16,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/houbb-sensitive-word-data": {
+      "items": 16,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "items": 8,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/零时-Tencent.txt": {
+      "items": 12,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    }
+  },
+  "flips_old_safe_to_unsafe_by_source_group": {
+    "citizenlab/open-source": 1
+  },
+  "qwen_category": {
+    "PII": 1
+  },
+  "gbt_codes": {
+    "A.4.e": 1,
+    "A.4.f": 1
+  }
+}
