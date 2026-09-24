@@ -42,6 +42,7 @@
   compare_judges.py <试跑 labels.jsonl> <放量 labels.jsonl> --out ...
   ```
   报告 `label_agreement` 和 transitions。重叠部分只相差三类新边界和预筛降档。
+- **预筛的 `--source`**：Run A 提问定标签时带 `--screen`，`--source` 一律用 `round6/response_v14/batch_50k/extracted/trainable.jsonl`（带 `word`，覆盖第一阶段输入和 dev 的全部提问），不要用 `stage1_runA_v1.jsonl`。`apply_policy.py` 在预筛一个词都没对上时会报错。
 - 预期产物：可提交各目录的 `manifest.json`、`run_no.txt`、`extracted*/summary.json`、`labels*/summary.json`、`dataset_rm.json`，以及 `prefix_v2_user.manifest.json`。
 - 验收（试跑）：
   - 加上 luna 兜底后 `usable` ≥ 98%；

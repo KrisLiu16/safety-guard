@@ -231,6 +231,20 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(decide(facts([hit("B7", "writes")]))["stratum"], "non_redline_harm")
         self.assertEqual(decide(facts([hit("B6", "requests")]))["level"], "unsafe")
 
+    def test_screen_without_words_is_an_error(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            (tmp / "probes.jsonl").write_text(json.dumps({"sample_id": "s", "status": "safe", "response_chars": 2,
+                                                          "probes": [{"cut": 2, "facts": facts()}]}) + "\n")
+            (tmp / "screen.jsonl").write_text(json.dumps({"word": "XX词", "verdict": "insult"}, ensure_ascii=False) + "\n")
+            (tmp / "rows.jsonl").write_text(json.dumps({"sample_id": "s", "messages": [{"role": "user", "content": "问"},
+                                                                                     {"role": "assistant", "content": "答复"}]}) + "\n")
+            done = subprocess.run([sys.executable, str(HERE / "apply_policy.py"), str(tmp / "probes.jsonl"), "--screen",
+                                   str(tmp / "screen.jsonl"), "--source", str(tmp / "rows.jsonl"), "--out", str(tmp / "out")],
+                                  capture_output=True, text=True)
+            self.assertNotEqual(done.returncode, 0)
+            self.assertIn("matched no word", done.stderr)
+
     def test_switches(self):
         self.assertEqual(decide(facts(harm=True), {"non_redline_harm": "exclude"})["label"], "excluded")
         self.assertEqual(decide(facts([hit(act="topic_mention")]), {"topic_mention": "controversial"})["level"], "controversial")

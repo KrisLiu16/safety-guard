@@ -58,9 +58,9 @@
 
      **Run A 的两份要带上词表预筛**（POLICY 第 8 节 e：领导人名字变体的词义由 T012 判定）。T012 全量抽取完成后执行：
      ```bash
-     .venv/bin/python round6/redline_v1/apply_policy.py <同上两个 probes.jsonl> --screen round6/word_screen_v1/full/extracted/screen.jsonl --source round6/stage1_head/input_v1/stage1_runA_v1.jsonl --out round6/redline_v1/labels/runA_stage1
+     .venv/bin/python round6/redline_v1/apply_policy.py <同上两个 probes.jsonl> --screen round6/word_screen_v1/full/extracted/screen.jsonl --source round6/response_v14/batch_50k/extracted/trainable.jsonl --out round6/redline_v1/labels/runA_stage1
      ```
-     Run A dev 的 `--source` 用 `trainable.jsonl`。规则是：被判为侮辱称呼或传言短语的词，只要回答里原样写出，从第一次出现处起标“风险”。`summary.json` 的 `screen_overrides` 会列出改了多少条。
+     Run A dev 同样用 `trainable.jsonl`。第一阶段输入文件 `stage1_runA_v1.jsonl` 不带 `word`，预筛用不上，执行方已发现并更正；`apply_policy.py` 现在遇到这种情况会直接报错。规则是：被判为侮辱称呼或传言短语的词，只要回答里原样写出，从第一次出现处起标“风险”。`summary.json` 的 `screen_overrides` 会列出改了多少条。
 
      如果 T012 还没完成，就先不带 `--screen` 出标签，T018 v3 先不要开始。
 

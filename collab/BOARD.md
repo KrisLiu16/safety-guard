@@ -13,7 +13,7 @@
 | [T019](assignments/T019-onset-pilot.md) | 起点重定 pilot | 执行方 | 关闭：由 T020 取代，不执行 | — |
 | [T016](assignments/T016-r-slice-devcal.md) | R 切片：Run A dev/calibration 按 judge v3.2 重判 | 执行方 | 关闭：由 T020/T021 取代，不执行 | — |
 | [T020](assignments/T020-redline-pilot.md) | 红线标注 pilot：Run A dev 300 条 + prefix_v2 dev 100 条 | 执行方 | 完成：自动指标全过；人工核对剔除口径存疑后 91% / 100%；normal 零误判；每条平均 1.5 次调用。发现 R10 被滥用和 6 个口径边界 → 裁判 v4.1 | T001 ✓ |
-| [T021](assignments/T021-redline-full.md) | 红线标注放量（v2，裁判 v4.1）：先在 T020 的 400 条上复测 v4.1，再放量 Run A 第一阶段输入、Run A dev、prefix_v2 助手侧，约 5.9 万条 | 执行方 | 第 1 步复测现在做；放量需用户确认规模（约 DeepSeek 9.2 万次 + luna 8 千次） | T020 ✓ |
+| [T021](assignments/T021-redline-full.md) | 回答侧红线标注放量（裁判 v4.2）：Run A 第一阶段 37,056、Run A dev 5,188、prefix_v2 17,089 | 执行方 | 完成：可用 99.6–99.8%，normal 零误判，标签已拷到 PVC；4 个数据集删除时平台报错，待重试 | T020 ✓ |
 | T003 | 类别缺口统计：13 类红线在公开数据和 Run A 中各有多少样本 | 设计方 | 排队（用 T021 的标签统计） | T021 |
 | [T004](assignments/T004-probe-and-rules.md) | 线性探针（能否区分“复述有害请求”和“真有害”）+ T005 决策规则重拟合，一次 L20 前向（代码见 round6/probe/） | 执行方 | 完成。探针 AUC 0.995 对头 0.791（中英都成立）：区分信息在主干里，问题在读出头；只换决策规则压不下复述类误报 | T001 ✓ |
 | [T014](assignments/T014-probe-transfer.md) | 探针迁移检验：同一探针在 prefix_v2 和官方 thinking 集上是否仍好于头 | 执行方 | 完成。官方 thinking 流式 AUC 探针 0.889 对头 0.784；prefix_v2 上探针 0.839 反而低于头 0.903；Run A 上定的阈值不能迁移 → 第一阶段必须用混合数据重训头 | T004 ✓ |
@@ -30,7 +30,7 @@
 | [T022](assignments/T022-redline-estimate.md) | 不调裁判粗估现有数据里 13 类红线各有多少正例 | 执行方 | 完成：prefix_v2 train 6,684 条 unsafe 里，很可能是红线的只有 R13 251 条、R11 142 条；政治类、R7、R9、R10 基本为空；1,199 条不属于任何红线 | — |
 | T008 | 第六轮训练。第一阶段：冻结主干，用混合数据只重训读出头，混合校准集定阈值；设计见 round6/stage1_head/README.md | 设计方 | 拆成 T017（缓存）和 T018（训练和评测） | T014 ✓ |
 | [T017](assignments/T017-stage1-cache.md) | 第一阶段特征缓存：prefix_v2 训练集 + Run A 8,000 词，缓存头的输入和投影特征（推理，约 3–3.5 小时） | 执行方 | 待执行 | T001 ✓ |
-| [T018](assignments/T018-stage1-train-eval.md) | 第一阶段 v3：按红线标注给缓存位置写三类目标，训练 risk / full 两个变体，与现在的头在同一次评测里对比 | 执行方 | 训练已批准；等 T017 和 T021 | T017、T021 |
+| [T018](assignments/T018-stage1-train-eval.md) | 第一阶段 v3：按红线标注给缓存位置写三类目标，训练 risk / full 两个变体，与现在的头在同一次评测里对比 | 执行方 | 进行中：L20 作业 01:07 开始改标签 | T017 ✓、T021 ✓ |
 
 ## 不由设计方负责的事
 

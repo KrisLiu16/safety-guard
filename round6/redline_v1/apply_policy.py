@@ -188,6 +188,9 @@ def main():
             from make_tasks import prompt_rows
             rows = prompt_rows(rows)
         texts = {r["sample_id"]: (r["messages"][-1]["content"], r.get("word")) for r in rows}
+        if not any(word in screen for _, word in texts.values() if word):
+            # T021: stage1_runA_v1.jsonl carries no "word", so the screen silently did nothing
+            parser.error("--screen matched no word of --source; use rows that carry the word (e.g. Run A trainable.jsonl)")
     rows, summary = apply([read_jsonl(p) for p in args.probes], switches, screen, texts)
     summary["inputs"] = [str(p) for p in args.probes] + [str(p) for p in (args.screen, args.source) if p]
     args.out.mkdir(parents=True, exist_ok=True)
