@@ -1,5 +1,7 @@
 # 第六轮交接文档
 
+> **2026-09-24 起的协作方式见 [collab/README.md](../collab/README.md)，任务状态见 [collab/BOARD.md](../collab/BOARD.md)。执行方从 BOARD 里找“待执行”的任务单开始。**
+
 2026-09-24。写给接手第六轮的人。先读本文件，再读 [README.md](README.md)（第六轮计划与用户决定）和 [DATA_SPEC_v15.md](DATA_SPEC_v15.md)（数据规格）。更早的背景见仓库根目录的 `TRAINING_PLAN.md` 和 [第五轮复盘](../round5/DIAGNOSIS.md)。
 
 ## 1. 项目与硬规则
