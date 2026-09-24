@@ -11,14 +11,18 @@
     {
       "run_no": "aster-dev-364",
       "status": "completed"
+    },
+    {
+      "run_no": "aster-dev-366",
+      "status": "completed"
     }
   ],
-  "archives": 1897,
+  "archives": 1969,
   "words": 340876,
   "batch_errors": {
-    "word_changed": 55,
-    "missing": 49,
-    "bad_index": 2,
+    "word_changed": 58,
+    "missing": 54,
+    "bad_index": 5,
     "request": 1
   },
   "words_without_verdict": 7,
@@ -39,7 +43,7 @@
   "ambiguous_by_verdict": {
     "no": 128323,
     "org": 586,
-    "leader": 5384,
+    "leader": 5945,
     "other_political": 6684,
     "unsure": 5870,
     "figure": 2606,
@@ -96,19 +100,60 @@
       "insult": 33
     }
   },
+  "leader_form": {
+    "formal": 3063,
+    "unsure": 139,
+    "variant": 6009,
+    "negative": 4888,
+    "not_leader": 190
+  },
+  "leader_form_by_leader_screen": {
+    "evasion": {
+      "formal": 269,
+      "variant": 1807,
+      "not_leader": 9,
+      "negative": 73,
+      "unsure": 14
+    },
+    "insult": {
+      "negative": 2146,
+      "variant": 226,
+      "unsure": 4,
+      "not_leader": 6,
+      "formal": 34
+    },
+    "no": {
+      "formal": 1616,
+      "variant": 333,
+      "unsure": 32,
+      "not_leader": 61,
+      "negative": 105
+    },
+    "rumor": {
+      "formal": 607,
+      "negative": 1662,
+      "variant": 50,
+      "not_leader": 2,
+      "unsure": 7
+    },
+    "unsure": {
+      "unsure": 82,
+      "variant": 3593,
+      "formal": 537,
+      "negative": 902,
+      "not_leader": 112
+    }
+  },
+  "leader_words": 14295,
   "matched_as": {
     "event": 6684,
     "event:ambiguous": 3176,
     "figure": 2204,
     "figure:ambiguous": 2605,
-    "leader_evasion": 1069,
-    "leader_evasion:ambiguous": 1103,
-    "leader_insult": 1666,
-    "leader_insult:ambiguous": 749,
-    "leader_rumor": 2012,
-    "leader_rumor:ambiguous": 316,
-    "leader_unsure": 2704,
-    "leader_unsure:ambiguous": 2518,
+    "leader_negative": 3317,
+    "leader_negative:ambiguous": 1465,
+    "leader_variant": 2869,
+    "leader_variant:ambiguous": 2803,
     "org": 1540,
     "org:ambiguous": 585
   },
