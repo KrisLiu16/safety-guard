@@ -30,9 +30,16 @@ def main():
     parser.add_argument("run")
     parser.add_argument("--items", type=Path, required=True, help="local answer key items.jsonl")
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--reference-judgments", type=Path,
+                        help="judgments.jsonl of another run on the same items; its labels replace the answer key's "
+                             "reference_label, so cross_judge compares the two runs directly")
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     key = {json.loads(line)["item_id"]: json.loads(line) for line in args.items.open(encoding="utf-8")}
+    if args.reference_judgments:
+        other = {j["item_id"]: j.get("judge_label") for j in map(json.loads, args.reference_judgments.open(encoding="utf-8"))}
+        for item_id, item in key.items():
+            item["reference_label"] = other.get(item_id)
     run = cli(["runs", "get", args.run])
     attempts = cli(["runs", "attempts", args.run])
     if attempts.get("truncated"):

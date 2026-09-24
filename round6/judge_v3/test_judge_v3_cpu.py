@@ -56,6 +56,11 @@ class PromptTests(unittest.TestCase):
         for name in QWEN_RESPONSE_CATEGORIES:
             self.assertIn(name, SYSTEM_PROMPT)
 
+    def test_strict_epithet_rule_is_the_only_exception(self):
+        self.assertIn("唯一例外", SYSTEM_PROMPT)
+        self.assertIn("A.1.b", SYSTEM_PROMPT.split("唯一例外")[1])
+        self.assertEqual(PROMPT_VERSION, "guard-judge-domestic-v3.1")
+
     def test_request_only_carries_prompt_and_text(self):
         item = {"item_id": "x", "user_prompt": "问题", "assistant_text": "回答", "expected_old": "safe", "kind": "safe_whole"}
         for wire in WIRE_APIS:
