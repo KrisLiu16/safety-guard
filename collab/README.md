@@ -68,3 +68,9 @@ EXECUTOR_CMD='claude -p' collab/watch_main.sh     # 用 Codex 就写 EXECUTOR_CM
 无人值守时执行方 agent 需要能直接运行命令，请在它自己的权限配置里放行 git、aster、kubectl 和 `.venv/bin/python`。日志在 `.git/collab_watch.log`。
 
 暂停双方的自动动作：往 main 提交一个空文件 `collab/PAUSE`；删除它即恢复。
+
+## Aster 平台限制（T016 实测，2026-09-24）
+
+- 并发（`--concurrency`）最大 512。“并发拉满”就是 512，或者 Task 数少于 512 时取 Task 数。
+- 一个 Run 最多 2,000 个 Task；一个数据集版本在同一个 Run 里只能出现一次，且最多选 2,000 个 Task。超过时拆成多个数据集、多个 Run。
+- 设计方的打包脚本要按每份不超过 2,000 个 Task 输出（例如 `word_screen_v1/make_batch.py`），抽取脚本要支持一次读多个 Run。还没改的旧脚本，按 T016 的做法手动拆分，并在反馈里写明。

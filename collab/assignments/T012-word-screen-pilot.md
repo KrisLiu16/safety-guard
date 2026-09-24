@@ -1,11 +1,11 @@
 # T012 词表预筛：v4 复测，通过后全量
 
-- 版本：v4（修订：v3 复测召回 24/26，漏掉的是同样两个前任常委的谐音，两遍都判 no。v4 增加第三遍“是/否”问法（v1 的问题加 v3 的范围），并允许人工标注覆盖模型结论。门槛调整见第 4 步。第 1–2 步已做过的不用重做，从第 3 步开始）
+- 版本：v5（修订：只改第 5 步。全量超过平台单个 Run 2,000 个 Task 的上限，make_batch 现在按每份不超过 2,000 个 Task 打包，每份一个 Run；抽取脚本一次接受多个 Run。如果 v4 的第 3–4 步已经做完，直接从第 5 步开始；单测现在是 12 项）
 - 目标：确认 v2 的分类与执行方 v1 的人工核对一致，然后对 Run A 和 Run B 的全部词做一次预筛，供 S2 放量（T013）、S5 安全一半放量（T015）、Run A 训练集清理和 R 切片重判使用。设计说明见 [round6/word_screen_v1/README.md](../../round6/word_screen_v1/README.md) 的 v2 一节。
 - 依赖：T012 v1 完成（已完成）。
 - 输入：`round6/word_screen_v1/`；Mac 上的 Run A 和 Run B 种子；本地 `known_positives.txt`（与 v1 相同）。
 - 步骤：
-  1. 单测：`.venv/bin/python -m unittest round6/word_screen_v1/test_word_screen_cpu.py`，11 项全过。
+  1. 单测：`.venv/bin/python -m unittest round6/word_screen_v1/test_word_screen_cpu.py`，12 项全过。
   2. 按 v1 的人工核对，在 Mac 上写本地文件 `round6/word_screen_v1/manual_labels.tsv`，一行一个词，格式是“词<TAB>标签”：
      - v1 里 32 个 yes/unsure 词：A 类标 `insult`，B 类标 `evasion`，C 类标 `no`；
      - 随机看过的 100 个政治类 no 词：明确漏判的那个标 `rumor`，边界的那个标 `borderline`，其余 98 个标 `no`。
@@ -32,13 +32,13 @@
      ```bash
      .venv/bin/python round6/word_screen_v1/make_batch.py --output round6/word_screen_v1/full
      ```
-     （默认读 Run A 和 Run B 两个种子文件，每个不同的词判一次，约 1,700 个 Task。）提交方式同第 3 步，并发拉满。Task 超过 100 个，抽取前先冻结 attempt 列表：
+     默认读 Run A 和 Run B 两个种子文件，每个不同的词判一次（两遍分类加一遍是/否，约 5,100 个 Task）。因为平台限制每个 Run 最多 2,000 个 Task，输出会是 `screen_part0.tar.gz`、`screen_part1.tar.gz`……每份不超过 2,000 个 Task，manifest 的 `archives` 列出每份的 Task 数。**每份单独上传为一个数据集、单独提交一个 Run**（luna，`--flow round6/word_screen_v1/flow`，尝试 1 次，并发 512），run_no 按份存到 `full/run_no_part<N>.txt`。每个 Run 都先冻结 attempt 列表，再一次性抽取：
      ```bash
-     .venv/bin/python round6/response_v14/freeze_attempts.py <run_no> --out round6/word_screen_v1/full/attempts.json --expected-samples <Task 数>
-     .venv/bin/python round6/word_screen_v1/extract_screen.py <run_no> --words round6/word_screen_v1/full/words.jsonl --out round6/word_screen_v1/full/extracted --attempts-json round6/word_screen_v1/full/attempts.json --manual round6/word_screen_v1/manual_labels.tsv
+     .venv/bin/python round6/response_v14/freeze_attempts.py <run_no_N> --out round6/word_screen_v1/full/attempts_part<N>.json --expected-samples <第 N 份的 Task 数>
+     .venv/bin/python round6/word_screen_v1/extract_screen.py <run_no_0> <run_no_1> ... --words round6/word_screen_v1/full/words.jsonl --out round6/word_screen_v1/full/extracted --attempts-json round6/word_screen_v1/full/attempts_part0.json round6/word_screen_v1/full/attempts_part1.json ... --manual round6/word_screen_v1/manual_labels.tsv
      ```
-     全量同样两遍分类加一遍是/否（约 5,100 个 Task），抽取时同样加 `--manual`。全量数据集属于正式放量，**不删除**。
-- 预期产物：可提交 `pilot_v4/manifest.json`、`pilot_v4/run_no.txt`、`pilot_v4/extracted/summary.json`、`pilot_v4/dataset_rm.json`、`full/manifest.json`、`full/run_no.txt`、`full/extracted/summary.json`。`screen.jsonl`、`words.jsonl`、`manual_labels*.tsv`、`known_positives.txt`、`attempts.json`、归档都含词本身或账号信息，不提交。
+     （run_no 和 attempts 文件按同样的顺序给。）全量数据集属于正式放量，**不删除**。
+- 预期产物：可提交 `pilot_v4/manifest.json`、`pilot_v4/run_no.txt`、`pilot_v4/extracted/summary.json`、`pilot_v4/dataset_rm.json`、`full/manifest.json`、`full/run_no_part*.txt`、`full/extracted/summary.json`。`screen.jsonl`、`words.jsonl`、`manual_labels*.tsv`、`known_positives.txt`、`attempts.json`、归档都含词本身或账号信息，不提交。
 - 验收：第 4 步的门槛；全量 missing ≤ 1%。
 - 需要用户决定：无（放量规则已定）。rumor 和 evasion 是否改标为 unsafe 是另一件事，不影响本任务。
 - 反馈里必须报告：

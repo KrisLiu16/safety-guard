@@ -19,10 +19,10 @@
 |---|---|
 | `flow/pipeline.py` | 提示词、schema、请求体（responses 和 chat_completions 两种接口）、逐条校验（index 和词必须原样返回） |
 | `flow/flow.py` | 一个 Task 是一批 200 个词，只请求一次，不在 flow 内重试 |
-| `make_batch.py` | 全量模式：Run A 和 Run B 的全部不同词各判一次。pilot 模式：按来源组抽 N 个词，再加上本地已知阳性清单 |
+| `make_batch.py` | 全量模式：Run A 和 Run B 的全部不同词各判一次。pilot 模式：按来源组抽 N 个词，再加上本地已知阳性清单。超过 2,000 个 Task 时按份打包，每份一个 Run |
 | `extract_screen.py` | 与本地词索引对齐，输出每个词的结论、各来源组计数、已知阳性的召回；没拿到结论的词单独列出，后续补判 |
 | `compare_manual.py` | 与本地人工标注对照，只输出计数 |
-| `test_word_screen_cpu.py` | 11 项 CPU 单测 |
+| `test_word_screen_cpu.py` | 12 项 CPU 单测 |
 
 `known_positives.txt` 是本地文件，一行一个已知阳性词，只在执行方的 Mac 上。它已写进 `.gitignore`，**不能提交**：仓库是公开的。
 

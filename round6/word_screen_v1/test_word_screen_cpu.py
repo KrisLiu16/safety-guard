@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
@@ -91,12 +92,32 @@ class BatchAndJoinTests(unittest.TestCase):
             self.assertTrue(all([k.split("-")[1] for k in e["batch_keys"]] == ["p0", "p1", "b0"] for e in entries))
             modes = {json.loads(t.read_text())["mode"] for t in (out / "tasks").glob("screen-b0-*/instruction.md")}
             self.assertEqual(modes, {"binary"})
+            self.assertEqual(manifest["archives"], {"screen.tar.gz": 6})
             first = {e["word"]: e["batch_keys"] for e in entries}
             neighbours = collections.defaultdict(set)
             for e in entries:
                 neighbours[tuple(first[e["word"]])].add(e["word"])
             self.assertGreater(len(neighbours), 2)           # passes regroup words, not the same batches twice
             for instruction in (out / "tasks").glob("*/instruction.md"):
+                for word in json.loads(instruction.read_text())["words"]:
+                    self.assertEqual(set(word), {"word"})
+
+    def test_large_screens_split_into_run_sized_archives(self):
+        import make_batch
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(make_batch, "PART_TASKS", 4), \
+                mock.patch.object(make_batch, "BATCH_WORDS", 50):
+            tmp = Path(tmp)
+            seeds = tmp / "seeds.jsonl"
+            seeds.write_text("\n".join(json.dumps({"task_key": f"k{i}", "word": f"词{i}", "source_group": "g"}, ensure_ascii=False)
+                                       for i in range(300)) + "\n", encoding="utf-8")
+            with mock.patch.object(sys, "argv", ["make_batch.py", "--seeds", str(seeds), "--output", str(tmp / "full")]), \
+                    mock.patch("builtins.print"):
+                make_batch.main()
+            manifest = json.loads((tmp / "full/manifest.json").read_text())
+            self.assertEqual(manifest["tasks"], 18)          # 300 words / 50 per batch x 3 passes
+            self.assertEqual(manifest["archives"], {"screen_part0.tar.gz": 4, "screen_part1.tar.gz": 4, "screen_part2.tar.gz": 4,
+                                                    "screen_part3.tar.gz": 4, "screen_part4.tar.gz": 2})
+            for instruction in (tmp / "full" / "tasks").glob("*/instruction.md"):
                 for word in json.loads(instruction.read_text())["words"]:
                     self.assertEqual(set(word), {"word"})
 

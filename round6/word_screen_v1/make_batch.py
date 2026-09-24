@@ -21,6 +21,7 @@ from pipeline import BINARY_PROMPT, PROMPT_VERSION, SYSTEM_PROMPT  # noqa: E402
 DEFAULT_SEEDS = (ROOT.parent / "response_v14/batch_50k/seeds.jsonl", ROOT.parent / "response_v14/batch_rest/seeds.jsonl")
 SALT = "word-screen-v1"
 BATCH_WORDS = 200
+PART_TASKS = 2000   # Aster: at most 2,000 Tasks per Run and per dataset version in a Run
 
 
 def number(text):
@@ -95,15 +96,20 @@ def main():
             paths.append(task)
             for e in ordered[start:start + BATCH_WORDS]:
                 e.setdefault("batch_keys", []).append(key)
-    with tarfile.open(args.output / "screen.tar.gz", "w:gz") as archive:
-        for task in paths:
-            archive.add(task, arcname=task.name)
+    # One archive per Run: a single screen.tar.gz when it fits, otherwise screen_partN.tar.gz of <= PART_TASKS each.
+    parts = [paths[i:i + PART_TASKS] for i in range(0, len(paths), PART_TASKS)]
+    names = ["screen.tar.gz"] if len(parts) == 1 else [f"screen_part{i}.tar.gz" for i in range(len(parts))]
+    for name, part in zip(names, parts):
+        with tarfile.open(args.output / name, "w:gz") as archive:
+            for task in part:
+                archive.add(task, arcname=task.name)
     with (args.output / "words.jsonl").open("w", encoding="utf-8") as handle:     # local index, not uploaded
         for e in entries:
             handle.write(json.dumps(e, ensure_ascii=False) + "\n")
     manifest = {"prompt_version": PROMPT_VERSION, "mode": "pilot" if args.pilot else "full", "words": len(entries),
                 "known_positives": sum(e["known_positive"] for e in entries), "tasks": len(paths), "passes": args.passes,
                 "binary_passes": args.binary_passes,
+                "archives": {name: len(part) for name, part in zip(names, parts)},
                 "batch_words": BATCH_WORDS, "seed_rows": len(rows),
                 "sha256": {"pipeline": hashlib.sha256((ROOT / "flow/pipeline.py").read_bytes()).hexdigest(),
                            "flow": hashlib.sha256((ROOT / "flow/flow.py").read_bytes()).hexdigest(),

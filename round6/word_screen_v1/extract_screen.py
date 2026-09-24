@@ -91,31 +91,41 @@ def join(index_rows, batch_values, manual=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("run")
+    parser.add_argument("runs", nargs="+", help="one or more run numbers (a screen over 2,000 Tasks is split into several Runs)")
     parser.add_argument("--words", type=Path, required=True, help="words.jsonl written by make_batch.py")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--manual", type=Path,
                         help="local hand labels (word<TAB>label, git-ignored); they override the model verdict")
-    parser.add_argument("--attempts-json", type=Path,
-                        help="frozen listing from response_v14/freeze_attempts.py when the run has over 100 samples")
+    parser.add_argument("--attempts-json", type=Path, nargs="*", default=[],
+                        help="frozen listings from response_v14/freeze_attempts.py, one per run, in the same order; "
+                             "needed for any run with over 100 Tasks")
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
-    run = cli(["runs", "get", args.run])
-    listing = json.loads(args.attempts_json.read_text()) if args.attempts_json else cli(["runs", "attempts", args.run])
-    if listing.get("truncated"):
-        raise RuntimeError("attempt listing truncated; freeze it first (response_v14/freeze_attempts.py)")
+    if args.attempts_json and len(args.attempts_json) != len(args.runs):
+        raise ValueError("give one --attempts-json per run, in the same order, or none")
     archives_dir = args.out / "archives"
     archives_dir.mkdir(exist_ok=True)
-    archives = []
-    for attempt in listing["items"]:
-        if attempt.get("state") != "completed" or not attempt.get("archive"):
-            continue
-        path = archives_dir / (attempt["attempt_id"] + ".tar.gz")
-        if not path.exists():
-            receipt = cli(["runs", "archive", args.run, attempt["attempt_id"], "--out", str(path)])
-            if hashlib.sha256(path.read_bytes()).hexdigest() != receipt["sha256"]:
-                raise RuntimeError("archive SHA mismatch " + attempt["attempt_id"])
-        archives.append(path)
+    archives, runs = [], []
+    for position, run_no in enumerate(args.runs):
+        run = cli(["runs", "get", run_no])
+        runs.append({"run_no": run.get("run_no"), "status": run.get("status")})
+        if args.attempts_json:
+            listing = json.loads(args.attempts_json[position].read_text())
+            if listing.get("run_id") != run.get("id"):
+                raise RuntimeError(f"attempts listing {position} belongs to {listing.get('run_id')}, not {run.get('id')}")
+        else:
+            listing = cli(["runs", "attempts", run_no])
+        if listing.get("truncated"):
+            raise RuntimeError("attempt listing truncated; freeze it first (response_v14/freeze_attempts.py)")
+        for attempt in listing["items"]:
+            if attempt.get("state") != "completed" or not attempt.get("archive"):
+                continue
+            path = archives_dir / (attempt["attempt_id"] + ".tar.gz")
+            if not path.exists():
+                receipt = cli(["runs", "archive", run_no, attempt["attempt_id"], "--out", str(path)])
+                if hashlib.sha256(path.read_bytes()).hexdigest() != receipt["sha256"]:
+                    raise RuntimeError("archive SHA mismatch " + attempt["attempt_id"])
+            archives.append(path)
     index_rows = [json.loads(line) for line in args.words.open(encoding="utf-8")]
     manual = None
     if args.manual:
@@ -124,7 +134,7 @@ def main():
         if unknown:
             raise ValueError(f"unknown manual labels {sorted(unknown)}")
     rows, summary = join(index_rows, batches(archives), manual)
-    summary.update(run_no=run.get("run_no"), run_status=run.get("status"), archives=len(archives))
+    summary.update(runs=runs, archives=len(archives))
     with (args.out / "screen.jsonl").open("w", encoding="utf-8") as handle:
         for row in rows:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
