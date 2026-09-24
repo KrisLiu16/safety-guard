@@ -182,3 +182,22 @@ summary（`by_source_group` 以外的部分）：
 - T016 主裁判两个 Run 在此之前已经结束：`aster-dev-292` 1,281/1,281 成功；`aster-dev-293` 1,224/1,280 成功，56 个在约 16:55 平台宕机时中断（`LEASE_EXPIRED`，没有归档）。这 56 个是否重跑、两个 Run 的抽取，等平台恢复、用户同意造数后再做；已下载并校验了 305 个归档。
 - Run B 上传暂停在第 1,760/1,943 个（`resume_upload_only.sh` 可以续传）。
 - 不受影响：T017 在 L20 上继续，T018 在 T017 验收通过后开始。
+
+## 重新提交全量（2026-09-24 19:59）
+
+- 用户 19:57 确认平台已恢复（“数据这边ok了 可以开始造”），并要求：
+  > 按你的建议来，T012 重新提交
+
+  重提的目的，是让红线口径 POLICY 第 8 节 e 条的领导人名字变体写法有词义判定可用。
+- **沿用原来的数据集。** 3 个全量数据集版本都还在，每份各重新提交一个 Run，参数与任务单 v5 第 5 步相同：luna，`--flow round6/word_screen_v1/flow`，尝试 1 次，并发 512。
+- **换了新的 idempotency key。** 用 `t012-full-part<N>-r2`，避免重放已取消的 Run。
+- **检查都通过了。** 提交前 `aster runs plan` 通过，没有 blocking。提交后，平台快照与本地 `flow/` 逐字一致，与第一次提交时的快照也一致。
+
+| 份 | Task | 新 Run | 已取消的旧 Run |
+|---|---:|---|---|
+| part0 | 2,000 | `aster-dev-313` | `aster-dev-298` |
+| part1 | 2,000 | `aster-dev-314` | `aster-dev-299` |
+| part2 | 1,115 | `aster-dev-315` | `aster-dev-300` |
+
+- `full/run_no_part<N>.txt` 已改为新 Run，旧 Run 号保留在 `full/run_no_part<N>_canceled.txt`。
+- 跑完后按任务单冻结每个 Run 的 attempt 列表，再一次性抽取，然后更新本文件。
