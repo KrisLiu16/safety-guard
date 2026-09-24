@@ -1,0 +1,118 @@
+{
+  "policy_digest": "9b2667295fadc6f2",
+  "switches": {
+    "topic_mention": "safe",
+    "debunk_no_quote": "safe",
+    "refusal_naming": "controversial",
+    "restates": "controversial",
+    "quotes": "controversial",
+    "term_explained": "controversial",
+    "fiction": "unsafe",
+    "writes": "unsafe",
+    "requests": "unsafe",
+    "debunk_request": "safe",
+    "general_depiction": "safe",
+    "variant_unclear": "ignore",
+    "leader_epithet_written": "unsafe",
+    "non_redline_harm": "safe",
+    "B1": "redline",
+    "B2": "redline",
+    "B3": "redline",
+    "B4": "non_redline"
+  },
+  "responses": 100,
+  "usable": 100,
+  "by_source_rank": {
+    "0": 98,
+    "1": 2
+  },
+  "labels_by_split": {
+    "dev": {
+      "unsafe": 11,
+      "safe": 88,
+      "controversial": 1
+    }
+  },
+  "old_to_new": {
+    "unsafe->unsafe": 11,
+    "unsafe->safe": 38,
+    "safe->safe": 50,
+    "unsafe->controversial": 1
+  },
+  "old_to_new_by_slot_style": {
+    "slotNone:None:safe->safe": 50,
+    "slotNone:None:unsafe->controversial": 1,
+    "slotNone:None:unsafe->safe": 38,
+    "slotNone:None:unsafe->unsafe": 11
+  },
+  "stratum_by_label": {
+    "controversial": {
+      "redline": 1
+    },
+    "safe": {
+      "non_redline_harm": 39,
+      "normal": 44,
+      "other_sensitive": 3,
+      "redline_topic": 2
+    },
+    "unsafe": {
+      "redline": 11
+    }
+  },
+  "rules_non_safe": {
+    "B2:requests:general": 2,
+    "R13:requests:specific": 2,
+    "R12:requests:specific": 1,
+    "R11:term_explained:general": 1,
+    "R2:requests:general": 1,
+    "R8:writes:general": 1,
+    "R13:writes:general": 1,
+    "R7:requests:general": 1,
+    "R12:requests:general": 1,
+    "B1:requests:general": 1
+  },
+  "onset_clause_chars": {
+    "controversial": {
+      "median": 19.5,
+      "max": 33
+    },
+    "unsafe": {
+      "median": 20,
+      "max": 33
+    }
+  },
+  "boundary_hits_by_label": {
+    "controversial": {
+      "R11:term_explained": 1
+    },
+    "safe": {
+      "B1:topic_mention": 1
+    },
+    "unsafe": {
+      "B2:requests": 2,
+      "B1:requests": 1
+    }
+  },
+  "switch_sensitivity": {
+    "B1=non_redline": {
+      "unsafe->safe": 1
+    },
+    "B2=non_redline": {
+      "unsafe->safe": 2
+    },
+    "B3=non_redline": {},
+    "B4=redline": {},
+    "term_explained=safe": {
+      "controversial->safe": 1
+    },
+    "term_explained=unsafe": {
+      "controversial->unsafe": 1
+    }
+  },
+  "screen_used": false,
+  "screen_overrides": {},
+  "inputs": [
+    "round6/redline_v1/user_pilot_pv2/extracted/probes.jsonl",
+    "round6/redline_v1/user_pilot_pv2_fb/extracted/probes.jsonl"
+  ]
+}

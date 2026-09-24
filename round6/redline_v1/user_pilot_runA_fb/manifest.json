@@ -1,0 +1,29 @@
+{
+  "level_version": "guard-redline-levels-v1",
+  "judge_version": "guard-judge-redline-user-v1",
+  "target": "user",
+  "policy_digest": "9b2667295fadc6f2",
+  "source": "round6/response_v14/batch_50k/extracted/trainable.jsonl",
+  "source_sha256": "2c207b4e093254edf7237ed7b7459f783219fb5064858b4c2d866188097926de",
+  "splits": "all",
+  "responses": 11,
+  "tasks": 2,
+  "archives": {
+    "pilot.tar.gz": 2
+  },
+  "count": 0,
+  "by_split_label": {
+    "dev:safe": 6,
+    "dev:unsafe": 5
+  },
+  "by_slot_language": {
+    "None:en": 3,
+    "None:zh": 8
+  },
+  "sha256": {
+    "flow.py": "480e5e9190b3636bfbac3e43a60c9bd8b9cf0afd7470f69ec5b3844df3061a5a",
+    "levels.py": "3df149ea37e0f8eec44ed5fd6c58ef571a11c1fb0ba8a47aece175ede4eb9f35",
+    "pipeline.py": "bf8a261455e691bbc472a141ae3c0de56dcafa9b331022baaf870dd995042a67",
+    "policy.py": "762da8ce960ddc6816d452141c98af0d3b1521b703aeaa7e04b9139bf1ca8465"
+  }
+}
