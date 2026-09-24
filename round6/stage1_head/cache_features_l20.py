@@ -12,6 +12,11 @@ Sources and position labels (round6/stage1_head/README.md):
   s2, s5     optional extracted examples.jsonl files: every kept position safe
 The current assistant head's weights are saved next to the cache for warm starts. Integrity is the T004/T014
 check: captured rows cover the record and the risk head on the captured projection reproduces the runtime.
+
+--role user (T023) caches the user head instead, for prompt-side red-line retraining: prefix_v2 user-role records
+with their own anchors, and each distinct Run A prompt (one unsafe and one safe prompt per word) as a user-only
+record with up to 24 evenly spread positions, labelled with the old prompt label as a placeholder (red-line prompt
+labels replace it later, as relabel_cache.py does for the assistant). s2 / s5 are assistant-only and skipped.
 """
 from __future__ import annotations
 
@@ -36,9 +41,9 @@ PREFIX_CAL_INTERIOR = 8
 class Capture:
     """One record through the runtime; returns hidden and projection rows for the real positions."""
 
-    def __init__(self, torch, model, validated_prefixes):
-        self.torch, self.validated = torch, validated_prefixes
-        self.head = model.heads["assistant"]
+    def __init__(self, torch, model, validated_prefixes, role="assistant"):
+        self.torch, self.validated, self.role = torch, validated_prefixes, role
+        self.head = model.heads[role]
         self.captured, self.max_prob_diff = [], 0.0
         self.totals = collections.Counter()
         self.handle = self.head["projection"].register_forward_hook(
@@ -62,7 +67,7 @@ class Capture:
             raise ValueError(f"captured {hidden.shape[0]} rows for {n} real / {accounting['forward_tokens']} forward tokens")
         with torch.no_grad():
             recomputed = torch.softmax(self.head["risk"](projected[:n]).float(), dim=-1).cpu()
-        runtime = torch.tensor([[float(p) for p in row] for row in values["assistant"]])
+        runtime = torch.tensor([[float(p) for p in row] for row in values[self.role]])
         diff = float((recomputed - runtime).abs().max())
         self.max_prob_diff = max(self.max_prob_diff, diff)
         if diff > PROB_TOLERANCE:
@@ -113,13 +118,13 @@ def at(torch, tensor, positions):
     return tensor[torch.tensor(positions, device=tensor.device)]
 
 
-def cache_prefix_v2(torch, capture, data, output):
+def cache_prefix_v2(torch, capture, data, output, role="assistant"):
     stats = {}
     for split in ("train", "calibration"):
         writer = ShardWriter(output, "prefix_v2", split)
         for row in data[split]:
-            if row["target_role"] != "assistant":
-                continue          # stage 1 retrains the assistant readout only
+            if row["target_role"] != role:
+                continue          # one head per cache
             meta = {"sample_id": row["sample_id"], "family": row["family"], "language": row["language"],
                     "source_label": row["source_label"], "label_tier": row.get("label_tier")}
             if split == "train":
@@ -181,6 +186,42 @@ def cache_text_rows(torch, capture, fast, hf_tokenizer, rows, output, source):
     return stats
 
 
+def cache_prompt_rows(torch, capture, fast, hf_tokenizer, rows, output, source):
+    """Run A prompts for the user head: one record per distinct (word, prompt label), the user message alone."""
+    stats, skipped = {}, collections.Counter()
+    for split in ("train", "calibration"):
+        writer = ShardWriter(output, source, split)
+        seen = set()
+        for row in (r for r in rows if r.get("split") == split):
+            key = (row["task_key"], row["prompt_label"])
+            if key in seen:
+                continue
+            seen.add(key)
+            messages = [row["messages"][0]]
+            text = serialize(messages)
+            content_start = len(text) - len(messages[0]["content"])
+            encoding = fast.encode(text, add_special_tokens=False)
+            ids = list(encoding.ids)
+            if not 1 <= len(ids) <= 8192 or (callable(hf_tokenizer) and
+                                              list(hf_tokenizer(text, add_special_tokens=False)["input_ids"]) != ids):
+                skipped[split] += 1
+                continue
+            positions = [i for i, (_, end) in enumerate(encoding.offsets) if end > content_start]
+            keep = feature_positions(positions, "S" * len(positions))
+            if not keep:
+                skipped[split] += 1
+                continue
+            hidden, projection = capture(ids)
+            writer.add({"sample_id": f"{row['task_key']}:prompt:{row['prompt_label']}", "task_key": row["task_key"],
+                        "family": row.get("family"), "language": row["language"], "prompt_label": row["prompt_label"],
+                        "char_ends": [encoding.offsets[positions[k]][1] - content_start for k in keep]},
+                       at(torch, hidden, [positions[k] for k in keep]), at(torch, projection, [positions[k] for k in keep]),
+                       [int(row["prompt_label"] == "unsafe")] * len(keep), [1.0] * len(keep))
+        stats[split] = writer.close()
+    stats["skipped"] = dict(skipped)
+    return stats
+
+
 def read_jsonl(path):
     with Path(path).open(encoding="utf-8") as handle:
         return [json.loads(line) for line in handle if line.strip()]
@@ -193,11 +234,12 @@ def main(argv=None):
     parser.add_argument("--s2", type=Path, default=None, help="optional S2 extracted examples.jsonl")
     parser.add_argument("--s5", type=Path, default=None, help="optional S5-safe extracted examples.jsonl")
     parser.add_argument("--output", type=Path, default=Path("/work/output/round6/stage1_cache_v1"))
+    parser.add_argument("--role", choices=("assistant", "user"), default="assistant")
     options = parser.parse_args(argv)
     if options.output.exists():
         raise FileExistsError(options.output)
     options.output.mkdir(parents=True)
-    report = {"status": "running", "integrity_pass": False, "kind": "round6_stage1_feature_cache_v1",
+    report = {"status": "running", "integrity_pass": False, "kind": "round6_stage1_feature_cache_v1", "role": options.role,
               "script_sha256": sha(__file__), "training_performed": False, "generated_tokens": 0,
               "inputs": {name: sha(path) for name, path in (("runA", options.runA), ("s2", options.s2), ("s5", options.s5))
                          if path is not None}}
@@ -233,18 +275,24 @@ def main(argv=None):
         try:
             if runtime.engine_metadata["execution_contract"] != contract:
                 raise ValueError("runtime execution contract differs from the locked calibration")
-            init = {k: v.detach().cpu() for k, v in model.heads["assistant"].state_dict().items()}
-            torch.save(init, options.output / "head_assistant_init.pt")
+            role = options.role
+            init = {k: v.detach().cpu() for k, v in model.heads[role].state_dict().items()}
+            init_path = options.output / f"head_{role}_init.pt"
+            torch.save(init, init_path)
             report.update(device=device, head_keys=sorted(init), sources_before=cal.source_receipt(args),
-                          head_init_sha256=sha(options.output / "head_assistant_init.pt"), phase="prefix_v2")
+                          head_init_sha256=sha(init_path), phase="prefix_v2")
             save()
-            capture = Capture(torch, model, lambda ids: cal.validated_prefixes(runtime, ids, contract))
-            stats = {"prefix_v2": cache_prefix_v2(torch, capture, data, options.output)}
+            capture = Capture(torch, model, lambda ids: cal.validated_prefixes(runtime, ids, contract), role=role)
+            stats = {"prefix_v2": cache_prefix_v2(torch, capture, data, options.output, role=role)}
             report.update(stats=stats, max_prob_diff=capture.max_prob_diff, phase="runA")
             save()
-            stats["runA"] = cache_text_rows(torch, capture, fast, hf_tokenizer, read_jsonl(options.runA), options.output, "runA")
+            if role == "assistant":
+                stats["runA"] = cache_text_rows(torch, capture, fast, hf_tokenizer, read_jsonl(options.runA), options.output, "runA")
+            else:
+                stats["runA_prompts"] = cache_prompt_rows(torch, capture, fast, hf_tokenizer, read_jsonl(options.runA),
+                                                          options.output, "runA_prompts")
             for name, path in (("s2", options.s2), ("s5", options.s5)):
-                if path is not None:
+                if path is not None and role == "assistant":
                     report.update(stats=stats, phase=name)
                     save()
                     stats[name] = cache_text_rows(torch, capture, fast, hf_tokenizer, read_jsonl(path), options.output, name)

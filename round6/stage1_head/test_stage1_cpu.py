@@ -33,7 +33,7 @@ def fake_engine(model, signal=None):
     """validated_prefixes over random 16-d hidden states; tokens listed in `signal` get a shifted hidden state."""
     def validated(ids):
         n, physical = len(ids), 32 * -(-len(ids) // 32)
-        probs = []
+        probs = {"assistant": [], "user": []}
         with torch.no_grad():
             for start in range(0, physical, 32):
                 h = torch.randn(1, 32, 16)
@@ -41,9 +41,10 @@ def fake_engine(model, signal=None):
                     for k in range(32):
                         if start + k < n and ids[start + k] in signal:
                             h[0, k, 0] += 4.0
-                head = model.heads["assistant"]
-                probs.extend(torch.softmax(head["risk"](head["projection"](h)), -1)[0].tolist())
-        return ({"assistant": probs[:n], "user": probs[:n]},
+                for role, values in probs.items():          # each role's own head on the same hidden states
+                    head = model.heads[role]
+                    values.extend(torch.softmax(head["risk"](head["projection"](h)), -1)[0].tolist())
+        return ({role: values[:n] for role, values in probs.items()},
                 {"native_tokens": n, "forward_tokens": physical, "graph_calls": 0, "forward_calls": physical // 32})
     return validated
 
@@ -124,6 +125,32 @@ class CacheTests(unittest.TestCase):
             self.assertEqual(first["hidden"].shape[1], 16)
             self.assertEqual(first["projection"].shape[1], 512)
             self.assertIn(1, np.concatenate([s["label"] for s in shards]).tolist())
+        capture.close()
+
+    def test_user_role_prompts(self):
+        import cache_features_l20 as cache
+        model = fake_model()
+        capture = cache.Capture(torch, model, fake_engine(model), role="user")
+        rows = runA_rows("train", 2) + runA_rows("calibration", 1)
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            stats = cache.cache_prompt_rows(torch, capture, Fast(), None, rows, tmp, "runA_prompts")
+            self.assertEqual((stats["train"]["records"], stats["calibration"]["records"]), (4, 2))   # 2 prompts per word
+            records = json.loads((tmp / "cache_runA_prompts_train_records.json").read_text())
+            self.assertEqual({r["sample_id"] for r in records},
+                             {"train0:prompt:unsafe", "train0:prompt:safe", "train1:prompt:unsafe", "train1:prompt:safe"})
+            data = np.load(tmp / "cache_runA_prompts_train_000.npz")
+            self.assertEqual(sum(len(r["char_ends"]) for r in records), len(data["label"]))
+            self.assertEqual(records[0]["char_ends"][-1], 10)                  # the prompt is 10 characters
+            data_user = [{"sample_id": "u1", "family": "f", "language": "zh", "target_role": "user", "source_label": "unsafe",
+                          "weight": 1.0, "ids": list(range(30)), "anchors": [],
+                          "augmentation": {"ids": list(range(35)), "anchors": [{"token_end_exclusive": 35, "label": 1, "confidence": 1.0}]}},
+                         {"sample_id": "a1", "family": "g", "language": "zh", "target_role": "assistant", "source_label": "safe",
+                          "weight": 1.0, "ids": list(range(30)), "anchors": [],
+                          "augmentation": {"ids": list(range(35)), "anchors": [{"token_end_exclusive": 35, "label": 0, "confidence": 1.0}]}}]
+            stats = cache.cache_prefix_v2(torch, capture, {"train": data_user, "calibration": []}, tmp, role="user")
+            self.assertEqual(stats["train"]["records"], 1)                    # only the user-role record
+        self.assertLess(capture.max_prob_diff, 1e-5)                           # the user head reproduced its runtime
         capture.close()
 
 
