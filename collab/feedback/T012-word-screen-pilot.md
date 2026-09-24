@@ -201,3 +201,12 @@ summary（`by_source_group` 以外的部分）：
 
 - `full/run_no_part<N>.txt` 已改为新 Run，旧 Run 号保留在 `full/run_no_part<N>_canceled.txt`。
 - 跑完后按任务单冻结每个 Run 的 attempt 列表，再一次性抽取，然后更新本文件。
+
+## part2 改用 SDK 4.3 重新提交（21:35）
+
+- **原因**：平台 Worker 升级到 host interface 4.3。`aster-dev-315`（part2，冻结的 SDK 是 4.2）完成 287 个 Task 后，其余 Task 一直领不到 Worker。同一时段另一个 4.2 的 Run 报的是 `HostInterfaceUnsupported`，详见 T021 反馈。
+- **处理**：用户指示“你的重新用新版sdk起 sdk升级到了4.3”。执行方在 21:34 取消了 315（回执在 `full/cancel_aster-dev-315.json`），然后在同一个 part2 数据集上重新提交了 `aster-dev-332`：
+  - SDK 4.3，luna，尝试 1 次，并发 512，高优先级；
+  - 1,115 个 Task 全部重跑，平台快照与本地逐字一致。
+- **part0 和 part1 保留**：`aster-dev-313`、`aster-dev-314` 在 4.2 下已经跑完，都是 2,000/2,000、0 失败。抽取时用 313、314、332 三个 Run。
+- `full/run_no_part2.txt` 已改为 `aster-dev-332`，旧的 315 保存在 `run_no_part2_sdk42_canceled.txt`。

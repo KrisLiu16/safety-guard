@@ -154,3 +154,22 @@ prefix_v2：
   - `aster-dev-326`：full_runA_stage1。
   - `aster-dev-327`：full_runA_dev。
   - full_pv2：`datasets add` 先报 `INTERNAL_ERROR`，之后在同一个草稿上重传，又连续报 `DATABASE_UNAVAILABLE`。执行方在后台每分钟重试一次，只重试同一个草稿，不新建数据集。成功后照同样的参数提交，并在本文件补上 run_no。
+
+## 平台 SDK 升级到 4.3，放量改用新 SDK 重新提交（21:35）
+
+- **现象**：`aster-dev-326` 从 21:29 起大量失败，错误码 `FLOW_SETUP_FAILED`。样本事件里写着 `HostInterfaceUnsupported`：“Worker 用的接口是 4.3，这份 SDK 的是 4.2”。
+  - 21:28 以前提交的 Run，冻结的 SDK 是 4.2（`host_interface` 4.2）。平台 Worker 升级到 4.3 以后，这些 Run 的 Task 在准备环境这一步就失败了，没有调用模型。
+  - 326 在 21:34 结束，成功 58、失败 260、取消 0，其余 Task 没有跑。
+  - 327 和 328 在平台上显示 completed，成功 0、canceled 分别为 260 和 855，执行方没有手动取消它们。
+- **用户指示**（21:34），原话：
+  > 你的重新用新版sdk起 sdk升级到了4.3
+- **重新提交**：数据集和参数都不变（DeepSeek，尝试 1 次，并发 `min(Task 数, 512)`，高优先级），用新的 idempotency key。新的 `runs plan` 显示 SDK `host_interface` 为 4.3。平台快照都与本地逐字一致。
+
+| 份 | Task | 新 Run（SDK 4.3） | 作废的 Run（SDK 4.2） |
+|---|---:|---|---|
+| full_runA_stage1 | 1,853 | `aster-dev-329` | `aster-dev-326` |
+| full_runA_dev | 260 | `aster-dev-330` | `aster-dev-327` |
+| full_pv2 | 855 | `aster-dev-331` | `aster-dev-328` |
+
+- 各目录的 `run_no.txt` 已改为新 Run，旧 Run 号保存在 `run_no_sdk42_failed.txt`。
+- 326 成功的 58 个 Task 不单独保留。新的 329 会把 1,853 个 Task 全部重跑，这样抽取时只用一个 Run，代价是多出约 1,160 条回答的 DeepSeek 调用。
