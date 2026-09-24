@@ -63,6 +63,11 @@
      Run A dev 的 `--source` 用 `trainable.jsonl`。规则是：被判为侮辱称呼或传言短语的词，只要回答里原样写出，从第一次出现处起标“风险”。`summary.json` 的 `screen_overrides` 会列出改了多少条。
 
      如果 T012 还没完成，就先不带 `--screen` 出标签，T018 v3 先不要开始。
+
+     **注意（2026-09-25 设计方补充）**：`6481dc4` 起，`apply_policy.py` 的预筛是双向的。预筛判为 no、evasion 或 unsure 的词，会去掉裁判标的领导人侮辱称呼（POLICY 8e）。
+     - Run A dev 的标签是在这之前出的，请用当前代码**重跑一次第 6 步**，覆盖 `labels/runA_dev`；
+     - Run A 第一阶段的标签直接用当前代码；
+     - 反馈里报告两份的 `screen_overrides`，现在会同时列出升档和降档。
   7. 把 `labels/runA_stage1/labels.jsonl` 和 `labels/prefix_v2/labels.jsonl` 拷到 PVC 的 `/work/round6/redline_v1/labels/` 下同名目录，用 `sha256sum` 核对。T018 v3 从这里读。
   8. 抽取完成后删除数据集（已定规则）。
 - 预期产物：可提交各目录的 `manifest.json`、`run_no.txt`、`extracted*/summary.json`、`labels/*/summary.json`、`compare_v4.json`、`dataset_rm.json`；其余不提交。
