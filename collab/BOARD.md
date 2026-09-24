@@ -25,7 +25,7 @@
 | [T015](assignments/T015-s5-safe-scale.md) | S5 安全一半放量 | 执行方 | 暂停：同 T013 | — |
 | [T007](assignments/T007-serving-v4.md) | 服务引擎 v4：fp16 状态 + 原地读注意力 + 分块调参 | 执行方 | v1、v2 完成：P95 ≤ 20 ms 时承载 208 个会话（v3 为 96），阈值 ≤ 0.9 时流式判决与整段前向完全一致。v3 待执行：空行不读写状态、会话档位加密，并在 prefix_v2 dev（一半 safe）上查判决 | — |
 | [T023](assignments/T023-user-head-cache.md) | 提问侧（用户头）特征缓存 | 执行方 | 完成：约 44 分钟；prefix_v2 27,456 条、Run A 提问 18,525 条；完整性检查通过 | — |
-| [T025](assignments/T025-user-head-train-eval.md) | 提问侧 v1：按提问侧红线标签给 T023 缓存写三类目标，训练用户头 risk / full 两个变体，与现在的用户头对比 | 执行方 | v1 停在 prefix_v2 train 的 2 条 ids 不一致的记录（55 个位置）→ v1.1 接受，重跑 | T023 ✓、T024 ✓ |
+| [T025](assignments/T025-user-head-train-eval.md) | 提问侧 v1：按提问侧红线标签给 T023 缓存写三类目标，训练用户头 risk / full 两个变体，与现在的用户头对比 | 执行方 | 完成（v1.1）：full 最好，但召回低（Run A 有争议 3.5–13%、风险 1.7–10%，prefix_v2 9–23%），流式 AUC Run A 0.77、prefix_v2 0.85；Run A normal 误报 0.1–1.4%（现在的头按新阈值不触发，都是 0）。与回答侧同样的读出上限问题，等 T028 的结论 | T023 ✓、T024 ✓ |
 | [T024](assignments/T024-redline-prompts.md) | 提问侧红线标注：裁判提问模式，先试跑，再放量约 3.9 万条提问 | 执行方 | 完成：user_runA_stage1 99.99%、user_runA_dev 100%、user_prefix_v2 99.90% 可用，标签已拷到 PVC | — |
 | [T022](assignments/T022-redline-estimate.md) | 不调裁判粗估现有数据里 13 类红线各有多少正例 | 执行方 | 完成：prefix_v2 train 6,684 条 unsafe 里，很可能是红线的只有 R13 251 条、R11 142 条；政治类、R7、R9、R10 基本为空；1,199 条不属于任何红线 | — |
 | T008 | 第六轮训练。第一阶段：冻结主干，用混合数据只重训读出头，混合校准集定阈值；设计见 round6/stage1_head/README.md | 设计方 | 拆成 T017（缓存）和 T018（训练和评测） | T014 ✓ |
