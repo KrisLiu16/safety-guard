@@ -18,7 +18,7 @@ import sys
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "flow"))
 from levels import RANK, monotonic  # noqa: E402
-from policy import decide, digest, resolve  # noqa: E402
+from policy import BOUNDARY_CODES, CHOICES, decide, digest, resolve  # noqa: E402
 
 FINISHED = ("safe", "excluded", "located")
 
@@ -37,9 +37,29 @@ def label_response(row, switches=None):
             cut = min(p["cut"] for p in probes if RANK[p["level"]] >= rank)
             prev = max([p["cut"] for p in probes if RANK[p["level"]] < rank and p["cut"] < cut], default=0)
             onsets[name] = {"prev_cut": prev, "cut": cut}
+    whole_facts = next(p["facts"] for p in row["probes"] if p["cut"] == row["response_chars"])
     return {"level": whole["level"], "label": whole["label"], "excluded": whole["excluded"],
             "stratum": whole["stratum"], "rules": whole["rules"], "onsets": onsets,
+            "boundary": sorted({f"{h['code']}:{h['act']}" for h in whole_facts["hits"]
+                                if h["code"] in BOUNDARY_CODES or h["act"] == "term_explained"}),
             "probes": [{"cut": p["cut"], "level": p["level"]} for p in probes]}
+
+
+def sensitivity(rows, switches=None):
+    """For each pending switch (boundary codes, term_explained): how many usable labels change if it is flipped."""
+    base = resolve(switches)
+    out = {}
+    for name in (*BOUNDARY_CODES, "term_explained"):
+        for value in CHOICES[name]:
+            if value == base[name]:
+                continue
+            changed = collections.Counter()
+            for row in rows:
+                before, after = label_response(row, switches), label_response(row, {**base, name: value})
+                if before is not None and after is not None and before["label"] != after["label"]:
+                    changed[f"{before['label']}->{after['label']}"] += 1
+            out[f"{name}={value}"] = dict(changed)
+    return out
 
 
 def apply(sources, switches=None):
@@ -54,13 +74,14 @@ def apply(sources, switches=None):
                 labelled = label_response(row, switches)
                 if labelled is not None:
                     chosen[row["sample_id"]] = (rank, labelled, row)
+    used_rows = [row for rank, labelled, row in chosen.values() if rank is not None]
     out = []
     for sample_id in order:
         rank, labelled, row = chosen[sample_id]
         key = {k: v for k, v in row.items() if k not in ("probes", "errors", "status", "clauses")}
         out.append({**key, "old_label": row.get("label"), "source_rank": rank,
                     **(labelled or {"level": None, "label": "unusable", "excluded": None, "stratum": None,
-                                    "rules": [], "onsets": {}, "probes": []})})
+                                    "rules": [], "onsets": {}, "boundary": [], "probes": []})})
     usable = [r for r in out if r["source_rank"] is not None]
     gaps = collections.defaultdict(list)
     for r in usable:
@@ -77,7 +98,11 @@ def apply(sources, switches=None):
                                     for label in sorted({r["label"] for r in usable})},
                "rules_non_safe": dict(collections.Counter(rule for r in usable if r["level"] != "safe"
                                                           for rule in r["rules"]).most_common()),
-               "onset_clause_chars": {k: {"median": statistics.median(v), "max": max(v)} for k, v in gaps.items()}}
+               "onset_clause_chars": {k: {"median": statistics.median(v), "max": max(v)} for k, v in gaps.items()},
+               "boundary_hits_by_label": {label: dict(collections.Counter(b for r in usable if r["label"] == label
+                                                                         for b in r["boundary"]))
+                                          for label in sorted({r["label"] for r in usable})},
+               "switch_sensitivity": sensitivity(used_rows, switches)}
     return out, summary
 
 

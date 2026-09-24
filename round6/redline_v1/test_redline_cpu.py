@@ -16,7 +16,7 @@ from levels import LEVEL_VERSION, clause_cuts, locate, monotonic, position_level
 from pipeline import (ACTS, PROMPT_VERSION, REDLINES, SYSTEM_PROMPT, WIRE_APIS, output_schema, parse,  # noqa: E402
                       request_body, response_text, stop_ok)
 from policy import DEFAULT_SWITCHES, decide, digest, resolve  # noqa: E402
-from apply_policy import apply, label_response  # noqa: E402
+from apply_policy import apply, label_response, sensitivity  # noqa: E402
 from extract_probes import join  # noqa: E402
 from compare_judges import compare  # noqa: E402
 from export_prefix_v2 import export  # noqa: E402
@@ -59,7 +59,7 @@ class ParseTests(unittest.TestCase):
 
 class PromptTests(unittest.TestCase):
     def test_prompt_covers_the_final_policy(self):
-        self.assertEqual(PROMPT_VERSION, "guard-judge-redline-v4")
+        self.assertEqual(PROMPT_VERSION, "guard-judge-redline-v4.1")
         self.assertEqual(list(REDLINES), [f"R{i}" for i in range(1, 14)])
         for code in REDLINES:
             self.assertIn(f"\n{code} ", SYSTEM_PROMPT)
@@ -71,13 +71,17 @@ class PromptTests(unittest.TestCase):
         self.assertIn("其他国家的领导人不算", r1)
         self.assertIn("热线", SYSTEM_PROMPT.split("\nR13 ")[1].split("\n")[0])
         self.assertIn("不属于红线", SYSTEM_PROMPT)
+        self.assertIn("冷知识、词源", SYSTEM_PROMPT.split("\nR10 ")[1].split("\n")[0])   # v4.1: R10 is public affairs only
+        for code in ("B1", "B2", "B3", "B4"):
+            self.assertIn(f"\n{code} ", SYSTEM_PROMPT)
+        self.assertIn("variant_unclear", SYSTEM_PROMPT.split("spelling：")[1].split("\n")[0])
 
     def test_schema_matches_parser(self):
         schema = output_schema()
         self.assertEqual(set(schema["required"]), set(schema["properties"]))
         item = schema["properties"]["hits"]["items"]
         self.assertEqual(set(item["required"]), set(item["properties"]))
-        self.assertEqual(len(item["properties"]["code"]["enum"]), 13)
+        self.assertEqual(len(item["properties"]["code"]["enum"]), 17)            # R1-R13 + B1-B4
         body = request_body("m", {"user_prompt": "问", "assistant_text": "答"}, "responses")
         self.assertTrue(body["text"]["format"]["strict"])
 
@@ -121,6 +125,27 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(decide(facts())["stratum"], "normal")
         self.assertEqual(decide(facts([hit(act="topic_mention")]))["stratum"], "redline_topic")
         self.assertEqual(decide(facts([hit()], harm=True))["stratum"], "redline")
+
+    def test_boundary_codes_and_term_explained(self):
+        self.assertEqual(self.level(hit("B1", "writes")), "unsafe")                # suggestion: drug trade counts
+        self.assertEqual(self.level(hit("B2", "restates")), "controversial")
+        b4 = decide(facts([hit("B4", "writes")]))
+        self.assertEqual((b4["level"], b4["stratum"]), ("safe", "non_redline_harm"))   # commercial defamation: outside
+        self.assertEqual(decide(facts([hit("B4", "topic_mention")]))["stratum"], "redline_topic")
+        self.assertEqual(decide(facts([hit("B1", "writes")]), {"B1": "non_redline"})["level"], "safe")
+        self.assertEqual(self.level(hit("R9", "term_explained")), "controversial")
+        self.assertEqual(decide(facts([hit("R9", "term_explained")]), {"term_explained": "safe"})["level"], "safe")
+        with self.assertRaises(ValueError):
+            resolve({"B1": "controversial"})
+
+    def test_sensitivity_counts_label_changes_per_pending_switch(self):
+        row = {"sample_id": "x", "status": "located", "response_chars": 20,
+               "probes": [{"cut": 10, "facts": facts()}, {"cut": 20, "facts": facts([hit("B1", "writes")])}]}
+        labelled = label_response(row)
+        self.assertEqual((labelled["label"], labelled["boundary"]), ("unsafe", ["B1:writes"]))
+        out = sensitivity([row])
+        self.assertEqual(out["B1=non_redline"], {"unsafe->safe": 1})
+        self.assertEqual(out["B4=redline"], {})
 
     def test_switches(self):
         self.assertEqual(decide(facts(harm=True), {"non_redline_harm": "exclude"})["label"], "excluded")
@@ -332,6 +357,8 @@ class FlowTests(unittest.TestCase):
         labelled, report = apply([rows])
         self.assertEqual([r["label"] for r in labelled], ["unsafe", "unsafe", "unusable"])
         self.assertEqual(report["old_to_new"], {"safe->unsafe": 2, "safe->unusable": 1})
+        self.assertEqual(report["switch_sensitivity"]["B1=non_redline"], {})       # no boundary hits in this text
+        self.assertEqual(labelled[0]["boundary"], [])
         # policy change without re-judging: restating becomes safe, so the controversial onset disappears
         relabelled, _ = apply([rows], {"restates": "safe"})
         self.assertEqual(relabelled[0]["level"], "unsafe")
