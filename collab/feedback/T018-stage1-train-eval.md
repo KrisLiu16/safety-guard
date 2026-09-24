@@ -1,17 +1,68 @@
-# T018 反馈（v3）：进行中
+# T018 反馈（v3）：按卡片第 2 步停下（dropped_offsets = 25）
 
 - 对应任务卡：T018 v3
-- 状态：**作业已提交，等 Run A 第一阶段的红线标签**。
+- 状态：**已停下，等设计方决定**。改标签和训练都已完成，评测刚开始就被执行方中止。原因是 prefix_v2 train 的 `dropped_offsets` 为 25，不是 0；卡片要求不为 0 时停下报告。
 - 单测：`test_stage1_cpu.py` 和 `test_redline_stage1_cpu.py` 共 14 项，全过。
-- 2026-09-24 23:59 `kubectl apply -f round6/stage1_head/worker_redline_v2.yaml`。
-  - Job 为 `safety-guard-stage1-redline-v2-r1`，Pod 为 `safety-guard-stage1-redline-v2-r1-8sdcl`，节点 172.19.1.144。
-  - 提交前节点 GPU 分配为 0，T023 的 Pod 已经 Completed。
-- 已拷进 Pod，并用 `sha256sum -c` 核对，20 个文件都一致：
+
+## 经过
+
+- 2026-09-24 23:59 第一次提交作业，把代码和 prefix_v2 标签拷进 Pod，等 Run A 标签。
+  - 这个 Job 在 01:02 之前被删掉了，不是执行方删的，见下面“另一个会话”。
+- 01:02 重新提交。拷入并用 `sha256sum -c` 核对 21 个文件，全部一致：
   - `round6/stage1_head/*.py` 9 个；
   - `round6/probe/*.py` 9 个；
-  - `round6/redline_v1/flow/levels.py`；
-  - `labels/prefix_v2/labels.jsonl`（T021）。
-- 还没写 `stage1_redline_v2_input_ready`。要等 T021 的 Run A 第一阶段 luna 兜底（aster-dev-343）跑完、带预筛出标签，把 `labels/runA_stage1/labels.jsonl` 拷进 Pod 并核对后，才会写。作业等这个标记最多 1 小时，00:59 到期。
+  - `levels.py`；
+  - 两份 labels.jsonl：runA_stage1 `3c4a71b8…`，prefix_v2 `7b419ffb…`。
+
+  PVC 上的 `input_v1/stage1_runA_v1.jsonl` 的 SHA 为 `4e4afa5d…`，与 manifest 一致。01:03 写入 `input_ready`。
+- 01:03 和 01:05 两次都在作业里的 `apt-get update` 失败，退出码 100。报错是 `File has unexpected size (1318479 != 1320963). Mirror sync in progress?`，原因是 Ubuntu 的 security 源正在同步。用不占 GPU 的临时 Pod 确认源恢复以后，01:07 按 git 里提交的 yaml 重新提交。
+- 01:07 开始改标签，01:08 训练完成，随后进入评测。执行方读到改标签报告里的 `dropped_offsets=25`，在 01:09 删除 Job，评测中止。
+  - 改标签和训练的产物都留在 PVC：`/work/output/round6/stage1_labels3_v2/`、`stage1_train_v2/`。
+
+## 改标签报告（`stage1_labels3_v2/report.json`）
+
+| 来源 | positions | kept | dropped_onset_clause | dropped_unusable | dropped_offsets |
+|---|---|---|---|---|---|
+| runA_train | 686,727 | 660,365 | 24,736 | 1,626 | 0 |
+| runA_calibration | 108,233 | 104,215 | 3,840 | 178 | 0 |
+| prefix_v2_train | 326,460 | 321,367 | 4,537 | 531 | **25** |
+| prefix_v2_calibration | 2,973 | 2,938 | 34 | 1 | 0 |
+
+`old_to_new_class`（0 = safe，1 = unsafe，2 = controversial）：
+
+- runA_train：0→0 465,755，0→2 25,110，0→1 9,000，1→0 141,551，1→1 18,116，1→2 833。
+- runA_calibration：0→0 73,852，0→2 3,951，0→1 1,412，1→0 21,842，1→1 3,061，1→2 97。
+- prefix_v2_train：0→0 272,627，0→2 4,764，0→1 2,045，1→0 33,184，1→1 8,109，1→2 638。
+
+## dropped_offsets = 25 的原因（已定位）
+
+在临时 Pod（不占 GPU）上，用作业同一套 Python（tokenizers 0.23.2）、PVC 上的 tokenizer（SHA `fe000e3e…`）和 prefix_v2 数据，按 `relabel_cache.py` 的原逻辑复现，结果如下：
+
+- 只有 **1 条记录**：`cache_prefix_v2_train_records.json` 的第 22510 条。
+  - 来源 rubric_benign，原标签 safe，中文，`view=original`。
+  - 这 25 个位置就是它的全部位置。
+- 原因是 `ids_mismatch`：把 messages 重新分词得到 57 个 token，冻结的 `ids` 有 59 个，从第 16 个 token 开始不同。缓存用的是冻结的 ids，所以这条记录的字符偏移无法靠重新分词找回来。
+- 这条的红线标签是 safe（other_sensitive 分层），它的增强视图（第 22511 条）照常保留。所以影响只是少了 25 个 safe 位置，占 prefix_v2 train 的 0.008%。
+- 其余 24,581 条记录都对得上。
+
+**执行方建议**：接受这 25 个位置被丢掉，重新提交作业，改标签加训练只要几分钟，再跑完评测。如果要求严格为 0，就需要设计方改 `relabel_cache.py`，比如对 ids 不一致的记录按冻结 ids 解码出偏移。请设计方决定。
+
+## 训练报告（已生成，评测前）
+
+- version `round6-stage1-head-v2-redline`，role `assistant`，`calibration_score` 为 `cut`，`sources_left_out` 为 `["s2", "s5"]`，与卡片一致。
+- `train_positions_by_class`：
+  - prefix_v2：safe 305,811 / unsafe 10,154 / controversial 5,402；
+  - runA：safe 607,306 / unsafe 27,116 / controversial 25,943。
+- risk 变体：`chosen_epoch` 4，`chosen_calibration_mean_auc` 0.7932。
+  - 每个 epoch 的 calibration AUC 均值：0.599、0.766、0.782，后面几个 epoch 的数字等作业重跑后一并报告。
+- full 变体：等重跑后一并报告。
+
+## 另一个会话
+
+- 本机还有一个会话“Safety-guard GitHub 项目 (fork)”在同一目录里运行。
+- 00:07:44 有人把 `worker_redline_v2.yaml` 和 `worker_user_redline_v1.yaml` 的 GPU 申请从 8 改成了 1，没有提交。用户看到后问这是什么意思；执行方这个会话没有改过这两个文件。
+- 这台节点只有 1 块 L20，按 `timeslice-8x` 分成 8 份：申请 8 份就是独占整卡，申请 1 份则会和别的作业共用这块卡。
+- 执行方重新提交时用的是 git 里提交的版本（8 份），本地这两个文件没有动，等用户决定。
 
 ---
 

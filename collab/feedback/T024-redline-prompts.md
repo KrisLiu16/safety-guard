@@ -138,3 +138,27 @@ Run A 主跑的 11 条 judge_error 都是 DeepSeek 的临时错误：输出被�
 - DeepSeek，`--flow round6/redline_v1/flow`，尝试 1 次，并发 = Task 数（都不超过 512），高优先级，SDK 4.3。
 - `runs plan` 没有 blocking，三个 Run 的平台快照都与本地逐字一致。
 - 接下来：冻结 attempt 列表 → 抽取 → luna 兜底 → 定标签（Run A 两份带 `--screen`）→ 拷到 PVC → 删除数据集 → 与试跑标签比较（`compare_judges.py`）。
+
+### 放量抽取（01:08 完成）
+
+先冻结 attempt 列表，再用 `extract_probes.py --attempts-json` 抽取到各目录的 `extracted_ds/`。三个 Run 都是 completed、0 失败。
+
+| 份 | Run | responses | safe | located | nonmonotonic | judge_error | 每条调用（均值 / 最大） | 交给 luna |
+|---|---|---|---|---|---|---|---|---|
+| user_full_runA_stage1 | aster-dev-344 | 18,528 | 14,542 | 2,981 | 5 | 1,000 | 1.07 / 6 | 1,005 |
+| user_full_runA_dev | aster-dev-345 | 2,594 | 2,052 | 410 | 0 | 132 | 1.07 / 3 | 132 |
+| user_full_pv2 | aster-dev-346 | 18,322 | 15,324 | 2,041 | 34 | 923 | 1.15 / 14 | 957 |
+
+- 实际 DeepSeek 调用约 4.3 万次（每条 1.07–1.15 次），低于估算的 4.8 万次。交给 luna 的比例是 5.1–5.4%，高于试跑。judge_error 主要是 DeepSeek 的临时错误。
+- **luna 兜底被平台挡住了。** `make_tasks.py --target user --sample-ids …` 已经生成了三份兜底任务：
+  - user_full_runA_stage1_fb：1,005 条，101 个 Task；
+  - user_full_runA_dev_fb：132 条，14 个 Task；
+  - user_full_pv2_fb：957 条，96 个 Task。
+
+  但是 01:10 执行 `aster datasets create` 时，三份都返回 `INTERNAL_ERROR`（`retryable=false`）。request_id 分别为：
+  - runA_stage1_fb `e4f7e4177f39339babea929d0f8634d2`
+  - runA_dev_fb `2489e99279ebba6c1da4be90d68b20ba`
+  - pv2_fb `91823fb9d805b06d4aa4a5e3a0268c75`
+
+  同一时段 `datasets rm` 也报同样的错（见 T021 第 8 步）。读接口（`runs get`、`whoami`）都正常。已报给用户，等平台恢复后再提交兜底。
+- **Run A 两份的预筛要注意。** `stage1_runA_v1.jsonl` 没有 `word` 字段，T021 已经踩过这个坑。定标签时 `--source` 要用 `trainable.jsonl`，而且要先核对它生成的提问编号和原文与放量时一致，再出标签。
