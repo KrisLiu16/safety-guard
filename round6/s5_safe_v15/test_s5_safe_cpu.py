@@ -9,7 +9,7 @@ import unittest
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
 sys.path.insert(0, str(ROOT))
-from pipeline import PROMPT_VERSION, SHAPES, WIRE_APIS, request_body, schema, validate  # noqa: E402
+from pipeline import LENGTHS, PROMPT_VERSION, SHAPES, WIRE_APIS, request_body, schema, validate  # noqa: E402
 from make_pilot import pick, plan, split_of  # noqa: E402
 from extract_s5 import summarize  # noqa: E402
 
@@ -26,7 +26,7 @@ def load(name, path):
 def seed(unsafe_language="zh", shape="stepwise"):
     safe_language = "en" if unsafe_language == "zh" else "zh"
     text = {"zh": f"占位提问：关于“{WORD}”的问题。", "en": f"Placeholder question about “{WORD}”."}
-    return {"task_key": "lex-s5-test", "word": WORD, "shape": shape, "source_group": "test/group",
+    return {"task_key": "lex-s5-test", "word": WORD, "shape": shape, "length": "medium", "source_group": "test/group",
             "family": "fam", "split": "train",
             "prompts": {"unsafe": {"language": unsafe_language, "text": text[unsafe_language], "sample_id": "u"},
                         "safe": {"language": safe_language, "text": text[safe_language], "sample_id": "s"}}}
@@ -64,6 +64,17 @@ class ValidateTests(unittest.TestCase):
         self.assertEqual(validate(payload(s, word="别的词"), s)[0], ["root_mismatch:word"])
         self.assertEqual(validate(payload(s, status="skip", unsafe_reasoning="", safe_reasoning=""), s), (["skip"], []))
 
+    def test_literal_backslash_n_is_repaired_and_flagged(self):
+        s = seed()
+        escaped = long_text("zh").replace("。", "。\\n\\n", 3)
+        errors, rows = validate(payload(s, unsafe_reasoning=escaped), s)
+        self.assertEqual(errors, [])
+        self.assertIn("\n\n", rows[0]["messages"][1]["content"])
+        self.assertNotIn("\\n", rows[0]["messages"][1]["content"])
+        self.assertIn("escaped_newline_repaired", rows[0]["quality_flags"])
+        self.assertEqual(rows[1]["quality_flags"], [])
+        self.assertEqual(rows[0]["length_target"], "medium")
+
     def test_fiction_marker_is_flagged_not_rejected(self):
         s = seed()
         errors, rows = validate(payload(s, unsafe_reasoning=long_text("zh", "虚构")), s)
@@ -78,6 +89,7 @@ class RequestTests(unittest.TestCase):
             body = json.dumps(request_body("m", s, wire), ensure_ascii=False)
             self.assertIn(json.dumps(s["prompts"]["unsafe"]["text"], ensure_ascii=False)[1:-1], body)
             self.assertIn(SHAPES["stepwise"], body)
+            self.assertIn(LENGTHS["medium"]["zh"], body)
         strict = request_body("m", s, "responses")["text"]["format"]["schema"]
         self.assertEqual(strict, schema())
         self.assertEqual(set(strict["required"]), set(strict["properties"]))
@@ -94,6 +106,7 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(len(chosen), 12)
         self.assertNotIn("k0", {s["task_key"] for s in chosen})
         self.assertEqual({s["shape"] for s in chosen}, set(SHAPES))
+        self.assertEqual({s["length"] for s in chosen}, {"short", "medium", "long"})
         # S2's builder imports its own `pipeline`, so evaluate its split rule in a separate interpreter.
         s2 = ROOT.parent / "s2_v15"
         code = (f"import sys, json; sys.path[:0] = [{str(s2 / 'flow')!r}, {str(s2)!r}]; "

@@ -9,6 +9,11 @@ two long first-person thinking passages, both safe, one for each existing v12 us
 Every cut of every passage must be safe. The texts are verified by judge v3.1 on a different model
 before use; anything judged unsafe or controversial is dropped, never relabelled.
 The unsafe half of S5 is out of scope here (see collab/BOARD.md).
+
+v2 (after pilot aster-dev-287): a program-assigned target length (short / medium / long) instead of one
+range, since the pilot clustered at the short end and 5/40 Chinese passages fell under 700 characters;
+a literal backslash-n is turned back into a line break and flagged; the skip rule and the uncertain-facts
+rule match S2 v2. Words are screened beforehand (round6/word_screen_v1).
 """
 from __future__ import annotations
 
@@ -16,7 +21,7 @@ import hashlib
 import json
 import re
 
-PROMPT_VERSION = "guard-s5-safe-long-thinking-v1"
+PROMPT_VERSION = "guard-s5-safe-long-thinking-v2"
 RECORD_VERSION = "guard-response-record-v1"
 WIRE_APIS = ("chat_completions", "responses")
 SHAPES = {
@@ -25,6 +30,9 @@ SHAPES = {
     "draft_revise": "先在心里打一个回应的草稿，再自我检查、修正，最后定下计划。",
     "context_check": "结合法律法规、平台规则和常识逐项检查，再决定怎样回应。",
 }
+LENGTHS = {"short": {"zh": "约 800 字", "en": "about 450 words"},
+           "medium": {"zh": "约 1300 字", "en": "about 750 words"},
+           "long": {"zh": "约 1900 字", "en": "about 1100 words"}}
 SYSTEM_PROMPT = """为离线内容审查研究合成长篇“安全思考过程”样本。一个请求只处理一个词，只输出满足 JSON Schema 的对象。
 这些样本用来教审查模型：在思考里复述、分析敏感或有害的请求，本身并不违规。
 输入给出同一个词已有的两条用户提问：一条带有害意图（unsafe），一条是正常提问（safe）。不要改写提问。为每条提问各写一段助手在回复之前的第一人称内部思考，只写思考，不写最终回复。每段思考的语言与它对应的提问一致。
@@ -34,9 +42,11 @@ SYSTEM_PROMPT = """为离线内容审查研究合成长篇“安全思考过程�
 
 对 safe 提问的思考（safe_reasoning）：理解提问，梳理相关知识和可能的误区，考虑怎样回答得准确、全面，规划回答的结构。
 
-两段都要长：中文约 700–2000 字，英文约 400–1200 词，按 shape_hint 组织，内容充实、不要重复凑字数。每段都原样包含这个词；英文里把中文原词作为带引号的专有词保留，不翻译。
+两段的长度按 length_hint（中文段落看 zh，英文段落看 en），按 shape_hint 组织，内容充实、不要重复凑字数。每段都原样包含这个词；英文里把中文原词作为带引号的专有词保留，不翻译。
 立场符合中国大陆主流口径和法律法规：尊重国家制度、民族团结、英雄烈士和历史定论；不写真实的联系方式、住址、证件号，不把真实人物写成犯了具体罪行。不要用“虚构”“fictional”之类字眼标注。
-如果这个词本身是对国家领导人的侮辱性称呼、蔑称，status 填 skip，两段思考都填空字符串，notes 说明原因。
+不确定的具体事实（法规和目录的名称、条款编号、清单是否收录某物、数字、日期）不要写成确定的说法，改用概括的表述。
+输出是 JSON 字符串，换行直接用 JSON 的换行转义，不要写成字面的反斜杠加 n。
+如果这个词本身是对国家领导人（现任或历任）的侮辱性称呼、蔑称、贬损性谐音、代称或贬损性说法，status 填 skip，两段思考都填空字符串，notes 说明原因。拿不准这个词是否指向国家领导人时，也填 skip。
 example_output 只示范格式，内容和写法不要模仿。所有标签都是合成初标，不是人工金标。"""
 
 
@@ -62,7 +72,7 @@ EXAMPLE_UNSAFE = {
 def request_task(seed):
     prompts = seed["prompts"]
     return {"task_key": seed["task_key"], "word": seed["word"], "prompt_version": PROMPT_VERSION,
-            "shape": seed["shape"], "shape_hint": SHAPES[seed["shape"]],
+            "shape": seed["shape"], "shape_hint": SHAPES[seed["shape"]], "length_hint": LENGTHS[seed["length"]],
             "user_prompts": {label: {"language": p["language"], "text": p["text"]} for label, p in prompts.items()},
             "output_schema": schema(),
             "example_output": {"task_key": "example-task", "word": "示例词", "prompt_version": PROMPT_VERSION,
@@ -78,7 +88,7 @@ def request_body(model_name, seed, wire_api):
     if wire_api == "responses":
         return {"model": model_name, "reasoning": {"effort": "low"}, "max_output_tokens": 12000,
                 "input": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-                "text": {"format": {"type": "json_schema", "name": "guard_s5_safe_long_thinking_v1",
+                "text": {"format": {"type": "json_schema", "name": "guard_s5_safe_long_thinking_v2",
                                     "strict": True, "schema": schema()}}}
     raise ValueError("unsupported wire API " + str(wire_api))
 
@@ -111,8 +121,16 @@ def parse_json(text):
     return json.loads(match.group(0))
 
 
-LENGTH = {"zh": (700, 2400), "en": (380, 1400)}
+LENGTH = {"zh": (600, 2600), "en": (330, 1500)}
 FICTION_MARKER = re.compile(r"虚构|fictional|imaginary", re.IGNORECASE)
+
+
+def clean(text):
+    """Undo one extra level of JSON escaping (a literal backslash-n instead of a line break); report whether it did."""
+    text = text.strip()
+    if "\\n" in text and "\n" not in text:
+        return text.replace("\\n", "\n"), True
+    return text, False
 
 
 def size(text, language):
@@ -131,14 +149,16 @@ def validate(payload, seed):
         return ["skip"], []
     if payload.get("status") != "ready":
         return ["bad_status"], []
-    texts = {}
+    texts, repaired = {}, []
     for label in ("unsafe", "safe"):
         field = f"{label}_reasoning"
         text = payload.get(field)
         if not isinstance(text, str) or not text.strip():
             errors.append(f"{field}:empty")
             continue
-        text = text.strip()
+        text, unescaped = clean(text)
+        if unescaped:
+            repaired.append(label)
         language = seed["prompts"][label]["language"]
         if seed["word"] not in text:
             errors.append(f"{field}:missing_word")
@@ -161,7 +181,9 @@ def validate(payload, seed):
             "response_format": "reasoning", "shape": seed["shape"], "messages": messages,
             "harm_basis": "benign", "onset_quote": "", "onset_char": None, "onset_end_char": None,
             "response_chars": len(texts[label]),
-            "quality_flags": ["fiction_marker"] if FICTION_MARKER.search(texts[label]) else [],
+            "quality_flags": (["fiction_marker"] if FICTION_MARKER.search(texts[label]) else [])
+                             + (["escaped_newline_repaired"] if label in repaired else []),
+            "length_target": seed["length"],
             "sample_id": f"{seed['task_key']}-s5safe-{index:02d}", "task_key": seed["task_key"],
             "origin_group_id": seed.get("origin_group_id", seed["task_key"]), "word": seed["word"],
             "source_licenses": seed.get("source_licenses"), "data_layer": seed.get("data_layer"),

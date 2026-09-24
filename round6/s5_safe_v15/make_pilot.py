@@ -17,7 +17,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
-from pipeline import PROMPT_VERSION, SHAPES, SYSTEM_PROMPT, request_body, schema  # noqa: E402
+from pipeline import LENGTHS, PROMPT_VERSION, SHAPES, SYSTEM_PROMPT, request_body, schema  # noqa: E402
 
 DEFAULT_SEEDS = ROOT.parent / "response_v14/batch_rest/seeds.jsonl"
 DEFAULT_EXCLUDE = (ROOT.parent / "s2_v15/pilot/seeds.jsonl",)
@@ -57,7 +57,8 @@ def plan(seeds):
         row = {k: seed.get(k) for k in FIELDS}
         row["prompts"] = {label: {k: p.get(k) for k in ("language", "text", "sample_id")}
                           for label, p in seed["prompts"].items()}
-        row.update(shape=shapes[ordinal % len(shapes)], split=split_of(seed["family"]))
+        row.update(shape=shapes[ordinal % len(shapes)], length=list(LENGTHS)[(ordinal // len(shapes)) % len(LENGTHS)],
+                   split=split_of(seed["family"]))
         out.append(row)
     return out
 
@@ -102,6 +103,7 @@ def main():
                 "excluded_task_keys": len(exclude),
                 "unsafe_prompt_language": dict(collections.Counter(s["prompts"]["unsafe"]["language"] for s in chosen)),
                 "shapes": dict(collections.Counter(s["shape"] for s in chosen)),
+                "lengths": dict(collections.Counter(s["length"] for s in chosen)),
                 "splits": dict(collections.Counter(s["split"] for s in chosen)),
                 "source_groups": dict(collections.Counter(s["source_group"] for s in chosen)),
                 "seeds_source": str(args.seeds),

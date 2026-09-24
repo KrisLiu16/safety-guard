@@ -54,6 +54,15 @@ class ValidateTests(unittest.TestCase):
         self.assertIn("aspect", validate(payload(aspect="不存在"), s)[0])
         self.assertEqual(validate(payload(task_key="other"), s)[0], ["root_mismatch:task_key"])
 
+    def test_literal_backslash_n_is_repaired_and_flagged(self):
+        p = payload()
+        p["answer"] = p["answer"].replace("。", "。\\n", 2)
+        errors, rows = validate(p, seed())
+        self.assertEqual(errors, [])
+        self.assertIn("\n", rows[0]["messages"][1]["content"])
+        self.assertEqual(rows[0]["quality_flags"], ["escaped_newline_repaired"])
+        self.assertEqual(rows[1]["quality_flags"], [])
+
     def test_skip_is_not_a_row(self):
         errors, rows = validate(payload(status="skip", prompt="", answer="", reasoning=""), seed())
         self.assertEqual((errors, rows), (["skip"], []))

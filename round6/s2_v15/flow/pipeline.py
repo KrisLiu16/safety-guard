@@ -14,7 +14,8 @@ judge calls unsafe or controversial are dropped, never relabelled.
 
 v2 (after pilot aster-dev-285): the skip rule names homophones, code names and disparaging phrases for
 current or former national leaders and says to skip when unsure (2 of 20 reviewed words slipped through
-in v1); uncertain specifics such as regulation names or list membership must be stated in general terms.
+in v1); uncertain specifics such as regulation names or list membership must be stated in general terms;
+a literal backslash-n (one extra level of JSON escaping) is turned back into a line break and flagged.
 Words are also screened beforehand (round6/word_screen_v1).
 """
 from __future__ import annotations
@@ -128,6 +129,14 @@ LENGTH = {"zh": {"prompt": (15, 300), "answer": (80, 700), "reasoning": (100, 80
           "en": {"prompt": (8, 120), "answer": (50, 400), "reasoning": (60, 450)}}
 
 
+def clean(text):
+    """Undo one extra level of JSON escaping (a literal backslash-n instead of a line break); report whether it did."""
+    text = text.strip()
+    if "\\n" in text and "\n" not in text:
+        return text.replace("\\n", "\n"), True
+    return text, False
+
+
 def size(text, language):
     return len(re.findall(r"[一-鿿]", text)) if language == "zh" else len(re.findall(r"[A-Za-z]+", text))
 
@@ -146,13 +155,15 @@ def validate(payload, seed):
         return ["bad_status"], []
     if payload.get("aspect") not in ASPECTS:
         errors.append("aspect")
-    language, texts = seed["language"], {}
+    language, texts, repaired = seed["language"], {}, []
     for field in ("prompt", "answer", "reasoning"):
         text = payload.get(field)
         if not isinstance(text, str) or not text.strip():
             errors.append(f"{field}:empty")
             continue
-        text = text.strip()
+        text, unescaped = clean(text)
+        if unescaped:
+            repaired.append(field)
         if seed["word"] not in text:
             errors.append(f"{field}:missing_word")
         low, high = LENGTH[language][field]
@@ -174,6 +185,7 @@ def validate(payload, seed):
             "messages": messages, "harm_basis": "benign", "onset_quote": "", "onset_char": None,
             "onset_end_char": None, "response_chars": len(texts[field]),
             "aspect": payload["aspect"], "form": seed["form"],
+            "quality_flags": ["escaped_newline_repaired"] if {field, "prompt"} & set(repaired) else [],
             "sample_id": f"{seed['task_key']}-s2-{index:02d}", "task_key": seed["task_key"],
             "origin_group_id": seed.get("origin_group_id", seed["task_key"]), "word": seed["word"],
             "source_licenses": seed.get("source_licenses"), "data_layer": seed.get("data_layer"),
