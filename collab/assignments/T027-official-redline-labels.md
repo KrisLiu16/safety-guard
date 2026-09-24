@@ -31,6 +31,7 @@
      - 用 `extract_probes.py` 抽取到 `full_official/extracted_ds/`；
      - `failed_ids.txt` 交给 luna 兜底：`make_tasks.py --sample-ids ...`，输出到 `full_official_fb`；
      - 两个数据集抽取完即删除。
+     - 注意：5a21af9 给规则表加了开关 `figure_scope`，规则表摘要随之改变。建兜底 Task 和提交 flow 必须用同一版代码，否则 flow 会报 contract 错误。主 Run aster-dev-362 不受影响，它的 Task 和 flow 快照是同一版。
   4. **定标签**：
      ```bash
      .venv/bin/python round6/redline_v1/apply_policy.py round6/redline_v1/full_official/extracted_ds/probes.jsonl round6/redline_v1/full_official_fb/extracted/probes.jsonl --source round6/redline_v1/input/official_thinking.jsonl --out round6/redline_v1/labels/official_thinking
