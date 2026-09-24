@@ -1,6 +1,6 @@
 # T006 S2 难负例 pilot（生成 + 另一个模型复核）
 
-- 版本：v2（记录用户批准，内容其余未变）
+- 版本：v3（修订：新增第 6b 步，人工核对 luna 判为不安全的全部条目，验收改用核对后的比例。已完成的步骤不用重做，只补做第 6b 步并更新反馈）
 - 目标：用 60 个词试跑 S2 生成（DeepSeek），再用 judge v3.1（luna）复核。看三件事：生成成功率和 skip 率、复核判为 safe 的比例、人工抽看的质量。设计说明见 [round6/s2_v15/README.md](../../round6/s2_v15/README.md)。
 - 依赖：无。可以和 T009 并行，两者互不依赖。
 - 输入：`round6/s2_v15/`；Mac 上的 `round6/response_v14/batch_rest/seeds.jsonl`（Run B 种子）；`round6/judge_v3/`（v3.1）。
@@ -18,16 +18,17 @@
      .venv/bin/python round6/judge_v3/extract_judgments.py <judge_run_no> --items round6/s2_v15/pilot/judge/items.jsonl --out round6/s2_v15/pilot/judge/extracted
      ```
   6. 人工抽看：由用户或执行方读 20 个词的完整三段文字（提问、回答、思考），每项写一句结论：内容是否正当、是否符合国内口径、思考过程是否真的复述了敏感请求、有没有拒答或说教过度。样本原文不写进反馈。
+  6b. **luna 判为 unsafe 或 controversial 的全部条目逐条人工核对**（T009 发现 luna 会把“复述有害请求、但在拒绝”的安全推理判成 unsafe，而这正是本切片要的样本）。每条记：人工结论 safe / unsafe，一句理由。据此算出 luna 在本切片上的误判比例。样本原文不写进反馈。
   7. 两个 Run 都抽取完之后，按 HANDOFF 第 5 节删除两个数据集，回执存为 `pilot/dataset_rm.json` 和 `pilot/judge/dataset_rm.json`。用户另有要求的以用户为准。
 - 预期产物：可提交 `pilot/manifest.json`、`pilot/run_no.txt`、`pilot/extracted/summary.json`、`pilot/judge/manifest.json`、`pilot/judge/extracted/summary.json` 和两个删除回执；其余含样本原文的文件不提交。
 - 验收：
   - 生成：`states.complete` 不少于 48 个词（80%），skip 和失败原因逐项列出；
-  - 复核：`safe_whole` 和 `safe_mid_prefix` 判为 safe 的比例都不低于 95%；
+  - 复核：人工核对后，`safe_whole` 和 `safe_mid_prefix` 真正不安全的比例都不高于 5%。luna 的原始 safe 比例单独报告，不作为验收线；
   - 人工抽看：20 个词里不超过 2 个词有质量问题。
 - 需要用户决定：无。**用户已批准（2026-09-24）：提交第 3 步（生成 Run）和第 5 步（复核 Run），并发拉满**，即每个 Run 的并发设为该 Run 的 Task 数。
 - 反馈里必须报告：
   1. 单测结果；两个 manifest 的主要数字；
   2. 两个 run_no；`extracted/summary.json` 全文；
   3. 复核 `summary.json` 里的 `by_kind`、`agreement_with_old_labels` 和 `failures`；复核判为 unsafe 的条目按来源组和 `gbt_codes` 计数；
-  4. 第 6 步的人工结论；
+  4. 第 6 步的人工结论；第 6b 步：luna 判为不安全的条数、人工确认真不安全的条数、luna 误判比例，按 `response_style` 分开；
   5. DeepSeek 生成时被拦截或返回非 JSON 的词数，按来源组列出。

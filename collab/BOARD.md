@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | [T001](assignments/T001-run-a-extract.md) | Run A（aster-dev-276）抽取、本地复校和训练过滤 | 执行方 | 完成：42,261 个可训练词（train 39,700 / dev 1,297 / calibration 1,264） | — |
 | [T002](assignments/T002-judge-v3-pilot.md) | `judge_v3` 国内口径裁判：小规模 pilot（代码见 round6/judge_v3/） | 执行方 | 完成（aster-dev-282）。非政治类达标；失败 6.7%，主要是 DeepSeek 在政治类上不返回 JSON。数据集删除等用户确认 | — |
-| [T009](assignments/T009-judge-fallback-pilot.md) | judge v3.1 第二裁判 pilot：同一提示词下 DeepSeek 与 luna 各判一遍政治类、失败条目和 40 条对照，量两个裁判的一致率 | 执行方 | v2 待执行（用户已批准提交，并发拉满） | T002 ✓ |
+| [T009](assignments/T009-judge-fallback-pilot.md) | judge v3.1 第二裁判 pilot：同一提示词下 DeepSeek 与 luna 各判一遍政治类、失败条目和 40 条对照，量两个裁判的一致率 | 执行方 | 完成（aster-dev-283/284）。对照一致 0.95，政治类一致 0.97；DeepSeek 稳定拦截同样 23 条政治类，只能交给 luna；luna 会把“复述并拒绝”的安全推理判成 unsafe，T006/T011 已加人工核对 | T002 ✓ |
 | T010 | 起点重定：pilot 里 20 条分歧有 18 条是 v14 起点标偏（顺从式回答起点标晚、转折句被当成起点）；R 切片改用裁判在分句边界上二分定位起点 | 设计方 | 排队 | T009 |
 | T003 | 类别缺口统计：29 种风险在公开数据和 Run A 中各有多少样本，决定 S1 真正要补多少 | 设计方 | 排队 | T002 |
 | [T004](assignments/T004-probe-and-rules.md) | 线性探针（能否区分“复述有害请求”和“真有害”）+ T005 决策规则重拟合，一次 L20 前向（代码见 round6/probe/） | 执行方 | 待执行 | T001 ✓ |
@@ -26,7 +26,7 @@
 
 ## 待用户决定
 
-（暂无）
+1. pilot 数据集的删除：T009 的数据集 `ds_01M390R8C2CTDTYJS8EGW8CFSB` 待确认删除。建议定为常规：pilot 抽取完成后即删，不再逐个确认。
 
 ## 已定
 
