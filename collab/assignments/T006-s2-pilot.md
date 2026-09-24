@@ -1,6 +1,6 @@
 # T006 S2 难负例 pilot（生成 + 另一个模型复核）
 
-- 版本：v1
+- 版本：v2（记录用户批准，内容其余未变）
 - 目标：用 60 个词试跑 S2 生成（DeepSeek），再用 judge v3.1（luna）复核。看三件事：生成成功率和 skip 率、复核判为 safe 的比例、人工抽看的质量。设计说明见 [round6/s2_v15/README.md](../../round6/s2_v15/README.md)。
 - 依赖：无。可以和 T009 并行，两者互不依赖。
 - 输入：`round6/s2_v15/`；Mac 上的 `round6/response_v14/batch_rest/seeds.jsonl`（Run B 种子）；`round6/judge_v3/`（v3.1）。
@@ -24,7 +24,7 @@
   - 生成：`states.complete` 不少于 48 个词（80%），skip 和失败原因逐项列出；
   - 复核：`safe_whole` 和 `safe_mid_prefix` 判为 safe 的比例都不低于 95%；
   - 人工抽看：20 个词里不超过 2 个词有质量问题。
-- 需要用户决定：是否提交第 3 步（60 次 DeepSeek 请求）和第 5 步（约 240 次 luna 请求）两个 Run，以及并发数。
+- 需要用户决定：无。**用户已批准（2026-09-24）：提交第 3 步（生成 Run）和第 5 步（复核 Run），并发拉满**，即每个 Run 的并发设为该 Run 的 Task 数。
 - 反馈里必须报告：
   1. 单测结果；两个 manifest 的主要数字；
   2. 两个 run_no；`extracted/summary.json` 全文；

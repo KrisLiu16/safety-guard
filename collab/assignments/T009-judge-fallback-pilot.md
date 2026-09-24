@@ -1,6 +1,6 @@
 # T009 judge v3.1 第二裁判 pilot（DeepSeek 与 luna 同一提示词对比）
 
-- 版本：v1
+- 版本：v2（记录用户批准，内容其余未变）
 - 目标：在 T002 pilot 的子集上，用同一份 v3.1 提示词分别让 DeepSeek 和 luna 判一遍，量出三件事：token 上限提到 8000 后 DeepSeek 的截断是否消失；luna 能否补上 DeepSeek 在政治类上不回答的条目；两个裁判在政治类和对照样本上的一致率。第三件决定政治类能否由 luna 兜底：Run A 的政治类样本也是 luna 生成的，一致率低就要人工复核或换第三个模型。
 - 依赖：T002 完成；用户已定侮辱性称呼按严格口径判（已写入 v3.1 提示词）。
 - 输入：`round6/judge_v3/`（v3.1 代码）；Mac 上的 `round6/judge_v3/pilot/items.jsonl` 和 `round6/judge_v3/pilot/extracted/judgments.jsonl`（T002 产物）。
@@ -25,7 +25,7 @@
   - DeepSeek v3.1：T002 中因 `stop_reason:length` 失败的条目都有了结果；
   - luna：有结果的条目不少于 95%；
   - 第三次抽取的 `cross_judge.control` 一致率不低于 0.9（两个裁判在普通样本上基本一致，这时政治类的一致率才有参考意义）。
-- 需要用户决定：是否提交第 3 步的两个 Run（每个 Run 约 100 次请求，Task 数见第 2 步的 manifest），以及并发数。
+- 需要用户决定：无。**用户已批准（2026-09-24）：提交第 3 步（两个 Run），并发拉满**，即每个 Run 的并发设为该 Run 的 Task 数。
 - 反馈里必须报告：
   1. 单测结果；manifest 的 items、tasks、fallback_reasons；
   2. 两个 run_no；三个 `summary.json` 里的 `failures`、`judged` 和 `cross_judge` 全文；

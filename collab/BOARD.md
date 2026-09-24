@@ -6,12 +6,12 @@
 |---|---|---|---|---|
 | [T001](assignments/T001-run-a-extract.md) | Run A（aster-dev-276）抽取、本地复校和训练过滤 | 执行方 | 完成：42,261 个可训练词（train 39,700 / dev 1,297 / calibration 1,264） | — |
 | [T002](assignments/T002-judge-v3-pilot.md) | `judge_v3` 国内口径裁判：小规模 pilot（代码见 round6/judge_v3/） | 执行方 | 完成（aster-dev-282）。非政治类达标；失败 6.7%，主要是 DeepSeek 在政治类上不返回 JSON。数据集删除等用户确认 | — |
-| [T009](assignments/T009-judge-fallback-pilot.md) | judge v3.1 第二裁判 pilot：同一提示词下 DeepSeek 与 luna 各判一遍政治类、失败条目和 40 条对照，量两个裁判的一致率 | 执行方 | 步骤 1–2 待执行；步骤 3 等用户批准提交和并发 | T002 ✓ |
+| [T009](assignments/T009-judge-fallback-pilot.md) | judge v3.1 第二裁判 pilot：同一提示词下 DeepSeek 与 luna 各判一遍政治类、失败条目和 40 条对照，量两个裁判的一致率 | 执行方 | v2 待执行（用户已批准提交，并发拉满） | T002 ✓ |
 | T010 | 起点重定：pilot 里 20 条分歧有 18 条是 v14 起点标偏（顺从式回答起点标晚、转折句被当成起点）；R 切片改用裁判在分句边界上二分定位起点 | 设计方 | 排队 | T009 |
 | T003 | 类别缺口统计：29 种风险在公开数据和 Run A 中各有多少样本，决定 S1 真正要补多少 | 设计方 | 排队 | T002 |
 | [T004](assignments/T004-probe-and-rules.md) | 线性探针（能否区分“复述有害请求”和“真有害”）+ T005 决策规则重拟合，一次 L20 前向（代码见 round6/probe/） | 执行方 | 待执行 | T001 ✓ |
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 执行方 | 并入 T004 任务单第 6 步 | T004 |
-| [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | 步骤 1–2 待执行；步骤 3、5 等用户批准 | — |
+| [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | v2 待执行（用户已批准提交，并发拉满） | — |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
 | T008 | 第六轮训练 | 设计方 | 排队 | T001–T006；训练前用户确认 |
 
@@ -24,12 +24,11 @@
 
 ## 待用户决定
 
-1. T009 步骤 3：提交两个小 Run（DeepSeek 和 luna 各约 100 次请求）以及并发数。
-2. T006 步骤 3 和 5：S2 生成 Run（60 次 DeepSeek 请求）和复核 Run（约 240 次 luna 请求）以及并发数。
-3. 线上是否需要审核模型的思考过程（thinking）：决定 S5 的规模。
-4. 各 pilot 放量时的并发和尝试次数。
+1. 线上是否需要审核模型的思考过程（thinking）：决定 S5 的规模。
+2. 各 pilot 放量时的并发和尝试次数。
 
 ## 已定
 
+- 2026-09-24：批准 T009 第 3 步和 T006 第 3、5 步的提交，并发拉满。
 - 2026-09-24：中性复述对国家领导人的侮辱性称呼按严格口径判（A.1.b），已写入 judge v3.1。
 - 2026-09-24：T002 pilot 数据集已删除。
