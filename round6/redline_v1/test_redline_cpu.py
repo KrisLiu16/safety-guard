@@ -101,7 +101,7 @@ class UserModeTests(unittest.TestCase):
         import hashlib
         self.assertEqual(hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest(),
                          "c9f68a84ee1c88971fcf025f6cc6179c37f2daa6d321ddc309422b8f245ac9d8")   # T021 (v4.2) prompt
-        self.assertEqual(USER_PROMPT_VERSION, "guard-judge-redline-user-v1")
+        self.assertEqual(USER_PROMPT_VERSION, "guard-judge-redline-user-v2")
         for code in list(REDLINES) + ["B1", "B4"]:
             self.assertIn(f"\n{code} ", USER_SYSTEM_PROMPT)
         for act in USER_ACTS:
@@ -208,6 +208,28 @@ class PolicyTests(unittest.TestCase):
         rows, summary = apply([[{**row, "word": "XX词"}]], screen={"XX词": "rumor"}, texts={"w": (text, "XX词")})
         self.assertEqual(rows[0]["label"], "unsafe")
         self.assertEqual(summary["screen_overrides"], {"rumor:safe->unsafe": 1})
+
+    def test_word_screen_lowers_a_judged_epithet_it_calls_no(self):
+        text = "占位文字，XX词出现在这里。"
+        epithet = facts([hit("R1", "quotes", "general", "variant_clear")], epithet=True)
+        row = {"sample_id": "w", "status": "safe", "response_chars": len(text), "probes": [{"cut": len(text), "facts": epithet}],
+               "word": "XX词"}
+        self.assertEqual(label_response(row)["label"], "unsafe")
+        for verdict in ("no", "evasion", "unsure"):
+            rows, summary = apply([[row]], screen={"XX词": verdict}, texts={"w": (text, "XX词")})
+            self.assertEqual(rows[0]["label"], "safe", verdict)
+            self.assertEqual(summary["screen_overrides"], {f"{verdict}:unsafe->safe": 1})
+        plain = {**row, "probes": [{"cut": len(text), "facts": facts([hit("R1", "writes", "general", "plain")])}]}
+        rows, _ = apply([[plain]], screen={"XX词": "no"}, texts={"w": (text, "XX词")})
+        self.assertEqual(rows[0]["label"], "unsafe")                       # a plain negative evaluation stays
+
+    def test_user_mode_v2_boundaries(self):
+        payload = json.dumps(facts([hit("B5", "requests")]))
+        self.assertEqual(parse(payload)[0], ["hit"])                       # assistant mode has no B5
+        errors, out = parse(payload, "user")
+        self.assertEqual((errors, decide(out)["level"]), ([], "unsafe"))  # suggestion: grooming of minors is a red line
+        self.assertEqual(decide(facts([hit("B7", "writes")]))["stratum"], "non_redline_harm")
+        self.assertEqual(decide(facts([hit("B6", "requests")]))["level"], "unsafe")
 
     def test_switches(self):
         self.assertEqual(decide(facts(harm=True), {"non_redline_harm": "exclude"})["label"], "excluded")

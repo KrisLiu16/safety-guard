@@ -18,6 +18,9 @@ Boundary cases found in the T020 review (judge codes B1-B4, act term_explained),
   B4 false information about a specific company / site / product, forged reports   non_redline
   term_explained  writing out a term that is itself violating content to explain it  controversial (as a quote)
 Depicting drug use and verbal threats are outside the red lines; the judge does not give them a B code.
+Recorded by the prompt-side judge (user-v2) and still to be decided by the user (suggested defaults):
+  B5 non-explicit sexual grooming of minors     redline      B6 trade channels for guns, explosives, knives  redline
+  B7 hatred or discrimination against a race (not a Chinese domestic ethnic group)   non_redline (like 国别)
 Prompt side (judge user mode, tiers decided by the user 2026-09-24): writes and requests unsafe, quotes and
 term_explained controversial, topic_mention and debunk_request safe; everything else is shared with the assistant.
 A boundary code switched to non_redline counts as harm outside the red lines when written (trained as safe).
@@ -32,7 +35,7 @@ import json
 LEVELS = ("safe", "controversial", "unsafe")
 RANK = {level: rank for rank, level in enumerate(LEVELS)}
 DEPICTION_CODES = ("R2", "R11")
-BOUNDARY_CODES = ("B1", "B2", "B3", "B4")
+BOUNDARY_CODES = ("B1", "B2", "B3", "B4", "B5", "B6", "B7")
 
 DEFAULT_SWITCHES = {
     "topic_mention": "safe", "debunk_no_quote": "safe",
@@ -45,6 +48,7 @@ DEFAULT_SWITCHES = {
     "leader_epithet_written": "unsafe",
     "non_redline_harm": "safe",
     "B1": "redline", "B2": "redline", "B3": "redline", "B4": "non_redline",   # user, POLICY section 8 a-c, f
+    "B5": "redline", "B6": "redline", "B7": "non_redline",   # suggestions from the T024 review, pending the user
 }
 CHOICES = {**{name: LEVELS for name in DEFAULT_SWITCHES},
            "variant_unclear": ("ignore", "count"), "non_redline_harm": ("safe", "exclude"),

@@ -11,6 +11,10 @@ word the screen calls an insulting epithet or a rumour phrase for a national lea
 is unsafe from the end of the word's first occurrence, whatever the judge saw (the strict leader rule; POLICY
 section 8 e: the screen decides what a leader-name variant means). Positions before the word keep the judged
 levels; positions inside it get no target.
+The screen also works the other way (T024 review): when it calls the word "no", "evasion" (a spelling of a name,
+not an insult) or "unsure" (unclear variants pass, POLICY section 3) and the word is written out, the judge's
+leader_epithet_written flag and its variant-spelled R1 hits are dropped before labelling; plainly written R1 hits
+(e.g. a negative evaluation of a named leader) stay.
 """
 from __future__ import annotations
 
@@ -28,6 +32,15 @@ from policy import BOUNDARY_CODES, CHOICES, decide, digest, resolve  # noqa: E40
 
 FINISHED = ("safe", "excluded", "located")
 SCREEN_UNSAFE = ("insult", "rumor")
+SCREEN_NOT_EPITHET = ("no", "evasion", "unsure")
+
+
+def without_epithet(row):
+    """The probe row with the judge's leader-epithet facts removed (the screen says the word is not an insult)."""
+    def clean(facts):
+        return {**facts, "leader_epithet_written": False,
+                "hits": [h for h in facts["hits"] if not (h["code"] == "R1" and h["spelling"] != "plain")]}
+    return {**row, "probes": [{**p, "facts": clean(p["facts"])} for p in row["probes"]]}
 LEVEL_NAMES = ("safe", "controversial", "unsafe")
 
 
@@ -106,7 +119,13 @@ def apply(sources, switches=None, screen=None, texts=None):
                 if labelled is not None:
                     if screen and texts and row["sample_id"] in texts:
                         text, word = texts[row["sample_id"]]
-                        labelled = screen_override(labelled, text, word, screen.get(word))
+                        verdict = screen.get(word)
+                        if verdict in SCREEN_NOT_EPITHET and word and word in text:
+                            lowered = label_response(without_epithet(row), switches)
+                            if lowered is not None and lowered["label"] != labelled["label"]:
+                                labelled = {**lowered, "screen": {"verdict": verdict, "label_before": labelled["label"],
+                                                                  "direction": "down"}}
+                        labelled = screen_override(labelled, text, word, verdict)
                     chosen[row["sample_id"]] = (rank, labelled, row)
     used_rows = [row for rank, labelled, row in chosen.values() if rank is not None]
     out = []
@@ -139,7 +158,7 @@ def apply(sources, switches=None, screen=None, texts=None):
                "switch_sensitivity": sensitivity(used_rows, switches),
                "screen_used": bool(screen),
                "screen_overrides": dict(collections.Counter(
-                   f"{r['screen']['verdict']}:{r['screen']['label_before']}->unsafe" for r in usable if r.get("screen")))}
+                   f"{r['screen']['verdict']}:{r['screen']['label_before']}->{r['label']}" for r in usable if r.get("screen")))}
     return out, summary
 
 
