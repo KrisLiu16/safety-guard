@@ -1,0 +1,518 @@
+{
+  "version": "round6-probe-transfer-v1",
+  "model_calls": 0,
+  "fitted_on": "Run A calibration only",
+  "official_used_for_fitting": false,
+  "streams": {
+    "runA_calibration": 5052,
+    "runA_dev": 5188,
+    "prefix_v2_dev": 800,
+    "official_thinking": 1059
+  },
+  "scorers": {
+    "head": {
+      "temperature": 1.7,
+      "temperature_endpoint_nll": 0.19990978718984248,
+      "stream_auc_max_score": {
+        "runA_calibration": 0.8532894477011527,
+        "runA_dev": 0.8500621801452732,
+        "prefix_v2_dev": 0.902915625,
+        "official_thinking": 0.7844876439152111
+      },
+      "rules": {
+        "threshold": {
+          "tau": 0.968377,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.014647664291369754,
+            "recall": 0.5415676959619953
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.02235929067077872,
+            "recall": 0.5343099460292984,
+            "fpr_ci95": [
+              0.016962220508866616,
+              0.028141865844255976
+            ],
+            "recall_ci95": [
+              0.518118735543562,
+              0.5508866615265998
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0304,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1494,
+              "slot0:safe_redirect": 0.0,
+              "slot2:helpful_answer": 0.0,
+              "slot2:helpful_reasoning": 0.0015
+            },
+            "unsafe_detected": 1386,
+            "unsafe_first_fire_before_onset": 20,
+            "unsafe_first_fire_before_onset_share": 0.0144
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.025,
+            "recall": 0.5275
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.2693877551020408,
+            "recall": 0.6572934973637962
+          }
+        },
+        "consecutive_2": {
+          "tau": 0.964519,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.02058590657165479,
+            "recall": 0.5340459224069676
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.025828835774865073,
+            "recall": 0.5354664610639939,
+            "fpr_ci95": [
+              0.020046260601387818,
+              0.03199691595990748
+            ],
+            "recall_ci95": [
+              0.5192752505782575,
+              0.5516576715497301
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0395,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1688,
+              "slot0:safe_redirect": 0.0,
+              "slot2:helpful_answer": 0.0,
+              "slot2:helpful_reasoning": 0.0015
+            },
+            "unsafe_detected": 1389,
+            "unsafe_first_fire_before_onset": 16,
+            "unsafe_first_fire_before_onset_share": 0.0115
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.0275,
+            "recall": 0.555
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.24489795918367346,
+            "recall": 0.6748681898066784
+          }
+        },
+        "consecutive_4": {
+          "tau": 0.955332,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.03681710213776722,
+            "recall": 0.5589865399841647
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.04356206630686199,
+            "recall": 0.5609097918272937,
+            "fpr_ci95": [
+              0.03585196607555898,
+              0.05088666152659985
+            ],
+            "recall_ci95": [
+              0.5447185813415575,
+              0.5782575173477256
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0547,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.2987,
+              "slot0:safe_redirect": 0.0032,
+              "slot2:helpful_answer": 0.0,
+              "slot2:helpful_reasoning": 0.0015
+            },
+            "unsafe_detected": 1455,
+            "unsafe_first_fire_before_onset": 38,
+            "unsafe_first_fire_before_onset_share": 0.0261
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.03,
+            "recall": 0.58
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.32857142857142857,
+            "recall": 0.7135325131810193
+          }
+        },
+        "ema_0.1": {
+          "tau": 0.943766,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.032066508313539195,
+            "recall": 0.4916864608076009
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.03238242097147263,
+            "recall": 0.48766383962991516,
+            "fpr_ci95": [
+              0.025828835774865073,
+              0.038936006168080184
+            ],
+            "recall_ci95": [
+              0.4726291441788743,
+              0.5026985350809561
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0638,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1948,
+              "slot0:safe_redirect": 0.0,
+              "slot2:helpful_answer": 0.0,
+              "slot2:helpful_reasoning": 0.0031
+            },
+            "unsafe_detected": 1265,
+            "unsafe_first_fire_before_onset": 52,
+            "unsafe_first_fire_before_onset_share": 0.0411
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.0475,
+            "recall": 0.595
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.2857142857142857,
+            "recall": 0.7469244288224957
+          }
+        },
+        "ema_0.3": {
+          "tau": 0.960189,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.021377672209026127,
+            "recall": 0.5384006334125099
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.027756360832690823,
+            "recall": 0.5393215111796453,
+            "fpr_ci95": [
+              0.02197378565921357,
+              0.03392444101773323
+            ],
+            "recall_ci95": [
+              0.5227447956823439,
+              0.5566692367000771
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0334,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1916,
+              "slot0:safe_redirect": 0.0,
+              "slot2:helpful_answer": 0.0,
+              "slot2:helpful_reasoning": 0.0015
+            },
+            "unsafe_detected": 1399,
+            "unsafe_first_fire_before_onset": 18,
+            "unsafe_first_fire_before_onset_share": 0.0129
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.0275,
+            "recall": 0.565
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.25918367346938775,
+            "recall": 0.6818980667838312
+          }
+        }
+      }
+    },
+    "probe": {
+      "temperature": 0.7,
+      "temperature_endpoint_nll": 0.027290225177620486,
+      "stream_auc_max_score": {
+        "runA_calibration": 0.9990576233615373,
+        "runA_dev": 0.9988464572475834,
+        "prefix_v2_dev": 0.8390375,
+        "official_thinking": 0.889161077436247
+      },
+      "rules": {
+        "threshold": {
+          "tau": 0.987411,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.03681710213776722,
+            "recall": 0.9960411718131433
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.04163454124903624,
+            "recall": 0.9973014649190439,
+            "fpr_ci95": [
+              0.034309946029298384,
+              0.049730146491904395
+            ],
+            "recall_ci95": [
+              0.994988434849653,
+              0.9992289899768697
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.076,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1039,
+              "slot0:safe_redirect": 0.016,
+              "slot2:helpful_answer": 0.0389,
+              "slot2:helpful_reasoning": 0.0305
+            },
+            "unsafe_detected": 2587,
+            "unsafe_first_fire_before_onset": 130,
+            "unsafe_first_fire_before_onset_share": 0.0503
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.3175,
+            "recall": 0.835
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.3510204081632653,
+            "recall": 0.9156414762741653
+          }
+        },
+        "consecutive_2": {
+          "tau": 0.943766,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.03602533650039588,
+            "recall": 0.996437054631829
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.034309946029298384,
+            "recall": 0.9980724749421742,
+            "fpr_ci95": [
+              0.027370855821125674,
+              0.04163454124903624
+            ],
+            "recall_ci95": [
+              0.9961449498843485,
+              0.9996144949884348
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0547,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1104,
+              "slot0:safe_redirect": 0.0128,
+              "slot2:helpful_answer": 0.028,
+              "slot2:helpful_reasoning": 0.0214
+            },
+            "unsafe_detected": 2589,
+            "unsafe_first_fire_before_onset": 118,
+            "unsafe_first_fire_before_onset_share": 0.0456
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.31,
+            "recall": 0.8575
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.4,
+            "recall": 0.9384885764499121
+          }
+        },
+        "consecutive_4": {
+          "tau": 0.683772,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.0395882818685669,
+            "recall": 0.9960411718131433
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.040863531225905934,
+            "recall": 0.9976869699306091,
+            "fpr_ci95": [
+              0.03315343099460293,
+              0.04857363145720894
+            ],
+            "recall_ci95": [
+              0.9957594448727833,
+              0.9996144949884348
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0699,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1558,
+              "slot0:safe_redirect": 0.0128,
+              "slot2:helpful_answer": 0.0249,
+              "slot2:helpful_reasoning": 0.0214
+            },
+            "unsafe_detected": 2588,
+            "unsafe_first_fire_before_onset": 100,
+            "unsafe_first_fire_before_onset_share": 0.0386
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.3175,
+            "recall": 0.8775
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.46122448979591835,
+            "recall": 0.945518453427065
+          }
+        },
+        "ema_0.1": {
+          "tau": 0.498813,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.018606492478226443,
+            "recall": 0.9936658749010293
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.018889745566692366,
+            "recall": 0.9973014649190439,
+            "fpr_ci95": [
+              0.013878180416345412,
+              0.02428681572860447
+            ],
+            "recall_ci95": [
+              0.9953739398612182,
+              0.9992289899768697
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0213,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.0649,
+              "slot0:safe_redirect": 0.0096,
+              "slot2:helpful_answer": 0.0125,
+              "slot2:helpful_reasoning": 0.0153
+            },
+            "unsafe_detected": 2587,
+            "unsafe_first_fire_before_onset": 41,
+            "unsafe_first_fire_before_onset_share": 0.0158
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.2925,
+            "recall": 0.8725
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.3551020408163265,
+            "recall": 0.9314586994727593
+          }
+        },
+        "ema_0.3": {
+          "tau": 0.822172,
+          "runA_calibration": {
+            "n_safe": 2526,
+            "n_unsafe": 2526,
+            "fpr": 0.03602533650039588,
+            "recall": 0.9972288202692003
+          },
+          "runA_dev": {
+            "n_safe": 2594,
+            "n_unsafe": 2594,
+            "fpr": 0.03700848111025443,
+            "recall": 0.9980724749421742,
+            "fpr_ci95": [
+              0.029683885890516577,
+              0.04433307632999229
+            ],
+            "recall_ci95": [
+              0.9961449498843485,
+              0.9996144949884348
+            ]
+          },
+          "runA_dev_breakdown": {
+            "safe_fpr_by_slot_style": {
+              "slot0:neutral_information": 0.0669,
+              "slot0:refusal": 0.0029,
+              "slot0:risk_reasoning": 0.1266,
+              "slot0:safe_redirect": 0.0128,
+              "slot2:helpful_answer": 0.0234,
+              "slot2:helpful_reasoning": 0.0229
+            },
+            "unsafe_detected": 2589,
+            "unsafe_first_fire_before_onset": 103,
+            "unsafe_first_fire_before_onset_share": 0.0398
+          },
+          "prefix_v2_dev": {
+            "n_safe": 400,
+            "n_unsafe": 400,
+            "fpr": 0.325,
+            "recall": 0.8725
+          },
+          "official_thinking": {
+            "n_safe": 490,
+            "n_unsafe": 569,
+            "fpr": 0.42448979591836733,
+            "recall": 0.9314586994727593
+          }
+        }
+      }
+    }
+  }
+}
