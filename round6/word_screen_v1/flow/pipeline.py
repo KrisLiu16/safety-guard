@@ -19,22 +19,32 @@ state president and vice-president, premier, NPC and CPPCC chairs, CMC chair, fo
 misses were puns on former PSC members; a derogatory claim about a named leader is insult or rumor even when
 it is also a historical or political topic; and each word is screened in two passes with different batch
 orderings, merged conservatively (merge()), to absorb run-to-run variance.
+
+v4 (after re-test aster-dev-291: 24/26, the same two homophone puns on former PSC members missed in both
+passes, which v1's plain yes/no question had caught): a third pass asks the v1 question (with the v3 scope)
+in `binary` mode. A binary yes or unsure alone only makes a word `unsure` in the merge (kept out of safe
+data, never relabelled), because v1's yes also covered evasive spellings. Human labels, where given, override
+the model downstream (extract_screen.py --manual), and the model verdict is kept next to them.
 """
 from __future__ import annotations
 
 import json
 import re
 
-PROMPT_VERSION = "guard-word-screen-leader-v3"
+PROMPT_VERSION = "guard-word-screen-leader-v4"
 WIRE_APIS = ("responses", "chat_completions")
-VERDICTS = ("insult", "rumor", "evasion", "unsure", "no")
+VERDICTS = ("insult", "rumor", "evasion", "unsure", "no")          # category mode
+BINARY_VERDICTS = ("yes", "unsure", "no")                          # binary mode
+MODES = {"category": VERDICTS, "binary": BINARY_VERDICTS}
 FLAGGED = ("insult", "rumor", "evasion", "unsure")
 MERGE_ORDER = ("insult", "rumor", "unsure", "evasion", "no")   # most to least severe for safe-data use
 
 
 def merge(verdicts):
-    """Conservative merge of one word's verdicts from several passes: the most severe one wins."""
-    present = [v for v in verdicts if v in MERGE_ORDER]
+    """Conservative merge of one word's verdicts from several passes: the most severe one wins.
+    A binary-mode yes carries no category, so it counts as unsure (excluded from safe data, not relabelled)."""
+    present = ["unsure" if v == "yes" else v for v in verdicts]
+    present = [v for v in present if v in MERGE_ORDER]
     return min(present, key=MERGE_ORDER.index) if present else "missing"
 SYSTEM_PROMPT = """你是内容安全词表审核员。给定一批词条，逐条判断它和中国党和国家领导人的关系，只输出一个 JSON 对象。
 “党和国家领导人”指现任和历任的：中共中央政治局常委、中共中央总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席，以及开国领袖。
@@ -47,29 +57,39 @@ SYSTEM_PROMPT = """你是内容安全词表审核员。给定一批词条，逐�
 拿不准时宁可选 unsure，不要选 no。results 必须逐条对应输入的每个词条，index 和 word 原样照抄，不要遗漏、合并或改写。"""
 
 
-def schema(count):
+BINARY_PROMPT = """你是内容安全词表审核员。给定一批词条，逐条判断：这个词条是不是针对中国党和国家领导人的侮辱性称呼、蔑称、贬损性谐音、贬损性代称、贬损性绰号或贬损性说法。只判断这一件事，只输出一个 JSON 对象。
+“党和国家领导人”指现任和历任的：中共中央政治局常委、中共中央总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席，以及开国领袖。
+- yes：是。包括用谐音、拆字、缩写、外号、代称等方式指向上述人物并带有贬损、嘲讽、侮辱意味的写法。
+- no：不是。包括上述人物的正式姓名、职务、正式称谓和中性简称；与他们无关的词，即使属于其他敏感类型，也填 no。
+- unsure：拿不准它是否指向上述人物，或拿不准是否带贬损意味。
+results 必须逐条对应输入的每个词条，index 和 word 原样照抄，不要遗漏、合并或改写。"""
+PROMPTS = {"category": SYSTEM_PROMPT, "binary": BINARY_PROMPT}
+
+
+def schema(count, mode="category"):
     item = {"type": "object", "additionalProperties": False, "required": ["index", "word", "verdict"],
             "properties": {"index": {"type": "integer"}, "word": {"type": "string"},
-                           "verdict": {"type": "string", "enum": list(VERDICTS)}}}
+                           "verdict": {"type": "string", "enum": list(MODES[mode])}}}
     return {"type": "object", "additionalProperties": False, "required": ["batch_key", "prompt_version", "results"],
             "properties": {"batch_key": {"type": "string"}, "prompt_version": {"type": "string"},
                            "results": {"type": "array", "items": item, "minItems": count, "maxItems": count}}}
 
 
 def request_body(model_name, batch, wire_api):
+    mode = batch.get("mode", "category")
     words = [{"index": i, "word": w["word"]} for i, w in enumerate(batch["words"])]
     user = json.dumps({"batch_key": batch["batch_key"], "prompt_version": PROMPT_VERSION, "words": words,
-                       "output_schema": schema(len(words))}, ensure_ascii=False)
+                       "output_schema": schema(len(words), mode)}, ensure_ascii=False)
+    system = PROMPTS[mode]
     if wire_api == "responses":
         return {"model": model_name, "reasoning": {"effort": "low"}, "max_output_tokens": 16000,
-                "input": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}],
-                "text": {"format": {"type": "json_schema", "name": "guard_word_screen_leader_v3",
-                                    "strict": True, "schema": schema(len(words))}}}
+                "input": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+                "text": {"format": {"type": "json_schema", "name": f"guard_word_screen_leader_v4_{mode}",
+                                    "strict": True, "schema": schema(len(words), mode)}}}
     if wire_api == "chat_completions":
         return {"model": model_name, "stream": False, "max_tokens": 16000, "temperature": 0,
-                "messages": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}]}
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
     raise ValueError("unsupported wire API " + str(wire_api))
-
 
 def response_text(response, wire_api):
     if wire_api == "chat_completions":
@@ -117,7 +137,7 @@ def parse(text, batch):
         if item.get("word") != words[index]["word"]:
             errors.append("word_changed")
             continue
-        if item.get("verdict") not in VERDICTS:
+        if item.get("verdict") not in MODES[batch.get("mode", "category")]:
             errors.append("verdict")
             continue
         verdicts.append({**words[index], "verdict": item["verdict"]})

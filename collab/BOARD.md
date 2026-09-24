@@ -15,7 +15,7 @@
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 执行方 | 完成（并入 T004）：T=1.7；复述类误报 11–31%，官方 thinking 误报最低 21.2%，与 v1 相近 | T004 ✓ |
 | [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | 完成（aster-dev-285/286）。50/60 词完成；复核后真不安全 2%，luna 误判 0；生成模型漏掉 2 个贬损领导人的词 → S2 提示词升 v2，加词表预筛 T012 | — |
 | [T011](assignments/T011-s5-safe-pilot.md) | S5 安全的一半：40 词长篇安全思考，DeepSeek 生成 + luna 复核（代码见 round6/s5_safe_v15/） | 执行方 | 完成（aster-dev-287/288）。35/40 词完成，人工核对后 0% 真不安全；luna 误判 1/140。长度偏短 → S5 提示词升 v2（分配目标长度、修复字面 \\n） | — |
-| [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与党和国家领导人相关（insult / rumor / evasion / unsure / no），每词两遍取最严重；复测通过后全量（代码见 round6/word_screen_v1/） | 执行方 | v2 复测召回不够（漏 3/26）→ v3 待执行：写明领导人范围、两遍合并 | — |
+| [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与党和国家领导人相关（两遍分类 + 一遍是/否，取最严重；人工标注优先）；复测过门槛后全量（代码见 round6/word_screen_v1/） | 执行方 | v3 复测 24/26，两个冷僻谐音稳定漏判 → v4 待执行 | — |
 | T013 | S2 放量（v2 提示词，排除预筛 yes/unsure 的词，约 7,000 词 ≈ 2 万条） | 设计方 | 等 T012 全量筛完 | T012 |
 | T015 | S5 安全一半放量（v2 提示词，排除预筛 yes/unsure 的词；规模待定，按 thinking 分层每层至少 1,000 个负例的要求估算） | 设计方 | 等 T012 全量筛完 | T012 |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |

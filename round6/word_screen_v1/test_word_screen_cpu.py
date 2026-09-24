@@ -45,6 +45,20 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(parse(reply([], batch_key="other"), BATCH), (["root_mismatch"], []))
         self.assertEqual(parse("not json", BATCH), (["no_json"], []))
 
+    def test_binary_mode_parse_and_prompt(self):
+        batch = {**BATCH, "mode": "binary"}
+        results = [{"index": i, "word": w["word"], "verdict": v} for i, (w, v) in enumerate(zip(BATCH["words"], ("yes", "no", "unsure")))]
+        self.assertEqual(parse(reply(results), batch)[0], [])
+        bad = [dict(results[0], verdict="insult")] + results[1:]
+        self.assertIn("verdict", parse(reply(bad), batch)[0])        # category verdicts are not valid in binary mode
+        from pipeline import BINARY_PROMPT, SYSTEM_PROMPT
+        body = request_body("m", batch, "responses")
+        self.assertEqual(body["input"][0]["content"], BINARY_PROMPT)
+        self.assertEqual(body["text"]["format"]["schema"]["properties"]["results"]["items"]["properties"]["verdict"]["enum"],
+                         ["yes", "unsure", "no"])
+        self.assertEqual(request_body("m", BATCH, "responses")["input"][0]["content"], SYSTEM_PROMPT)
+        self.assertIn("政治局常委", BINARY_PROMPT)
+
     def test_request_sends_only_words(self):
         for wire in WIRE_APIS:
             body = request_body("m", {**BATCH, "words": [{"word": "词甲", "known_positive": True}]}, wire)
@@ -68,14 +82,15 @@ class BatchAndJoinTests(unittest.TestCase):
             manifest = json.loads((out / "manifest.json").read_text())
             self.assertEqual(manifest["words"], 252)
             self.assertEqual(manifest["known_positives"], 2)
-            self.assertEqual(manifest["passes"], 2)
-            self.assertEqual(manifest["tasks"], 4)           # 252 words -> 2 batches per pass
+            self.assertEqual((manifest["passes"], manifest["binary_passes"]), (2, 1))
+            self.assertEqual(manifest["tasks"], 6)           # 252 words -> 2 batches per pass, 3 passes
             with (out / "words.jsonl").open(encoding="utf-8") as handle:
                 entries = [json.loads(line) for line in handle]
             self.assertEqual(len({e["word"] for e in entries}), 252)
             self.assertEqual(len(next(e for e in entries if e["word"] == "词7")["task_keys"]), 2)
-            self.assertTrue(all(len(e["batch_keys"]) == 2 and e["batch_keys"][0].startswith("screen-p0-")
-                                and e["batch_keys"][1].startswith("screen-p1-") for e in entries))
+            self.assertTrue(all([k.split("-")[1] for k in e["batch_keys"]] == ["p0", "p1", "b0"] for e in entries))
+            modes = {json.loads(t.read_text())["mode"] for t in (out / "tasks").glob("screen-b0-*/instruction.md")}
+            self.assertEqual(modes, {"binary"})
             first = {e["word"]: e["batch_keys"] for e in entries}
             neighbours = collections.defaultdict(set)
             for e in entries:
@@ -92,7 +107,7 @@ class BatchAndJoinTests(unittest.TestCase):
         rows, summary = join(index, [{"batch_key": "screen-p0-00000", "errors": ["missing:1"], "verdicts": [{"word": "词甲", "verdict": "rumor"},
                                                                           {"word": "词丙", "verdict": "no"}]}])
         self.assertEqual(summary["verdicts"], {"rumor": 1, "missing": 1, "no": 1})
-        self.assertEqual(summary["known_positive_recall_flagged"], 0.5)
+        self.assertEqual(summary["known_positive_model_recall_flagged"], 0.5)
         self.assertEqual(summary["batch_errors"], {"missing": 1})
 
 
@@ -104,6 +119,22 @@ class MergeTests(unittest.TestCase):
         self.assertEqual(merge(["evasion", "unsure"]), "unsure")
         self.assertEqual(merge(["no", "no"]), "no")
         self.assertEqual(merge([]), "missing")
+        self.assertEqual(merge(["no", "no", "yes"]), "unsure")         # binary yes alone: exclude, never relabel
+        self.assertEqual(merge(["insult", "no", "yes"]), "insult")
+
+    def test_binary_pass_and_manual_override(self):
+        index = [{"word": w, "known_positive": w == "词甲", "source_groups": ["g"]} for w in ("词甲", "词乙", "词丙")]
+        values = [{"batch_key": f"screen-{tag}-00000", "errors": [], "verdicts": [
+                      {"word": "词甲", "verdict": a}, {"word": "词乙", "verdict": b}, {"word": "词丙", "verdict": "no"}]}
+                  for tag, a, b in (("p0", "no", "no"), ("p1", "no", "no"), ("b0", "yes", "no"))]
+        rows, summary = join(index, values, manual={"词乙": "insult", "词丙": "borderline"})
+        got = {r["word"]: (r["verdict"], r["verdict_source"], r["model_verdict"]) for r in rows}
+        self.assertEqual(got["词甲"], ("unsure", "model", "unsure"))   # rescued by the binary pass
+        self.assertEqual(got["词乙"], ("insult", "manual", "no"))      # hand label wins, model verdict kept
+        self.assertEqual(got["词丙"], ("unsure", "manual", "no"))
+        self.assertEqual(summary["flagged_only_by_binary_pass"], 1)
+        self.assertEqual(summary["manual_overrides"], 2)
+        self.assertEqual(summary["known_positive_model_recall_flagged"], 1.0)
 
     def test_two_pass_join(self):
         index = [{"word": w, "known_positive": w == "词甲", "source_groups": ["g"]} for w in ("词甲", "词乙", "词丙")]
@@ -115,7 +146,7 @@ class MergeTests(unittest.TestCase):
         self.assertEqual({r["word"]: r["verdict"] for r in rows}, {"词甲": "insult", "词乙": "no", "词丙": "evasion"})
         self.assertEqual(summary["passes_seen"], ["p0", "p1"])
         self.assertEqual(summary["pass_agreement_flagged"], round(2 / 3, 4))
-        self.assertEqual(summary["known_positive_recall_flagged"], 1.0)
+        self.assertEqual(summary["known_positive_model_recall_flagged"], 1.0)
 
 
 class CompareTests(unittest.TestCase):

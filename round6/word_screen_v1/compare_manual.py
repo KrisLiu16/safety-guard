@@ -50,9 +50,9 @@ def main():
     with args.screen.open(encoding="utf-8") as handle:
         for line in handle:
             row = json.loads(line)
-            if row["verdict"] not in (*VERDICTS, "missing"):
-                raise ValueError("screen file is not a v2 screen: " + row["verdict"])
-            verdicts[row["word"]] = row["verdict"]
+            if row.get("model_verdict", row["verdict"]) not in (*VERDICTS, "missing"):
+                raise ValueError("screen file is not a v2+ screen: " + row["verdict"])
+            verdicts[row["word"]] = row.get("model_verdict", row["verdict"])   # judge the model, not the override
     print(json.dumps(compare(manual, verdicts), ensure_ascii=False, indent=1))
 
 

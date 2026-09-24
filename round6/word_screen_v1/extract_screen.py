@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Download word-screen archives and join verdicts with the local word index (Mac, no model calls).
 
-screen.jsonl : one row per word with its merged verdict (most severe across passes, or missing), the
-               per-pass verdicts and source groups;
+screen.jsonl : one row per word: final verdict (a hand label where given, otherwise the model's), the
+               model's merged verdict (most severe across passes), per-pass verdicts and source groups;
 summary.json : verdict counts overall and per source group, batch errors, and recall on known positives
                (any verdict other than "no" counts as flagged).
 Words left without a verdict are listed so they can be re-screened in a later batch.
@@ -41,37 +41,50 @@ def batches(archives):
                         yield record["value"]
 
 
-def join(index_rows, batch_values):
-    """Pure: merge every pass's verdict per word (most severe wins); return (rows, summary)."""
+MANUAL_TO_VERDICT = {"insult": "insult", "rumor": "rumor", "evasion": "evasion", "no": "no", "borderline": "unsure"}
+
+
+def join(index_rows, batch_values, manual=None):
+    """Pure: merge every pass's verdict per word (most severe wins); a human label, where given, overrides it.
+    Returns (rows, summary); each row keeps the model verdict next to the final one."""
     per_word = collections.defaultdict(list)
+    per_word_tagged = collections.defaultdict(dict)
     errors = collections.Counter()
     passes = set()
     for value in batch_values:
         for e in value.get("errors", []):
             errors[e.split(":")[0]] += 1
-        batch_pass = value.get("batch_key", "").split("-")[1] if value.get("batch_key", "").count("-") >= 2 else "p0"
-        passes.add(batch_pass)
+        key = value.get("batch_key", "")
+        tag = key.split("-")[1] if key.count("-") >= 2 else "p0"
+        passes.add(tag)
         for v in value.get("verdicts", []):
             per_word[v["word"]].append(v["verdict"])
+            per_word_tagged[v["word"]][tag] = v["verdict"]
+    manual = manual or {}
     rows, by_group = [], collections.defaultdict(collections.Counter)
     for entry in index_rows:
-        seen = per_word.get(entry["word"], [])
-        state = merge(seen)
-        rows.append({**entry, "verdict": state, "pass_verdicts": seen})
+        model = merge(per_word.get(entry["word"], []))
+        final, source = (MANUAL_TO_VERDICT[manual[entry["word"]]], "manual") if entry["word"] in manual else (model, "model")
+        rows.append({**entry, "verdict": final, "verdict_source": source, "model_verdict": model,
+                     "pass_verdicts": per_word_tagged.get(entry["word"], {})})
         for group in entry["source_groups"]:
-            by_group[group][state] += 1
+            by_group[group][final] += 1
     known = [r for r in rows if r.get("known_positive")]
-    both = [r for r in rows if len(r["pass_verdicts"]) >= 2]
+    category = [r for r in rows if {"p0", "p1"} <= set(r["pass_verdicts"])]
     summary = {"words": len(rows), "passes_seen": sorted(passes),
                "verdicts": dict(collections.Counter(r["verdict"] for r in rows)),
-               "words_with_all_passes": len(both),
-               "pass_agreement_flagged": (round(sum((r["pass_verdicts"][0] in FLAGGED) == (r["pass_verdicts"][1] in FLAGGED)
-                                                    for r in both) / len(both), 4) if both else None),
+               "model_verdicts": dict(collections.Counter(r["model_verdict"] for r in rows)),
+               "manual_overrides": sum(r["verdict_source"] == "manual" for r in rows),
+               "words_with_both_category_passes": len(category),
+               "pass_agreement_flagged": (round(sum((r["pass_verdicts"]["p0"] in FLAGGED) == (r["pass_verdicts"]["p1"] in FLAGGED)
+                                                    for r in category) / len(category), 4) if category else None),
+               "flagged_only_by_binary_pass": sum(r["model_verdict"] != "no" and all(
+                   v == "no" for t, v in r["pass_verdicts"].items() if t.startswith("p")) for r in rows),
                "batch_errors": dict(errors),
                "known_positives": len(known),
-               "known_positive_verdicts": dict(collections.Counter(r["verdict"] for r in known)),
-               "known_positive_recall_flagged": (round(sum(r["verdict"] in FLAGGED for r in known) / len(known), 4)
-                                                 if known else None),
+               "known_positive_model_verdicts": dict(collections.Counter(r["model_verdict"] for r in known)),
+               "known_positive_model_recall_flagged": (round(sum(r["model_verdict"] in FLAGGED for r in known) / len(known), 4)
+                                                       if known else None),
                "by_source_group": {g: dict(c) for g, c in sorted(by_group.items())}}
     return rows, summary
 
@@ -81,6 +94,8 @@ def main():
     parser.add_argument("run")
     parser.add_argument("--words", type=Path, required=True, help="words.jsonl written by make_batch.py")
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--manual", type=Path,
+                        help="local hand labels (word<TAB>label, git-ignored); they override the model verdict")
     parser.add_argument("--attempts-json", type=Path,
                         help="frozen listing from response_v14/freeze_attempts.py when the run has over 100 samples")
     args = parser.parse_args()
@@ -102,7 +117,13 @@ def main():
                 raise RuntimeError("archive SHA mismatch " + attempt["attempt_id"])
         archives.append(path)
     index_rows = [json.loads(line) for line in args.words.open(encoding="utf-8")]
-    rows, summary = join(index_rows, batches(archives))
+    manual = None
+    if args.manual:
+        manual = dict(line.rsplit("\t", 1) for line in args.manual.read_text(encoding="utf-8").splitlines() if line.strip())
+        unknown = set(manual.values()) - set(MANUAL_TO_VERDICT)
+        if unknown:
+            raise ValueError(f"unknown manual labels {sorted(unknown)}")
+    rows, summary = join(index_rows, batches(archives), manual)
     summary.update(run_no=run.get("run_no"), run_status=run.get("status"), archives=len(archives))
     with (args.out / "screen.jsonl").open("w", encoding="utf-8") as handle:
         for row in rows:

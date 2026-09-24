@@ -16,7 +16,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
-from pipeline import PROMPT_VERSION, SYSTEM_PROMPT  # noqa: E402
+from pipeline import BINARY_PROMPT, PROMPT_VERSION, SYSTEM_PROMPT  # noqa: E402
 
 DEFAULT_SEEDS = (ROOT.parent / "response_v14/batch_50k/seeds.jsonl", ROOT.parent / "response_v14/batch_rest/seeds.jsonl")
 SALT = "word-screen-v1"
@@ -61,7 +61,8 @@ def main():
     parser.add_argument("--seeds", type=Path, action="append", default=None)
     parser.add_argument("--pilot", type=int, default=0, help="pilot word count; 0 = every distinct word")
     parser.add_argument("--include", type=Path, help="local file of known positives, one word per line")
-    parser.add_argument("--passes", type=int, default=2, help="independent passes per word, each with its own batch order")
+    parser.add_argument("--passes", type=int, default=2, help="category-mode passes per word, each with its own batch order")
+    parser.add_argument("--binary-passes", type=int, default=1, help="binary-mode (yes / unsure / no) passes per word")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -76,14 +77,15 @@ def main():
                 "source_groups": sorted(words[w]["source_groups"]) if w in words else ["include-only"],
                 "task_keys": words[w]["task_keys"] if w in words else []} for w in order]
     paths = []
-    for p in range(args.passes):
+    plan = [("category", f"p{p}") for p in range(args.passes)] + [("binary", f"b{p}") for p in range(args.binary_passes)]
+    for p, (mode, tag) in enumerate(plan):
         # Each pass puts every word in a different batch with different neighbours.
         ordered = sorted(entries, key=lambda e: number(f"{SALT}:pass{p}:{e['word']}")) if p else entries
         for start in range(0, len(ordered), BATCH_WORDS):
-            key = f"screen-p{p}-{start // BATCH_WORDS:05d}"
+            key = f"screen-{tag}-{start // BATCH_WORDS:05d}"
             task = args.output / "tasks" / key
             (task / "tests").mkdir(parents=True)
-            batch = {"batch_key": key, "prompt_version": PROMPT_VERSION,
+            batch = {"batch_key": key, "prompt_version": PROMPT_VERSION, "mode": mode,
                      "words": [{"word": e["word"]} for e in ordered[start:start + BATCH_WORDS]]}   # nothing but the word is sent
             (task / "instruction.md").write_text(json.dumps(batch, ensure_ascii=False), encoding="utf-8")
             (task / "task.toml").write_text(f'version = "1.0"\n\n[metadata]\nname = "{key}"\ncategory = "guard-word-screen"\n')
@@ -101,12 +103,15 @@ def main():
             handle.write(json.dumps(e, ensure_ascii=False) + "\n")
     manifest = {"prompt_version": PROMPT_VERSION, "mode": "pilot" if args.pilot else "full", "words": len(entries),
                 "known_positives": sum(e["known_positive"] for e in entries), "tasks": len(paths), "passes": args.passes,
+                "binary_passes": args.binary_passes,
                 "batch_words": BATCH_WORDS, "seed_rows": len(rows),
                 "sha256": {"pipeline": hashlib.sha256((ROOT / "flow/pipeline.py").read_bytes()).hexdigest(),
                            "flow": hashlib.sha256((ROOT / "flow/flow.py").read_bytes()).hexdigest(),
-                           "system_prompt": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()}}
+                           "system_prompt": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest(),
+                           "binary_prompt": hashlib.sha256(BINARY_PROMPT.encode()).hexdigest()}}
     (args.output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({k: manifest[k] for k in ("mode", "words", "known_positives", "passes", "tasks")}, ensure_ascii=False))
+    print(json.dumps({k: manifest[k] for k in ("mode", "words", "known_positives", "passes", "binary_passes", "tasks")},
+                     ensure_ascii=False))
 
 
 if __name__ == "__main__":
