@@ -8,6 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
+sys.path.insert(0, str(ROOT))  # make_fallback / extract_judgments, when run from the repo root
 from pipeline import PROMPT_VERSION, SYSTEM_PROMPT, WIRE_APIS, parse, request_body, response_text, stop_ok  # noqa: E402
 from taxonomy import GBT_CODES, QWEN_RESPONSE_CATEGORIES  # noqa: E402
 
