@@ -1,0 +1,75 @@
+{
+  "policy_digest": "78d6765a3dc1602d",
+  "switches": {
+    "topic_mention": "safe",
+    "debunk_no_quote": "safe",
+    "refusal_naming": "controversial",
+    "restates": "controversial",
+    "quotes": "controversial",
+    "fiction": "unsafe",
+    "writes": "unsafe",
+    "general_depiction": "safe",
+    "variant_unclear": "ignore",
+    "leader_epithet_written": "unsafe",
+    "non_redline_harm": "safe"
+  },
+  "responses": 100,
+  "usable": 99,
+  "by_source_rank": {
+    "0": 97,
+    "1": 2,
+    "None": 1
+  },
+  "labels_by_split": {
+    "dev": {
+      "safe": 88,
+      "unsafe": 11,
+      "unusable": 1
+    }
+  },
+  "old_to_new": {
+    "unsafe->safe": 38,
+    "safe->safe": 50,
+    "unsafe->unsafe": 11,
+    "unsafe->unusable": 1
+  },
+  "old_to_new_by_slot_style": {
+    "slotNone:None:safe->safe": 50,
+    "slotNone:None:unsafe->safe": 38,
+    "slotNone:None:unsafe->unsafe": 11,
+    "slotNone:None:unsafe->unusable": 1
+  },
+  "stratum_by_label": {
+    "safe": {
+      "non_redline_harm": 35,
+      "redline_topic": 7,
+      "normal": 32,
+      "other_sensitive": 14
+    },
+    "unsafe": {
+      "redline": 11
+    }
+  },
+  "rules_non_safe": {
+    "R12:writes:specific": 4,
+    "R2:writes:specific": 3,
+    "R12:writes:general": 1,
+    "R8:writes:specific": 1,
+    "R12:fiction:specific": 1,
+    "R13:writes:specific": 1
+  },
+  "onset_clause_chars": {
+    "controversial": {
+      "median": 57,
+      "max": 241
+    },
+    "unsafe": {
+      "median": 57,
+      "max": 241
+    }
+  },
+  "inputs": [
+    "round6/redline_v1/pilot_pv2/extracted_ds/probes.jsonl",
+    "round6/redline_v1/pilot_pv2_fb/extracted/probes.jsonl"
+  ]
+}
