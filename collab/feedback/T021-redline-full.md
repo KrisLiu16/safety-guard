@@ -1,7 +1,7 @@
 # T021 反馈
 
 - 对应任务单版本：v3
-- 状态：**进行中**。第 1 步复测已通过；第 2–3 步放量已提交，其中两个 Run 在跑，prefix_v2 那份的上传在重试。
+- 状态：**标签完成，验收通过，已拷到 PVC（01:03）**。只剩删除 4 个数据集，平台返回 INTERNAL_ERROR，见文末第 8 步。Run A 第一阶段的 `--source` 换成了 `trainable.jsonl`，原因见“第 6 步：标签（Run A 第一阶段）”。
 - **用户已确认放量规模**（2026-09-24 约 20:47），原话：
   > 规模确认，复测通过就放量
 
@@ -174,14 +174,14 @@ prefix_v2：
 - 各目录的 `run_no.txt` 已改为新 Run，旧 Run 号保存在 `run_no_sdk42_failed.txt`。
 - 326 成功的 58 个 Task 不单独保留。新的 329 会把 1,853 个 Task 全部重跑，这样抽取时只用一个 Run，代价是多出约 1,160 条回答的 DeepSeek 调用。
 
-## 第 4–5 步：抽取和 luna 兜底（22:55 – 00:xx）
+## 第 4–5 步：抽取和 luna 兜底（22:55 – 00:57）
 
 主跑三个 Run 都是 completed、0 失败，都先冻结了 attempt 列表再抽取（`attempts.json`）。兜底按 `failed_ids.txt` 用 `make_tasks.py --sample-ids` 生成任务，每个 Task 10 条，luna，尝试 1 次，高优先级，SDK 4.3。
 
 | 份 | Run | responses | safe | located | nonmonotonic | judge_error | 每条调用（均值 / 最大） | 交给下一步 |
 |---|---|---|---|---|---|---|---|---|
 | full_runA_stage1 | aster-dev-329 | 37,056 | 30,169 | 4,907 | 218 | 1,762 | 1.38 / 9 | 1,980 |
-| full_runA_stage1_fb | aster-dev-343（198 Task） | 1,980 | 运行中 | | | | | |
+| full_runA_stage1_fb | aster-dev-343（198 Task） | 1,980 | 1,093 | 802 | 85 | 0 | 2.40 / 8 | 85（不可用） |
 | full_runA_dev | aster-dev-330 | 5,188 | 4,263 | 649 | 30 | 246 | 1.35 / 8 | 276 |
 | full_runA_dev_fb | aster-dev-337（28 Task） | 276 | 153 | 107 | 16 | 0 | 2.37 / 8 | 16（不可用） |
 | full_pv2 | aster-dev-331 | 17,089 | 14,754 | 1,809 | 195 | 331 | 1.43 / 21 | 526 |
@@ -268,3 +268,88 @@ prefix_v2：
 - `screen_overrides`：空（没有用预筛）。
 - `rules_non_safe` 前几名：B2:writes:specific 278，R12:writes:specific 187，R2:writes:specific 187，R8:writes:specific 179，R13:writes:specific 103。
 - 对照 T022 的粗估：prefix_v2 train 的 unsafe 这次是 1,418 条，比 T022 粗估的“很可能是红线”（R13 251、R11 142）多很多。多出来的主要是 B2（凶器伤人、投毒、藏尸的具体做法）、R12、R2 和 R8，T022 的关键词粗估没有覆盖这几类。
+
+## 第 6 步：标签（Run A 第一阶段）
+
+**`--source` 换成了 `trainable.jsonl`，原因如下。**
+
+- 卡片写的是 `--source round6/stage1_head/input_v1/stage1_runA_v1.jsonl`。但这个文件的行里**没有 `word` 字段**，预筛找不到每条回答对应的词，于是静默跳过：`screen_used=true`，`screen_overrides` 却是空的。
+- 核对结果：第一阶段的 37,056 个 sample_id 在 `round6/response_v14/batch_50k/extracted/trainable.jsonl` 里全部能找到，回答原文逐字相同，task_key 也相同，而且都带 `word`。
+- 所以改用 `--source round6/response_v14/batch_50k/extracted/trainable.jsonl`，与 Run A dev 相同。`apply_policy.py` 只取 probes 里出现的 sample_id，多出来的行不影响结果。代码没有改。
+- 没带上预筛的那一版留在本地的 `labels/runA_stage1_noscreen/`，不提交。建议设计方以后给 `apply_policy.py` 加一个检查：用了 `--screen` 却一个词都没取到时直接报错。另外 T024 的 `user_runA_stage1` 也会遇到同样的问题，处理见 T024 反馈。
+
+```bash
+.venv/bin/python round6/redline_v1/apply_policy.py round6/redline_v1/full_runA_stage1/extracted_ds/probes.jsonl round6/redline_v1/full_runA_stage1_fb/extracted/probes.jsonl --screen round6/word_screen_v1/full/extracted/screen.jsonl --source round6/response_v14/batch_50k/extracted/trainable.jsonl --out round6/redline_v1/labels/runA_stage1
+```
+
+| 份 | usable | 最终 nonmonotonic | safe | controversial | unsafe |
+|---|---|---|---|---|---|
+| runA_stage1 | 36,971 / 37,056 = **99.8%** | 85（0.2%） | 31,368 | 2,318 | 3,285 |
+
+验收 `usable` ≥ 97%、`nonmonotonic` ≤ 5%：满足。
+
+- policy_digest `bd5c444c00dd4b7a`（当前代码，6481dc4 以后）。
+- `by_source_rank`：主跑 35,076、兜底 1,895、不可用 85。
+- `labels_by_split`：
+  - train：safe 27,093 / controversial 2,008 / unsafe 2,823 / 不可用 76；
+  - calibration：4,275 / 310 / 462 / 9。
+- `old_to_new`：safe→safe 15,926，safe→controversial 2,170，safe→unsafe 397，unsafe→safe 15,442，unsafe→unsafe 2,888，unsafe→controversial 148，不可用 85。
+- `stratum_by_label`：controversial 全部是 redline（2,318），unsafe 全部是 redline（3,285）；safe 里 normal 6,274、non_redline_harm 15,599、other_sensitive 6,951、redline_topic 2,544。**normal 没有非 safe**。
+- `old_to_new_by_slot_style`：与 Run A dev 和 T020 pilot 一致。
+
+  | slot:style | 条数 | 本次 |
+  |---|---|---|
+  | slot0:neutral_information | 2,250 | safe 84% / controversial 13% / unsafe 2% |
+  | slot0:refusal | 2,361 | 74% / 23% / 2% |
+  | slot0:risk_reasoning | 2,359 | 77% / 21% / 2% |
+  | slot0:safe_redirect | 2,294 | 75% / 23% / 2% |
+  | slot1:compliance | 9,264 | unsafe→safe 80% / →unsafe 19% |
+  | slot2:helpful_answer | 4,544 | safe 94% / controversial 3% / unsafe 2% |
+  | slot2:helpful_reasoning | 4,720 | 94% / 4% / 2% |
+  | slot3:drift | 9,264 | unsafe→safe 86% / →unsafe 12% / →controversial 1% |
+
+- `boundary_hits_by_label`：
+  - unsafe：R1:term_explained 228、B1:writes 210、B2:writes 203、B4:writes 151、B1:restates 42、R11:term_explained 29。
+  - controversial：B2:refusal_naming 128、B1:refusal_naming 124、B1:quotes 78、R11:term_explained 58、B1:restates 42。
+  - safe：B4:writes 2,040、B4:refusal_naming 676、B4:restates 226、B1:topic_mention 90、R1:term_explained 66。
+- `switch_sensitivity`：
+  - B1 改为 non_redline：controversial→safe 209，unsafe→safe 197。
+  - B2 改为 non_redline：unsafe→safe 156，controversial→safe 92。
+  - B3 改为 non_redline：controversial→safe 5。
+  - B4 改为 redline：safe→unsafe 2,035，safe→controversial 719。
+  - B5–B7：没有变化。
+  - term_explained 改为 safe：109 条变；改为 unsafe：154 条变。
+- `screen_overrides`：
+  - 往上改，共 211 条：insult:safe→unsafe 81，insult:controversial→unsafe 7，rumor:safe→unsafe 81，rumor:controversial→unsafe 42。
+  - 往下改，共 286 条：
+    - unsure：unsafe→safe 132，controversial→safe 14，unsafe→controversial 9；
+    - evasion：unsafe→safe 61，controversial→safe 14，unsafe→controversial 1；
+    - no：unsafe→safe 45，unsafe→controversial 8，controversial→safe 2。
+  - 不变：insult:unsafe→unsafe 339，rumor:unsafe→unsafe 221。
+- `rules_non_safe` 前几名：R10:writes:specific 1,312，R10:refusal_naming 603，leader_epithet_written 570（不带预筛时 806），R1:writes:specific 458，screen:insult 427，screen:rumor 344。
+
+## 第 7 步：拷到 PVC（01:03）
+
+| 文件 | SHA256 |
+|---|---|
+| `/work/round6/redline_v1/labels/runA_stage1/labels.jsonl` | `3c4a71b8ec805321a77ce40297613e633ae5354b4c465d21201232cda9f32d6a` |
+| `/work/round6/redline_v1/labels/prefix_v2/labels.jsonl` | `7b419ffbbb595fda5ed6870d1a7932a559a0c1fb5dfd9d1b0e6307d8219876de` |
+
+两端都用 `sha256sum` 核对一致。T018 v3 从这里读取，01:07 开始改标签。之前 01:03 和 01:05 两次都卡在作业里的 `apt-get update`：Ubuntu 软件源正在同步（报 `File has unexpected size … Mirror sync in progress?`），退出码 100。之后源恢复了。
+
+## 第 8 步：删除数据集
+
+- 两个兜底数据集已删除：full_runA_dev_fb、full_pv2_fb（回执 `dataset_rm.json`）。
+- **4 个数据集删除失败**：full_runA_stage1、full_runA_dev、full_pv2、full_runA_stage1_fb。
+  - 01:05 执行 `aster datasets rm`，都返回 `INTERNAL_ERROR`（“服务内部错误”），`retryable=false`，提示“稍后重试，并向管理员提供 request_id”。
+  - request_id：
+    - full_runA_stage1 `ab4b316b103c6e1d6718806b67563f38`
+    - full_runA_dev `9189b110f3f467323d2b70589e6f8808`
+    - full_pv2 `9f2386f984df306e81926ba40e83faf9`
+    - full_runA_stage1_fb `a62b94307e10ac5073f24a0f8ec43797`
+  - 回执存为各目录的 `dataset_rm_failed.json`。按平台规则没有原样重试，已报给用户。
+
+## 状态
+
+- **第 1–7 步完成，验收全部通过。** 三份标签都满足 usable ≥ 97%、nonmonotonic ≤ 5%，slot/style 比例与 pilot 相近，normal 层没有非 safe。
+- 只剩第 8 步：4 个数据集等平台恢复后再删。
