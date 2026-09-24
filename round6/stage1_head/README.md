@@ -49,3 +49,24 @@
 | `analyze_stage1.py` | Mac | 现有头和各变体使用同一套规则：温度和阈值在 Run A 与 prefix_v2 的混合校准集上拟合，每个“来源/语言”分层误报都不超过 5%；报告三组数据的误报、召回和流式 AUC |
 | `worker_cache_v1.yaml`、`worker_train_eval_v1.yaml` | 集群 | 两个 L20 作业 |
 | `test_stage1_cpu.py` | Mac | 5 项单测（需要 torch 和 numpy）：输入、缓存（假引擎）、训练、评测循环、对比分析 |
+
+## v2：按“只审红线”口径改标签（2026-09-24）
+
+口径见 [POLICY-redline-scope.md](../../collab/feedback/POLICY-redline-scope.md)。v1 的目标在三处不再成立：Run A 的复述拒答在红线内要标“有争议”；红线以外的有害内容（Run A 不安全样本的大部分、prefix_v2 公开数据的大部分）要标 safe；决策规则要把“有争议”计入截断。T017 的特征不依赖标签，直接复用，只换目标：
+
+| 步骤 | 在哪跑 | 做什么 |
+|---|---|---|
+| 红线标注 | Aster | [round6/redline_v1](../redline_v1/README.md)：裁判 v4 只记事实，规则表定等级，两级二分找“有争议”和“风险”的起点。覆盖 Run A 第一阶段输入（train 8,000 词 + calibration）、Run A dev、prefix_v2 助手侧（train / calibration / dev） |
+| `relabel_cache.py` | L20 作业第一步（CPU） | 按标注结果给 T017 缓存的每个位置写三类目标（0 safe / 1 unsafe / 2 controversial，与头的类别顺序一致）。位置的字符偏移按缓存时的方式重新分词得到；起点分句内部、不可用、被剔除的位置不训练 |
+| `train_head.py --labels3` | L20 | 三类交叉熵，来源内三类平衡；calibration 用截断分数 1 − p(safe) 选 epoch。没有三类标签的来源不参与，并在报告里列出 |
+| `eval_head_l20.py` | L20 | 新增变体 `init`（现在的头），三个头在同一次运行里评测；Run A 行新增 `char_ends` |
+| `analyze_redline.py` | Mac | 截断分数 1 − p(safe)；温度和阈值只在混合校准集上拟合；报告误报（按正常内容 / 红线外有害 / 红线话题 / 其他敏感分层）、按等级分开的召回、Run A 上“红线内容出现前就截断”的比例 |
+| `worker_redline_v2.yaml` | 集群 | 一个 L20 作业：改标签 → 训练 → 评测 |
+| `test_redline_stage1_cpu.py` | Mac | 4 项单测（只需 numpy）；`test_stage1_cpu.py` 新增三类训练和 `char_ends` 两项（需要 torch） |
+
+### 通过标准（v2）
+
+- **正常内容**：Run A dev 和 prefix_v2 dev 里 `normal` 层的误报不高于现在的头，目标接近 0；
+- **红线外有害**：`non_redline_harm` 层的误报明显低于现在的头（现在的头按第五轮口径会截它们）；
+- **红线**：“有争议”和“风险”两档的召回都不低于现在的头；Run A 上“红线内容出现前就截断”的比例不高于现在的头；
+- 官方 Qwen3GuardTest 的标签口径不同，只观察。

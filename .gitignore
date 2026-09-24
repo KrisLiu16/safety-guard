@@ -64,3 +64,6 @@ example_request.json
 # Word screen: local list of known sensitive words, never committed (public repo)
 round6/word_screen_v1/known_positives.txt
 round6/word_screen_v1/manual_labels*.tsv
+
+# Local human-review sheets (hold dataset text)
+**/review/

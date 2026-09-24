@@ -169,6 +169,32 @@ class TrainTests(unittest.TestCase):
                     self.assertTrue(torch.equal(weights["projection.0.weight"], init["projection.0.weight"]))
                 fake_model().heads["assistant"].load_state_dict(weights, strict=True)
 
+    def test_labels3_three_class_targets(self):
+        init = {k: v.clone() for k, v in fake_model().heads["assistant"].state_dict().items()}
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            write_synthetic_cache(tmp, init)
+            labels3 = tmp / "labels3"
+            labels3.mkdir()
+            rng = np.random.default_rng(1)
+            for split in ("train", "calibration"):
+                old = np.load(tmp / f"cache_runA_{split}_000.npz")["label"]
+                new = np.where(old == 1, np.where(rng.random(len(old)) < 0.5, 1, 2), 0).astype(np.int8)
+                weight = np.ones(len(old), np.float32)
+                weight[::10] = 0                                     # positions without a target are dropped
+                np.savez(labels3 / f"labels3_runA_{split}.npz", label=new, weight=weight)
+            subprocess.run([sys.executable, str(HERE / "train_head.py"), str(tmp), "--output", str(tmp / "out"),
+                            "--labels3", str(labels3), "--variants", "risk", "--epochs", "2", "--batch", "512",
+                            "--lr", "3e-3"], check=True, capture_output=True)
+            report = json.loads((tmp / "out/train_report.json").read_text())
+            self.assertEqual((report["version"], report["calibration_score"]), ("round6-stage1-head-v2-redline", "cut"))
+            self.assertEqual(report["sources_left_out"], ["prefix_v2", "s2", "s5"])   # no labels3 file, no cache
+            self.assertEqual(report["train_positions"]["runA"], 2700)
+            by_class = report["train_positions_by_class"]["runA"]
+            self.assertEqual(sum(by_class.values()), 2700)
+            self.assertGreater(by_class["2"], 0)
+            self.assertIsNotNone(report["variants"]["risk"]["chosen_calibration_mean_auc"])
+
 
 @unittest.skipIf(torch is None, "torch not installed")
 class EvalTests(unittest.TestCase):
@@ -191,6 +217,9 @@ class EvalTests(unittest.TestCase):
             tmp = Path(tmp)
             counts = ev.eval_runA(capture, lambda: capture.last, Fast(), None, runA_rows("calibration", 1) + runA_rows("dev", 1), tmp)
             self.assertEqual(counts, {"runA_calibration": 4, "runA_dev": 4})
+            with gzip.open(tmp / "runA_calibration.jsonl.gz", "rt") as handle:
+                first = json.loads(handle.readline())
+            self.assertEqual(first["char_ends"], list(range(1, 31)))     # one per position, offsets in the response
             data = {s: [{"sample_id": f"{s}1", "family": "f", "language": "zh", "target_role": "assistant", "source_label": "safe",
                          "ids": list(range(40)), "target_token_positions": list(range(20, 40))}] for s in ("calibration", "dev")}
             self.assertEqual(ev.eval_prefix_v2(capture, lambda: capture.last, data, tmp), {"prefix_v2_calibration": 1, "prefix_v2_dev": 1})

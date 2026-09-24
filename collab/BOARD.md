@@ -2,29 +2,31 @@
 
 设计方维护本表；执行方的进度以 `feedback/` 里的状态为准。协作方式见 [README.md](README.md)。
 
-> **2026-09-24 17:35 起口径改为“只审红线”**（[POLICY-redline-scope.md](feedback/POLICY-redline-scope.md)），数据平台暂停。改造方案见 [round6/REDLINE_REDESIGN.md](../round6/REDLINE_REDESIGN.md)。下表中依赖旧口径标签的任务都已暂停。
+> **2026-09-24 17:40 口径定稿为“只审红线”**（[POLICY-redline-scope.md](feedback/POLICY-redline-scope.md)）。改造方案见 [round6/REDLINE_REDESIGN.md](../round6/REDLINE_REDESIGN.md)：裁判 v4 只记事实，规则表定标签，两级二分一次拿到逐位置标签（代码 [round6/redline_v1](../round6/redline_v1/README.md)）。数据平台恢复前，只做不用平台的步骤。
 
 | 编号 | 任务 | 负责 | 状态 | 依赖 |
 |---|---|---|---|---|
 | [T001](assignments/T001-run-a-extract.md) | Run A（aster-dev-276）抽取、本地复校和训练过滤 | 执行方 | 完成：42,261 个可训练词（train 39,700 / dev 1,297 / calibration 1,264） | — |
 | [T002](assignments/T002-judge-v3-pilot.md) | `judge_v3` 国内口径裁判：小规模 pilot（代码见 round6/judge_v3/） | 执行方 | 完成（aster-dev-282）。非政治类达标；失败 6.7%，主要是 DeepSeek 在政治类上不返回 JSON。数据集删除等用户确认 | — |
 | [T009](assignments/T009-judge-fallback-pilot.md) | judge v3.1 第二裁判 pilot：同一提示词下 DeepSeek 与 luna 各判一遍政治类、失败条目和 40 条对照，量两个裁判的一致率 | 执行方 | 完成（aster-dev-283/284）。对照一致 0.95，政治类一致 0.97；DeepSeek 稳定拦截同样 23 条政治类，只能交给 luna；luna 会把“复述并拒绝”的安全推理判成 unsafe，T006/T011 已加人工核对 | T002 ✓ |
-| T010 | 起点重定：v14 起点常常标偏（T002 的分歧里 18/20 是起点问题）；改用裁判在分句边界上二分定位（代码见 round6/onset_v1/） | 设计方 | 先做 pilot（T019），偏差大就对 Run A 训练集全量重定 | T019 |
-| [T019](assignments/T019-onset-pilot.md) | 起点重定 pilot：200 条 Run A dev 不安全回答，与 v14 起点对比 | 执行方 | 待执行 | — |
-| [T016](assignments/T016-r-slice-devcal.md) | R 切片第一步：Run A 的 dev 和 calibration 按国内口径重判（judge v3.2，DeepSeek 为主、luna 兜底，合并词表预筛；代码见 round6/r_slice/） | 执行方 | 待执行（合并一步等 T012 全量） | T012 |
-| T003 | 类别缺口统计：29 种风险在公开数据和 Run A 中各有多少样本，决定 S1 真正要补多少 | 设计方 | 排队（Run A 部分用 T016 的类别统计） | T016 |
+| T010 | 起点重定（onset_v1） | 设计方 | 关闭：由 redline_v1 的两级二分取代 | — |
+| [T019](assignments/T019-onset-pilot.md) | 起点重定 pilot | 执行方 | 关闭：由 T020 取代，不执行 | — |
+| [T016](assignments/T016-r-slice-devcal.md) | R 切片：Run A dev/calibration 按 judge v3.2 重判 | 执行方 | 关闭：由 T020/T021 取代，不执行 | — |
+| [T020](assignments/T020-redline-pilot.md) | 红线标注 pilot：Run A dev 300 条 + prefix_v2 dev 100 条，DeepSeek 为主、luna 兜底和对照，人工核对标签和起点 | 执行方 | 第 1、2 步（单测、导出 prefix_v2）现在做；Aster 部分等平台恢复 | T001 ✓ |
+| [T021](assignments/T021-redline-full.md) | 红线标注放量：Run A 第一阶段输入、Run A dev、prefix_v2 助手侧，约 6 万条 | 执行方 | 等 T020；规模请用户确认 | T020 |
+| T003 | 类别缺口统计：13 类红线在公开数据和 Run A 中各有多少样本 | 设计方 | 排队（用 T021 的标签统计） | T021 |
 | [T004](assignments/T004-probe-and-rules.md) | 线性探针（能否区分“复述有害请求”和“真有害”）+ T005 决策规则重拟合，一次 L20 前向（代码见 round6/probe/） | 执行方 | 完成。探针 AUC 0.995 对头 0.791（中英都成立）：区分信息在主干里，问题在读出头；只换决策规则压不下复述类误报 | T001 ✓ |
 | [T014](assignments/T014-probe-transfer.md) | 探针迁移检验：同一探针在 prefix_v2 和官方 thinking 集上是否仍好于头 | 执行方 | 完成。官方 thinking 流式 AUC 探针 0.889 对头 0.784；prefix_v2 上探针 0.839 反而低于头 0.903；Run A 上定的阈值不能迁移 → 第一阶段必须用混合数据重训头 | T004 ✓ |
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 执行方 | 完成（并入 T004）：T=1.7；复述类误报 11–31%，官方 thinking 误报最低 21.2%，与 v1 相近 | T004 ✓ |
 | [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | 完成（aster-dev-285/286）。50/60 词完成；复核后真不安全 2%，luna 误判 0；生成模型漏掉 2 个贬损领导人的词 → S2 提示词升 v2，加词表预筛 T012 | — |
 | [T011](assignments/T011-s5-safe-pilot.md) | S5 安全的一半：40 词长篇安全思考，DeepSeek 生成 + luna 复核（代码见 round6/s5_safe_v15/） | 执行方 | 完成（aster-dev-287/288）。35/40 词完成，人工核对后 0% 真不安全；luna 误判 1/140。长度偏短 → S5 提示词升 v2（分配目标长度、修复字面 \\n） | — |
 | [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与党和国家领导人相关（两遍分类 + 一遍是/否，取最严重；人工标注优先）；复测过门槛后全量（代码见 round6/word_screen_v1/） | 执行方 | v3 复测 24/26，两个冷僻谐音稳定漏判 → v4 待执行 | — |
-| [T013](assignments/T013-s2-scale.md) | S2 放量：约 7,000 词，DeepSeek 生成 + luna 复核，只保留复核全 safe 的样本 | 执行方 | 等 T012 全量完成后开始 | T012 |
-| [T015](assignments/T015-s5-safe-scale.md) | S5 安全一半放量：约 5,000 词（与 S2 不重叠），DeepSeek 生成 + luna 复核 | 执行方 | 等 T012 全量和 T013 第 2 步 | T012、T013 |
+| [T013](assignments/T013-s2-scale.md) | S2 放量 | 执行方 | 暂停：先训练、后生成数据；生成指令要按新口径改（设计方） | — |
+| [T015](assignments/T015-s5-safe-scale.md) | S5 安全一半放量 | 执行方 | 暂停：同 T013 | — |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
 | T008 | 第六轮训练。第一阶段：冻结主干，用混合数据只重训读出头，混合校准集定阈值；设计见 round6/stage1_head/README.md | 设计方 | 拆成 T017（缓存）和 T018（训练和评测） | T014 ✓ |
 | [T017](assignments/T017-stage1-cache.md) | 第一阶段特征缓存：prefix_v2 训练集 + Run A 8,000 词，缓存头的输入和投影特征（推理，约 3–3.5 小时） | 执行方 | 待执行 | T001 ✓ |
-| [T018](assignments/T018-stage1-train-eval.md) | 第一阶段训练读出头（risk / full 两个变体）并与现在的头对比 | 执行方 | 用户已批准；T017 完成后直接开始 | T017 |
+| [T018](assignments/T018-stage1-train-eval.md) | 第一阶段 v3：按红线标注给缓存位置写三类目标，训练 risk / full 两个变体，与现在的头在同一次评测里对比 | 执行方 | 训练已批准；等 T017 和 T021 | T017、T021 |
 
 ## 不由设计方负责的事
 
@@ -36,11 +38,12 @@
 
 ## 待用户决定
 
-1. POLICY-redline-scope.md 第 5 节的待定项（执行方正在和用户逐条确认）。设计方的建议见 round6/REDLINE_REDESIGN.md 的规则表；新裁判只记事实，这些选择以后改开关即可，不用重判。
+1. T021 的放量规模（T020 反馈里按实测调用次数重估）。
+2. 自杀自残这条红线的边界：执行方按建议记录为“关怀、劝阻、提供热线放行；复述求取方法的请求或写出方法才截”，用户还没有单独确认。裁判 v4 按这个写的，有不同请直接说。
 
 ## 已定
 
-- 2026-09-24 17:35（用户，经执行方记录）：只审网信办 12 类红线；红线内复述、引用、引用后反驳标“有争议”，写出违规内容标“风险”，两档都截断；红线以外的有害内容不管；正常内容绝不能误判。详见 feedback/POLICY-redline-scope.md。
+- 2026-09-24 17:40（用户，经执行方记录，定稿）：只审 13 类红线（网信办第六条 12 类 + 自杀自残）；红线内复述、引用（含引用后反驳）、拒绝时点名标“有争议”，写出违规内容标“风险”，两档都截断；中国领导人个人的任何负面评价都算红线；红线以外的有害内容训练时标 safe；正常内容绝不能误判；提问侧也按同一份清单判；先训练，后生成数据。详见 feedback/POLICY-redline-scope.md。
 - 2026-09-24（用户，经执行方记录）：数据平台更新期间暂停 Aster 工作；T012 全量已取消。
 - 2026-09-24：批准第一阶段训练（T018）：T017 缓存完成后直接训练读出头并评测。
 - 2026-09-24（用户确认）：“国家领导人”的范围是现任和历任的政治局常委、总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席，以及开国领袖。词表预筛 v3 和 judge v3.2 都按这个范围。

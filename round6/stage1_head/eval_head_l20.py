@@ -5,7 +5,9 @@ For every head_<variant>.pt from train_head.py, the weights are loaded into the 
 Run A calibration + dev (round6/probe input_v1), prefix_v2 calibration + dev (assistant role) and the 1,872
 official sequences (observed only). Output per variant, in T014's file format without probe logits:
 eval_<variant>/runA_<split>.jsonl.gz, prefix_v2_<split>.jsonl.gz, official_sequences / official_rows.jsonl.gz.
-The current head needs no rerun: T014's files hold its log-probabilities from the identical path.
+Run A rows also carry char_ends (each position's end offset in the response), so labels from the red-line
+labelling (round6/redline_v1) can be matched per position. The variant "init" loads the current head
+(head_assistant_init.pt from the cache step), so every head is scored in one run with the same fields.
 Integrity: the risk head applied to the captured projection must reproduce the runtime's probabilities, which
 also proves the runtime is reading the newly loaded weights.
 """
@@ -53,6 +55,7 @@ def eval_runA(capture, probs_of, fast, hf_tokenizer, rows, output):
                 write_line(out, {"sample_id": row["sample_id"], "family": row["family"], "split": split,
                                  "language": row["language"], "label": row["label"], "slot": row["index"],
                                  "response_style": row["response_style"], "classes": classes,
+                                 "char_ends": [encoding.offsets[q][1] - content_start for q in positions],
                                  "logprobs": [log_row(probs[q]) for q in positions]})
                 counts[f"runA_{split}"] += 1
     return counts
@@ -115,7 +118,8 @@ def main(argv=None):
     parser.add_argument("--round5-code", type=Path, default=Path("/work/round5"))
     parser.add_argument("--heads", type=Path, default=Path("/work/output/round6/stage1_train_v1"),
                         help="directory with head_<variant>.pt from train_head.py")
-    parser.add_argument("--variants", default="risk,full")
+    parser.add_argument("--variants", default="init,risk,full", help='"init" = the current head')
+    parser.add_argument("--init-head", type=Path, default=Path("/work/output/round6/stage1_cache_v1/head_assistant_init.pt"))
     parser.add_argument("--runA", type=Path, default=Path("/work/round6/probe/input_v1/probe_input_v1.jsonl"))
     parser.add_argument("--output", type=Path, default=Path("/work/output/round6/stage1_eval_v1"))
     options = parser.parse_args(argv)
@@ -160,7 +164,7 @@ def main(argv=None):
             report["official_native_ids"] = official.verify_native_ids(hf_tokenizer, official_data, trainer.serialize)
             capture = ProbsCapture(torch, model, lambda ids: cal.validated_prefixes(runtime, ids, contract))
             for variant in options.variants.split(","):
-                weights_path = options.heads / f"head_{variant}.pt"
+                weights_path = options.init_head if variant == "init" else options.heads / f"head_{variant}.pt"
                 weights = torch.load(weights_path, map_location="cpu")
                 model.heads["assistant"].load_state_dict(weights, strict=True)
                 output = options.output / f"eval_{variant}"
