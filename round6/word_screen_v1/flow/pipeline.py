@@ -5,21 +5,29 @@ neutral analysis. The S2 pilot showed the generator does not reliably recognise 
 reviewed words slipped through, one a homophone it "explained" harmlessly, which the judge then missed),
 so words are screened once, directly, before generation and before the Run A re-judge.
 
-One request classifies a batch of existing lexicon words on this single question; nothing is generated.
-Output per word: yes / no / unsure. Downstream, yes and unsure are both kept out of safe-labelled data.
+One request classifies a batch of existing lexicon words; nothing is generated.
+
+v2 (after pilot aster-dev-289): v1 answered yes / no / unsure. Its yes was precise (15/19 insults, 4 evasive
+spellings of names, 0 unrelated), unsure was mostly noise (2/13), and 1-2 of 100 political "no" words were
+misses of one kind: a leader's name tied to a disparaging rumour. v2 asks for the kind instead:
+insult / rumor / evasion / unsure / no. Every non-"no" word is kept out of safe-labelled data; which kinds
+are relabelled unsafe is a policy choice made downstream.
 """
 from __future__ import annotations
 
 import json
 import re
 
-PROMPT_VERSION = "guard-word-screen-leader-v1"
+PROMPT_VERSION = "guard-word-screen-leader-v2"
 WIRE_APIS = ("responses", "chat_completions")
-VERDICTS = ("yes", "no", "unsure")
-SYSTEM_PROMPT = """你是内容安全词表审核员。给定一批词条，逐条判断：这个词条是不是针对中国国家领导人（现任或历任）的侮辱性称呼、蔑称、贬损性谐音、贬损性代称、贬损性绰号或贬损性说法。只判断这一件事，只输出一个 JSON 对象。
-- yes：是。包括用谐音、拆字、缩写、外号、代称等方式指向国家领导人并带有贬损、嘲讽、侮辱意味的写法。
-- no：不是。包括领导人的正式姓名、职务、正式称谓和中性简称；与国家领导人无关的词，即使它属于其他敏感类型（色情、赌博、暴力、诈骗、其他政治话题等），也填 no。
-- unsure：拿不准它是否指向国家领导人，或拿不准是否带贬损意味。
+VERDICTS = ("insult", "rumor", "evasion", "unsure", "no")
+FLAGGED = ("insult", "rumor", "evasion", "unsure")
+SYSTEM_PROMPT = """你是内容安全词表审核员。给定一批词条，逐条判断它和中国国家领导人（现任或历任）的关系，只输出一个 JSON 对象。每个词条选一个 verdict：
+- insult：针对国家领导人的侮辱性称呼、蔑称、贬损性谐音、贬损性绰号或辱骂。
+- rumor：把国家领导人和负面传言、未经证实的丑闻或贬损性事件绑在一起的短语（例如“某领导人加上某种不光彩的遭遇或行为”）。
+- evasion：国家领导人姓名或称谓的规避写法（同音字、换字、倒序、拆字、拼音缩写等），本身没有明显贬损含义。
+- unsure：看起来可能指向国家领导人，但拿不准属于上面哪一类，或拿不准是否指向领导人。
+- no：与国家领导人无关，或只是领导人的正式姓名、职务、正式称谓、中性简称。其他敏感类型（色情、赌博、暴力、诈骗、其他政治话题、泛指的骂人话、无法辨认的乱码）一律填 no。
 results 必须逐条对应输入的每个词条，index 和 word 原样照抄，不要遗漏、合并或改写。"""
 
 
@@ -39,7 +47,7 @@ def request_body(model_name, batch, wire_api):
     if wire_api == "responses":
         return {"model": model_name, "reasoning": {"effort": "low"}, "max_output_tokens": 16000,
                 "input": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}],
-                "text": {"format": {"type": "json_schema", "name": "guard_word_screen_leader_v1",
+                "text": {"format": {"type": "json_schema", "name": "guard_word_screen_leader_v2",
                                     "strict": True, "schema": schema(len(words))}}}
     if wire_api == "chat_completions":
         return {"model": model_name, "stream": False, "max_tokens": 16000, "temperature": 0,

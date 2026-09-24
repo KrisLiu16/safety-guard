@@ -23,16 +23,16 @@ def reply(results, **root):
 
 class ParseTests(unittest.TestCase):
     def test_complete_batch(self):
-        results = [{"index": i, "word": w["word"], "verdict": v} for i, (w, v) in enumerate(zip(BATCH["words"], ("no", "yes", "unsure")))]
+        results = [{"index": i, "word": w["word"], "verdict": v} for i, (w, v) in enumerate(zip(BATCH["words"], ("no", "insult", "evasion")))]
         errors, verdicts = parse(reply(results), BATCH)
         self.assertEqual(errors, [])
-        self.assertEqual([v["verdict"] for v in verdicts], ["no", "yes", "unsure"])
+        self.assertEqual([v["verdict"] for v in verdicts], ["no", "insult", "evasion"])
 
     def test_partial_and_corrupt_items(self):
         results = [{"index": 0, "word": "词甲", "verdict": "no"},
-                   {"index": 0, "word": "词甲", "verdict": "yes"},          # duplicate index
+                   {"index": 0, "word": "词甲", "verdict": "insult"},       # duplicate index
                    {"index": 1, "word": "改写了", "verdict": "no"},         # word changed
-                   {"index": 2, "word": "词丙", "verdict": "maybe"}]        # bad verdict
+                   {"index": 2, "word": "词丙", "verdict": "yes"}]          # v1 verdict, not valid in v2
         errors, verdicts = parse(reply(results), BATCH)
         self.assertEqual([v["word"] for v in verdicts], ["词甲"])
         self.assertIn("bad_index", errors)
@@ -68,7 +68,8 @@ class BatchAndJoinTests(unittest.TestCase):
             self.assertEqual(manifest["words"], 252)
             self.assertEqual(manifest["known_positives"], 2)
             self.assertEqual(manifest["tasks"], 2)
-            entries = [json.loads(line) for line in (out / "words.jsonl").open(encoding="utf-8")]
+            with (out / "words.jsonl").open(encoding="utf-8") as handle:
+                entries = [json.loads(line) for line in handle]
             self.assertEqual(len({e["word"] for e in entries}), 252)
             self.assertEqual(len(next(e for e in entries if e["word"] == "词7")["task_keys"]), 2)
             for instruction in (out / "tasks").glob("*/instruction.md"):
@@ -79,11 +80,22 @@ class BatchAndJoinTests(unittest.TestCase):
         index = [{"word": "词甲", "known_positive": True, "source_groups": ["g1"]},
                  {"word": "词乙", "known_positive": True, "source_groups": ["g1"]},
                  {"word": "词丙", "known_positive": False, "source_groups": ["g2"]}]
-        rows, summary = join(index, [{"errors": ["missing:1"], "verdicts": [{"word": "词甲", "verdict": "yes"},
+        rows, summary = join(index, [{"errors": ["missing:1"], "verdicts": [{"word": "词甲", "verdict": "rumor"},
                                                                           {"word": "词丙", "verdict": "no"}]}])
-        self.assertEqual(summary["verdicts"], {"yes": 1, "missing": 1, "no": 1})
-        self.assertEqual(summary["known_positive_recall_yes_or_unsure"], 0.5)
+        self.assertEqual(summary["verdicts"], {"rumor": 1, "missing": 1, "no": 1})
+        self.assertEqual(summary["known_positive_recall_flagged"], 0.5)
         self.assertEqual(summary["batch_errors"], {"missing": 1})
+
+
+class CompareTests(unittest.TestCase):
+    def test_manual_comparison(self):
+        from compare_manual import compare
+        manual = {"a": "insult", "b": "rumor", "c": "evasion", "d": "no", "e": "no", "f": "borderline"}
+        verdicts = {"a": "insult", "b": "no", "c": "evasion", "d": "no", "e": "unsure", "f": "rumor"}
+        out = compare(manual, verdicts)
+        self.assertEqual(out["manual_positive_flagged"], round(2 / 3, 4))
+        self.assertEqual(out["manual_no_flagged"], 0.5)
+        self.assertEqual(out["table"]["rumor"], {"no": 1})
 
 
 if __name__ == "__main__":

@@ -2,7 +2,8 @@
 """Download word-screen archives and join verdicts with the local word index (Mac, no model calls).
 
 screen.jsonl : one row per word with its verdict (yes / no / unsure / missing) and source groups;
-summary.json : verdict counts overall and per source group, batch errors, and recall on known positives.
+summary.json : verdict counts overall and per source group, batch errors, and recall on known positives
+               (any verdict other than "no" counts as flagged).
 Words left without a verdict are listed so they can be re-screened in a later batch.
 """
 from __future__ import annotations
@@ -13,7 +14,11 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tarfile
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "flow"))
+from pipeline import FLAGGED  # noqa: E402
 
 
 def cli(args):
@@ -55,8 +60,8 @@ def join(index_rows, batch_values):
                "batch_errors": dict(errors),
                "known_positives": len(known),
                "known_positive_verdicts": dict(collections.Counter(r["verdict"] for r in known)),
-               "known_positive_recall_yes_or_unsure": (round(sum(r["verdict"] in ("yes", "unsure") for r in known) / len(known), 4)
-                                                       if known else None),
+               "known_positive_recall_flagged": (round(sum(r["verdict"] in FLAGGED for r in known) / len(known), 4)
+                                                 if known else None),
                "by_source_group": {g: dict(c) for g, c in sorted(by_group.items())}}
     return rows, summary
 

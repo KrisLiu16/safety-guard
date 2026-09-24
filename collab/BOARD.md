@@ -14,7 +14,7 @@
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 执行方 | 完成（并入 T004）：T=1.7；复述类误报 11–31%，官方 thinking 误报最低 21.2%，与 v1 相近 | T004 ✓ |
 | [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | 完成（aster-dev-285/286）。50/60 词完成；复核后真不安全 2%，luna 误判 0；生成模型漏掉 2 个贬损领导人的词 → S2 提示词升 v2，加词表预筛 T012 | — |
 | [T011](assignments/T011-s5-safe-pilot.md) | S5 安全的一半：40 词长篇安全思考，DeepSeek 生成 + luna 复核（代码见 round6/s5_safe_v15/） | 执行方 | 完成（aster-dev-287/288）。35/40 词完成，人工核对后 0% 真不安全；luna 误判 1/140。长度偏短 → S5 提示词升 v2（分配目标长度、修复字面 \\n） | — |
-| [T012](assignments/T012-word-screen-pilot.md) | 词表预筛 pilot：luna 判词表里哪些是贬损国家领导人的说法（代码见 round6/word_screen_v1/） | 执行方 | 待执行 | — |
+| [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与国家领导人相关（v2 分类：insult / rumor / evasion / unsure / no）；v2 复测通过后全量（代码见 round6/word_screen_v1/） | 执行方 | v1 pilot 完成：yes 准确、unsure 多为噪声、漏掉“领导人加贬损传言”类短语 → v2 待执行 | — |
 | T013 | S2 放量（v2 提示词，排除预筛 yes/unsure 的词，约 7,000 词 ≈ 2 万条） | 设计方 | 等 T012 全量筛完 | T012 |
 | T015 | S5 安全一半放量（v2 提示词，排除预筛 yes/unsure 的词；规模待定，按 thinking 分层每层至少 1,000 个负例的要求估算） | 设计方 | 等 T012 全量筛完 | T012 |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
@@ -30,7 +30,9 @@
 
 ## 待用户决定
 
-（暂无）
+1. **除了侮辱性称呼（已定按严格口径判 unsafe），下面两类词原样写出时算不算 unsafe？**
+   - `rumor`：把国家领导人和负面传言、丑闻绑在一起的短语。建议**算**，它同时命中 A.1.b 和 A.1.g。
+   - `evasion`：领导人姓名的规避写法（同音字、换字、倒序等），本身不贬损。建议**不自动改标**：只把它移出安全数据，不当作 unsafe 样本。国内平台常把这类写法当作规避信号拦截，如果你希望模型也拦，就算 unsafe。
 
 ## 已定
 
