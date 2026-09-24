@@ -1,0 +1,21 @@
+{
+  "version": "prefix-v2-assistant-export-v1",
+  "source_sha256": {
+    "train": "77c31a0f34e3171a7391bc0c448098248a89b42abfd5b2cd908712e635b0772e",
+    "calibration": "8db0d6bf4996060712e5ee37938dedfe04cf8a6ca5941dbb2ead544195dc0808",
+    "dev": "53d7593f989a62ae696915942333eff4cc834f187b009611b9308e39941e3211"
+  },
+  "output_sha256": "02bdacdad48557c2fba2d2c4e93f8796151ae509ca5f0061f58fc121e6b2a2a6",
+  "records": 17089,
+  "by_split_label_tier": {
+    "calibration:safe:public_source_reference": 300,
+    "calibration:unsafe:public_source_reference": 300,
+    "dev:safe:public_source_reference": 400,
+    "dev:unsafe:public_source_reference": 400,
+    "train:safe:public_source_reference": 6500,
+    "train:safe:rubric_benign": 2048,
+    "train:safe:synthetic_context_weak": 347,
+    "train:unsafe:public_source_reference": 6500,
+    "train:unsafe:synthetic_context_weak": 294
+  }
+}
