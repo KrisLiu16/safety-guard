@@ -5,7 +5,8 @@
                pool traffic (18 MiB per session per tick in fp32, the measured per-session cost) halves.
   ring         "gather" (v3: copy ring_k/v[slots], then two matmuls) | "inplace" (ring_attention_kernel reads
                the pool by slot, fused masked online softmax; this tick's keys are still written afterwards).
-  gdn_bv, gdn_warps  tile width over V and warps of the GDN slot kernel (v3: 8 and 1), for the kernel sweep.
+  gdn_bv, gdn_warps  tile width over V and warps of the GDN slot kernel (v3: 8 and 1), for the kernel sweep;
+               gdn_tiles {session bucket: (bv, warps)} overrides them per bucket (T007 v4: the fastest tile depends on N).
 Everything else (buckets, CUDA Graphs, scratch slot, right padding that never touches state) is v2/v3.
 """
 from __future__ import annotations
@@ -20,11 +21,12 @@ STATE_DTYPES = {"float32": torch.float32, "bfloat16": torch.bfloat16, "float16":
 
 class SlotStreamEngineV4(SlotStreamEngine):
     def __init__(self, model, max_slots, window=512, use_graphs=True, roles=("user", "assistant"),
-                 state_dtype="float32", ring="gather", gdn_bv=8, gdn_warps=1):
+                 state_dtype="float32", ring="gather", gdn_bv=8, gdn_warps=1, gdn_tiles=None):
         super().__init__(model, max_slots, window=window, use_graphs=use_graphs, roles=roles)
         if ring not in ("gather", "inplace"):
             raise ValueError("ring must be gather or inplace")
         self.ring_mode, self.gdn_bv, self.gdn_warps = ring, gdn_bv, gdn_warps       # read by SlotStreamEngine._gdn
+        self.default_tile, self.gdn_tiles = (gdn_bv, gdn_warps), dict(gdn_tiles or {})
         if STATE_DTYPES[state_dtype] != self.rec.dtype:
             shape = self.rec.shape
             del self.rec
@@ -34,6 +36,10 @@ class SlotStreamEngineV4(SlotStreamEngine):
     def _forward(self, ids, lens, slots, starts):
         self._lens, self._starts = lens, starts          # the static tensors of this bucket (graph-safe)
         return super()._forward(ids, lens, slots, starts)
+
+    def _gdn(self, mod, x, g_index, slots, lens, valid):
+        self.gdn_bv, self.gdn_warps = self.gdn_tiles.get(x.shape[0], self.default_tile)   # x: [session bucket, ...]
+        return super()._gdn(mod, x, g_index, slots, lens, valid)
 
     def _attention(self, mod, x, a_index, slots, cos, sin, allowed, ring_col):
         if self.ring_mode == "gather":
