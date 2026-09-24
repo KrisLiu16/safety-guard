@@ -1,0 +1,22 @@
+{
+  "prompt_version": "guard-word-screen-leader-v4",
+  "mode": "full",
+  "words": 340883,
+  "known_positives": 0,
+  "tasks": 5115,
+  "passes": 2,
+  "binary_passes": 1,
+  "archives": {
+    "screen_part0.tar.gz": 2000,
+    "screen_part1.tar.gz": 2000,
+    "screen_part2.tar.gz": 1115
+  },
+  "batch_words": 200,
+  "seed_rows": 340883,
+  "sha256": {
+    "pipeline": "15832f8b0bca381f1bdc785bf7f7526921a971ca44f824a8ade9e11c8ff92102",
+    "flow": "97e8f52f738438957668ed516b599341748e119378353ad722167982bfc90e59",
+    "system_prompt": "39fe5d6f0defa690b98afe55a72674e79a3041d6425186419aed51775dc9cd2d",
+    "binary_prompt": "69b3b6a3db6110fdc12db3c90c49f764ff836b711e8d9758514c6aa25c11bf38"
+  }
+}

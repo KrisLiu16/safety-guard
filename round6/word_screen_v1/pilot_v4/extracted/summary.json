@@ -1,0 +1,175 @@
+{
+  "words": 1003,
+  "passes_seen": [
+    "b0",
+    "p0",
+    "p1"
+  ],
+  "verdicts": {
+    "insult": 22,
+    "rumor": 21,
+    "no": 929,
+    "evasion": 17,
+    "unsure": 14
+  },
+  "model_verdicts": {
+    "unsure": 29,
+    "rumor": 28,
+    "insult": 15,
+    "no": 919,
+    "evasion": 12
+  },
+  "manual_overrides": 132,
+  "words_with_both_category_passes": 997,
+  "pass_agreement_flagged": 0.9729,
+  "flagged_only_by_binary_pass": 9,
+  "batch_errors": {
+    "word_changed": 6,
+    "missing": 2
+  },
+  "known_positives": 3,
+  "known_positive_model_verdicts": {
+    "unsure": 1,
+    "rumor": 1,
+    "insult": 1
+  },
+  "known_positive_model_recall_flagged": 1.0,
+  "by_source_group": {
+    "citizenlab/LINE": {
+      "rumor": 6,
+      "no": 27,
+      "evasion": 2,
+      "unsure": 1
+    },
+    "citizenlab/SVP": {
+      "no": 36
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "no": 34,
+      "rumor": 2
+    },
+    "citizenlab/apple": {
+      "no": 36
+    },
+    "citizenlab/chinese-games": {
+      "no": 34,
+      "rumor": 1,
+      "evasion": 1
+    },
+    "citizenlab/coronavirus": {
+      "no": 16
+    },
+    "citizenlab/june-4": {
+      "no": 35,
+      "rumor": 1
+    },
+    "citizenlab/livestream": {
+      "no": 34,
+      "unsure": 2
+    },
+    "citizenlab/microsoft-bing": {
+      "no": 36
+    },
+    "citizenlab/olympics": {
+      "no": 34,
+      "insult": 1,
+      "rumor": 1
+    },
+    "citizenlab/open-source": {
+      "no": 36
+    },
+    "citizenlab/qqmail": {
+      "insult": 1,
+      "no": 7,
+      "rumor": 1
+    },
+    "citizenlab/search": {
+      "no": 26,
+      "evasion": 6,
+      "insult": 3,
+      "unsure": 1
+    },
+    "citizenlab/wechat": {
+      "no": 24,
+      "rumor": 8,
+      "evasion": 1,
+      "insult": 2,
+      "unsure": 1
+    },
+    "include-only": {
+      "insult": 1
+    },
+    "permissive/COVID-19词库.txt": {
+      "no": 10
+    },
+    "permissive/GFW补充词库.txt": {
+      "insult": 3,
+      "no": 34
+    },
+    "permissive/houbb-sensitive-word-data": {
+      "no": 36
+    },
+    "permissive/其他词库.txt": {
+      "insult": 2,
+      "no": 34
+    },
+    "permissive/反动词库.txt": {
+      "no": 32,
+      "insult": 2,
+      "unsure": 2
+    },
+    "permissive/广告类型.txt": {
+      "no": 36
+    },
+    "permissive/政治类型.txt": {
+      "no": 25,
+      "evasion": 6,
+      "insult": 2,
+      "unsure": 3
+    },
+    "permissive/新思想启蒙.txt": {
+      "no": 2
+    },
+    "permissive/暴恐词库.txt": {
+      "no": 34,
+      "unsure": 1
+    },
+    "permissive/民生词库.txt": {
+      "no": 34,
+      "unsure": 1
+    },
+    "permissive/涉枪涉爆.txt": {
+      "no": 35
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "insult": 5,
+      "no": 28,
+      "unsure": 1,
+      "rumor": 1,
+      "evasion": 1
+    },
+    "permissive/色情类型.txt": {
+      "no": 35
+    },
+    "permissive/色情词库.txt": {
+      "no": 35
+    },
+    "permissive/补充词库.txt": {
+      "no": 34,
+      "unsure": 1
+    },
+    "permissive/贪腐词库.txt": {
+      "no": 35
+    },
+    "permissive/零时-Tencent.txt": {
+      "no": 35
+    }
+  },
+  "runs": [
+    {
+      "run_no": "aster-dev-295",
+      "status": "completed"
+    }
+  ],
+  "archives": 18
+}
