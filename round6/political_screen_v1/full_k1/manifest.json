@@ -1,0 +1,16 @@
+{
+  "prompt_version": "guard-political-screen-v1.2",
+  "mode": "check",
+  "tag": "k1",
+  "words": 27255,
+  "tasks": 137,
+  "archives": {
+    "screen.tar.gz": 137
+  },
+  "batch_words": 200,
+  "sha256": {
+    "pipeline": "00373cd33a653b5bfec7d74498efdf9c3b0bd031ad92e90978976b4eb8bb9b49",
+    "flow": "6266fd10cca5fe491ae0013f5e7717993b57b9f2aa333d44fd6ff27b3ece03b6",
+    "system_prompt": "7eaf1118f176c5f4d462f01dc9bc36547ba43c0d565d262334bd0baf4a6160f5"
+  }
+}

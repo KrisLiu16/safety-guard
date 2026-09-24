@@ -15,14 +15,18 @@
     {
       "run_no": "aster-dev-366",
       "status": "completed"
+    },
+    {
+      "run_no": "aster-dev-367",
+      "status": "completed"
     }
   ],
-  "archives": 1969,
+  "archives": 2106,
   "words": 340876,
   "batch_errors": {
-    "word_changed": 58,
-    "missing": 54,
-    "bad_index": 5,
+    "word_changed": 62,
+    "missing": 59,
+    "bad_index": 7,
     "request": 1
   },
   "words_without_verdict": 7,
@@ -42,12 +46,12 @@
   },
   "ambiguous_by_verdict": {
     "no": 128323,
-    "org": 586,
-    "leader": 5945,
+    "org": 793,
+    "leader": 6699,
     "other_political": 6684,
     "unsure": 5870,
-    "figure": 2606,
-    "event": 3176
+    "figure": 3272,
+    "event": 3910
   },
   "leader_screen_by_verdict": {
     "event": {
@@ -145,17 +149,65 @@
     }
   },
   "leader_words": 14295,
+  "check_words": 27255,
+  "check_by_candidate": {
+    "event": {
+      "event": 8502,
+      "org": 176,
+      "figure": 122,
+      "no": 784,
+      "leader_variant": 112,
+      "leader_negative": 74,
+      "unsure": 88
+    },
+    "figure": {
+      "org": 69,
+      "no": 1434,
+      "figure": 2767,
+      "leader_variant": 167,
+      "event": 77,
+      "unsure": 75,
+      "leader_negative": 221
+    },
+    "leader_negative": {
+      "leader_negative": 3863,
+      "event": 35,
+      "leader_variant": 397,
+      "figure": 256,
+      "unsure": 9,
+      "no": 213,
+      "org": 9
+    },
+    "leader_variant": {
+      "leader_variant": 4648,
+      "figure": 97,
+      "event": 34,
+      "no": 277,
+      "leader_negative": 570,
+      "org": 11,
+      "unsure": 36
+    },
+    "org": {
+      "org": 1778,
+      "event": 67,
+      "no": 218,
+      "figure": 11,
+      "leader_negative": 34,
+      "unsure": 7,
+      "leader_variant": 11
+    }
+  },
   "matched_as": {
-    "event": 6684,
-    "event:ambiguous": 3176,
-    "figure": 2204,
-    "figure:ambiguous": 2605,
-    "leader_negative": 3317,
-    "leader_negative:ambiguous": 1465,
-    "leader_variant": 2869,
-    "leader_variant:ambiguous": 2803,
-    "org": 1540,
-    "org:ambiguous": 585
+    "event": 5654,
+    "event:ambiguous": 3063,
+    "figure": 1512,
+    "figure:ambiguous": 1741,
+    "leader_negative": 2975,
+    "leader_negative:ambiguous": 1787,
+    "leader_variant": 2370,
+    "leader_variant:ambiguous": 2965,
+    "org": 1386,
+    "org:ambiguous": 656
   },
   "confirm_words": 38008
 }
