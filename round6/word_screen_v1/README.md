@@ -22,7 +22,7 @@
 | `make_batch.py` | 全量模式：Run A 和 Run B 的全部不同词各判一次。pilot 模式：按来源组抽 N 个词，再加上本地已知阳性清单 |
 | `extract_screen.py` | 与本地词索引对齐，输出每个词的结论、各来源组计数、已知阳性的召回；没拿到结论的词单独列出，后续补判 |
 | `compare_manual.py` | 与本地人工标注对照，只输出计数 |
-| `test_word_screen_cpu.py` | 7 项 CPU 单测 |
+| `test_word_screen_cpu.py` | 9 项 CPU 单测 |
 
 `known_positives.txt` 是本地文件，一行一个已知阳性词，只在执行方的 Mac 上。它已写进 `.gitignore`，**不能提交**：仓库是公开的。
 
@@ -38,3 +38,13 @@ v2 改为让模型给出类别：`insult`（侮辱、蔑称、贬损性谐音）
 - **改标为 unsafe**（用户 2026-09-24 定）：`insult` 和 `rumor` 原样写出即判 unsafe，gbt_codes 记 A.1.b（`rumor` 同时记 A.1.g）；`evasion` 和 `unsure` 不改标，只移出安全数据。
 
 `compare_manual.py` 把执行方本地的人工标注（`manual_labels.tsv`，已写进 `.gitignore`）和 v2 的结论逐词对照，只输出计数。
+
+## v3（复测 aster-dev-290 之后）
+
+v2 复测把召回丢了：人工阳性 26 个里漏了 3 个，而 v1 当时都抓到了。两个是前任政治局常委名字的贬损性谐音（其中一个就是 T006 的已知阳性），一个是把开国领袖和贬损说法绑在一起的短语。v3 改了三处：
+
+- 写明范围：现任和历任的政治局常委、总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席，以及开国领袖。这是对“国家领导人”的具体化，与执行方人工标注的实际口径一致。
+- 写明：对具体领导人的贬损说法，即使同时属于历史或政治话题，也是 `insult` 或 `rumor`，不是 `no`；拿不准时选 `unsure`，不要选 `no`。
+- 每个词跑两遍，每遍的分批顺序不同，词的“邻居”也不同；按最严重的结论合并（`insult` > `rumor` > `unsure` > `evasion` > `no`），以对冲 luna 两次运行之间的波动。`summary.json` 里的 `pass_agreement_flagged` 给出两遍的一致率。
+
+代价：请求量翻倍。全量约 3,400 次 luna 请求，仍然不大。

@@ -61,6 +61,7 @@ def main():
     parser.add_argument("--seeds", type=Path, action="append", default=None)
     parser.add_argument("--pilot", type=int, default=0, help="pilot word count; 0 = every distinct word")
     parser.add_argument("--include", type=Path, help="local file of known positives, one word per line")
+    parser.add_argument("--passes", type=int, default=2, help="independent passes per word, each with its own batch order")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -75,20 +76,23 @@ def main():
                 "source_groups": sorted(words[w]["source_groups"]) if w in words else ["include-only"],
                 "task_keys": words[w]["task_keys"] if w in words else []} for w in order]
     paths = []
-    for start in range(0, len(entries), BATCH_WORDS):
-        key = f"screen-{start // BATCH_WORDS:05d}"
-        task = args.output / "tasks" / key
-        (task / "tests").mkdir(parents=True)
-        batch = {"batch_key": key, "prompt_version": PROMPT_VERSION,
-                 "words": [{"word": e["word"]} for e in entries[start:start + BATCH_WORDS]]}   # nothing but the word is sent
-        (task / "instruction.md").write_text(json.dumps(batch, ensure_ascii=False), encoding="utf-8")
-        (task / "task.toml").write_text(f'version = "1.0"\n\n[metadata]\nname = "{key}"\ncategory = "guard-word-screen"\n')
-        test = task / "tests/test.sh"
-        test.write_text("#!/bin/sh\nexit 1\n")
-        test.chmod(0o755)
-        paths.append(task)
-        for e in entries[start:start + BATCH_WORDS]:
-            e["batch_key"] = key
+    for p in range(args.passes):
+        # Each pass puts every word in a different batch with different neighbours.
+        ordered = sorted(entries, key=lambda e: number(f"{SALT}:pass{p}:{e['word']}")) if p else entries
+        for start in range(0, len(ordered), BATCH_WORDS):
+            key = f"screen-p{p}-{start // BATCH_WORDS:05d}"
+            task = args.output / "tasks" / key
+            (task / "tests").mkdir(parents=True)
+            batch = {"batch_key": key, "prompt_version": PROMPT_VERSION,
+                     "words": [{"word": e["word"]} for e in ordered[start:start + BATCH_WORDS]]}   # nothing but the word is sent
+            (task / "instruction.md").write_text(json.dumps(batch, ensure_ascii=False), encoding="utf-8")
+            (task / "task.toml").write_text(f'version = "1.0"\n\n[metadata]\nname = "{key}"\ncategory = "guard-word-screen"\n')
+            test = task / "tests/test.sh"
+            test.write_text("#!/bin/sh\nexit 1\n")
+            test.chmod(0o755)
+            paths.append(task)
+            for e in ordered[start:start + BATCH_WORDS]:
+                e.setdefault("batch_keys", []).append(key)
     with tarfile.open(args.output / "screen.tar.gz", "w:gz") as archive:
         for task in paths:
             archive.add(task, arcname=task.name)
@@ -96,13 +100,13 @@ def main():
         for e in entries:
             handle.write(json.dumps(e, ensure_ascii=False) + "\n")
     manifest = {"prompt_version": PROMPT_VERSION, "mode": "pilot" if args.pilot else "full", "words": len(entries),
-                "known_positives": sum(e["known_positive"] for e in entries), "tasks": len(paths),
+                "known_positives": sum(e["known_positive"] for e in entries), "tasks": len(paths), "passes": args.passes,
                 "batch_words": BATCH_WORDS, "seed_rows": len(rows),
                 "sha256": {"pipeline": hashlib.sha256((ROOT / "flow/pipeline.py").read_bytes()).hexdigest(),
                            "flow": hashlib.sha256((ROOT / "flow/flow.py").read_bytes()).hexdigest(),
                            "system_prompt": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()}}
     (args.output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({k: manifest[k] for k in ("mode", "words", "known_positives", "tasks")}, ensure_ascii=False))
+    print(json.dumps({k: manifest[k] for k in ("mode", "words", "known_positives", "passes", "tasks")}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

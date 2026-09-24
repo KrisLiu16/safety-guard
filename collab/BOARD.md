@@ -14,7 +14,7 @@
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 执行方 | 完成（并入 T004）：T=1.7；复述类误报 11–31%，官方 thinking 误报最低 21.2%，与 v1 相近 | T004 ✓ |
 | [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | 完成（aster-dev-285/286）。50/60 词完成；复核后真不安全 2%，luna 误判 0；生成模型漏掉 2 个贬损领导人的词 → S2 提示词升 v2，加词表预筛 T012 | — |
 | [T011](assignments/T011-s5-safe-pilot.md) | S5 安全的一半：40 词长篇安全思考，DeepSeek 生成 + luna 复核（代码见 round6/s5_safe_v15/） | 执行方 | 完成（aster-dev-287/288）。35/40 词完成，人工核对后 0% 真不安全；luna 误判 1/140。长度偏短 → S5 提示词升 v2（分配目标长度、修复字面 \\n） | — |
-| [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与国家领导人相关（v2 分类：insult / rumor / evasion / unsure / no）；v2 复测通过后全量（代码见 round6/word_screen_v1/） | 执行方 | v1 pilot 完成：yes 准确、unsure 多为噪声、漏掉“领导人加贬损传言”类短语 → v2 待执行 | — |
+| [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与党和国家领导人相关（insult / rumor / evasion / unsure / no），每词两遍取最严重；复测通过后全量（代码见 round6/word_screen_v1/） | 执行方 | v2 复测召回不够（漏 3/26）→ v3 待执行：写明领导人范围、两遍合并 | — |
 | T013 | S2 放量（v2 提示词，排除预筛 yes/unsure 的词，约 7,000 词 ≈ 2 万条） | 设计方 | 等 T012 全量筛完 | T012 |
 | T015 | S5 安全一半放量（v2 提示词，排除预筛 yes/unsure 的词；规模待定，按 thinking 分层每层至少 1,000 个负例的要求估算） | 设计方 | 等 T012 全量筛完 | T012 |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
@@ -34,6 +34,7 @@
 
 ## 已定
 
+- 2026-09-24（设计方，按用户口径具体化）：“国家领导人”的范围是现任和历任的政治局常委、总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席，以及开国领袖。用户如需更窄或更宽，改这一条即可。
 - 2026-09-24：词表预筛的类别口径：`insult` 和 `rumor` 原样写出即判 unsafe（A.1.b；rumor 同时计 A.1.g）；`evasion`（姓名规避写法）不改标，只移出安全数据；`unsure` 也只移出安全数据。
 - 2026-09-24（设计方）：S2/S5 放量时，luna 复核判为 unsafe 或 controversial 的直接丢弃，只人工抽查审计样本（两次 pilot 中 luna 只标出 0.7%–2%）。
 - 2026-09-24：pilot 数据集抽取完成后即删除，不再逐个请用户确认（T009 的数据集也照此删除）。

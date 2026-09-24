@@ -1,4 +1,5 @@
 """Word screen contract checks (CPU only, no model calls). Placeholder words only."""
+import collections
 import json
 from pathlib import Path
 import subprocess
@@ -67,11 +68,19 @@ class BatchAndJoinTests(unittest.TestCase):
             manifest = json.loads((out / "manifest.json").read_text())
             self.assertEqual(manifest["words"], 252)
             self.assertEqual(manifest["known_positives"], 2)
-            self.assertEqual(manifest["tasks"], 2)
+            self.assertEqual(manifest["passes"], 2)
+            self.assertEqual(manifest["tasks"], 4)           # 252 words -> 2 batches per pass
             with (out / "words.jsonl").open(encoding="utf-8") as handle:
                 entries = [json.loads(line) for line in handle]
             self.assertEqual(len({e["word"] for e in entries}), 252)
             self.assertEqual(len(next(e for e in entries if e["word"] == "词7")["task_keys"]), 2)
+            self.assertTrue(all(len(e["batch_keys"]) == 2 and e["batch_keys"][0].startswith("screen-p0-")
+                                and e["batch_keys"][1].startswith("screen-p1-") for e in entries))
+            first = {e["word"]: e["batch_keys"] for e in entries}
+            neighbours = collections.defaultdict(set)
+            for e in entries:
+                neighbours[tuple(first[e["word"]])].add(e["word"])
+            self.assertGreater(len(neighbours), 2)           # passes regroup words, not the same batches twice
             for instruction in (out / "tasks").glob("*/instruction.md"):
                 for word in json.loads(instruction.read_text())["words"]:
                     self.assertEqual(set(word), {"word"})
@@ -80,11 +89,33 @@ class BatchAndJoinTests(unittest.TestCase):
         index = [{"word": "词甲", "known_positive": True, "source_groups": ["g1"]},
                  {"word": "词乙", "known_positive": True, "source_groups": ["g1"]},
                  {"word": "词丙", "known_positive": False, "source_groups": ["g2"]}]
-        rows, summary = join(index, [{"errors": ["missing:1"], "verdicts": [{"word": "词甲", "verdict": "rumor"},
+        rows, summary = join(index, [{"batch_key": "screen-p0-00000", "errors": ["missing:1"], "verdicts": [{"word": "词甲", "verdict": "rumor"},
                                                                           {"word": "词丙", "verdict": "no"}]}])
         self.assertEqual(summary["verdicts"], {"rumor": 1, "missing": 1, "no": 1})
         self.assertEqual(summary["known_positive_recall_flagged"], 0.5)
         self.assertEqual(summary["batch_errors"], {"missing": 1})
+
+
+class MergeTests(unittest.TestCase):
+    def test_most_severe_verdict_wins_across_passes(self):
+        from pipeline import merge
+        self.assertEqual(merge(["no", "insult"]), "insult")
+        self.assertEqual(merge(["rumor", "insult"]), "insult")
+        self.assertEqual(merge(["evasion", "unsure"]), "unsure")
+        self.assertEqual(merge(["no", "no"]), "no")
+        self.assertEqual(merge([]), "missing")
+
+    def test_two_pass_join(self):
+        index = [{"word": w, "known_positive": w == "词甲", "source_groups": ["g"]} for w in ("词甲", "词乙", "词丙")]
+        values = [{"batch_key": "screen-p0-00000", "errors": [], "verdicts": [
+                      {"word": "词甲", "verdict": "no"}, {"word": "词乙", "verdict": "no"}, {"word": "词丙", "verdict": "evasion"}]},
+                  {"batch_key": "screen-p1-00000", "errors": [], "verdicts": [
+                      {"word": "词甲", "verdict": "insult"}, {"word": "词乙", "verdict": "no"}, {"word": "词丙", "verdict": "evasion"}]}]
+        rows, summary = join(index, values)
+        self.assertEqual({r["word"]: r["verdict"] for r in rows}, {"词甲": "insult", "词乙": "no", "词丙": "evasion"})
+        self.assertEqual(summary["passes_seen"], ["p0", "p1"])
+        self.assertEqual(summary["pass_agreement_flagged"], round(2 / 3, 4))
+        self.assertEqual(summary["known_positive_recall_flagged"], 1.0)
 
 
 class CompareTests(unittest.TestCase):

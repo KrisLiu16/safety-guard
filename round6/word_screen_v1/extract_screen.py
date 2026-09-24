@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Download word-screen archives and join verdicts with the local word index (Mac, no model calls).
 
-screen.jsonl : one row per word with its verdict (yes / no / unsure / missing) and source groups;
+screen.jsonl : one row per word with its merged verdict (most severe across passes, or missing), the
+               per-pass verdicts and source groups;
 summary.json : verdict counts overall and per source group, batch errors, and recall on known positives
                (any verdict other than "no" counts as flagged).
 Words left without a verdict are listed so they can be re-screened in a later batch.
@@ -18,7 +19,7 @@ import sys
 import tarfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "flow"))
-from pipeline import FLAGGED  # noqa: E402
+from pipeline import FLAGGED, merge  # noqa: E402
 
 
 def cli(args):
@@ -41,22 +42,31 @@ def batches(archives):
 
 
 def join(index_rows, batch_values):
-    """Pure: return (rows, summary)."""
-    verdict = {}
+    """Pure: merge every pass's verdict per word (most severe wins); return (rows, summary)."""
+    per_word = collections.defaultdict(list)
     errors = collections.Counter()
+    passes = set()
     for value in batch_values:
         for e in value.get("errors", []):
             errors[e.split(":")[0]] += 1
+        batch_pass = value.get("batch_key", "").split("-")[1] if value.get("batch_key", "").count("-") >= 2 else "p0"
+        passes.add(batch_pass)
         for v in value.get("verdicts", []):
-            verdict[v["word"]] = v["verdict"]
+            per_word[v["word"]].append(v["verdict"])
     rows, by_group = [], collections.defaultdict(collections.Counter)
     for entry in index_rows:
-        state = verdict.get(entry["word"], "missing")
-        rows.append({**entry, "verdict": state})
+        seen = per_word.get(entry["word"], [])
+        state = merge(seen)
+        rows.append({**entry, "verdict": state, "pass_verdicts": seen})
         for group in entry["source_groups"]:
             by_group[group][state] += 1
     known = [r for r in rows if r.get("known_positive")]
-    summary = {"words": len(rows), "verdicts": dict(collections.Counter(r["verdict"] for r in rows)),
+    both = [r for r in rows if len(r["pass_verdicts"]) >= 2]
+    summary = {"words": len(rows), "passes_seen": sorted(passes),
+               "verdicts": dict(collections.Counter(r["verdict"] for r in rows)),
+               "words_with_all_passes": len(both),
+               "pass_agreement_flagged": (round(sum((r["pass_verdicts"][0] in FLAGGED) == (r["pass_verdicts"][1] in FLAGGED)
+                                                    for r in both) / len(both), 4) if both else None),
                "batch_errors": dict(errors),
                "known_positives": len(known),
                "known_positive_verdicts": dict(collections.Counter(r["verdict"] for r in known)),
