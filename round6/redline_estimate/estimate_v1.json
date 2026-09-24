@@ -1,0 +1,633 @@
+{
+  "version": "redline-estimate-v1",
+  "model_calls": 0,
+  "tiers": {
+    "beavertails": {
+      "self_harm": [
+        "likely",
+        [
+          "R13"
+        ]
+      ],
+      "sexually_explicit,adult_content": [
+        "possible",
+        [
+          "R11"
+        ]
+      ],
+      "terrorism,organized_crime": [
+        "possible",
+        [
+          "R7"
+        ]
+      ],
+      "drug_abuse,weapons,banned_substance": [
+        "possible",
+        [
+          "R12"
+        ]
+      ],
+      "violence,aiding_and_abetting,incitement": [
+        "possible",
+        [
+          "R2",
+          "R12"
+        ]
+      ],
+      "controversial_topics,politics": [
+        "possible",
+        [
+          "political"
+        ]
+      ],
+      "hate_speech,offensive_language": [
+        "possible",
+        [
+          "R8"
+        ]
+      ],
+      "discrimination,stereotype,injustice": [
+        "possible",
+        [
+          "R8"
+        ]
+      ],
+      "misinformation_regarding_ethics,laws_and_safety": [
+        "possible",
+        [
+          "R10"
+        ]
+      ],
+      "child_abuse": [
+        "possible",
+        [
+          "R2",
+          "R11"
+        ]
+      ],
+      "animal_abuse": [
+        "possible",
+        [
+          "R2"
+        ]
+      ],
+      "financial_crime,property_crime,theft": [
+        "none",
+        []
+      ],
+      "non_violent_unethical_behavior": [
+        "none",
+        []
+      ],
+      "privacy_violation": [
+        "none",
+        []
+      ]
+    },
+    "nemotron_zh": {
+      "suicide and self harm": [
+        "likely",
+        [
+          "R13"
+        ]
+      ],
+      "sexual (minor)": [
+        "likely",
+        [
+          "R11"
+        ]
+      ],
+      "sexual": [
+        "possible",
+        [
+          "R11"
+        ]
+      ],
+      "violence": [
+        "possible",
+        [
+          "R2"
+        ]
+      ],
+      "threat": [
+        "possible",
+        [
+          "R2"
+        ]
+      ],
+      "guns and illegal weapons": [
+        "possible",
+        [
+          "R12"
+        ]
+      ],
+      "controlled/regulated substances": [
+        "possible",
+        [
+          "R12"
+        ]
+      ],
+      "criminal planning/confessions": [
+        "possible",
+        [
+          "R12"
+        ]
+      ],
+      "illegal activity": [
+        "possible",
+        [
+          "R12"
+        ]
+      ],
+      "hate/identity hate": [
+        "possible",
+        [
+          "R8"
+        ]
+      ],
+      "political/misinformation/conspiracy": [
+        "possible",
+        [
+          "political",
+          "R10"
+        ]
+      ],
+      "high risk gov decision making": [
+        "possible",
+        [
+          "political"
+        ]
+      ],
+      "harassment": [
+        "none",
+        []
+      ],
+      "pii/privacy": [
+        "none",
+        []
+      ],
+      "profanity": [
+        "none",
+        []
+      ],
+      "fraud/deception": [
+        "none",
+        []
+      ],
+      "malware": [
+        "none",
+        []
+      ],
+      "copyright/trademark/plagiarism": [
+        "none",
+        []
+      ],
+      "unauthorized advice": [
+        "none",
+        []
+      ],
+      "immoral/unethical": [
+        "none",
+        []
+      ],
+      "manipulation": [
+        "none",
+        []
+      ],
+      "needs caution": [
+        "none",
+        []
+      ],
+      "other": [
+        "none",
+        []
+      ]
+    },
+    "runA_topic_groups": {
+      "permissive/反动词库.txt": [
+        "political"
+      ],
+      "permissive/政治类型.txt": [
+        "political"
+      ],
+      "citizenlab/june-4": [
+        "political"
+      ],
+      "permissive/新思想启蒙.txt": [
+        "political"
+      ],
+      "permissive/暴恐词库.txt": [
+        "R7"
+      ],
+      "permissive/涉枪涉爆.txt": [
+        "R12"
+      ],
+      "permissive/色情类型.txt": [
+        "R11"
+      ],
+      "permissive/色情词库.txt": [
+        "R11"
+      ],
+      "citizenlab/coronavirus": [
+        "R10"
+      ],
+      "permissive/COVID-19词库.txt": [
+        "R10"
+      ]
+    }
+  },
+  "prefix_v2_unsafe": {
+    "calibration/all": {
+      "records": 300,
+      "no_red_line": 49,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 12
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 106
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 3
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 56
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 10
+      },
+      "R11": {
+        "likely": 8,
+        "possible_or_likely": 30
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 150
+      },
+      "R13": {
+        "likely": 13,
+        "possible_or_likely": 13
+      }
+    },
+    "calibration/beavertails": {
+      "records": 150,
+      "no_red_line": 26,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 11
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 73
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 3
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 34
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 9
+      },
+      "R11": {
+        "likely": 0,
+        "possible_or_likely": 8
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 71
+      },
+      "R13": {
+        "likely": 2,
+        "possible_or_likely": 2
+      }
+    },
+    "calibration/nemotron_zh": {
+      "records": 150,
+      "no_red_line": 23,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 1
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 33
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 22
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 1
+      },
+      "R11": {
+        "likely": 8,
+        "possible_or_likely": 22
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 79
+      },
+      "R13": {
+        "likely": 11,
+        "possible_or_likely": 11
+      }
+    },
+    "dev/all": {
+      "records": 400,
+      "no_red_line": 67,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 29
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 123
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 3
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 81
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 12
+      },
+      "R11": {
+        "likely": 12,
+        "possible_or_likely": 39
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 202
+      },
+      "R13": {
+        "likely": 14,
+        "possible_or_likely": 14
+      }
+    },
+    "dev/beavertails": {
+      "records": 200,
+      "no_red_line": 39,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 20
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 84
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 3
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 55
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 3
+      },
+      "R11": {
+        "likely": 0,
+        "possible_or_likely": 8
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 83
+      },
+      "R13": {
+        "likely": 1,
+        "possible_or_likely": 1
+      }
+    },
+    "dev/nemotron_zh": {
+      "records": 200,
+      "no_red_line": 28,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 9
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 39
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 26
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 9
+      },
+      "R11": {
+        "likely": 12,
+        "possible_or_likely": 31
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 119
+      },
+      "R13": {
+        "likely": 13,
+        "possible_or_likely": 13
+      }
+    },
+    "train/all": {
+      "records": 6684,
+      "no_red_line": 1199,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 364
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 2398
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 78
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 1375
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 275
+      },
+      "R11": {
+        "likely": 142,
+        "possible_or_likely": 532
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 3368
+      },
+      "R13": {
+        "likely": 251,
+        "possible_or_likely": 251
+      }
+    },
+    "train/beavertails": {
+      "records": 4184,
+      "no_red_line": 846,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 254
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 1855
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 78
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 1017
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 169
+      },
+      "R11": {
+        "likely": 0,
+        "possible_or_likely": 213
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 1889
+      },
+      "R13": {
+        "likely": 61,
+        "possible_or_likely": 61
+      }
+    },
+    "train/nemotron_zh": {
+      "records": 2500,
+      "no_red_line": 353,
+      "political": {
+        "likely": 0,
+        "possible_or_likely": 110
+      },
+      "R2": {
+        "likely": 0,
+        "possible_or_likely": 543
+      },
+      "R7": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R8": {
+        "likely": 0,
+        "possible_or_likely": 358
+      },
+      "R9": {
+        "likely": 0,
+        "possible_or_likely": 0
+      },
+      "R10": {
+        "likely": 0,
+        "possible_or_likely": 106
+      },
+      "R11": {
+        "likely": 142,
+        "possible_or_likely": 319
+      },
+      "R12": {
+        "likely": 0,
+        "possible_or_likely": 1479
+      },
+      "R13": {
+        "likely": 190,
+        "possible_or_likely": 190
+      }
+    }
+  },
+  "unmapped_categories": {},
+  "records_without_category": {
+    "synthetic_context_weak": 110
+  },
+  "runA_unsafe_by_topic_proxy": {
+    "calibration": {
+      "mixed_or_unknown": 2464,
+      "records": 2528,
+      "political": 42,
+      "R12": 14,
+      "R11": 4,
+      "R7": 4
+    },
+    "dev": {
+      "mixed_or_unknown": 2518,
+      "records": 2594,
+      "political": 44,
+      "R12": 10,
+      "R11": 12,
+      "R7": 6,
+      "R10": 4
+    },
+    "train": {
+      "mixed_or_unknown": 77268,
+      "records": 79400,
+      "political": 1364,
+      "R12": 348,
+      "R11": 264,
+      "R7": 118,
+      "R10": 38
+    }
+  }
+}
