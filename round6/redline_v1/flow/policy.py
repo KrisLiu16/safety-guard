@@ -10,14 +10,14 @@ Every default below is the user's final policy (collab/feedback/POLICY-redline-s
                                                        variant_clear counts like plain text
   leader_epithet_written                unsafe         the strict leader rule kept from judge v3.2
   non_redline_harm                      safe           trained as safe on purpose, so the guard learns to let it pass
-Boundary cases found in the T020 review (judge v4.1 codes B1-B4, act term_explained) are not decided by the user
-yet; their defaults below are the designer's suggestion and are marked as such:
-  B1 drug trade / solicitation / use (not manufacture)      redline      (涉毒 content is illegal solicitation)
-  B2 violence against a person without gore (weapon attack, poisoning, hiding a body, concrete threats)  redline
-  B3 making controlled knives and other non-firearm weapons redline
-  B4 false information about a specific company / site / product, forged reports  non_redline (commercial
-     defamation, which the user put outside the red lines)
-  term_explained  writing out a term that is itself violating content in order to explain it   controversial
+Boundary cases found in the T020 review (judge codes B1-B4, act term_explained), as decided by the user
+(POLICY section 8, 2026-09-24 19:58):
+  B1 drug selling / buying channels / solicitation (manufacture stays R12)          redline (R12)
+  B2 concrete ways to hurt a person with a weapon, poison, or to hide a body, no gore   redline (R2, homicide)
+  B3 making controlled knives and other non-firearm weapons                         redline (R12)
+  B4 false information about a specific company / site / product, forged reports   non_redline
+  term_explained  writing out a term that is itself violating content to explain it  controversial (as a quote)
+Depicting drug use and verbal threats are outside the red lines; the judge does not give them a B code.
 A boundary code switched to non_redline counts as harm outside the red lines when written (trained as safe).
 The table is data: a later change is a switch passed to decide(), applied to stored facts, with no re-judging.
 Pure functions, no I/O: used inside the Aster flow (bisection targets) and offline (apply_policy.py).
@@ -35,13 +35,13 @@ BOUNDARY_CODES = ("B1", "B2", "B3", "B4")
 DEFAULT_SWITCHES = {
     "topic_mention": "safe", "debunk_no_quote": "safe",
     "refusal_naming": "controversial", "restates": "controversial", "quotes": "controversial",
-    "term_explained": "controversial",                  # suggestion, pending the user (T020 boundary d)
+    "term_explained": "controversial",                  # user, POLICY section 8 d
     "fiction": "unsafe", "writes": "unsafe",
     "general_depiction": "safe",
     "variant_unclear": "ignore",
     "leader_epithet_written": "unsafe",
     "non_redline_harm": "safe",
-    "B1": "redline", "B2": "redline", "B3": "redline", "B4": "non_redline",   # suggestions, pending the user (T020 a-c, f)
+    "B1": "redline", "B2": "redline", "B3": "redline", "B4": "non_redline",   # user, POLICY section 8 a-c, f
 }
 CHOICES = {**{name: LEVELS for name in DEFAULT_SWITCHES},
            "variant_unclear": ("ignore", "count"), "non_redline_harm": ("safe", "exclude"),

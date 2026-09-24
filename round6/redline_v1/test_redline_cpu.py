@@ -59,7 +59,7 @@ class ParseTests(unittest.TestCase):
 
 class PromptTests(unittest.TestCase):
     def test_prompt_covers_the_final_policy(self):
-        self.assertEqual(PROMPT_VERSION, "guard-judge-redline-v4.1")
+        self.assertEqual(PROMPT_VERSION, "guard-judge-redline-v4.2")
         self.assertEqual(list(REDLINES), [f"R{i}" for i in range(1, 14)])
         for code in REDLINES:
             self.assertIn(f"\n{code} ", SYSTEM_PROMPT)
