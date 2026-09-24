@@ -63,19 +63,20 @@ def _gdn_slot_recurrent_kernel(q, k, v, a, b, A_log, dt_bias, o, state, slots, l
     tl.store(p_h, b_h.to(p_h.dtype.element_ty), mask=mask_h)
 
 
-def gdn_slot_recurrent(q, k, v, a, b, A_log, dt_bias, state, slots, lens, scale=None):
+def gdn_slot_recurrent(q, k, v, a, b, A_log, dt_bias, state, slots, lens, scale=None, bv=8, num_warps=1):
     """q, k: [N, L, H, K]; v: [N, L, HV, V]; a, b: [N, L, HV] raw projections; state: [S, HV, K, V]
-    fp32 pool updated in place at rows slots[n]; lens: [N] real lengths. Returns o [N, L, HV, V]
-    (zeros at padded positions). Slots must be unique among rows with lens > 0."""
+    pool (fp32, bf16 or fp16; the recurrence runs in fp32) updated in place at rows slots[n]; lens: [N]
+    real lengths. Returns o [N, L, HV, V] (zeros at padded positions). Slots must be unique among rows
+    with lens > 0. bv / num_warps: tile width over V and warps per program (v3 used 8 and 1)."""
     n, length, h, kd = k.shape
     hv, vd = v.shape[2], v.shape[3]
     for tensor in (q, k, v, a, b, state):
         assert tensor.is_contiguous()
-    assert state.dtype == torch.float32 and state.shape[1:] == (hv, kd, vd)
+    assert state.dtype in (torch.float32, torch.bfloat16, torch.float16) and state.shape[1:] == (hv, kd, vd)
     scale = kd ** -0.5 if scale is None else scale
-    bk, bv = triton.next_power_of_2(kd), min(8, triton.next_power_of_2(vd))
+    bk, bv = triton.next_power_of_2(kd), min(bv, triton.next_power_of_2(vd))
     o = torch.zeros_like(v)
     grid = (triton.cdiv(vd, bv), n * hv)
     _gdn_slot_recurrent_kernel[grid](q, k, v, a, b, A_log, dt_bias, o, state, slots, lens, scale,
-                                     L=length, H=h, HV=hv, K=kd, V=vd, BK=bk, BV=bv, num_warps=1, num_stages=3)
+                                     L=length, H=h, HV=hv, K=kd, V=vd, BK=bk, BV=bv, num_warps=num_warps, num_stages=3)
     return o

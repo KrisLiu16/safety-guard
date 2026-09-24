@@ -23,7 +23,8 @@
 | [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与党和国家领导人相关（两遍分类 + 一遍是/否，取最严重；人工标注优先）；复测过门槛后全量（代码见 round6/word_screen_v1/） | 执行方 | v3 复测 24/26，两个冷僻谐音稳定漏判 → v4 待执行 | — |
 | [T013](assignments/T013-s2-scale.md) | S2 放量 | 执行方 | 暂停：先训练、后生成数据；生成指令要按新口径改（设计方） | — |
 | [T015](assignments/T015-s5-safe-scale.md) | S5 安全一半放量 | 执行方 | 暂停：同 T013 | — |
-| T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
+| [T007](assignments/T007-serving-v4.md) | 服务引擎 v4：GDN 状态降到 bf16/fp16，注意力按槽位原地读环形缓冲，扫 GDN 内核分块；和 v3 同场比漂移、吞吐和 P95 ≤ 20 ms 时的承载会话数 | 执行方 | 待执行（只用 L20，不依赖平台） | — |
+| [T022](assignments/T022-redline-estimate.md) | 不调裁判粗估现有数据里 13 类红线各有多少正例：prefix_v2 按原始公开数据类别分档计数，Run A 按词表来源组做话题粗估 | 执行方 | 待执行（Mac，不依赖平台） | — |
 | T008 | 第六轮训练。第一阶段：冻结主干，用混合数据只重训读出头，混合校准集定阈值；设计见 round6/stage1_head/README.md | 设计方 | 拆成 T017（缓存）和 T018（训练和评测） | T014 ✓ |
 | [T017](assignments/T017-stage1-cache.md) | 第一阶段特征缓存：prefix_v2 训练集 + Run A 8,000 词，缓存头的输入和投影特征（推理，约 3–3.5 小时） | 执行方 | 待执行 | T001 ✓ |
 | [T018](assignments/T018-stage1-train-eval.md) | 第一阶段 v3：按红线标注给缓存位置写三类目标，训练 risk / full 两个变体，与现在的头在同一次评测里对比 | 执行方 | 训练已批准；等 T017 和 T021 | T017、T021 |

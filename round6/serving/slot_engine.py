@@ -24,6 +24,7 @@ class SlotStreamEngine(BucketedStreamEngine):
         del self.ring_k, self.ring_v
         self.ring_k = torch.zeros(n_att, slots, hkv, window + 1, d, dtype=torch.bfloat16, device="cuda")
         self.ring_v = torch.zeros_like(self.ring_k)
+        self.gdn_bv, self.gdn_warps = 8, 1
 
     def _gdn(self, mod, x, g_index, slots, lens, valid):
         nb, lb, _ = x.shape
@@ -40,7 +41,8 @@ class SlotStreamEngine(BucketedStreamEngine):
         q = q.reshape(nb, lb, -1, mod.head_k_dim).contiguous()
         k = k.reshape(nb, lb, -1, mod.head_k_dim).contiguous()
         v = v.reshape(nb, lb, -1, mod.head_v_dim).contiguous()
-        out = gdn_slot_recurrent(q, k, v, a, b, mod.A_log, mod.dt_bias, self.rec[g_index], slots, lens)
+        out = gdn_slot_recurrent(q, k, v, a, b, mod.A_log, mod.dt_bias, self.rec[g_index], slots, lens,
+                                 bv=self.gdn_bv, num_warps=self.gdn_warps)
         out = mod.norm(out.reshape(-1, mod.head_v_dim), z.reshape(-1, mod.head_v_dim)).reshape(nb, lb, -1)
         return mod.out_proj(out)
 
