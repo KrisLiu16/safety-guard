@@ -153,13 +153,15 @@ def main():
     parser.add_argument("--no-class-balance", action="store_true")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--labels3", type=Path, help="relabel_cache.py output: 3-class red-line targets")
+    parser.add_argument("--role", choices=("assistant", "user"), default="assistant",
+                        help="which head's init weights to warm-start from (head_<role>_init.pt in the cache)")
     args = parser.parse_args()
     import torch
     if args.output.exists():
         raise FileExistsError(args.output)
     args.output.mkdir(parents=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    init_path = args.cache_dir / "head_assistant_init.pt"
+    init_path = args.cache_dir / f"head_{args.role}_init.pt"
     init = torch.load(init_path, map_location="cpu")
     mix = {k: float(v) for k, v in (item.split("=") for item in args.mix.split(","))}
     names = args.sources.split(",")
@@ -168,7 +170,7 @@ def main():
     score = "unsafe" if args.labels3 is None else "cut"
     present = {d["source"] for d in train_sources} | {d["source"] for d in cal_sources}
     report = {"version": "round6-stage1-head-v1" if args.labels3 is None else "round6-stage1-head-v2-redline",
-              "device": device, "init_sha256": hashlib.sha256(init_path.read_bytes()).hexdigest(),
+              "device": device, "role": args.role, "init_sha256": hashlib.sha256(init_path.read_bytes()).hexdigest(),
               "calibration_score": score, "sources_left_out": [n for n in names if n not in present],
               "train_positions": {d["source"]: int(len(d["label"])) for d in train_sources},
               "train_positions_by_class": {d["source"]: {str(c): int((d["label"] == c).sum()) for c in (0, 1, 2)}

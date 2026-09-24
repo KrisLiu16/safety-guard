@@ -89,6 +89,60 @@ class RelabelTests(unittest.TestCase):
         self.assertIsNone(prefix_ends({**row, "ids": ids[:-1]}, {"view": "original"}, "train", encode))
 
 
+class UserRoleTests(unittest.TestCase):
+    def test_prompt_records_use_cached_char_ends(self):
+        records = [{"sample_id": "k0:prompt:unsafe", "char_ends": [2, 4, 6, 8, 10]},
+                   {"sample_id": "k0:prompt:safe", "char_ends": [3, 6, 9]}]
+        positions = {"label": np.asarray([1] * 5 + [0] * 3, np.int8), "weight": np.ones(8, np.float32),
+                     "record": np.asarray([0] * 5 + [1] * 3, np.int32)}
+        labels = {"k0:prompt:unsafe": {"label": "unsafe", "level": "unsafe",
+                                       "probes": probes((4, "safe"), (6, "unsafe"), (10, "unsafe"))},
+                  "k0:prompt:safe": {"label": "safe", "level": "safe", "probes": probes((9, "safe"))}}
+        label, weight, stats = relabel(positions, records, labels, lambda meta: meta["char_ends"])
+        self.assertEqual([int(x) if w else None for x, w in zip(label, weight)], [0, 0, 1, 1, 1, 0, 0, 0])
+        self.assertEqual(stats["kept"], 8)
+
+    def test_analysis_without_official_set(self):
+        rng = np.random.default_rng(5)
+        runA, prefix = [], []
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            for variant, separation in (("init", 0.0), ("risk", 3.0)):
+                directory = tmp / "eval" / f"eval_{variant}"
+                directory.mkdir(parents=True)
+                for split in ("calibration", "dev"):
+                    with gzip.open(directory / f"runA_prompts_{split}.jsonl.gz", "wt") as out:
+                        for i in range(60):
+                            cut = i % 2 == 1
+                            out.write(json.dumps({"sample_id": f"{split}{i}:prompt:x", "family": f"f{i}", "language": ("zh", "en")[i % 4 // 2],
+                                                  "char_ends": list(range(1, 11)),
+                                                  "logprobs": [[0.0, -4.0, (2.5 if cut and e > 4 else -3.0 + (0 if cut else -separation))
+                                                                + rng.normal(0, .3)] for e in range(1, 11)]}) + "\n")
+                    with gzip.open(directory / f"prefix_v2_{split}.jsonl.gz", "wt") as out:
+                        for i in range(40):
+                            out.write(json.dumps({"sample_id": f"p{split}{i}", "family": f"pf{i}", "language": ("zh", "en")[i % 4 // 2],
+                                                  "target_role": "user",
+                                                  "logprobs": [[0.0, -4.0, (2.5 if i % 2 and k > 3 else -3.0) + rng.normal(0, .3)]
+                                                               for k in range(8)]}) + "\n")
+                    if variant == "init":
+                        runA += [{"sample_id": f"{split}{i}:prompt:x", "label": ("safe", "unsafe")[i % 2], "level": ("safe", "unsafe")[i % 2],
+                                  "stratum": ("normal", "redline")[i % 2],
+                                  "onsets": {"controversial": {"prev_cut": 4, "cut": 5}} if i % 2 else {}} for i in range(60)]
+                        prefix += [{"sample_id": f"p{split}{i}", "label": ("safe", "unsafe")[i % 2], "level": ("safe", "unsafe")[i % 2],
+                                    "stratum": ("normal", "redline")[i % 2], "onsets": {}} for i in range(40)]
+            for name, rows in (("runA.jsonl", runA), ("prefix.jsonl", prefix)):
+                (tmp / name).write_text("".join(json.dumps(r) + "\n" for r in rows))
+            out = tmp / "compare.json"
+            subprocess.run([sys.executable, str(HERE / "analyze_redline.py"), "--role", "user", "--eval-dir", str(tmp / "eval"),
+                            "--variants", "init,risk", "--runA-labels", str(tmp / "runA.jsonl"), "--prefix-labels", str(tmp / "prefix.jsonl"),
+                            "--bootstrap", "20", "--output", str(out)], check=True, capture_output=True)
+            result = json.loads(out.read_text())
+            self.assertEqual(result["role"], "user")
+            rules = result["scorers"]["risk"]["rules"]["threshold"]
+            self.assertNotIn("official_thinking", rules)
+            self.assertIn("early_fire", rules["runA_dev"])
+
+
 class RedlineAnalysisTests(unittest.TestCase):
     def test_compare_under_red_line_labels(self):
         rng = np.random.default_rng(3)

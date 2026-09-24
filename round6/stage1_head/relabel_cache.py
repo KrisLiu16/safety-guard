@@ -13,6 +13,9 @@ Character offsets of cached positions are recovered by re-tokenizing exactly as 
   prefix_v2  train, original view: anchor token -> offset in serialize(messages), ids checked against the frozen ids;
              train, augmented view: every anchor sits after the complete target plus a neutral suffix -> whole level;
              calibration: endpoint -> whole level, interior -> offset (same selection as the cache step)
+--role user (T025, user-head cache from T023): runA_prompts records carry their char_ends, so no re-tokenization;
+prefix_v2 user-role records are handled exactly as above (the prompt is the last message). Labels come from the
+prompt-side labelling (make_tasks.py / apply_policy.py --target user).
 """
 from __future__ import annotations
 
@@ -123,7 +126,8 @@ def read_jsonl(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("cache_dir", type=Path)
-    parser.add_argument("--runA", type=Path, required=True, help="stage-1 Run A input (stage1_runA_v1.jsonl)")
+    parser.add_argument("--role", choices=("assistant", "user"), default="assistant")
+    parser.add_argument("--runA", type=Path, help="stage-1 Run A input (stage1_runA_v1.jsonl); assistant role only")
     parser.add_argument("--runA-labels", type=Path, nargs="+", required=True, help="labels.jsonl files covering it")
     parser.add_argument("--prefix-labels", type=Path, nargs="*", default=[], help="labels.jsonl for prefix_v2")
     parser.add_argument("--prefix-data", type=Path, default=Path("/work/round5/data/prefix_v2"))
@@ -132,6 +136,8 @@ def main():
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
+    if args.role == "assistant" and args.runA is None:
+        parser.error("--runA is required for the assistant role")
     from tokenizers import Tokenizer
     fast = Tokenizer.from_file(str(args.tokenizer))
     if fast.truncation is not None or fast.padding is not None:
@@ -142,16 +148,19 @@ def main():
         return encoding.ids, encoding.offsets
 
     args.output.mkdir(parents=True)
-    report = {"version": "stage1-relabel-redline-v1", "class_index": {"safe": 0, "unsafe": 1, "controversial": 2},
-              "inputs": {str(p): sha(p) for p in [args.runA, *args.runA_labels, *args.prefix_labels]}, "sources": {}}
+    report = {"version": "stage1-relabel-redline-v1", "role": args.role,
+              "class_index": {"safe": 0, "unsafe": 1, "controversial": 2},
+              "inputs": {str(p): sha(p) for p in [args.runA, *args.runA_labels, *args.prefix_labels] if p}, "sources": {}}
     runA_labels = {r["sample_id"]: r for path in args.runA_labels for r in read_jsonl(path)}
-    runA_rows = {r["sample_id"]: r for r in read_jsonl(args.runA)}
+    runA_rows = {r["sample_id"]: r for r in read_jsonl(args.runA)} if args.role == "assistant" else {}
     prefix_labels = {r["sample_id"]: r for path in args.prefix_labels for r in read_jsonl(path)}
+    runA_source = "runA" if args.role == "assistant" else "runA_prompts"
     for split in ("train", "calibration"):
-        name = f"runA_{split}"
+        name = f"{runA_source}_{split}"
         records = json.loads((args.cache_dir / f"cache_{name}_records.json").read_text(encoding="utf-8"))
-        label, weight, stats = relabel(load_positions(args.cache_dir, name), records, runA_labels,
-                                       lambda meta: runA_ends(runA_rows[meta["sample_id"]], encode))
+        ends_of = ((lambda meta: runA_ends(runA_rows[meta["sample_id"]], encode)) if args.role == "assistant"
+                   else (lambda meta: meta["char_ends"]))
+        label, weight, stats = relabel(load_positions(args.cache_dir, name), records, runA_labels, ends_of)
         np.savez(args.output / f"labels3_{name}.npz", label=label, weight=weight)
         report["sources"][name] = stats
         if prefix_labels:

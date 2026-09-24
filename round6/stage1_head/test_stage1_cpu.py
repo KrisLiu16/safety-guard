@@ -258,6 +258,23 @@ class EvalTests(unittest.TestCase):
         self.assertLess(capture.max_prob_diff, 1e-5)
         capture.close()
 
+    def test_user_role_prompts_eval(self):
+        import eval_head_l20 as ev
+        model = fake_model()
+        capture = ev.ProbsCapture(torch, model, fake_engine(model), role="user")
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            counts = ev.eval_runA_prompts(capture, lambda: capture.last, Fast(), None,
+                                          runA_rows("calibration", 1) + runA_rows("dev", 2), tmp)
+            self.assertEqual(counts, {"runA_prompts_calibration": 2, "runA_prompts_dev": 4})   # 2 prompts per word
+            with gzip.open(tmp / "runA_prompts_dev.jsonl.gz", "rt") as handle:
+                first = json.loads(handle.readline())
+            self.assertTrue(first["sample_id"].startswith("dev0:prompt:"))
+            self.assertEqual(first["char_ends"], list(range(1, 11)))
+            self.assertEqual(len(first["logprobs"]), 10)
+        self.assertLess(capture.max_prob_diff, 1e-5)
+        capture.close()
+
 
 class AnalysisTests(unittest.TestCase):
     def test_compare_current_and_variant(self):

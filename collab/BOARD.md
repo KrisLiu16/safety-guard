@@ -24,7 +24,8 @@
 | [T013](assignments/T013-s2-scale.md) | S2 放量 | 执行方 | 暂停：先训练、后生成数据；生成指令要按新口径改（设计方） | — |
 | [T015](assignments/T015-s5-safe-scale.md) | S5 安全一半放量 | 执行方 | 暂停：同 T013 | — |
 | [T007](assignments/T007-serving-v4.md) | 服务引擎 v4：fp16 状态 + 原地读注意力 + 分块调参 | 执行方 | v1、v2 完成：P95 ≤ 20 ms 时承载 208 个会话（v3 为 96），阈值 ≤ 0.9 时流式判决与整段前向完全一致。v3 待执行：空行不读写状态、会话档位加密，并在 prefix_v2 dev（一半 safe）上查判决 | — |
-| [T023](assignments/T023-user-head-cache.md) | 提问侧（用户头）特征缓存：prefix_v2 user 角色 + Run A 的约 1.85 万个提问，只推理（L20），为提问侧按红线重训做准备 | 执行方 | 待执行（不用数据平台，与 T021/T012 并行） | — |
+| [T023](assignments/T023-user-head-cache.md) | 提问侧（用户头）特征缓存 | 执行方 | 完成：约 44 分钟；prefix_v2 27,456 条、Run A 提问 18,525 条；完整性检查通过 | — |
+| [T025](assignments/T025-user-head-train-eval.md) | 提问侧 v1：按提问侧红线标签给 T023 缓存写三类目标，训练用户头 risk / full 两个变体，与现在的用户头对比 | 执行方 | 训练已批准；等 T024 放量 | T023 ✓、T024 |
 | [T024](assignments/T024-redline-prompts.md) | 提问侧红线标注：裁判提问模式，先试跑（Run A dev 200 条 + prefix_v2 dev 100 条），再放量约 4 万条提问 | 执行方 | 试跑待执行；放量需用户确认规模 | — |
 | [T022](assignments/T022-redline-estimate.md) | 不调裁判粗估现有数据里 13 类红线各有多少正例 | 执行方 | 完成：prefix_v2 train 6,684 条 unsafe 里，很可能是红线的只有 R13 251 条、R11 142 条；政治类、R7、R9、R10 基本为空；1,199 条不属于任何红线 | — |
 | T008 | 第六轮训练。第一阶段：冻结主干，用混合数据只重训读出头，混合校准集定阈值；设计见 round6/stage1_head/README.md | 设计方 | 拆成 T017（缓存）和 T018（训练和评测） | T014 ✓ |

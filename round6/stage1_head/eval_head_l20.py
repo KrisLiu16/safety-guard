@@ -10,6 +10,9 @@ labelling (round6/redline_v1) can be matched per position. The variant "init" lo
 (head_assistant_init.pt from the cache step), so every head is scored in one run with the same fields.
 Integrity: the risk head applied to the captured projection must reproduce the runtime's probabilities, which
 also proves the runtime is reading the newly loaded weights.
+--role user (T025): the heads are loaded into the user head and scored on each distinct Run A prompt
+(runA_prompts_<split>.jsonl.gz, ids "<task_key>:prompt:<label>", char_ends over the prompt) and the prefix_v2
+user-role records; the official thinking set is assistant-side and is skipped.
 """
 from __future__ import annotations
 
@@ -61,12 +64,46 @@ def eval_runA(capture, probs_of, fast, hf_tokenizer, rows, output):
     return counts
 
 
-def eval_prefix_v2(capture, probs_of, data, output):
+def eval_runA_prompts(capture, probs_of, fast, hf_tokenizer, rows, output):
+    """Each distinct Run A prompt alone (the user message), every position of it scored by the user head."""
+    counts = collections.Counter()
+    for split in ("calibration", "dev"):
+        seen = set()
+        with gzip.open(output / f"runA_prompts_{split}.jsonl.gz", "wb") as out:
+            for row in (r for r in rows if r["split"] == split):
+                sample_id = f"{row['task_key']}:prompt:{row['prompt_label']}"
+                if sample_id in seen:
+                    continue
+                seen.add(sample_id)
+                messages = [row["messages"][0]]
+                text = serialize(messages)
+                content_start = len(text) - len(messages[0]["content"])
+                encoding = fast.encode(text, add_special_tokens=False)
+                ids = list(encoding.ids)
+                if not 1 <= len(ids) <= 8192 or (callable(hf_tokenizer) and
+                                                  list(hf_tokenizer(text, add_special_tokens=False)["input_ids"]) != ids):
+                    counts["runA_prompts_skipped"] += 1
+                    continue
+                positions = [i for i, (_, end) in enumerate(encoding.offsets) if end > content_start]
+                if not positions:
+                    counts["runA_prompts_skipped"] += 1
+                    continue
+                capture(ids)
+                probs = probs_of()
+                write_line(out, {"sample_id": sample_id, "family": row["family"], "split": split,
+                                 "language": row["language"], "label": row["prompt_label"],
+                                 "char_ends": [encoding.offsets[q][1] - content_start for q in positions],
+                                 "logprobs": [log_row(probs[q]) for q in positions]})
+                counts[f"runA_prompts_{split}"] += 1
+    return counts
+
+
+def eval_prefix_v2(capture, probs_of, data, output, role="assistant"):
     counts = collections.Counter()
     for split in ("calibration", "dev"):
         with gzip.open(output / f"prefix_v2_{split}.jsonl.gz", "wb") as out:
             for row in data[split]:
-                if row["target_role"] != "assistant":
+                if row["target_role"] != role:
                     continue
                 capture(row["ids"])
                 probs = probs_of()
@@ -100,17 +137,17 @@ def eval_official(capture, probs_of, official, official_data, output):
 
 
 class ProbsCapture(Capture):
-    """Capture that also keeps the runtime's assistant probabilities of the last record."""
+    """Capture that also keeps the runtime's probabilities of the last record for its head's role."""
 
-    def __init__(self, torch, model, validated_prefixes):
+    def __init__(self, torch, model, validated_prefixes, role="assistant"):
         self.last = None
 
         def keep(ids):
             values, accounting = validated_prefixes(ids)
-            self.last = values["assistant"]
+            self.last = values[role]
             return values, accounting
 
-        super().__init__(torch, model, keep)
+        super().__init__(torch, model, keep, role=role)
 
 
 def main(argv=None):
@@ -119,14 +156,19 @@ def main(argv=None):
     parser.add_argument("--heads", type=Path, default=Path("/work/output/round6/stage1_train_v1"),
                         help="directory with head_<variant>.pt from train_head.py")
     parser.add_argument("--variants", default="init,risk,full", help='"init" = the current head')
-    parser.add_argument("--init-head", type=Path, default=Path("/work/output/round6/stage1_cache_v1/head_assistant_init.pt"))
+    parser.add_argument("--role", choices=("assistant", "user"), default="assistant")
+    parser.add_argument("--init-head", type=Path, default=None,
+                        help="default: head_<role>_init.pt of the stage-1 cache (stage1_cache_v1 / stage1_cache_user_v1)")
     parser.add_argument("--runA", type=Path, default=Path("/work/round6/probe/input_v1/probe_input_v1.jsonl"))
     parser.add_argument("--output", type=Path, default=Path("/work/output/round6/stage1_eval_v1"))
     options = parser.parse_args(argv)
+    if options.init_head is None:
+        options.init_head = Path("/work/output/round6/stage1_cache_v1/head_assistant_init.pt" if options.role == "assistant"
+                                 else "/work/output/round6/stage1_cache_user_v1/head_user_init.pt")
     if options.output.exists():
         raise FileExistsError(options.output)
     options.output.mkdir(parents=True)
-    report = {"status": "running", "integrity_pass": False, "kind": "round6_stage1_eval_v1", "script_sha256": sha(__file__),
+    report = {"status": "running", "integrity_pass": False, "kind": "round6_stage1_eval_v1", "role": options.role, "script_sha256": sha(__file__),
               "official_used_for_fitting": False, "generated_tokens": 0, "variants": {}}
     began = time.monotonic()
 
@@ -162,18 +204,22 @@ def main(argv=None):
             if runtime.engine_metadata["execution_contract"] != contract:
                 raise ValueError("runtime execution contract differs from the locked calibration")
             report["official_native_ids"] = official.verify_native_ids(hf_tokenizer, official_data, trainer.serialize)
-            capture = ProbsCapture(torch, model, lambda ids: cal.validated_prefixes(runtime, ids, contract))
+            capture = ProbsCapture(torch, model, lambda ids: cal.validated_prefixes(runtime, ids, contract), role=options.role)
             for variant in options.variants.split(","):
                 weights_path = options.init_head if variant == "init" else options.heads / f"head_{variant}.pt"
                 weights = torch.load(weights_path, map_location="cpu")
-                model.heads["assistant"].load_state_dict(weights, strict=True)
+                model.heads[options.role].load_state_dict(weights, strict=True)
                 output = options.output / f"eval_{variant}"
                 output.mkdir()
                 report.update(phase=variant)
                 save()
-                counts = eval_runA(capture, lambda: capture.last, fast, hf_tokenizer, runA_rows, output)
-                counts.update(eval_prefix_v2(capture, lambda: capture.last, data, output))
-                counts.update(eval_official(capture, lambda: capture.last, official, official_data, output))
+                if options.role == "assistant":
+                    counts = eval_runA(capture, lambda: capture.last, fast, hf_tokenizer, runA_rows, output)
+                    counts.update(eval_prefix_v2(capture, lambda: capture.last, data, output))
+                    counts.update(eval_official(capture, lambda: capture.last, official, official_data, output))
+                else:
+                    counts = eval_runA_prompts(capture, lambda: capture.last, fast, hf_tokenizer, runA_rows, output)
+                    counts.update(eval_prefix_v2(capture, lambda: capture.last, data, output, role="user"))
                 report["variants"][variant] = {"weights_sha256": sha(weights_path), "counts": dict(counts),
                                                "files": {p.name: sha(p) for p in sorted(output.glob("*.jsonl.gz"))}}
                 save()

@@ -11,6 +11,8 @@ stream FPR <= 5%; dev and the official set are never used for fitting. Reported 
   early_fire (Run A): share of detected positive streams whose first fire ends at or before the start of the
   controversial onset clause, i.e. a cut before any red-line text was written.
 The official Qwen3GuardTest thinking set keeps its own labels, which follow a different policy: observed only.
+--role user (T025): the user head on each distinct Run A prompt (runA_prompts_<split>) and the prefix_v2 user-role
+records, with prompt-side red-line labels; no official set.
 """
 from __future__ import annotations
 
@@ -63,8 +65,9 @@ def stream(row, labelled, stratum, **extra):
             "logprobs": row["logprobs"], **extra}
 
 
-def load(directory, runA_labels, prefix_labels):
+def load(directory, runA_labels, prefix_labels, role="assistant"):
     rows, skipped = {}, collections.Counter()
+    runA_file = "runA" if role == "assistant" else "runA_prompts"
 
     def usable(labels, sample_id, name):
         labelled = labels.get(sample_id)
@@ -77,12 +80,14 @@ def load(directory, runA_labels, prefix_labels):
         name = f"runA_{split}"
         rows[name] = [stream(r, lab, f"runA/{r['language']}", char_ends=r["char_ends"],
                              onset=lab["onsets"].get("controversial"))
-                      for r in rules.read_gz(directory / f"{name}.jsonl.gz")
+                      for r in rules.read_gz(directory / f"{runA_file}_{split}.jsonl.gz")
                       if (lab := usable(runA_labels, r["sample_id"], name))]
         name = f"prefix_v2_{split}"
         rows[name] = [stream(r, lab, f"prefix_v2/{r['language']}")
                       for r in rules.read_gz(directory / f"{name}.jsonl.gz")
-                      if r["target_role"] == "assistant" and (lab := usable(prefix_labels, r["sample_id"], name))]
+                      if r["target_role"] == role and (lab := usable(prefix_labels, r["sample_id"], name))]
+    if role != "assistant":
+        return rows, dict(skipped)
     sequences = {r["sequence_id"]: r for r in rules.read_gz(directory / "official_sequences.jsonl.gz")}
     rows["official_thinking"] = [{"id": r["sample_id"], "family": r["sample_id"], "label": r["label"].lower(),
                                   "stratum": "official/thinking", "logprobs": sequences[r["sequence_id"]]["logprobs"]}
@@ -126,7 +131,7 @@ def evaluate(rows, bootstrap, seed):
             report["rules"][rule] = None
             continue
         entry = {"tau": tau}
-        for name in ("runA_dev", "prefix_v2_dev", "official_thinking"):
+        for name in (n for n in ("runA_dev", "prefix_v2_dev", "official_thinking") if n in rows):
             fired_at = [rules.RULES[rule](r["scores_t"][temperature], tau) for r in rows[name]]
             fired = [i >= 0 for i in fired_at]
             entry[name] = rules.rates(rows[name], fired)
@@ -152,13 +157,14 @@ def main():
     parser.add_argument("--bootstrap", type=int, default=1000)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--role", choices=("assistant", "user"), default="assistant")
     args = parser.parse_args()
     runA_labels, prefix_labels = read_labels(args.runA_labels), read_labels(args.prefix_labels)
-    results = {"version": "round6-stage1-compare-redline-v1", "model_calls": 0, "cut_score": "1 - p(safe)",
+    results = {"version": "round6-stage1-compare-redline-v1", "role": args.role, "model_calls": 0, "cut_score": "1 - p(safe)",
                "fitted_on": "Run A calibration + prefix_v2 calibration (assistant), per source/language stratum",
                "official_used_for_fitting": False, "dev_used_for_fitting": False, "scorers": {}}
     for variant in args.variants.split(","):
-        rows, skipped = load(args.eval_dir / f"eval_{variant}", runA_labels, prefix_labels)
+        rows, skipped = load(args.eval_dir / f"eval_{variant}", runA_labels, prefix_labels, args.role)
         results["scorers"][variant] = {"skipped_streams": skipped, **evaluate(rows, args.bootstrap, args.seed)}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n")
@@ -171,7 +177,8 @@ def main():
             if per is None:
                 print(f"{rule:14} | no threshold meets 5% in every calibration stratum")
                 continue
-            a, p, o = per["runA_dev"], per["prefix_v2_dev"], per["official_thinking"]
+            a, p = per["runA_dev"], per["prefix_v2_dev"]
+            o = per.get("official_thinking", {"fpr": None, "recall": None})
             pct = lambda x: f"{x * 100:5.1f}%" if x is not None else "   n/a"
             normal = a["fpr_by_stratum"].get("normal", {}).get("fpr")
             level = a["recall_by_level"]
