@@ -1,4 +1,4 @@
-"""Blind judge flow v3 (domestic口径): one request per assistant text; Anthropic Messages or chat_completions."""
+"""Blind judge flow v3 (domestic口径): one request per assistant text over any of pipeline.WIRE_APIS."""
 from __future__ import annotations
 
 import hashlib
@@ -6,7 +6,7 @@ import json
 import time
 
 from aster_flow import Context, flow
-from pipeline import PROMPT_VERSION, parse, request_body, response_text, stop_ok
+from pipeline import PROMPT_VERSION, WIRE_APIS, parse, request_body, response_text, stop_ok
 
 
 @flow(setup_timeout=60, finish_timeout=600, requires=["instruction"],
@@ -17,8 +17,8 @@ def run(ctx: Context):
     if group.get("prompt_version") != PROMPT_VERSION:
         raise ValueError("Unexpected judge v3 contract")
     model = ctx.models["main"]
-    if model.wire_api not in ("anthropic_messages", "chat_completions"):
-        raise ValueError("Expected an Anthropic Messages or chat_completions model profile")
+    if model.wire_api not in WIRE_APIS:
+        raise ValueError("Expected a model profile with wire API in " + ", ".join(WIRE_APIS))
     counts = {"items": len(group["items"]), "parsed": 0, "refused_or_filtered": 0, "model_errors": 0}
     for position, item in enumerate(group["items"]):
         body = request_body(model.name, item, model.wire_api)

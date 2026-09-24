@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
-from pipeline import PROMPT_VERSION, SYSTEM_PROMPT, parse, request_body  # noqa: E402
+from pipeline import PROMPT_VERSION, SYSTEM_PROMPT, WIRE_APIS, parse, request_body, response_text, stop_ok  # noqa: E402
 from taxonomy import GBT_CODES, QWEN_RESPONSE_CATEGORIES  # noqa: E402
 
 
@@ -58,10 +58,64 @@ class PromptTests(unittest.TestCase):
 
     def test_request_only_carries_prompt_and_text(self):
         item = {"item_id": "x", "user_prompt": "问题", "assistant_text": "回答", "expected_old": "safe", "kind": "safe_whole"}
-        for wire in ("anthropic_messages", "chat_completions"):
+        for wire in WIRE_APIS:
             body = json.dumps(request_body("m", item, wire), ensure_ascii=False)
             self.assertNotIn("expected_old", body)
             self.assertNotIn("safe_whole", body)
+
+
+class WireTests(unittest.TestCase):
+    item = {"user_prompt": "问题", "assistant_text": "回答"}
+
+    def test_chat_token_cap_raised(self):
+        self.assertEqual(request_body("m", self.item, "chat_completions")["max_tokens"], 8000)
+
+    def test_responses_strict_schema_matches_parser(self):
+        body = request_body("m", self.item, "responses")
+        schema = body["text"]["format"]["schema"]
+        self.assertTrue(body["text"]["format"]["strict"])
+        self.assertEqual(set(schema["required"]), set(schema["properties"]))
+        self.assertEqual(len(schema["properties"]["gbt_codes"]["items"]["enum"]), 29)
+        self.assertIn("none", schema["properties"]["qwen_category"]["enum"])
+
+    def test_responses_text_and_stop(self):
+        ok = {"status": "completed", "output": [{"type": "message", "content": [{"type": "output_text", "text": judged()}]}]}
+        self.assertEqual(parse(response_text(ok, "responses"))[0], [])
+        self.assertEqual(stop_ok(ok, "responses"), (True, "completed"))
+        refused = {"status": "completed", "output": [{"type": "message", "content": [{"type": "refusal", "refusal": "x"}]}]}
+        self.assertEqual(stop_ok(refused, "responses"), (False, "refusal"))
+        self.assertEqual(stop_ok({"status": "incomplete"}, "responses"), (False, "incomplete"))
+
+
+class FallbackTests(unittest.TestCase):
+    def test_selects_failed_political_and_controls(self):
+        from make_fallback import select
+        items = [{"item_id": f"i{n}", "task_key": f"k{n}", "kind": "safe_whole"} for n in range(10)]
+        judgments = [{"item_id": "i0", "judge_label": None},
+                     {"item_id": "i1", "judge_label": "unsafe", "judge_qwen_category": "Politically Sensitive Topics",
+                      "judge_gbt_codes": ["A.1.b"]},
+                     {"item_id": "i2", "judge_label": "unsafe", "judge_qwen_category": "Unethical Acts",
+                      "judge_gbt_codes": ["A.1.c", "A.4.c"]}]
+        judgments += [{"item_id": f"i{n}", "judge_label": "safe", "judge_qwen_category": None, "judge_gbt_codes": []}
+                      for n in range(3, 10)]
+        chosen = select(items, judgments, controls=3)
+        reasons = {c["item_id"]: c["fallback_reason"] for c in chosen}
+        self.assertEqual(reasons["i0"], "failed")
+        self.assertEqual(reasons["i1"], "political")
+        self.assertEqual(reasons["i2"], "political")  # political GB/T code under another category
+        self.assertEqual(sum(r == "control" for r in reasons.values()), 3)
+        self.assertEqual(select(items, judgments, controls=3), chosen)  # deterministic
+
+    def test_cross_judge_summary(self):
+        from extract_judgments import cross_judge
+        rows = [{"fallback_reason": "failed", "reference_label": None, "judge_label": "unsafe"},
+                {"fallback_reason": "control", "reference_label": "safe", "judge_label": "safe"},
+                {"fallback_reason": "control", "reference_label": "safe", "judge_label": "unsafe"}]
+        out = cross_judge(rows)
+        self.assertEqual(out["failed"]["judged_now"], 1)
+        self.assertIsNone(out["failed"]["agreement_where_both_judged"])
+        self.assertEqual(out["control"]["agreement_where_both_judged"], 0.5)
+        self.assertEqual(out["control"]["reference_to_now"], {"safe->safe": 1, "safe->unsafe": 1})
 
 
 class PilotBuilderTests(unittest.TestCase):

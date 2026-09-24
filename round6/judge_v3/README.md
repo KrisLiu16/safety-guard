@@ -12,6 +12,16 @@
 | `flow/flow.py` | Aster flow，与 v2 相同，每段文字只请求一次，不在 flow 内重试 |
 | `make_pilot.py` | 从已抽取的 v14 `examples.jsonl` 按来源组轮流抽词，生成盲判任务；答案表 `items.jsonl` 只留在本地 |
 | `extract_judgments.py` | 下载归档，与本地答案表对齐，输出与旧标签的一致率（按来源组拆分）、旧 safe 被改判 unsafe 的分布、类别和代码的计数 |
-| `test_judge_v3_cpu.py` | CPU 单测（8 项），不调用模型 |
+| `make_fallback.py` | 用第一次裁判的结果挑出“没判出来的、判成政治类的”加固定对照样本，交给第二个裁判（luna）重判 |
+| `test_judge_v3_cpu.py` | CPU 单测（13 项），不调用模型 |
 
 与旧标签的一致率不是准确率：旧标签是按旧口径生成的，政治类来源组出现分歧是预期结果，本 pilot 就是要量出这个差异。非政治类来源组的一致率应当和 v2 持平。
+
+## v3.1（pilot aster-dev-282 之后）
+
+pilot 结果见 [collab/feedback/T002-judge-v3-pilot.md](../../collab/feedback/T002-judge-v3-pilot.md)。裁判规则没有改，只改了两处：
+
+- chat_completions 的 `max_tokens` 从 4000 提到 8000：pilot 里有 5/433 条推理把 token 用完、没有给出答案。
+- 新增 OpenAI Responses 接口（带严格 json_schema），供 luna 当第二裁判。DeepSeek 在政治类上有 23/433 条返回的不是 JSON，这部分由 luna 补判。
+
+第二裁判 pilot 的做法：`make_fallback.py` 从第一次的 `items.jsonl` 和 `judgments.jsonl` 里挑出没有结果的条目、被判为政治类的条目，再加 40 条固定对照；`extract_judgments.py` 发现答案表里有 `fallback_reason` 时，会额外输出 `cross_judge`，即两个裁判在各组里的一致率和标签转移。

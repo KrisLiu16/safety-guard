@@ -68,6 +68,8 @@ def main():
                "judge_label": label, "judge_basis": value["judgment"]["harm_basis"] if label else None,
                "judge_qwen_category": value["judgment"]["qwen_category"] if label else None,
                "judge_gbt_codes": value["judgment"]["gbt_codes"] if label else None,
+               # present only for a second-judge (fallback) run built by make_fallback.py
+               **{k: item[k] for k in ("fallback_reason", "reference_label") if k in item},
                "judge_reason": value["judgment"]["reason"] if label else None,
                "errors": value.get("errors") if value else ["missing"]}
         rows.append(row)
@@ -94,8 +96,24 @@ def main():
                    r["source_group"] for r in judged_rows if r["expected_old"] == "safe" and r["judge_label"] == "unsafe")),
                "qwen_category": dict(collections.Counter(r["judge_qwen_category"] for r in flagged)),
                "gbt_codes": dict(collections.Counter(c for r in flagged for c in r["judge_gbt_codes"]))}
+    if any("fallback_reason" in r for r in rows):
+        summary["cross_judge"] = cross_judge(rows)
     (args.out / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=1))
+
+
+def cross_judge(rows):
+    """Second judge vs the first run's verdicts, per fallback_reason (failed / political / control)."""
+    out = {}
+    for reason in sorted({r["fallback_reason"] for r in rows}):
+        group = [r for r in rows if r["fallback_reason"] == reason]
+        both = [r for r in group if r["judge_label"] and r["reference_label"]]
+        out[reason] = {"items": len(group), "judged_now": sum(1 for r in group if r["judge_label"]),
+                       "agreement_where_both_judged": round(sum(r["judge_label"] == r["reference_label"] for r in both)
+                                                            / len(both), 4) if both else None,
+                       "reference_to_now": dict(collections.Counter(
+                           f"{r['reference_label'] or 'none'}->{r['judge_label'] or 'none'}" for r in group))}
+    return out
 
 
 if __name__ == "__main__":

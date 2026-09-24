@@ -76,14 +76,21 @@ def main():
     items = [item for row in rows if row["task_key"] in keep for item in items_for(row)]
     for item in items:
         item["item_id"] = hashlib.sha256(f"{item['sample_id']}:{item['kind']}".encode()).hexdigest()[:20]
+    manifest = write_pilot(items, args.output, "judge-v3-pilot", {"source": str(args.source)})
+    print(json.dumps({k: manifest[k] for k in ("items", "tasks", "words", "kinds")}, ensure_ascii=False))
+
+
+def write_pilot(items, output, name_prefix, extra):
+    """One blind Task per word, the local answer key, a tarball and a manifest. Returns the manifest."""
+    output.mkdir(parents=True, exist_ok=True)
     by_word = collections.defaultdict(list)
     for item in items:
         by_word[item["task_key"]].append(item)
     task_paths = []
     for ordinal, (key, group) in enumerate(sorted(by_word.items())):
         group.sort(key=lambda it: number("order:" + it["item_id"]))
-        name = f"judge-v3-pilot-{ordinal:03d}"
-        task = args.output / "tasks" / name
+        name = f"{name_prefix}-{ordinal:03d}"
+        task = output / "tasks" / name
         (task / "tests").mkdir(parents=True)
         blind = [{"item_id": it["item_id"], "user_prompt": it["user_prompt"], "assistant_text": it["assistant_text"]}
                  for it in group]
@@ -94,23 +101,21 @@ def main():
         test.write_text("#!/bin/sh\nexit 1\n")
         test.chmod(0o755)
         task_paths.append(task)
-    with tarfile.open(args.output / "pilot.tar.gz", "w:gz") as archive:
+    with tarfile.open(output / "pilot.tar.gz", "w:gz") as archive:
         for task in task_paths:
             archive.add(task, arcname=task.name)
-    with (args.output / "items.jsonl").open("w", encoding="utf-8") as handle:     # local answer key, never uploaded
+    with (output / "items.jsonl").open("w", encoding="utf-8") as handle:     # local answer key, never uploaded
         for item in items:
             handle.write(json.dumps(item, ensure_ascii=False) + "\n")
     manifest = {"prompt_version": PROMPT_VERSION, "items": len(items), "tasks": len(task_paths),
                 "words": len(by_word), "kinds": dict(collections.Counter(i["kind"] for i in items)),
-                "source_groups": dict(collections.Counter(i["source_group"] for i in items)),
-                "source": str(args.source),
+                "source_groups": dict(collections.Counter(i["source_group"] for i in items)), **extra,
                 "sha256": {"pipeline": hashlib.sha256((ROOT / "flow/pipeline.py").read_bytes()).hexdigest(),
                            "flow": hashlib.sha256((ROOT / "flow/flow.py").read_bytes()).hexdigest(),
                            "taxonomy": hashlib.sha256((ROOT / "flow/taxonomy.py").read_bytes()).hexdigest(),
                            "system_prompt": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()}}
-    (args.output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({k: manifest[k] for k in ("items", "tasks", "words", "kinds")}, ensure_ascii=False))
-
+    (output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    return manifest
 
 if __name__ == "__main__":
     main()
