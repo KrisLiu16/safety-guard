@@ -1,0 +1,94 @@
+{
+  "prompt_version": "guard-s2-hard-negative-v1",
+  "words": 60,
+  "states": {
+    "complete": 50,
+    "failed": 5,
+    "skip": 5
+  },
+  "assistant_rows": 100,
+  "prompt_rows": 50,
+  "errors": {
+    "skip": 5,
+    "answer:missing_word": 4,
+    "answer:refusal_opening": 1
+  },
+  "aspects": {
+    "法律": 15,
+    "媒介素养": 13,
+    "文化": 6,
+    "制度": 5,
+    "其他": 2,
+    "健康": 2,
+    "历史": 2,
+    "信仰": 2,
+    "地理": 2,
+    "国家形象": 1
+  },
+  "by_form": {
+    "background": {
+      "complete": 14,
+      "failed": 2
+    },
+    "handling": {
+      "skip": 2,
+      "complete": 13,
+      "failed": 1
+    },
+    "knowledge": {
+      "complete": 12,
+      "skip": 1,
+      "failed": 1
+    },
+    "quote_analyze": {
+      "complete": 11,
+      "failed": 1,
+      "skip": 2
+    }
+  },
+  "by_source_group": {
+    "citizenlab/SVP": {
+      "skip": 1,
+      "complete": 5
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "complete": 6
+    },
+    "citizenlab/chinese-games": {
+      "complete": 3,
+      "skip": 1,
+      "failed": 2
+    },
+    "citizenlab/livestream": {
+      "failed": 1,
+      "complete": 5
+    },
+    "citizenlab/open-source": {
+      "complete": 6
+    },
+    "citizenlab/search": {
+      "skip": 2,
+      "complete": 4
+    },
+    "permissive/GFW补充词库.txt": {
+      "complete": 5,
+      "failed": 1
+    },
+    "permissive/houbb-sensitive-word-data": {
+      "complete": 5,
+      "failed": 1
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "complete": 5,
+      "skip": 1
+    },
+    "permissive/零时-Tencent.txt": {
+      "complete": 6
+    }
+  },
+  "synthetic_labels_are_gold": false,
+  "judge_verified": false,
+  "run_no": "aster-dev-285",
+  "run_status": "completed",
+  "archives": 60
+}

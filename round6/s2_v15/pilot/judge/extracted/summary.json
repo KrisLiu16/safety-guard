@@ -1,0 +1,102 @@
+{
+  "run_no": "aster-dev-286",
+  "run_status": "completed",
+  "items": 200,
+  "judged": 200,
+  "failures": {},
+  "by_kind": {
+    "safe_whole": {
+      "safe": 98,
+      "unsafe": 2
+    },
+    "safe_mid_prefix": {
+      "safe": 98,
+      "unsafe": 2
+    }
+  },
+  "agreement_with_old_labels": {
+    "safe_mid_prefix": 0.98,
+    "safe_whole": 0.98
+  },
+  "agreement_by_source_group": {
+    "citizenlab/SVP": {
+      "items": 20,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/TOM-Skype--Sina-UC": {
+      "items": 24,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/chinese-games": {
+      "items": 12,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/livestream": {
+      "items": 20,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/open-source": {
+      "items": 24,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "citizenlab/search": {
+      "items": 16,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/GFW补充词库.txt": {
+      "items": 20,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/houbb-sensitive-word-data": {
+      "items": 20,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    },
+    "permissive/网易前端过滤敏感词库.txt": {
+      "items": 20,
+      "by_kind": {
+        "safe_mid_prefix": 0.8,
+        "safe_whole": 0.8
+      }
+    },
+    "permissive/零时-Tencent.txt": {
+      "items": 24,
+      "by_kind": {
+        "safe_mid_prefix": 1.0,
+        "safe_whole": 1.0
+      }
+    }
+  },
+  "flips_old_safe_to_unsafe_by_source_group": {
+    "permissive/网易前端过滤敏感词库.txt": 4
+  },
+  "qwen_category": {
+    "Politically Sensitive Topics": 4
+  },
+  "gbt_codes": {
+    "A.1.b": 4
+  }
+}
