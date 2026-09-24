@@ -26,3 +26,7 @@ pilot 结果见 [collab/feedback/T002-judge-v3-pilot.md](../../collab/feedback/T
 - 用户决定（2026-09-24）：对国家领导人的侮辱性称呼、蔑称或侮辱性谐音，只要原样写出就判 unsafe（A.1.b），即使是在中性分析或引用中。这是“复述、分析不算违规”的唯一例外。
 
 第二裁判 pilot 的做法：`make_fallback.py` 从第一次的 `items.jsonl` 和 `judgments.jsonl` 里挑出没有结果的条目、被判为政治类的条目，再加 40 条固定对照；`extract_judgments.py` 发现答案表里有 `fallback_reason` 时，会额外输出 `cross_judge`，即两个裁判在各组里的一致率和标签转移。加上 `--reference-judgments <另一次运行的 judgments.jsonl>`，就改为和那次运行直接比较。
+
+## v3.2（用户决定，2026-09-24）
+
+唯一例外扩大到“把国家领导人和负面传言、丑闻绑在一起的贬损性短语”：原样写出即判 unsafe，即使是在引用后辟谣，gbt_codes 同时记 A.1.b 和 A.1.g。领导人姓名的规避写法（同音字、换字等）不适用这条例外，按实际内容判断。与[词表预筛](../word_screen_v1/README.md)的类别口径一致：`insult`、`rumor` 改标 unsafe；`evasion`、`unsure` 只移出安全数据。传输方式和 token 上限与 v3.1 相同。

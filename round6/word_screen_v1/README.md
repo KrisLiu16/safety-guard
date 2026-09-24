@@ -35,6 +35,6 @@ v1 只问“是不是贬损”，回答 yes / no / unsure。pilot 结果（[T012
 
 v2 改为让模型给出类别：`insult`（侮辱、蔑称、贬损性谐音）/ `rumor`（把领导人和负面传言绑在一起的短语）/ `evasion`（姓名的规避写法，本身不贬损）/ `unsure` / `no`。下游：
 - **排除出安全数据**：所有非 `no` 的词（S2、S5 生成前排除；Run A 训练时移出安全标签数据）。多排除的代价很小，每 1,000 个词约 30 个。
-- **改标为 unsafe**：`insult` 按用户已定的严格口径改标；`rumor` 和 `evasion` 是否也改标，由用户决定（见 [BOARD](../../collab/BOARD.md)）。
+- **改标为 unsafe**（用户 2026-09-24 定）：`insult` 和 `rumor` 原样写出即判 unsafe，gbt_codes 记 A.1.b（`rumor` 同时记 A.1.g）；`evasion` 和 `unsure` 不改标，只移出安全数据。
 
 `compare_manual.py` 把执行方本地的人工标注（`manual_labels.tsv`，已写进 `.gitignore`）和 v2 的结论逐词对照，只输出计数。
