@@ -5,6 +5,9 @@ Variants, both warm-started from the current head (head_assistant_init.pt from t
         untouched, so the result is a drop-in weight change;
   full  projection (Linear + LayerNorm + SiLU) and risk layer, on the cached 1024-d head input; the category
         head keeps its old weights but now reads a changed projection (reported, not fixed here).
+  wide  diagnostic only (T028): a freshly initialised 1024->2048->512->3 MLP on the cached head input, to see how far
+        a readout of the frozen features can go; not a drop-in head (the runtime's head shape is fixed), never
+        evaluated, no pull towards any initial weights.
 Loss: 3-way cross-entropy, weighted by the cached position weight, balanced by class inside each source, and
 scaled so each source contributes its --mix share; plus an L2 pull towards the initial weights. The epoch is
 chosen on calibration only (mean over sources of the AUC on hard-labelled positions); dev is never read here.
@@ -30,7 +33,9 @@ from probe_common import auc  # noqa: E402
 
 VARIANTS = {"risk": ("projection", ("risk.weight", "risk.bias")),
             "full": ("hidden", ("projection.0.weight", "projection.0.bias", "projection.1.weight", "projection.1.bias",
-                                "risk.weight", "risk.bias"))}
+                                "risk.weight", "risk.bias")),
+            "wide": ("hidden", ())}
+DIAGNOSTIC = ("wide",)
 
 
 def load_cache(directory, source, split, labels3=None):
@@ -62,6 +67,11 @@ def build_head(torch, init, variant):
     nn = torch.nn
     if variant == "risk":
         head = nn.ModuleDict({"risk": nn.Linear(512, 3)})
+    elif variant == "wide":
+        width = init["projection.0.weight"].shape[1]
+        return nn.ModuleDict({"projection": nn.Sequential(nn.Linear(width, 2048), nn.LayerNorm(2048), nn.SiLU(),
+                                                          nn.Linear(2048, 512), nn.LayerNorm(512), nn.SiLU()),
+                              "risk": nn.Linear(512, 3)})
     else:
         width = init["projection.0.weight"].shape[1]
         head = nn.ModuleDict({"projection": nn.Sequential(nn.Linear(width, 512), nn.LayerNorm(512), nn.SiLU()),
@@ -126,8 +136,9 @@ def train(torch, init, train_sources, cal_sources, variant, *, mix, epochs, lr, 
             idx = order[start:start + batch]
             xb, yb, wb = x[idx].to(device), y[idx].to(device), w[idx].to(device)
             loss = (torch.nn.functional.cross_entropy(logits(head, xb, variant), yb, reduction="none") * wb).sum() * (len(y) / len(idx))
-            reg = sum(((p - anchor[name]) ** 2).sum() for name, p in head.named_parameters())
-            loss = loss + l2_to_init * reg
+            if variant not in DIAGNOSTIC:
+                reg = sum(((p - anchor[name]) ** 2).sum() for name, p in head.named_parameters())
+                loss = loss + l2_to_init * reg
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -184,13 +195,17 @@ def main():
             torch, init, train_sources, cal_sources, variant, mix=mix, epochs=args.epochs, lr=args.lr,
             l2_to_init=args.l2_to_init, batch=args.batch, balance=not args.no_class_balance, seed=args.seed, device=device,
             score=score)
-        full = {k: v.clone() for k, v in init.items()}
-        full.update({k: state[k] for k in VARIANTS[variant][1]})
         path = args.output / f"head_{variant}.pt"
-        torch.save(full, path)
+        if variant in DIAGNOSTIC:
+            torch.save(state, path)                    # its own key names: not loadable into the runtime head
+        else:
+            full = {k: v.clone() for k, v in init.items()}
+            full.update({k: state[k] for k in VARIANTS[variant][1]})
+            torch.save(full, path)
         report["variants"][variant] = {"chosen_epoch": best_epoch, "chosen_calibration_mean_auc": best_mean,
                                        "history": history, "weights_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-                                       "changed_keys": list(VARIANTS[variant][1])}
+                                       "changed_keys": list(VARIANTS[variant][1]),
+                                       "deployable": variant not in DIAGNOSTIC}
     (args.output / "train_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({v: {k: r[k] for k in ("chosen_epoch", "chosen_calibration_mean_auc")} for v, r in report["variants"].items()},
                      indent=1))

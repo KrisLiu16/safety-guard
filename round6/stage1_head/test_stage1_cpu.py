@@ -211,7 +211,7 @@ class TrainTests(unittest.TestCase):
                 weight[::10] = 0                                     # positions without a target are dropped
                 np.savez(labels3 / f"labels3_runA_{split}.npz", label=new, weight=weight)
             subprocess.run([sys.executable, str(HERE / "train_head.py"), str(tmp), "--output", str(tmp / "out"),
-                            "--labels3", str(labels3), "--variants", "risk", "--epochs", "2", "--batch", "512",
+                            "--labels3", str(labels3), "--variants", "risk,wide", "--epochs", "2", "--batch", "512",
                             "--lr", "3e-3"], check=True, capture_output=True)
             report = json.loads((tmp / "out/train_report.json").read_text())
             self.assertEqual((report["version"], report["calibration_score"]), ("round6-stage1-head-v2-redline", "cut"))
@@ -221,6 +221,11 @@ class TrainTests(unittest.TestCase):
             self.assertEqual(sum(by_class.values()), 2700)
             self.assertGreater(by_class["2"], 0)
             self.assertIsNotNone(report["variants"]["risk"]["chosen_calibration_mean_auc"])
+            wide = report["variants"]["wide"]                      # T028 diagnostic: its own shape, never deployed
+            self.assertEqual((wide["deployable"], wide["changed_keys"]), (False, []))
+            self.assertIsNotNone(wide["chosen_calibration_mean_auc"])
+            state = torch.load(tmp / "out/head_wide.pt")
+            self.assertEqual(tuple(state["projection.0.weight"].shape), (2048, init["projection.0.weight"].shape[1]))
 
 
 @unittest.skipIf(torch is None, "torch not installed")

@@ -1,6 +1,6 @@
 # T025 提问侧：按红线口径改标签，训练用户头并评测
 
-- 版本：v1
+- 版本：v1.1（第 3 步的 `dropped_offsets` 改为按记录数判：v1 停在 prefix_v2 train 的 2 条 ids 不一致的记录上，共 55 个位置，设计方接受）
 - 目标：在 T023 缓存的用户头特征上，按 T024 的提问侧红线标签写三类目标，训练两个读出头变体（`risk`、`full`），然后和现在的用户头（`init`）在同一次评测里对比。做法和 T018 v3 相同，只是换成用户头：
   - 改标签：`relabel_cache.py --role user`。Run A 提问的字符偏移直接取缓存里记下的 `char_ends`；prefix_v2 的 user 记录按原方式重新分词对齐。
   - 训练：`train_head.py --role user`，从 `head_user_init.pt` 热启动，来源是 prefix_v2 和 runA_prompts。
@@ -15,7 +15,11 @@
      - `round6/redline_v1/flow/levels.py` 拷到 `/work/round6/redline_v1/flow/`。
 
      用 `sha256sum` 核对后 `touch /work/round6/stage1_user_redline_v1_input_ready`。
-  3. 改标签完成后看 `/work/output/round6/stage1_labels3_user_v1/report.json`：`dropped_offsets` 规则同 T018 v3.1 第 2 步（个别记录重新分词对不上可以丢，不超过 0.01%；Run A 提问必须为 0）。
+  3. 改标签完成后看 `/work/output/round6/stage1_labels3_user_v1/report.json`：
+     - Run A 提问的 `dropped_offsets` 必须为 0；
+     - prefix_v2 的 `dropped_offsets` 只能来自重新分词后 ids 对不上的记录，且每个来源不超过 5 条记录。按位置数不设上限，因为一条长记录就可能有几十个位置。
+
+     v1 那次停下的就是这种情况：prefix_v2 train 有 2 条记录（第 15629、20900 条），共 55 个位置，已接受。**重跑**：先把 PVC 上 v1 的输出移到 `/work/output/round6/stopped_0318/`，再按第 2 步重新提交。其余步骤不变。
   4. 训练完成后看 `train_report.json`：
      - `role` 为 `user`；
      - `calibration_score` 为 `cut`；

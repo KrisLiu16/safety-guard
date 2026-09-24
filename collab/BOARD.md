@@ -25,13 +25,15 @@
 | [T015](assignments/T015-s5-safe-scale.md) | S5 安全一半放量 | 执行方 | 暂停：同 T013 | — |
 | [T007](assignments/T007-serving-v4.md) | 服务引擎 v4：fp16 状态 + 原地读注意力 + 分块调参 | 执行方 | v1、v2 完成：P95 ≤ 20 ms 时承载 208 个会话（v3 为 96），阈值 ≤ 0.9 时流式判决与整段前向完全一致。v3 待执行：空行不读写状态、会话档位加密，并在 prefix_v2 dev（一半 safe）上查判决 | — |
 | [T023](assignments/T023-user-head-cache.md) | 提问侧（用户头）特征缓存 | 执行方 | 完成：约 44 分钟；prefix_v2 27,456 条、Run A 提问 18,525 条；完整性检查通过 | — |
-| [T025](assignments/T025-user-head-train-eval.md) | 提问侧 v1：按提问侧红线标签给 T023 缓存写三类目标，训练用户头 risk / full 两个变体，与现在的用户头对比 | 执行方 | 训练已批准；T024 标签已就位，等 T018 让出 L20 | T023 ✓、T024 ✓ |
+| [T025](assignments/T025-user-head-train-eval.md) | 提问侧 v1：按提问侧红线标签给 T023 缓存写三类目标，训练用户头 risk / full 两个变体，与现在的用户头对比 | 执行方 | v1 停在 prefix_v2 train 的 2 条 ids 不一致的记录（55 个位置）→ v1.1 接受，重跑 | T023 ✓、T024 ✓ |
 | [T024](assignments/T024-redline-prompts.md) | 提问侧红线标注：裁判提问模式，先试跑，再放量约 3.9 万条提问 | 执行方 | 完成：user_runA_stage1 99.99%、user_runA_dev 100%、user_prefix_v2 99.90% 可用，标签已拷到 PVC | — |
 | [T022](assignments/T022-redline-estimate.md) | 不调裁判粗估现有数据里 13 类红线各有多少正例 | 执行方 | 完成：prefix_v2 train 6,684 条 unsafe 里，很可能是红线的只有 R13 251 条、R11 142 条；政治类、R7、R9、R10 基本为空；1,199 条不属于任何红线 | — |
 | T008 | 第六轮训练。第一阶段：冻结主干，用混合数据只重训读出头，混合校准集定阈值；设计见 round6/stage1_head/README.md | 设计方 | 拆成 T017（缓存）和 T018（训练和评测） | T014 ✓ |
 | [T017](assignments/T017-stage1-cache.md) | 第一阶段特征缓存：prefix_v2 训练集 + Run A 8,000 词，缓存头的输入和投影特征（推理，约 3–3.5 小时） | 执行方 | 完成 | T001 ✓ |
-| [T018](assignments/T018-stage1-train-eval.md) | 第一阶段 v3：按红线标注给缓存位置写三类目标，训练 risk / full 两个变体，与现在的头在同一次评测里对比 | 执行方 | v3.1 进行中：改标签通过（dropped_offsets 0.0077%），risk 变体选第 4 轮（AUC 0.7932），评测在 7 个时间片上跑 | T017 ✓、T021 ✓ |
-| [T026](assignments/T026-political-special.md) | 政治专项：luna 对全部 340,883 个词做政治预筛（事件、人物、组织、领导人，带“是否常作他义”），复查一遍；按专项规则在 Mac 上重出六份标签到 `labels_political_v1/`（代码见 round6/political_screen_v1/） | 执行方 | 待执行（不用 L20，可与 T018/T025 同时跑）。用新标签重训在 T018、T025 出结果后另派 | T012 ✓、T021 ✓、T024 ✓ |
+| [T018](assignments/T018-stage1-train-eval.md) | 第一阶段 v3：按红线标注给缓存位置写三类目标，训练 risk / full 两个变体，与现在的头在同一次评测里对比 | 执行方 | 完成（v3.1）：full 最好，normal 零误报，Run A 有争议的召回 29–39%、风险 15–22%，流式 AUC 0.83–0.86；官方 thinking 集按官方标签 AUC 0.32、误报 21–27%（口径不同，由 T027 查）。召回偏低 → T028 | T017 ✓、T021 ✓ |
+| [T026](assignments/T026-political-special.md) | 政治专项：luna 对全部 340,883 个词做政治预筛（事件、人物、组织、领导人，带“是否常作他义”），复查一遍；按专项规则在 Mac 上重出六份标签到 `labels_political_v1/`（代码见 round6/political_screen_v1/） | 执行方 | 进行中：单测过，第一遍 aster-dev-359（1,705 个 Task）在跑。用新标签重训另派 | T012 ✓、T021 ✓、T024 ✓ |
+| [T027](assignments/T027-official-redline-labels.md) | 官方 thinking 集按红线口径标注（1,059 条，DeepSeek + luna 兜底），在 T018 的逐位置分数上按我们的标签重算官方集 | 执行方 | 待执行（不用 L20） | T018 ✓ |
+| [T028](assignments/T028-stage1-readout-ceiling.md) | 第一阶段读出上限诊断：full 训练 16 轮（两种设置），另加一个宽读出做对照（只看 calibration AUC，不部署），评测 16 轮的 full | 执行方 | 待执行，排在 T025 之后 | T018 ✓、T025 |
 
 ## 不由设计方负责的事
 
@@ -44,6 +46,10 @@
 ## 待用户决定
 
 1. B5–B7 的归属：现按设计方建议执行（B5、B6 算红线，B7 不算）。用户如有不同，只改规则表开关，不用重判。
+
+## 设计方待办
+
+- **第二阶段（训练主干）**：T028 若显示冻结主干的读出已到顶（三组训练都停在约 0.87），召回只能靠训练主干来提高。开跑前请用户批准：这是新的训练，在 L20 上要几个小时。
 
 ## 设计方待办（政治专项的后续）
 

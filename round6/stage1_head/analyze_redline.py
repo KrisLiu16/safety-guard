@@ -11,6 +11,9 @@ stream FPR <= 5%; dev and the official set are never used for fitting. Reported 
   early_fire (Run A): share of detected positive streams whose first fire ends at or before the start of the
   controversial onset clause, i.e. a cut before any red-line text was written.
 The official Qwen3GuardTest thinking set keeps its own labels, which follow a different policy: observed only.
+With --official-labels (T027: the same assistant turns judged by redline_v1 under our policy, export_official.py)
+the official set is scored by our labels instead, still observed only, with fpr by stratum, recall by level and a
+cross-table of fire rates by (official label, our level).
 --role user (T025): the user head on each distinct Run A prompt (runA_prompts_<split>) and the prefix_v2 user-role
 records, with prompt-side red-line labels; no official set.
 """
@@ -65,7 +68,7 @@ def stream(row, labelled, stratum, **extra):
             "logprobs": row["logprobs"], **extra}
 
 
-def load(directory, runA_labels, prefix_labels, role="assistant"):
+def load(directory, runA_labels, prefix_labels, role="assistant", official_labels=None):
     rows, skipped = {}, collections.Counter()
     runA_file = "runA" if role == "assistant" else "runA_prompts"
 
@@ -89,9 +92,16 @@ def load(directory, runA_labels, prefix_labels, role="assistant"):
     if role != "assistant":
         return rows, dict(skipped)
     sequences = {r["sequence_id"]: r for r in rules.read_gz(directory / "official_sequences.jsonl.gz")}
-    rows["official_thinking"] = [{"id": r["sample_id"], "family": r["sample_id"], "label": r["label"].lower(),
-                                  "stratum": "official/thinking", "logprobs": sequences[r["sequence_id"]]["logprobs"]}
-                                 for r in rules.read_gz(directory / "official_rows.jsonl.gz") if r["split"] == "thinking"]
+    official = [r for r in rules.read_gz(directory / "official_rows.jsonl.gz") if r["split"] == "thinking"]
+    if official_labels is None:
+        rows["official_thinking"] = [{"id": r["sample_id"], "family": r["sample_id"], "label": r["label"].lower(),
+                                      "stratum": "official/thinking", "logprobs": sequences[r["sequence_id"]]["logprobs"]}
+                                     for r in official]
+    else:
+        rows["official_thinking"] = [stream({"sample_id": r["sample_id"], "family": r["sample_id"],
+                                             "logprobs": sequences[r["sequence_id"]]["logprobs"]}, lab, "official/thinking",
+                                            official_label=r["label"].lower())
+                                     for r in official if (lab := usable(official_labels, r["sample_id"], "official_thinking"))]
     return rows, dict(skipped)
 
 
@@ -113,6 +123,14 @@ def detail(rows, fired_at):
     if detected:
         out["early_fire"] = {"detected": detected, "before_onset_clause": early, "share": round(early / detected, 4)}
     return out
+
+
+def crosstab(rows, fired):
+    """Fire rate by (official label, our level)."""
+    cells = collections.defaultdict(list)
+    for row, hit in zip(rows, fired):
+        cells[f"official_{row['official_label']}:{row['level']}"].append(hit)
+    return {k: {"n": len(v), "fired": round(sum(v) / len(v), 4)} for k, v in sorted(cells.items())}
 
 
 def evaluate(rows, bootstrap, seed):
@@ -139,6 +157,9 @@ def evaluate(rows, bootstrap, seed):
                 if entry[name]["n_safe"] and entry[name]["n_unsafe"]:
                     entry[name].update(rules.bootstrap(rows[name], fired, bootstrap, seed))
                 entry[name].update(detail(rows[name], fired_at))
+            elif rows[name] and "level" in rows[name][0]:           # scored by our labels (--official-labels)
+                entry[name].update(detail(rows[name], fired_at))
+                entry[name]["crosstab"] = crosstab(rows[name], fired)
         report["rules"][rule] = entry
     return report
 
@@ -158,13 +179,17 @@ def main():
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--role", choices=("assistant", "user"), default="assistant")
+    parser.add_argument("--official-labels", type=Path, nargs="+",
+                        help="our red-line labels for the official thinking split (T027); default: its own labels")
     args = parser.parse_args()
     runA_labels, prefix_labels = read_labels(args.runA_labels), read_labels(args.prefix_labels)
+    official_labels = read_labels(args.official_labels) if args.official_labels else None
     results = {"version": "round6-stage1-compare-redline-v1", "role": args.role, "model_calls": 0, "cut_score": "1 - p(safe)",
                "fitted_on": "Run A calibration + prefix_v2 calibration (assistant), per source/language stratum",
-               "official_used_for_fitting": False, "dev_used_for_fitting": False, "scorers": {}}
+               "official_used_for_fitting": False, "dev_used_for_fitting": False,
+               "official_labels": "red-line policy (T027)" if official_labels else "official", "scorers": {}}
     for variant in args.variants.split(","):
-        rows, skipped = load(args.eval_dir / f"eval_{variant}", runA_labels, prefix_labels, args.role)
+        rows, skipped = load(args.eval_dir / f"eval_{variant}", runA_labels, prefix_labels, args.role, official_labels)
         results["scorers"][variant] = {"skipped_streams": skipped, **evaluate(rows, args.bootstrap, args.seed)}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n")
@@ -185,6 +210,10 @@ def main():
             print(f"{rule:14} | {pct(a['fpr']):>8} {pct(normal):>7} {pct(level.get('controversial', {}).get('recall')):>6} "
                   f"{pct(level.get('unsafe', {}).get('recall')):>6} {pct(a.get('early_fire', {}).get('share')):>6} | "
                   f"{pct(p['fpr']):>7} {pct(p['recall']):>6} | {pct(o['fpr']):>7} {pct(o['recall']):>6}")
+        crossed = entry["rules"].get("threshold") or {}
+        if "crosstab" in crossed.get("official_thinking", {}):
+            print("official by our labels (threshold rule): " + ", ".join(
+                f"{k} n={v['n']} fired={v['fired'] * 100:.1f}%" for k, v in crossed["official_thinking"]["crosstab"].items()))
 
 
 if __name__ == "__main__":

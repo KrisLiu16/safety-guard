@@ -208,6 +208,24 @@ class RedlineAnalysisTests(unittest.TestCase):
             self.assertIn("early_fire", rule)
             # at the same calibration FPR, a readout that lets non-red-line harm pass keeps far more recall
             self.assertGreater(rule["recall"], init["rules"]["threshold"]["runA_dev"]["recall"] + 0.5)
+            # T027: the official set scored by our labels (official safe restating a red line -> controversial)
+            official = [{"sample_id": f"o{i}", "label": level, "level": level, "stratum": "redline" if level != "safe" else "normal",
+                         "onsets": {}} for i in range(30)
+                        for level in [("controversial" if i % 4 == 0 else "safe") if i % 2 == 0 else ("unsafe" if i % 4 == 1 else "safe")]]
+            official.append({"sample_id": "o0x", "label": "unusable", "level": None, "stratum": None, "onsets": {}})
+            (tmp / "official.jsonl").write_text("".join(json.dumps(r) + "\n" for r in official))
+            done = subprocess.run([sys.executable, str(HERE / "analyze_redline.py"), "--eval-dir", str(tmp / "eval"), "--variants", "risk",
+                                   "--runA-labels", str(tmp / "runA.jsonl"), "--prefix-labels", str(tmp / "prefix.jsonl"),
+                                   "--official-labels", str(tmp / "official.jsonl"), "--bootstrap", "20", "--output", str(out)],
+                                  check=True, capture_output=True, text=True)
+            result = json.loads(out.read_text())
+            self.assertEqual(result["official_labels"], "red-line policy (T027)")
+            entry = result["scorers"]["risk"]["rules"]["threshold"]["official_thinking"]
+            self.assertEqual(set(entry["crosstab"]), {"official_safe:controversial", "official_safe:safe",
+                                                      "official_unsafe:unsafe", "official_unsafe:safe"})
+            self.assertEqual(entry["crosstab"]["official_safe:controversial"]["n"], 8)
+            self.assertIn("recall_by_level", entry)
+            self.assertIn("official by our labels", done.stdout)
 
 
 if __name__ == "__main__":

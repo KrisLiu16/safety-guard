@@ -21,6 +21,7 @@ from apply_policy import (TermIndex, apply, label_response, raise_from, screen_o
 from extract_probes import join  # noqa: E402
 from compare_judges import compare  # noqa: E402
 from export_prefix_v2 import export  # noqa: E402
+import export_official  # noqa: E402
 from make_tasks import build, context, pick, prompt_rows  # noqa: E402
 import review_sample  # noqa: E402
 
@@ -449,6 +450,21 @@ class BuilderTests(unittest.TestCase):
         self.assertEqual((row["split"], row["label"], row["messages"]), ("train", "safe", multi))
         self.assertNotIn("ids", row)
         self.assertEqual(build([row])[0][0]["user_prompt"], context(multi))
+
+    def test_export_official_thinking(self):
+        rows = [{"sample_id": "Qwen3GuardTest:thinking:0:u0", "status": "ready", "label": "Safe", "unsafe_type": None,
+                 "source": "s", "messages": [{"role": "user", "content": "占位提问"},
+                                             {"role": "assistant", "content": "<think>\n占位思考\n</think>\n\n占位回答"}]},
+                {"sample_id": "Qwen3GuardTest:thinking:1:u1", "status": "excluded", "label": "Unsafe", "messages": []},
+                {"sample_id": "Qwen3GuardTest:thinking:2:u2", "status": "ready", "label": "Unsafe", "unsafe_type": "Violent",
+                 "messages": [{"role": "user", "content": "q"}, {"role": "assistant", "content": "<think>\nplaceholder\n</think>"}]}]
+        out = export_official.export(rows)
+        self.assertEqual([(r["sample_id"], r["label"], r["language"]) for r in out],
+                         [("Qwen3GuardTest:thinking:0:u0", "safe", "zh"), ("Qwen3GuardTest:thinking:2:u2", "unsafe", "en")])
+        items, key = build(out)
+        chars = {k["sample_id"]: k["response_chars"] for k in key}
+        self.assertEqual(chars["Qwen3GuardTest:thinking:0:u0"], len(rows[0]["messages"][-1]["content"]))
+        self.assertIn(rows[0]["messages"][-1]["content"], [i["assistant_text"] for i in items])
 
     def test_compare_judges(self):
         a = [{"sample_id": "x", "label": "controversial", "level": "controversial", "stratum": "redline",
