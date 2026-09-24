@@ -1,0 +1,24 @@
+{
+  "version": "prefix-v2-user-export-v1",
+  "role": "user",
+  "source_sha256": {
+    "train": "77c31a0f34e3171a7391bc0c448098248a89b42abfd5b2cd908712e635b0772e",
+    "calibration": "8db0d6bf4996060712e5ee37938dedfe04cf8a6ca5941dbb2ead544195dc0808",
+    "dev": "53d7593f989a62ae696915942333eff4cc834f187b009611b9308e39941e3211"
+  },
+  "output_sha256": "a5d9fecc51bf7f273188ad2d2c2f252b19f847450d431e8e222ee17accd7311a",
+  "records": 18322,
+  "by_split_label_tier": {
+    "calibration:safe:public_source_reference": 150,
+    "calibration:unsafe:public_source_reference": 150,
+    "dev:safe:public_source_reference": 200,
+    "dev:unsafe:public_source_reference": 200,
+    "train:safe:public_source_reference": 3500,
+    "train:safe:rubric_benign": 2048,
+    "train:safe:synthetic_context_weak": 204,
+    "train:safe:synthetic_weak": 4096,
+    "train:unsafe:public_source_reference": 3500,
+    "train:unsafe:synthetic_context_weak": 178,
+    "train:unsafe:synthetic_weak": 4096
+  }
+}
