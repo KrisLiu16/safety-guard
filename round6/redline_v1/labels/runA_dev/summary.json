@@ -1,0 +1,277 @@
+{
+  "policy_digest": "9b2667295fadc6f2",
+  "switches": {
+    "topic_mention": "safe",
+    "debunk_no_quote": "safe",
+    "refusal_naming": "controversial",
+    "restates": "controversial",
+    "quotes": "controversial",
+    "term_explained": "controversial",
+    "fiction": "unsafe",
+    "writes": "unsafe",
+    "requests": "unsafe",
+    "debunk_request": "safe",
+    "general_depiction": "safe",
+    "variant_unclear": "ignore",
+    "leader_epithet_written": "unsafe",
+    "non_redline_harm": "safe",
+    "B1": "redline",
+    "B2": "redline",
+    "B3": "redline",
+    "B4": "non_redline"
+  },
+  "responses": 5188,
+  "usable": 5172,
+  "by_source_rank": {
+    "0": 4912,
+    "1": 260,
+    "None": 16
+  },
+  "labels_by_split": {
+    "dev": {
+      "safe": 4372,
+      "unsafe": 483,
+      "controversial": 317,
+      "unusable": 16
+    }
+  },
+  "old_to_new": {
+    "safe->safe": 2225,
+    "unsafe->unsafe": 419,
+    "unsafe->safe": 2147,
+    "safe->controversial": 302,
+    "safe->unsafe": 64,
+    "unsafe->controversial": 15,
+    "safe->unusable": 3,
+    "unsafe->unusable": 13
+  },
+  "old_to_new_by_slot_style": {
+    "slot0:neutral_information:safe->controversial": 45,
+    "slot0:neutral_information:safe->safe": 276,
+    "slot0:neutral_information:safe->unsafe": 8,
+    "slot0:refusal:safe->controversial": 70,
+    "slot0:refusal:safe->safe": 263,
+    "slot0:refusal:safe->unsafe": 14,
+    "slot0:risk_reasoning:safe->controversial": 74,
+    "slot0:risk_reasoning:safe->safe": 228,
+    "slot0:risk_reasoning:safe->unsafe": 5,
+    "slot0:risk_reasoning:safe->unusable": 1,
+    "slot0:safe_redirect:safe->controversial": 67,
+    "slot0:safe_redirect:safe->safe": 239,
+    "slot0:safe_redirect:safe->unsafe": 6,
+    "slot0:safe_redirect:safe->unusable": 1,
+    "slot1:compliance:unsafe->controversial": 5,
+    "slot1:compliance:unsafe->safe": 1027,
+    "slot1:compliance:unsafe->unsafe": 254,
+    "slot1:compliance:unsafe->unusable": 11,
+    "slot2:helpful_answer:safe->controversial": 20,
+    "slot2:helpful_answer:safe->safe": 609,
+    "slot2:helpful_answer:safe->unsafe": 13,
+    "slot2:helpful_reasoning:safe->controversial": 26,
+    "slot2:helpful_reasoning:safe->safe": 610,
+    "slot2:helpful_reasoning:safe->unsafe": 18,
+    "slot2:helpful_reasoning:safe->unusable": 1,
+    "slot3:drift:unsafe->controversial": 10,
+    "slot3:drift:unsafe->safe": 1120,
+    "slot3:drift:unsafe->unsafe": 165,
+    "slot3:drift:unsafe->unusable": 2
+  },
+  "stratum_by_label": {
+    "controversial": {
+      "redline": 317
+    },
+    "safe": {
+      "redline_topic": 331,
+      "non_redline_harm": 2175,
+      "normal": 907,
+      "other_sensitive": 959
+    },
+    "unsafe": {
+      "redline": 483
+    }
+  },
+  "rules_non_safe": {
+    "R10:writes:specific": 179,
+    "R10:refusal_naming:general": 86,
+    "leader_epithet_written": 70,
+    "screen:insult": 55,
+    "screen:rumor": 45,
+    "R2:refusal_naming:general": 37,
+    "B1:writes:specific": 31,
+    "B2:writes:specific": 30,
+    "R1:writes:specific": 28,
+    "R2:writes:specific": 24,
+    "R7:writes:specific": 24,
+    "B1:refusal_naming:general": 23,
+    "R10:restates:general": 20,
+    "B2:refusal_naming:general": 19,
+    "R8:writes:specific": 17,
+    "R11:refusal_naming:general": 16,
+    "R2:restates:general": 16,
+    "R12:refusal_naming:general": 16,
+    "R11:quotes:specific": 14,
+    "R6:writes:specific": 13,
+    "R11:writes:specific": 12,
+    "R3:writes:specific": 10,
+    "B1:quotes:general": 9,
+    "R11:restates:general": 9,
+    "R5:writes:specific": 9,
+    "R1:writes:general": 9,
+    "B1:restates:general": 8,
+    "R11:quotes:general": 8,
+    "R8:refusal_naming:general": 7,
+    "B2:writes:general": 7,
+    "R10:writes:general": 7,
+    "B1:writes:general": 6,
+    "R3:refusal_naming:general": 6,
+    "R5:term_explained:general": 5,
+    "R5:quotes:general": 5,
+    "R7:restates:general": 5,
+    "R3:term_explained:general": 5,
+    "R3:restates:general": 5,
+    "R1:refusal_naming:general": 5,
+    "R10:quotes:general": 4,
+    "R11:term_explained:general": 4,
+    "R2:quotes:general": 4,
+    "R7:refusal_naming:general": 4,
+    "R12:writes:general": 4,
+    "R6:restates:general": 4,
+    "B2:restates:general": 4,
+    "R6:refusal_naming:general": 4,
+    "B1:quotes:specific": 4,
+    "R3:quotes:general": 3,
+    "R12:restates:general": 3,
+    "R1:quotes:general": 3,
+    "R8:term_explained:general": 3,
+    "R1:restates:general": 3,
+    "B1:term_explained:general": 3,
+    "R4:writes:specific": 3,
+    "R8:quotes:general": 3,
+    "R4:restates:general": 3,
+    "R12:quotes:general": 3,
+    "R12:writes:specific": 3,
+    "R8:restates:general": 2,
+    "R9:restates:general": 2,
+    "R11:restates:specific": 2,
+    "R6:term_explained:general": 2,
+    "R11:term_explained:specific": 2,
+    "R8:term_explained:specific": 2,
+    "R3:refusal_naming:specific": 1,
+    "R6:quotes:general": 1,
+    "R5:quotes:specific": 1,
+    "R3:quotes:specific": 1,
+    "B2:restates:specific": 1,
+    "R2:refusal_naming:specific": 1,
+    "R5:restates:general": 1,
+    "R5:term_explained:specific": 1,
+    "R3:writes:general": 1,
+    "R2:quotes:specific": 1,
+    "B1:term_explained:specific": 1,
+    "R13:writes:specific": 1,
+    "R7:term_explained:general": 1,
+    "R5:refusal_naming:general": 1,
+    "R9:refusal_naming:general": 1,
+    "R10:refusal_naming:specific": 1,
+    "R10:quotes:specific": 1,
+    "R13:refusal_naming:general": 1,
+    "R6:writes:general": 1,
+    "R5:writes:general": 1,
+    "R8:quotes:specific": 1,
+    "B3:refusal_naming:general": 1,
+    "R8:refusal_naming:specific": 1,
+    "R8:writes:general": 1
+  },
+  "onset_clause_chars": {
+    "controversial": {
+      "median": 28.5,
+      "max": 265
+    },
+    "unsafe": {
+      "median": 22,
+      "max": 271
+    }
+  },
+  "boundary_hits_by_label": {
+    "controversial": {
+      "R5:term_explained": 6,
+      "B1:quotes": 13,
+      "R11:term_explained": 6,
+      "B1:refusal_naming": 23,
+      "B2:refusal_naming": 19,
+      "R3:term_explained": 5,
+      "B1:topic_mention": 3,
+      "R8:term_explained": 5,
+      "B1:restates": 8,
+      "B1:term_explained": 4,
+      "B2:restates": 5,
+      "R7:term_explained": 1,
+      "B3:refusal_naming": 1,
+      "B3:topic_mention": 1,
+      "R6:term_explained": 1,
+      "B4:refusal_naming": 1
+    },
+    "safe": {
+      "B4:restates": 26,
+      "B4:writes": 280,
+      "B4:refusal_naming": 98,
+      "R1:term_explained": 9,
+      "B1:topic_mention": 8,
+      "B4:quotes": 1,
+      "B1:writes": 1,
+      "B4:topic_mention": 3
+    },
+    "unsafe": {
+      "B1:restates": 8,
+      "B1:writes": 37,
+      "B2:writes": 37,
+      "R8:term_explained": 5,
+      "R1:term_explained": 24,
+      "B1:topic_mention": 5,
+      "B4:writes": 15,
+      "B2:restates": 4,
+      "R6:term_explained": 1,
+      "B1:term_explained": 3,
+      "B1:quotes": 5,
+      "R11:term_explained": 3,
+      "R3:term_explained": 2,
+      "R5:term_explained": 1
+    }
+  },
+  "switch_sensitivity": {
+    "B1=non_redline": {
+      "unsafe->safe": 32,
+      "controversial->safe": 33,
+      "unsafe->controversial": 1
+    },
+    "B2=non_redline": {
+      "unsafe->safe": 31,
+      "controversial->safe": 17
+    },
+    "B3=non_redline": {},
+    "B4=redline": {
+      "safe->unsafe": 278,
+      "safe->controversial": 103
+    },
+    "term_explained=safe": {
+      "controversial->safe": 14
+    },
+    "term_explained=unsafe": {
+      "controversial->unsafe": 25
+    }
+  },
+  "screen_used": true,
+  "screen_overrides": {
+    "rumor:safe->unsafe": 19,
+    "insult:unsafe->unsafe": 29,
+    "rumor:controversial->unsafe": 8,
+    "rumor:unsafe->unsafe": 18,
+    "insult:safe->unsafe": 25,
+    "insult:controversial->unsafe": 1
+  },
+  "inputs": [
+    "round6/redline_v1/full_runA_dev/extracted_ds/probes.jsonl",
+    "round6/redline_v1/full_runA_dev_fb/extracted/probes.jsonl",
+    "round6/word_screen_v1/full/extracted/screen.jsonl",
+    "round6/response_v14/batch_50k/extracted/trainable.jsonl"
+  ]
+}

@@ -173,3 +173,88 @@ prefix_v2：
 
 - 各目录的 `run_no.txt` 已改为新 Run，旧 Run 号保存在 `run_no_sdk42_failed.txt`。
 - 326 成功的 58 个 Task 不单独保留。新的 329 会把 1,853 个 Task 全部重跑，这样抽取时只用一个 Run，代价是多出约 1,160 条回答的 DeepSeek 调用。
+
+## 第 4–5 步：抽取和 luna 兜底（22:55 – 00:xx）
+
+主跑三个 Run 都是 completed、0 失败，都先冻结了 attempt 列表再抽取（`attempts.json`）。兜底按 `failed_ids.txt` 用 `make_tasks.py --sample-ids` 生成任务，每个 Task 10 条，luna，尝试 1 次，高优先级，SDK 4.3。
+
+| 份 | Run | responses | safe | located | nonmonotonic | judge_error | 每条调用（均值 / 最大） | 交给下一步 |
+|---|---|---|---|---|---|---|---|---|
+| full_runA_stage1 | aster-dev-329 | 37,056 | 30,169 | 4,907 | 218 | 1,762 | 1.38 / 9 | 1,980 |
+| full_runA_stage1_fb | aster-dev-343（198 Task） | 1,980 | 运行中 | | | | | |
+| full_runA_dev | aster-dev-330 | 5,188 | 4,263 | 649 | 30 | 246 | 1.35 / 8 | 276 |
+| full_runA_dev_fb | aster-dev-337（28 Task） | 276 | 153 | 107 | 16 | 0 | 2.37 / 8 | 16（不可用） |
+| full_pv2 | aster-dev-331 | 17,089 | 14,754 | 1,809 | 195 | 331 | 1.43 / 21 | 526 |
+| full_pv2_fb | aster-dev-338（53 Task） | 526 | 229 | 228 | 66 | 3 | 4.85 / 18 | 69（不可用） |
+
+- 主跑实测每条 1.35–1.43 次 DeepSeek 调用，低于卡片按 T020 估的 1.5–1.6 次。交给 luna 的比例是 4.7–5.3%。
+- **policy_digest 变化，标签不受影响。** 设计方 a2e8407 在规则表里加了提问侧的两个开关（`requests`、`debunk_request`），所以 `digest()` 从 `bf493df68929e10b` 变成了 `9b2667295fadc6f2`。
+  - 回答侧裁判的提示词和 schema 没有变（单测 28 项全过，其中一项固定了哈希值）。新加的开关只对提问侧的动作起作用。
+  - 337、338 是在 a2e8407 之前提交的，343 在它之后，所以 343 的 manifest 是 `9b26…`，judge 仍然是 `guard-judge-redline-v4.2`。
+  - `apply_policy.py` 现在输出的 `policy_digest` 也是 `9b26…`。回答侧的标签和旧表逐条相同，因为这两个动作在回答侧的事实里不会出现。
+
+## 第 6 步：标签（Run A dev、prefix_v2）
+
+命令与卡片相同（主跑在前、兜底在后）。Run A dev 带 `--screen round6/word_screen_v1/full/extracted/screen.jsonl --source round6/response_v14/batch_50k/extracted/trainable.jsonl`，T012 在 23:53 抽取完成。
+
+| 份 | usable | 最终 nonmonotonic | safe | controversial | unsafe |
+|---|---|---|---|---|---|
+| runA_dev | 5,172 / 5,188 = **99.7%** | 16（0.3%） | 4,372 | 317 | 483 |
+| prefix_v2 | 17,020 / 17,089 = **99.6%** | 66（0.4%）+ judge_error 3 | 14,983 | 475 | 1,562 |
+
+验收 `usable` ≥ 97%、`nonmonotonic` ≤ 5%：两份都满足。
+
+**runA_dev（`labels/runA_dev/summary.json`）**
+
+- `by_source_rank`：主跑 4,912、兜底 260、不可用 16。
+- `old_to_new`：safe→safe 2,225，safe→controversial 302，safe→unsafe 64，unsafe→unsafe 419，unsafe→safe 2,147，unsafe→controversial 15，不可用 16。
+- `stratum_by_label`：controversial 全部是 redline（317），unsafe 全部是 redline（483）；safe 里 normal 907、non_redline_harm 2,175、other_sensitive 959、redline_topic 331。**normal 没有非 safe**。
+- `old_to_new_by_slot_style`，与 T020 pilot（v4.1 复测）的比例对比：
+
+  | slot:style | 条数 | 本次 | T020 pilot / v4.1 复测 |
+  |---|---|---|---|
+  | slot0:neutral_information | 329 | safe 84% / controversial 14% / unsafe 2% | 81% / 19% / 0 |
+  | slot0:refusal | 347 | 76% / 20% / 4% | 44–62% / 31–50% / 6%（n=16） |
+  | slot0:risk_reasoning | 308 | 74% / 24% / 2% | 57–61% / 39% / 0–4% |
+  | slot0:safe_redirect | 313 | 76% / 21% / 2% | 76–86% / 14–24% / 0 |
+  | slot1:compliance | 1,297 | unsafe→safe 79% / →unsafe 20% | 79–80% / 20% |
+  | slot2:helpful_answer | 642 | safe 95% / controversial 3% / unsafe 2% | 95–98% / 0–2% / 2% |
+  | slot2:helpful_reasoning | 655 | 93% / 4% / 3% | 94–97% / 0–3% / 3% |
+  | slot3:drift | 1,297 | unsafe→safe 86% / →unsafe 13% / →controversial 1% | 85–86% / 11–12% / 3% |
+
+  slot1 到 slot3 与 pilot 基本一样。slot0 的“有争议”比例比 pilot 低一些，但 pilot 每格只有 16–23 条，差距在抽样误差之内，所以没有停下。
+- `boundary_hits_by_label`：
+  - unsafe：B1:writes 37、B2:writes 37、R1:term_explained 24、B4:writes 15、B1:restates 8。
+  - controversial：B1:refusal_naming 23、B2:refusal_naming 19、B1:quotes 13、B1:restates 8；term_explained 共 28 条（R3、R5、R6、R7、R8、R11、B1）。
+  - safe：B4:writes 280、B4:refusal_naming 98、B4:restates 26、R1:term_explained 9、B1:topic_mention 8。
+- `switch_sensitivity`：
+  - B1 改为 non_redline：unsafe→safe 32，controversial→safe 33。
+  - B2 改为 non_redline：unsafe→safe 31，controversial→safe 17。
+  - B3：没有变化。
+  - B4 改为 redline：safe→unsafe 278，safe→controversial 103。
+  - term_explained 改为 safe：14 条变；改为 unsafe：25 条变。
+- `screen_overrides`：insult:safe→unsafe 25，insult:controversial→unsafe 1，insult:unsafe→unsafe 29；rumor:safe→unsafe 19，rumor:controversial→unsafe 8，rumor:unsafe→unsafe 18。**预筛实际改动标签 53 条**。
+- `rules_non_safe` 前几名：R10:writes:specific 179，R10:refusal_naming 86，leader_epithet_written 70，screen:insult 55，screen:rumor 45。
+
+**prefix_v2（`labels/prefix_v2/summary.json`，不带预筛）**
+
+- `by_source_rank`：主跑 16,563、兜底 457、不可用 69。
+- `labels_by_split`：
+  - train：safe 13,763 / controversial 443 / unsafe 1,418 / 不可用 65；
+  - calibration：534 / 10 / 55 / 1；
+  - dev：686 / 22 / 89 / 3。
+- `old_to_new`：unsafe→safe 5,893，unsafe→unsafe 1,427，unsafe→controversial 109，safe→safe 9,090，safe→controversial 366，safe→unsafe 135，不可用 69。
+- `stratum_by_label`：controversial 全部是 redline（475），unsafe 全部是 redline（1,562）；safe 里 normal 6,235、non_redline_harm 4,656、other_sensitive 3,167、redline_topic 925。**normal 没有非 safe**。
+- `boundary_hits_by_label`：
+  - unsafe：B2:writes 305、B1:writes 164、B3:writes 31、B2:restates 28、B1:restates 17。
+  - controversial：B1:refusal_naming 23、B2:refusal_naming 18、B1:restates 12、R8:term_explained 9。
+  - safe：B4:writes 62、B1:topic_mention 30、B4:refusal_naming 15、B2:topic_mention 11。
+- `switch_sensitivity`：
+  - B1 改为 non_redline：unsafe→safe 155，controversial→safe 37。
+  - B2 改为 non_redline：unsafe→safe 246，controversial→safe 23。
+  - B3 改为 non_redline：unsafe→safe 15。
+  - B4 改为 redline：safe→unsafe 62，safe→controversial 19。
+  - term_explained 改为 safe：8 条变；改为 unsafe：9 条变。
+- `screen_overrides`：空（没有用预筛）。
+- `rules_non_safe` 前几名：B2:writes:specific 278，R12:writes:specific 187，R2:writes:specific 187，R8:writes:specific 179，R13:writes:specific 103。
+- 对照 T022 的粗估：prefix_v2 train 的 unsafe 这次是 1,418 条，比 T022 粗估的“很可能是红线”（R13 251、R11 142）多很多。多出来的主要是 B2（凶器伤人、投毒、藏尸的具体做法）、R12、R2 和 R8，T022 的关键词粗估没有覆盖这几类。

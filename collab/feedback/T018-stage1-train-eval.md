@@ -1,3 +1,22 @@
+# T018 反馈（v3）：进行中
+
+- 对应任务卡：T018 v3
+- 状态：**作业已提交，等 Run A 第一阶段的红线标签**。
+- 单测：`test_stage1_cpu.py` 和 `test_redline_stage1_cpu.py` 共 14 项，全过。
+- 2026-09-24 23:59 `kubectl apply -f round6/stage1_head/worker_redline_v2.yaml`。
+  - Job 为 `safety-guard-stage1-redline-v2-r1`，Pod 为 `safety-guard-stage1-redline-v2-r1-8sdcl`，节点 172.19.1.144。
+  - 提交前节点 GPU 分配为 0，T023 的 Pod 已经 Completed。
+- 已拷进 Pod，并用 `sha256sum -c` 核对，20 个文件都一致：
+  - `round6/stage1_head/*.py` 9 个；
+  - `round6/probe/*.py` 9 个；
+  - `round6/redline_v1/flow/levels.py`；
+  - `labels/prefix_v2/labels.jsonl`（T021）。
+- 还没写 `stage1_redline_v2_input_ready`。要等 T021 的 Run A 第一阶段 luna 兜底（aster-dev-343）跑完、带预筛出标签，把 `labels/runA_stage1/labels.jsonl` 拷进 Pod 并核对后，才会写。作业等这个标记最多 1 小时，00:59 到期。
+
+---
+
+# 以下为 v2 时的记录（已被 v3 取代）
+
 # T018 反馈：暂缓，用户更正了“复述”的口径
 
 - 对应任务卡：T018 v2

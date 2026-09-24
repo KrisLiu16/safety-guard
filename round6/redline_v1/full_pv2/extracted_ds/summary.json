@@ -1,0 +1,21 @@
+{
+  "responses": 17089,
+  "statuses": {
+    "safe": 14754,
+    "located": 1809,
+    "nonmonotonic": 195,
+    "judge_error": 331
+  },
+  "judge_calls_per_response": {
+    "mean": 1.43,
+    "max": 21
+  },
+  "runs": [
+    {
+      "run_no": "aster-dev-331",
+      "status": "completed"
+    }
+  ],
+  "archives": 855,
+  "failed_ids": 526
+}
