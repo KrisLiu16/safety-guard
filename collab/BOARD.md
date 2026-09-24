@@ -16,8 +16,8 @@
 | [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | 完成（aster-dev-285/286）。50/60 词完成；复核后真不安全 2%，luna 误判 0；生成模型漏掉 2 个贬损领导人的词 → S2 提示词升 v2，加词表预筛 T012 | — |
 | [T011](assignments/T011-s5-safe-pilot.md) | S5 安全的一半：40 词长篇安全思考，DeepSeek 生成 + luna 复核（代码见 round6/s5_safe_v15/） | 执行方 | 完成（aster-dev-287/288）。35/40 词完成，人工核对后 0% 真不安全；luna 误判 1/140。长度偏短 → S5 提示词升 v2（分配目标长度、修复字面 \\n） | — |
 | [T012](assignments/T012-word-screen-pilot.md) | 词表预筛：luna 判词表里哪些与党和国家领导人相关（两遍分类 + 一遍是/否，取最严重；人工标注优先）；复测过门槛后全量（代码见 round6/word_screen_v1/） | 执行方 | v3 复测 24/26，两个冷僻谐音稳定漏判 → v4 待执行 | — |
-| T013 | S2 放量（v2 提示词，排除预筛 yes/unsure 的词，约 7,000 词 ≈ 2 万条） | 设计方 | 等 T012 全量筛完 | T012 |
-| T015 | S5 安全一半放量（v2 提示词，排除预筛 yes/unsure 的词；规模待定，按 thinking 分层每层至少 1,000 个负例的要求估算） | 设计方 | 等 T012 全量筛完 | T012 |
+| [T013](assignments/T013-s2-scale.md) | S2 放量：约 7,000 词，DeepSeek 生成 + luna 复核，只保留复核全 safe 的样本 | 执行方 | 等 T012 全量完成后开始 | T012 |
+| [T015](assignments/T015-s5-safe-scale.md) | S5 安全一半放量：约 5,000 词（与 S2 不重叠），DeepSeek 生成 + luna 复核 | 执行方 | 等 T012 全量和 T013 第 2 步 | T012、T013 |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
 | T008 | 第六轮训练。第一阶段：冻结主干，用混合数据只重训读出头，混合校准集定阈值；设计见 round6/stage1_head/README.md | 设计方 | 拆成 T017（缓存）和 T018（训练和评测） | T014 ✓ |
 | [T017](assignments/T017-stage1-cache.md) | 第一阶段特征缓存：prefix_v2 训练集 + Run A 8,000 词，缓存头的输入和投影特征（推理，约 3–3.5 小时） | 执行方 | 待执行 | T001 ✓ |

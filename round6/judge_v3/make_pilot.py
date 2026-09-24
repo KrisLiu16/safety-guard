@@ -70,6 +70,8 @@ def main():
     parser.add_argument("--words", type=int, default=60, help="words to sample; 0 = every word in the source")
     parser.add_argument("--splits", default="", help="comma-separated splits to keep, e.g. dev,calibration (default: all)")
     parser.add_argument("--name-prefix", default="judge-v3-pilot")
+    parser.add_argument("--words-per-task", type=int, default=1, help="whole words packed into one Task (size-capped)")
+    parser.add_argument("--max-task-bytes", type=int, default=MAX_TASK_BYTES)
     parser.add_argument("--output", type=Path, default=ROOT / "pilot")
     args = parser.parse_args()
     if args.output.exists():
@@ -83,39 +85,68 @@ def main():
     items = [item for row in rows if row["task_key"] in keep for item in items_for(row)]
     for item in items:
         item["item_id"] = hashlib.sha256(f"{item['sample_id']}:{item['kind']}".encode()).hexdigest()[:20]
-    manifest = write_pilot(items, args.output, args.name_prefix, {"source": str(args.source), "splits": args.splits or "all"})
-    print(json.dumps({k: manifest[k] for k in ("items", "tasks", "words", "kinds")}, ensure_ascii=False))
+    manifest = write_pilot(items, args.output, args.name_prefix, {"source": str(args.source), "splits": args.splits or "all"},
+                           args.words_per_task, args.max_task_bytes)
+    print(json.dumps({k: manifest[k] for k in ("items", "tasks", "words", "kinds", "archives")}, ensure_ascii=False))
 
 
-def write_pilot(items, output, name_prefix, extra):
-    """One blind Task per word, the local answer key, a tarball and a manifest. Returns the manifest."""
+PART_TASKS = 2000          # Aster: at most 2,000 Tasks per Run
+MAX_TASK_BYTES = 180_000  # instructions of ~196 KB uploaded, ~208 KB were rejected
+
+
+def blind_instruction(name, group):
+    return json.dumps({"group_key": name, "prompt_version": PROMPT_VERSION,
+                       "items": [{"item_id": it["item_id"], "user_prompt": it["user_prompt"],
+                                  "assistant_text": it["assistant_text"]} for it in group]}, ensure_ascii=False)
+
+
+def pack(by_word, words_per_task, max_task_bytes):
+    """Greedy packing of whole words into Tasks: at most words_per_task words and max_task_bytes per instruction."""
+    tasks, current, words = [], [], 0
+    for _, group in sorted(by_word.items()):
+        group = sorted(group, key=lambda it: number("order:" + it["item_id"]))
+        if len(blind_instruction("x", group).encode()) > max_task_bytes:
+            raise ValueError(f"one word's items exceed {max_task_bytes} bytes; nothing can pack it")
+        if current and (words >= words_per_task or len(blind_instruction("x", current + group).encode()) > max_task_bytes):
+            tasks.append(current)
+            current, words = [], 0
+        current, words = current + group, words + 1
+    if current:
+        tasks.append(current)
+    return tasks
+
+
+def write_pilot(items, output, name_prefix, extra, words_per_task=1, max_task_bytes=MAX_TASK_BYTES):
+    """Blind Tasks (whole words, packed up to words_per_task), the local answer key, archives of at most
+    PART_TASKS Tasks each (pilot.tar.gz, or pilot_partN.tar.gz when split) and a manifest. Returns the manifest."""
     output.mkdir(parents=True, exist_ok=True)
     by_word = collections.defaultdict(list)
     for item in items:
         by_word[item["task_key"]].append(item)
     task_paths = []
-    for ordinal, (key, group) in enumerate(sorted(by_word.items())):
-        group.sort(key=lambda it: number("order:" + it["item_id"]))
+    for ordinal, group in enumerate(pack(by_word, words_per_task, max_task_bytes)):
         name = f"{name_prefix}-{ordinal:03d}"
         task = output / "tasks" / name
         (task / "tests").mkdir(parents=True)
-        blind = [{"item_id": it["item_id"], "user_prompt": it["user_prompt"], "assistant_text": it["assistant_text"]}
-                 for it in group]
-        (task / "instruction.md").write_text(json.dumps({"group_key": name, "prompt_version": PROMPT_VERSION,
-                                                         "items": blind}, ensure_ascii=False), encoding="utf-8")
+        (task / "instruction.md").write_text(blind_instruction(name, group), encoding="utf-8")
         (task / "task.toml").write_text(f'version = "1.0"\n\n[metadata]\nname = "{name}"\ncategory = "guard-judge"\n')
         test = task / "tests/test.sh"
         test.write_text("#!/bin/sh\nexit 1\n")
         test.chmod(0o755)
         task_paths.append(task)
-    with tarfile.open(output / "pilot.tar.gz", "w:gz") as archive:
-        for task in task_paths:
-            archive.add(task, arcname=task.name)
+    parts = [task_paths[i:i + PART_TASKS] for i in range(0, len(task_paths), PART_TASKS)]
+    names = ["pilot.tar.gz"] if len(parts) <= 1 else [f"pilot_part{i}.tar.gz" for i in range(len(parts))]
+    for archive_name, part in zip(names, parts):
+        with tarfile.open(output / archive_name, "w:gz") as archive:
+            for task in part:
+                archive.add(task, arcname=task.name)
     with (output / "items.jsonl").open("w", encoding="utf-8") as handle:     # local answer key, never uploaded
         for item in items:
             handle.write(json.dumps(item, ensure_ascii=False) + "\n")
     manifest = {"prompt_version": PROMPT_VERSION, "items": len(items), "tasks": len(task_paths),
-                "words": len(by_word), "kinds": dict(collections.Counter(i["kind"] for i in items)),
+                "words": len(by_word), "words_per_task": words_per_task, "max_task_bytes": max_task_bytes,
+                "archives": {name: len(part) for name, part in zip(names, parts)},
+                "kinds": dict(collections.Counter(i["kind"] for i in items)),
                 "source_groups": dict(collections.Counter(i["source_group"] for i in items)), **extra,
                 "sha256": {"pipeline": hashlib.sha256((ROOT / "flow/pipeline.py").read_bytes()).hexdigest(),
                            "flow": hashlib.sha256((ROOT / "flow/flow.py").read_bytes()).hexdigest(),

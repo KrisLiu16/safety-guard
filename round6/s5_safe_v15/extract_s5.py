@@ -8,26 +8,19 @@ from __future__ import annotations
 
 import argparse
 import collections
-import hashlib
 import json
 from pathlib import Path
-import subprocess
 import sys
 import tarfile
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
+sys.path.insert(0, str(ROOT.parent))
 from pipeline import PROMPT_VERSION, parse_json, response_text, size, stop_ok, validate  # noqa: E402
+from aster_io import collect_archives  # noqa: E402
 
 
-def cli(args):
-    process = subprocess.run(["aster", *args], capture_output=True, text=True)
-    envelope = json.loads(process.stdout or process.stderr)
-    if not envelope.get("ok"):
-        error = envelope.get("error", {})
-        raise RuntimeError(f"aster {' '.join(args[:2])}: {error.get('code')}: {error.get('message')}")
-    return envelope["data"]
 
 
 def revalidate(value):
@@ -95,30 +88,16 @@ def summarize(values):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("run")
+    parser.add_argument("runs", nargs="+", help="one or more run numbers (a job over 2,000 Tasks is split into several Runs)")
     parser.add_argument("--out", type=Path, required=True)
-    parser.add_argument("--attempts-json", type=Path,
-                        help="frozen listing from response_v14/freeze_attempts.py when the run has over 100 samples")
+    parser.add_argument("--attempts-json", type=Path, nargs="*", default=[],
+                        help="frozen listings from response_v14/freeze_attempts.py, one per run in the same order; "
+                             "needed for any run over 100 Tasks")
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
-    run = cli(["runs", "get", args.run])
-    listing = json.loads(args.attempts_json.read_text()) if args.attempts_json else cli(["runs", "attempts", args.run])
-    if listing.get("truncated"):
-        raise RuntimeError("attempt listing truncated; freeze it first (response_v14/freeze_attempts.py)")
-    archives_dir = args.out / "archives"
-    archives_dir.mkdir(exist_ok=True)
-    archives = []
-    for attempt in listing["items"]:
-        if attempt.get("state") != "completed" or not attempt.get("archive"):
-            continue
-        path = archives_dir / (attempt["attempt_id"] + ".tar.gz")
-        if not path.exists():
-            receipt = cli(["runs", "archive", args.run, attempt["attempt_id"], "--out", str(path)])
-            if hashlib.sha256(path.read_bytes()).hexdigest() != receipt["sha256"]:
-                raise RuntimeError("archive SHA mismatch " + attempt["attempt_id"])
-        archives.append(path)
+    archives, runs = collect_archives(args.runs, args.attempts_json, args.out / "archives")
     examples, words, summary = summarize(word_values(archives))
-    summary.update(run_no=run.get("run_no"), run_status=run.get("status"), archives=len(archives))
+    summary.update(runs=runs, archives=len(archives))
     for name, rows in (("examples.jsonl", examples), ("words.jsonl", words)):
         with (args.out / name).open("w", encoding="utf-8") as handle:
             for row in rows:

@@ -13,11 +13,12 @@ import hashlib
 import json
 from pathlib import Path
 import sys
-import tarfile
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
-from pipeline import LENGTHS, PROMPT_VERSION, SHAPES, SYSTEM_PROMPT, request_body, schema  # noqa: E402
+sys.path.insert(0, str(ROOT.parent))
+from pipeline import LENGTHS, PROMPT_VERSION, SHAPES, SYSTEM_PROMPT, schema  # noqa: E402
+from task_pack import screen_exclusions, write_generation_tasks  # noqa: E402
 
 DEFAULT_SEEDS = ROOT.parent / "response_v14/batch_rest/seeds.jsonl"
 DEFAULT_EXCLUDE = (ROOT.parent / "s2_v15/pilot/seeds.jsonl",)
@@ -35,10 +36,10 @@ def split_of(family):
     return "dev" if bucket < 3 else "calibration" if bucket < 6 else "train"
 
 
-def pick(seeds, words, exclude=frozenset()):
+def pick(seeds, words, exclude=frozenset(), exclude_words=frozenset()):
     by_group = collections.defaultdict(list)
     for seed in seeds:
-        if seed["task_key"] not in exclude:
+        if seed["task_key"] not in exclude and seed["word"] not in exclude_words:
             by_group[seed["source_group"]].append(seed)
     for rows in by_group.values():
         rows.sort(key=lambda s: number(f"{SALT}:{s['task_key']}"))
@@ -68,7 +69,10 @@ def main():
     parser.add_argument("--seeds", type=Path, default=DEFAULT_SEEDS)
     parser.add_argument("--exclude", type=Path, action="append", default=None,
                         help="seeds.jsonl files whose task_keys are skipped (default: the S2 pilot)")
+    parser.add_argument("--screen", type=Path, help="word screen screen.jsonl; words not judged `no` are left out")
     parser.add_argument("--words", type=int, default=40)
+    parser.add_argument("--words-per-task", type=int, default=1)
+    parser.add_argument("--name-prefix", default="s5safe-pilot")
     parser.add_argument("--output", type=Path, default=ROOT / "pilot")
     args = parser.parse_args()
     if args.output.exists():
@@ -76,31 +80,26 @@ def main():
     exclude = set()
     for path in args.exclude if args.exclude is not None else DEFAULT_EXCLUDE:
         if path.exists():
-            exclude.update(json.loads(line)["task_key"] for line in path.open(encoding="utf-8"))
-    seeds = [json.loads(line) for line in args.seeds.open(encoding="utf-8")]
-    chosen = plan(pick(seeds, args.words, frozenset(exclude)))
-    paths = []
-    for ordinal, seed in enumerate(chosen):
-        name = f"s5safe-pilot-{ordinal:03d}"
-        task = args.output / "tasks" / name
-        (task / "tests").mkdir(parents=True)
-        instruction = {"group_key": name, "source_group": seed["source_group"], "terms": [seed],
-                       "calls_per_term": 1, "prompt_version": PROMPT_VERSION}
-        (task / "instruction.md").write_text(json.dumps(instruction, ensure_ascii=False), encoding="utf-8")
-        (task / "task.toml").write_text(f'version = "1.0"\n\n[metadata]\nname = "{name}"\ncategory = "guard-data-generation"\n')
-        test = task / "tests/test.sh"
-        test.write_text("#!/bin/sh\nexit 1\n")
-        test.chmod(0o755)
-        paths.append(task)
-    with tarfile.open(args.output / "pilot.tar.gz", "w:gz") as archive:
-        for task in paths:
-            archive.add(task, arcname=task.name)
+            with path.open(encoding="utf-8") as handle:
+                exclude.update(json.loads(line)["task_key"] for line in handle)
+    with args.seeds.open(encoding="utf-8") as handle:
+        seeds = [json.loads(line) for line in handle]
+    exclude_words, unscreened = set(), 0
+    if args.screen:
+        exclude_words, screened = screen_exclusions(args.screen)
+        unscreened_words = {s["word"] for s in seeds} - screened
+        exclude_words |= unscreened_words          # never generate for a word the screen did not see
+        unscreened = len(unscreened_words)
+    chosen = plan(pick(seeds, args.words, frozenset(exclude), frozenset(exclude_words)))
+    packed = write_generation_tasks(chosen, args.output, args.name_prefix,
+                                    {"calls_per_term": 1, "prompt_version": PROMPT_VERSION}, args.words_per_task)
     with (args.output / "seeds.jsonl").open("w", encoding="utf-8") as handle:
         for seed in chosen:
-            handle.write(json.dumps(seed, ensure_ascii=False) + "\n")
+            handle.write(json.dumps({**seed, "group_key": packed["task_of"][seed["task_key"]]}, ensure_ascii=False) + "\n")
     digest = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
-    manifest = {"prompt_version": PROMPT_VERSION, "words": len(chosen), "tasks": len(paths),
-                "excluded_task_keys": len(exclude),
+    manifest = {"prompt_version": PROMPT_VERSION, "words": len(chosen), "tasks": packed["tasks"],
+                "words_per_task": args.words_per_task, "archives": packed["archives"],
+                "excluded_task_keys": len(exclude), "excluded_by_screen": len(exclude_words), "unscreened_words": unscreened,
                 "unsafe_prompt_language": dict(collections.Counter(s["prompts"]["unsafe"]["language"] for s in chosen)),
                 "shapes": dict(collections.Counter(s["shape"] for s in chosen)),
                 "lengths": dict(collections.Counter(s["length"] for s in chosen)),
@@ -111,8 +110,8 @@ def main():
                            "schema": hashlib.sha256(json.dumps(schema(), sort_keys=True).encode()).hexdigest(),
                            "system_prompt": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()}}
     (args.output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({k: manifest[k] for k in ("words", "tasks", "unsafe_prompt_language", "shapes", "splits")},
-                     ensure_ascii=False))
+    print(json.dumps({k: manifest[k] for k in ("words", "tasks", "archives", "excluded_by_screen", "unsafe_prompt_language",
+                                               "shapes", "lengths", "splits")}, ensure_ascii=False))
 
 
 if __name__ == "__main__":
