@@ -1,0 +1,48 @@
+{
+  "prompt_version": "guard-judge-domestic-v3",
+  "items": 433,
+  "tasks": 49,
+  "words": 49,
+  "kinds": {
+    "safe_whole": 98,
+    "safe_mid_prefix": 98,
+    "unsafe_before_onset": 63,
+    "unsafe_through_onset": 87,
+    "unsafe_whole": 87
+  },
+  "source_groups": {
+    "citizenlab/june-4": 20,
+    "permissive/其他词库.txt": 19,
+    "permissive/暴恐词库.txt": 13,
+    "permissive/新思想启蒙.txt": 9,
+    "citizenlab/wechat": 14,
+    "citizenlab/qqmail": 4,
+    "citizenlab/coronavirus": 10,
+    "permissive/民生词库.txt": 20,
+    "permissive/色情类型.txt": 20,
+    "permissive/色情词库.txt": 20,
+    "citizenlab/apple": 18,
+    "citizenlab/LINE": 17,
+    "permissive/补充词库.txt": 20,
+    "citizenlab/open-source": 17,
+    "permissive/贪腐词库.txt": 15,
+    "citizenlab/olympics": 18,
+    "citizenlab/microsoft-bing": 18,
+    "permissive/政治类型.txt": 15,
+    "permissive/涉枪涉爆.txt": 20,
+    "citizenlab/livestream": 18,
+    "permissive/GFW补充词库.txt": 15,
+    "citizenlab/search": 20,
+    "citizenlab/SVP": 17,
+    "permissive/网易前端过滤敏感词库.txt": 18,
+    "citizenlab/TOM-Skype--Sina-UC": 20,
+    "citizenlab/chinese-games": 18
+  },
+  "source": "/Users/liuzhihao/Work/safety-guard/round6/response_v14/pilot/extracted/examples.jsonl",
+  "sha256": {
+    "pipeline": "d50c00a195f58deea1413ac3ca73325fc64aa2cdcfc1ef5aab51597fb0031a22",
+    "flow": "5f928ab79ac9e97b27b074ca4dbdc4943693b571023297bc0ea4a595d40a16bd",
+    "taxonomy": "e29bf17ab6b3d34a20ad020493abab45b33e17791a36ce548f4d331a8739a297",
+    "system_prompt": "63c5c510e073459762469e62ac4d4821e998d09b1a96bbc969a6508126bbbc66"
+  }
+}
