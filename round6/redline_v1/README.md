@@ -46,6 +46,18 @@ T020 的人工核对：剔除口径待定的样本后，Run A 91%、prefix_v2 10
 
 提问也按同一份红线清单判（用户定稿），分档由用户按设计方建议定下：提问写出违规内容或请求生成红线内容为“风险”；引用违规原话、问违规词的意思为“有争议”；只问话题或请求辟谣（不引原话）为“安全”。`make_tasks.py --target user` 给每个不同的提问建一条任务（Run A 的编号是 `<task_key>:prompt:<label>`，与 T023 的用户头缓存一致）；flow 在提问上做同样的两级二分；`apply_policy.py --target user` 定标签，可带词表预筛。回答侧的裁判提示词逐字不变。
 
+## 政治专项（T026）
+
+用户 2026-09-25 决定对政治敏感词和话题做专项加强（口径见 [round6/political_screen_v1/README.md](../political_screen_v1/README.md)）。本目录的改动：
+- 规则表新增开关 `leader_variant`、`political_event`、`political_figure`、`political_org`，默认都是 controversial。裁判标为变体写法的 R1 条目（意思明确或不明确都算）标“有争议”；正式姓名的新闻报道仍是安全，负面评价仍是风险。规则表摘要因此变了，已上传的旧 Task 数据集不能再用新 flow 重跑（也不需要）。
+- `apply_policy.py`：
+  - 所有按词改标签的规则共用 `raise_from()`：从词第一次出现处起，把前缀提到至少某一档；词之前保留裁判的等级，词内部不训练，等级定不下来的位置不硬造；
+  - Run A 种子词被 T012 判为 evasion / unsure 时，先去掉裁判的领导人侮辱称呼，再从词起标“有争议”（原来降为安全）；
+  - `--political-terms`：政治预筛的词在每条文本里原样匹配（带 ambiguous 的词只在裁判记了政治类红线时才算，最高到“有争议”）；
+  - 只要给了 `--source` 就检查它是否覆盖了 99% 以上的探针编号，文本长度对不上的条目不套用按词规则，并在 `texts.length_mismatch` 里计数；
+  - `summary.json` 新增 `political_table`、`political_rows`、`political_overrides`、`political_raised_from_stratum`（原来是 normal 分层、被专项规则改标的条数，是核对的重点），`switch_sensitivity` 新增 `leader_variant`。
+- `review_sample.py --only-rule political`：只抽专项规则起了作用的条目，按“原分层:原标签→新标签”分组，并在原文里用 ⟦P⟧…⟦P|⟧ 标出命中的词。
+
 ## 文件
 
 | 文件 | 在哪跑 | 作用 |
@@ -60,7 +72,7 @@ T020 的人工核对：剔除口径待定的样本后，Run A 91%、prefix_v2 10
 | `compare_judges.py` | Mac | 两个裁判在同一批回答上的标签一致率、截断一致率和起点偏移（各自单独 `apply_policy.py` 后比较） |
 | `export_prefix_v2.py` | 集群或 Mac | 把第五轮 prefix_v2 的助手侧记录导出成 v14 格式的行，原样保留 messages；输出含数据集原文，不提交 |
 | `review_sample.py` | Mac | 按“旧标签 → 新标签”分层抽样，生成本地人工核对表（在原文里标出起点分句）；输出在 `review/` 下，已加入 .gitignore，不提交 |
-| `test_redline_cpu.py` | Mac | 28 项 CPU 单测，含一个用假模型跑通 flow、抽取和重算的端到端测试 |
+| `test_redline_cpu.py` | Mac | 35 项 CPU 单测，含一个用假模型跑通 flow、抽取和重算的端到端测试 |
 
 ## 还没做的
 

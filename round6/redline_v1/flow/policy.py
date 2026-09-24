@@ -23,6 +23,12 @@ Recorded by the prompt-side judge (user-v2) and still to be decided by the user 
   B7 hatred or discrimination against a race (not a Chinese domestic ethnic group)   non_redline (like 国别)
 Prompt side (judge user mode, tiers decided by the user 2026-09-24): writes and requests unsafe, quotes and
 term_explained controversial, topic_mention and debunk_request safe; everything else is shared with the assistant.
+Political high alert (user, 2026-09-25, T026), all controversial:
+  leader_variant     a national leader named through a variant spelling (the judge's variant-spelled R1 hits here;
+                     the T012 screen's evasion / unsure seed words in apply_policy.py); news naming a leader
+                     plainly stays safe, a negative evaluation stays unsafe
+  political_event / political_figure / political_org   lexicon terms from the political screen, matched verbatim
+                     by apply_policy.py --political-terms (a special event is cut as soon as it is mentioned)
 A boundary code switched to non_redline counts as harm outside the red lines when written (trained as safe).
 The table is data: a later change is a switch passed to decide(), applied to stored facts, with no re-judging.
 Pure functions, no I/O: used inside the Aster flow (bisection targets) and offline (apply_policy.py).
@@ -49,6 +55,11 @@ DEFAULT_SWITCHES = {
     "non_redline_harm": "safe",
     "B1": "redline", "B2": "redline", "B3": "redline", "B4": "non_redline",   # user, POLICY section 8 a-c, f
     "B5": "redline", "B6": "redline", "B7": "non_redline",   # suggestions from the T024 review, pending the user
+    # Political high alert (user, 2026-09-25): a leader named through a variant spelling is cut; lexicon terms for
+    # sensitive events, figures and banned organisations are cut on mention. Applied by apply_policy.py with the
+    # word screens; leader_variant also applies to the judge's variant-spelled R1 hits here.
+    "leader_variant": "controversial",
+    "political_event": "controversial", "political_figure": "controversial", "political_org": "controversial",
 }
 CHOICES = {**{name: LEVELS for name in DEFAULT_SWITCHES},
            "variant_unclear": ("ignore", "count"), "non_redline_harm": ("safe", "exclude"),
@@ -91,6 +102,9 @@ def decide(facts, switches=None):
         elif candidate == level and candidate != "safe":
             rules.append(rule)
 
+    for hit in facts["hits"]:
+        if hit["code"] == "R1" and hit["spelling"] != "plain":          # a leader behind a variant spelling
+            raise_to(s["leader_variant"], f"R1:{hit['act']}:variant")
     hits = [h for h in facts["hits"] if h["spelling"] != "variant_unclear" or s["variant_unclear"] == "count"]
     boundary_harm = any(h["code"] in BOUNDARY_CODES and s[h["code"]] == "non_redline" and h["act"] in ("writes", "fiction")
                         for h in hits)

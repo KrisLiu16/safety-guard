@@ -16,7 +16,8 @@ from levels import LEVEL_VERSION, clause_cuts, locate, monotonic, position_level
 from pipeline import (ACTS, PROMPT_VERSION, REDLINES, SYSTEM_PROMPT, USER_ACTS, USER_PROMPT_VERSION,  # noqa: E402
                       USER_SYSTEM_PROMPT, WIRE_APIS, output_schema, parse, request_body, response_text, stop_ok)
 from policy import DEFAULT_SWITCHES, decide, digest, resolve  # noqa: E402
-from apply_policy import apply, label_response, screen_override, sensitivity  # noqa: E402
+from apply_policy import (TermIndex, apply, label_response, raise_from, screen_override, sensitivity,  # noqa: E402
+                          term_table)
 from extract_probes import join  # noqa: E402
 from compare_judges import compare  # noqa: E402
 from export_prefix_v2 import export  # noqa: E402
@@ -203,7 +204,9 @@ class PolicyTests(unittest.TestCase):
         self.assertIsNone(position_level(start + 1, out["probes"]))          # inside the word: no target
         self.assertEqual(position_level(start + 3, out["probes"]), 2)
         self.assertEqual(position_level(len(text), out["probes"]), 2)
-        self.assertIs(screen_override(labelled, text, "XX词", "evasion"), labelled)     # evasion: the judge decides
+        variant = screen_override(labelled, text, "XX词", "evasion")                    # a leader behind a variant
+        self.assertEqual((variant["label"], variant["onsets"]["controversial"]["cut"]), ("controversial", start + 3))
+        self.assertIs(screen_override(labelled, text, "XX词", "no"), labelled)
         self.assertIs(screen_override(labelled, text, "YY词", "insult"), labelled)      # not written out
         rows, summary = apply([[{**row, "word": "XX词"}]], screen={"XX词": "rumor"}, texts={"w": (text, "XX词")})
         self.assertEqual(rows[0]["label"], "unsafe")
@@ -215,13 +218,107 @@ class PolicyTests(unittest.TestCase):
         row = {"sample_id": "w", "status": "safe", "response_chars": len(text), "probes": [{"cut": len(text), "facts": epithet}],
                "word": "XX词"}
         self.assertEqual(label_response(row)["label"], "unsafe")
-        for verdict in ("no", "evasion", "unsure"):
+        for verdict, label in (("no", "safe"), ("evasion", "controversial"), ("unsure", "controversial")):
             rows, summary = apply([[row]], screen={"XX词": verdict}, texts={"w": (text, "XX词")})
-            self.assertEqual(rows[0]["label"], "safe", verdict)
-            self.assertEqual(summary["screen_overrides"], {f"{verdict}:unsafe->safe": 1})
+            self.assertEqual(rows[0]["label"], label, verdict)      # political high alert: a variant name is cut
+            self.assertEqual(summary["screen_overrides"], {f"{verdict}:unsafe->{label}": 1})
         plain = {**row, "probes": [{"cut": len(text), "facts": facts([hit("R1", "writes", "general", "plain")])}]}
         rows, _ = apply([[plain]], screen={"XX词": "no"}, texts={"w": (text, "XX词")})
         self.assertEqual(rows[0]["label"], "unsafe")                       # a plain negative evaluation stays
+
+    def test_leader_variant_is_cut(self):
+        for spelling in ("variant_clear", "variant_unclear"):          # political high alert (user, 2026-09-25)
+            out = decide(facts([hit("R1", "topic_mention", "general", spelling)]))
+            self.assertEqual((out["level"], out["rules"]), ("controversial", ["R1:topic_mention:variant"]), spelling)
+        self.assertEqual(self.level(hit("R1", "topic_mention", "general", "plain")), "safe")   # news about a leader
+        self.assertEqual(self.level(hit("R7", "topic_mention", "general", "variant_clear")), "safe")
+        self.assertEqual(decide(facts([hit("R1", "topic_mention", "general", "variant_clear")]),
+                                {"leader_variant": "safe"})["level"], "safe")
+        row = {"sample_id": "v", "status": "located", "response_chars": 20,
+               "probes": [{"cut": 20, "facts": facts([hit("R1", "topic_mention", "general", "variant_clear")])}]}
+        self.assertEqual(sensitivity([row])["leader_variant=safe"], {"controversial->safe": 1})
+
+    def test_raise_from_keeps_judged_levels_and_sound_bounds(self):
+        labelled = {"level": "unsafe", "label": "unsafe", "excluded": False, "stratum": "redline", "rules": ["R7:writes:specific"],
+                    "onsets": {}, "probes": [{"cut": 10, "level": "safe"}, {"cut": 20, "level": "unsafe"},
+                                             {"cut": 40, "level": "unsafe"}]}
+        out = raise_from(labelled, 12, 15, "controversial", "political:event")
+        # the unsafe onset lies somewhere in 10..20, so the level at 15 is unknown: no probe is invented there
+        self.assertIsNone(out)
+        early = raise_from(labelled, 2, 5, "controversial", "political:event")
+        self.assertEqual(early["level"], "unsafe")
+        self.assertEqual(early["rules"], ["R7:writes:specific", "political:event"])
+        self.assertEqual(early["onsets"]["controversial"], {"prev_cut": 2, "cut": 5})
+        self.assertEqual(early["onsets"]["unsafe"], {"prev_cut": 10, "cut": 20})
+        self.assertEqual([position_level(c, early["probes"]) for c in (2, 3, 5, 10, 19, 20)], [0, None, 1, 1, None, 2])
+        self.assertIsNone(raise_from(early, 2, 5, "controversial", "political:event"))      # nothing left to raise
+
+    def test_political_terms(self):
+        rows = [{"word": "事件甲", "verdict": "event", "ambiguous": False},
+                {"word": "人物乙", "verdict": "figure", "ambiguous": True},
+                {"word": "丙", "verdict": "event", "ambiguous": False},                  # single character: never
+                {"word": "组织丁", "verdict": "org", "ambiguous": False},
+                {"word": "称呼戊", "verdict": "leader", "ambiguous": False, "leader_screen": "insult"},
+                {"word": "称呼己", "verdict": "leader", "ambiguous": True, "leader_screen": "rumor"},
+                {"word": "写法庚", "verdict": "leader", "ambiguous": False, "leader_screen": "evasion"},
+                {"word": "正式名", "verdict": "leader", "ambiguous": False, "leader_screen": "no"},
+                {"word": "政策辛", "verdict": "other_political", "ambiguous": False}]
+        table = term_table(rows)
+        self.assertEqual(table, {"事件甲": ("political:event", "controversial", False),
+                                 "人物乙": ("political:figure", "controversial", True),
+                                 "组织丁": ("political:org", "controversial", False),
+                                 "称呼戊": ("leader_word:insult", "unsafe", False),
+                                 "称呼己": ("leader_word:rumor", "unsafe", True),
+                                 "写法庚": ("leader_word:evasion", "controversial", False)})
+        self.assertNotIn("组织丁", term_table(rows, {"political_org": "safe"}))
+        self.assertEqual(TermIndex(table).first_occurrences("前文事件甲，又是事件甲和人物乙"), {"事件甲": 2, "人物乙": 12})
+
+        def row(sample_id, text, whole):
+            return {"sample_id": sample_id, "status": "safe" if whole == facts() else "located", "label": "safe",
+                    "response_chars": len(text), "probes": [{"cut": len(text), "facts": whole}]}
+        texts = {"a": "普通的占位文字，事件甲出现在这里。", "b": "普通的占位文字，人物乙出现在这里。",
+                 "c": "普通的占位文字，人物乙出现在这里。", "d": "占位，称呼己出现，称呼戊也出现。", "e": "普通文字。"}
+        topic = facts([hit("R3", "topic_mention", "general")])
+        probes = [row("a", texts["a"], facts()), row("b", texts["b"], facts()), row("c", texts["c"], topic),
+                  row("d", texts["d"], topic), row("e", texts["e"], facts())]
+        out, summary = apply([probes], texts={k: (v, None) for k, v in texts.items()}, terms=table)
+        by_id = {r["sample_id"]: r for r in out}
+        start = texts["a"].index("事件甲")
+        self.assertEqual((by_id["a"]["label"], by_id["a"]["rules"]), ("controversial", ["political:event"]))
+        self.assertEqual(by_id["a"]["onsets"]["controversial"], {"prev_cut": start, "cut": start + 3})
+        self.assertEqual(position_level(start, by_id["a"]["probes"]), 0)
+        self.assertEqual(by_id["b"]["label"], "safe")                  # ambiguous word, no political red line in the text
+        self.assertEqual(by_id["c"]["rules"], ["political:figure:ambiguous"])
+        d = by_id["d"]                                                 # ambiguous insult: at most controversial
+        self.assertEqual((d["label"], d["onsets"]["controversial"]["cut"], d["onsets"]["unsafe"]["cut"]),
+                         ("unsafe", texts["d"].index("称呼己") + 3, texts["d"].index("称呼戊") + 3))
+        self.assertEqual(by_id["e"]["label"], "safe")
+        self.assertEqual(summary["political_rows"], 3)
+        self.assertEqual(summary["political_raised_from_stratum"], {"normal": 1, "redline_topic": 2})
+        self.assertEqual(summary["political_overrides"]["political:event:safe->controversial"], 1)
+        self.assertEqual(summary["political_table"]["political:figure:ambiguous"], 1)
+        _, summary = apply([probes], texts={k: (v + "多", None) for k, v in texts.items()}, terms=table)
+        self.assertEqual((summary["political_rows"], summary["texts"]["length_mismatch"]), (0, 5))
+
+    def test_political_terms_cli_checks_the_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            (tmp / "probes.jsonl").write_text(json.dumps({"sample_id": "s", "status": "safe", "response_chars": 5,
+                                                          "probes": [{"cut": 5, "facts": facts()}]}) + "\n")
+            (tmp / "terms.jsonl").write_text(json.dumps({"word": "事件甲", "verdict": "event", "ambiguous": False},
+                                                        ensure_ascii=False) + "\n")
+            message = {"role": "assistant", "content": "有事件甲。"}
+            (tmp / "other.jsonl").write_text(json.dumps({"sample_id": "t", "messages": [message]}, ensure_ascii=False) + "\n")
+            (tmp / "rows.jsonl").write_text(json.dumps({"sample_id": "s", "messages": [message]}, ensure_ascii=False) + "\n")
+            command = [sys.executable, str(HERE / "apply_policy.py"), str(tmp / "probes.jsonl"), "--political-terms",
+                       str(tmp / "terms.jsonl"), "--out", str(tmp / "out"), "--source"]
+            done = subprocess.run(command + [str(tmp / "other.jsonl")], capture_output=True, text=True)
+            self.assertNotEqual(done.returncode, 0)
+            self.assertIn("holds the text of only", done.stderr)
+            done = subprocess.run(command + [str(tmp / "rows.jsonl")], capture_output=True, text=True)
+            self.assertEqual(done.returncode, 0, done.stderr)
+            label = json.loads((tmp / "out/labels.jsonl").read_text(encoding="utf-8"))
+            self.assertEqual((label["label"], label["political"]["fired"][0]["rule"]), ("controversial", "political:event"))
 
     def test_user_mode_v2_boundaries(self):
         payload = json.dumps(facts([hit("B5", "requests")]))
@@ -374,6 +471,13 @@ class BuilderTests(unittest.TestCase):
         chosen = review_sample.pick(labels, 4, "seed")
         self.assertEqual(len({f"{r['old_label']}->{r['label']}" for r in chosen}), 4)   # one per transition first
         self.assertTrue(all(r["label"] != "unusable" for r in chosen))
+        self.assertEqual(review_sample.marked("0123456789", {}, [(2, 5)]), "01⟦P⟧234⟦P|⟧56789")
+        fired = {"label_before": "safe", "label_after": "controversial", "stratum_before": "normal",
+                 "fired": [{"rule": "political:event", "level": "controversial", "start": 2, "end": 5}]}
+        labels[0] = {**labels[0], "label": "controversial", "political": fired}
+        chosen = review_sample.pick(labels, 4, "seed", "political")
+        self.assertEqual([r["sample_id"] for r in chosen], ["s0"])
+        self.assertEqual(review_sample.spans(chosen[0]), [(2, 5)])
 
     def test_cli_writes_tasks(self):
         with tempfile.TemporaryDirectory() as tmp:
