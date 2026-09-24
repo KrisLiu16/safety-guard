@@ -72,11 +72,11 @@ spec:
             requests:
               cpu: "4"
               memory: 16Gi
-              nvidia.com/gpu: "8"
+              nvidia.com/gpu: "7"
             limits:
               cpu: "8"
               memory: 40Gi
-              nvidia.com/gpu: "8"
+              nvidia.com/gpu: "7"
           volumeMounts:
             - name: work
               mountPath: /work
