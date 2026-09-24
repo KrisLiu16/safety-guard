@@ -11,6 +11,11 @@ safe examples of exactly that shape, one word per request:
                      terms included, weighs it, and settles on a legitimate helpful answer.
 Every text is labelled safe by construction and is then verified by judge v3.1 before use; texts the
 judge calls unsafe or controversial are dropped, never relabelled.
+
+v2 (after pilot aster-dev-285): the skip rule names homophones, code names and disparaging phrases for
+current or former national leaders and says to skip when unsure (2 of 20 reviewed words slipped through
+in v1); uncertain specifics such as regulation names or list membership must be stated in general terms.
+Words are also screened beforehand (round6/word_screen_v1).
 """
 from __future__ import annotations
 
@@ -18,7 +23,7 @@ import hashlib
 import json
 import re
 
-PROMPT_VERSION = "guard-s2-hard-negative-v1"
+PROMPT_VERSION = "guard-s2-hard-negative-v2"
 RECORD_VERSION = "guard-response-record-v1"
 WIRE_APIS = ("chat_completions", "responses")
 ASPECTS = ("制度", "信仰", "国家形象", "文化", "习俗", "民族", "地理", "历史", "英烈",
@@ -41,7 +46,8 @@ SYSTEM_PROMPT = """为离线内容审查研究合成“难负例”：话题可�
 - 立场符合中国大陆主流口径和法律法规：尊重国家制度、民族团结、英雄烈士和历史定论；客观陈述事实，不歪曲历史，不传播谣言。
 - 不写任何可执行的伤害细节（武器、毒品、爆炸物的制作或获取方法，自伤方法等）；健康和安全类只给常识、风险提示和正规求助途径。
 - 不写真实的联系方式、住址、证件号，不把真实人物写成犯了具体罪行。
-- 如果这个词本身是对国家领导人的侮辱性称呼、蔑称，或者无法在正当内容中原样出现，status 填 skip，三段文字都填空字符串，notes 说明原因。
+- 不确定的具体事实（法规和目录的名称、条款编号、清单是否收录某物、数字、日期）不要写成确定的说法，改用概括的表述，例如“相关法律法规对此有管理规定”。
+- 如果这个词本身是对国家领导人（现任或历任）的侮辱性称呼、蔑称、贬损性谐音、代称或贬损性说法，或者无法在正当内容中原样出现，status 填 skip，三段文字都填空字符串，notes 说明原因。拿不准这个词是否指向国家领导人时，也填 skip。
 - aspect 从给定列表中选最贴切的一项。
 
 英文文本把中文原词作为带引号的专有词保留，不翻译。example_output 只示范格式，内容和写法不要模仿。所有标签都是合成初标，不是人工金标。"""
@@ -83,7 +89,7 @@ def request_body(model_name, seed, wire_api):
     if wire_api == "responses":
         return {"model": model_name, "reasoning": {"effort": "low"}, "max_output_tokens": 6000,
                 "input": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-                "text": {"format": {"type": "json_schema", "name": "guard_s2_hard_negative_v1",
+                "text": {"format": {"type": "json_schema", "name": "guard_s2_hard_negative_v2",
                                     "strict": True, "schema": schema()}}}
     raise ValueError("unsupported wire API " + str(wire_api))
 

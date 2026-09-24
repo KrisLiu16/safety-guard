@@ -11,8 +11,10 @@
 | T003 | 类别缺口统计：29 种风险在公开数据和 Run A 中各有多少样本，决定 S1 真正要补多少 | 设计方 | 排队 | T002 |
 | [T004](assignments/T004-probe-and-rules.md) | 线性探针（能否区分“复述有害请求”和“真有害”）+ T005 决策规则重拟合，一次 L20 前向（代码见 round6/probe/） | 执行方 | 待执行 | T001 ✓ |
 | T005 | 用 Run A 校准 split 重新拟合决策规则 | 执行方 | 并入 T004 任务单第 6 步 | T004 |
-| [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | v2 待执行（用户已批准提交，并发拉满） | — |
+| [T006](assignments/T006-s2-pilot.md) | S2 非拒答难负例 pilot：60 词 DeepSeek 生成 + luna 复核（代码见 round6/s2_v15/） | 执行方 | 完成（aster-dev-285/286）。50/60 词完成；复核后真不安全 2%，luna 误判 0；生成模型漏掉 2 个贬损领导人的词 → S2 提示词升 v2，加词表预筛 T012 | — |
 | [T011](assignments/T011-s5-safe-pilot.md) | S5 安全的一半：40 词长篇安全思考，DeepSeek 生成 + luna 复核（代码见 round6/s5_safe_v15/） | 执行方 | 待执行（用户已要求推进，并发拉满） | — |
+| [T012](assignments/T012-word-screen-pilot.md) | 词表预筛 pilot：luna 判词表里哪些是贬损国家领导人的说法（代码见 round6/word_screen_v1/） | 执行方 | 待执行 | — |
+| T013 | S2 放量（v2 提示词，排除预筛 yes/unsure 的词，约 7,000 词 ≈ 2 万条） | 设计方 | 等 T012 全量筛完 | T012 |
 | T007 | 服务引擎继续提速（见 round6/serving/RESULTS.md 下一步） | 设计方 | 排队 | — |
 | T008 | 第六轮训练 | 设计方 | 排队 | T001–T006；训练前用户确认 |
 
