@@ -1,0 +1,105 @@
+{
+  "runs": [
+    {
+      "run_no": "aster-dev-359",
+      "status": "completed"
+    }
+  ],
+  "archives": 1705,
+  "words": 340638,
+  "batch_errors": {
+    "word_changed": 43,
+    "missing": 43,
+    "bad_index": 2,
+    "request": 1
+  },
+  "words_without_verdict": 245,
+  "passes": {
+    "p1": 340638
+  },
+  "verdicts": {
+    "no": 289583,
+    "leader": 10787,
+    "org": 1817,
+    "other_political": 20233,
+    "unsure": 6079,
+    "event": 8621,
+    "figure": 3518
+  },
+  "ambiguous_by_verdict": {
+    "no": 132069,
+    "org": 182,
+    "other_political": 6674,
+    "unsure": 5327,
+    "leader": 1639,
+    "figure": 1109,
+    "event": 1475
+  },
+  "leader_screen_by_verdict": {
+    "event": {
+      "no": 8344,
+      "unsure": 138,
+      "rumor": 121,
+      "insult": 13,
+      "evasion": 5
+    },
+    "figure": {
+      "no": 2999,
+      "unsure": 148,
+      "evasion": 58,
+      "rumor": 268,
+      "insult": 45
+    },
+    "leader": {
+      "rumor": 2201,
+      "evasion": 1346,
+      "no": 2016,
+      "unsure": 3391,
+      "insult": 1833
+    },
+    "no": {
+      "no": 283070,
+      "unsure": 3979,
+      "evasion": 1808,
+      "insult": 577,
+      "rumor": 149
+    },
+    "org": {
+      "no": 1796,
+      "unsure": 14,
+      "rumor": 6,
+      "insult": 1
+    },
+    "other_political": {
+      "no": 19585,
+      "unsure": 368,
+      "rumor": 207,
+      "insult": 50,
+      "evasion": 23
+    },
+    "unsure": {
+      "no": 5281,
+      "unsure": 585,
+      "rumor": 56,
+      "evasion": 106,
+      "insult": 51
+    }
+  },
+  "matched_as": {
+    "event": 7146,
+    "event:ambiguous": 1475,
+    "figure": 2409,
+    "figure:ambiguous": 1109,
+    "leader_evasion": 1074,
+    "leader_evasion:ambiguous": 271,
+    "leader_insult": 1606,
+    "leader_insult:ambiguous": 226,
+    "leader_rumor": 2080,
+    "leader_rumor:ambiguous": 121,
+    "leader_unsure": 2688,
+    "leader_unsure:ambiguous": 700,
+    "org": 1635,
+    "org:ambiguous": 182
+  },
+  "confirm_words": 37983
+}
