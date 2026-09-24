@@ -1,0 +1,166 @@
+{
+  "version": "round6-stage1-head-v2-redline",
+  "device": "cuda",
+  "role": "assistant",
+  "init_sha256": "166f6432a25bba3100ae75f0b2ce7ffaa1c63d86340a5e08b450c589e11043e2",
+  "calibration_score": "cut",
+  "sources_left_out": [
+    "s2",
+    "s5"
+  ],
+  "train_positions": {
+    "prefix_v2": 321367,
+    "runA": 660365
+  },
+  "train_positions_by_class": {
+    "prefix_v2": {
+      "0": 305811,
+      "1": 10154,
+      "2": 5402
+    },
+    "runA": {
+      "0": 607306,
+      "1": 27116,
+      "2": 25943
+    }
+  },
+  "calibration_positions": {
+    "prefix_v2": 2938,
+    "runA": 104215
+  },
+  "settings": {
+    "variants": "risk,full",
+    "sources": "prefix_v2,runA,s2,s5",
+    "mix": {
+      "prefix_v2": 1.0,
+      "runA": 1.0,
+      "s2": 0.5,
+      "s5": 0.5
+    },
+    "epochs": 4,
+    "lr": 0.001,
+    "l2_to_init": 0.0001,
+    "batch": 4096,
+    "no_class_balance": false,
+    "seed": 0,
+    "labels3": "/work/output/round6/stage1_labels3_v2",
+    "role": "assistant"
+  },
+  "dev_read": false,
+  "variants": {
+    "risk": {
+      "chosen_epoch": 4,
+      "chosen_calibration_mean_auc": 0.7931937073419394,
+      "history": [
+        {
+          "epoch": 0,
+          "calibration_auc": {
+            "prefix_v2": 0.6866609046384328,
+            "runA": 0.5115312093836286
+          },
+          "mean": 0.5990960570110306
+        },
+        {
+          "epoch": 1,
+          "train_loss": 1.0203274564698295,
+          "calibration_auc": {
+            "prefix_v2": 0.7687986171132238,
+            "runA": 0.7630141929314567
+          },
+          "mean": 0.7659064050223403
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.7804582319161317,
+          "calibration_auc": {
+            "prefix_v2": 0.7860847018150389,
+            "runA": 0.7779137014568601
+          },
+          "mean": 0.7819992016359495
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.7554636886048023,
+          "calibration_auc": {
+            "prefix_v2": 0.7918467300489772,
+            "runA": 0.7878850719565772
+          },
+          "mean": 0.7898659010027772
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.742693532134826,
+          "calibration_auc": {
+            "prefix_v2": 0.7943532123307404,
+            "runA": 0.7920342023531384
+          },
+          "mean": 0.7931937073419394
+        }
+      ],
+      "weights_sha256": "81100f848e5b4b931a0802252eea6afcd7c350329a5b3ba0ef1ee83fc3b93747",
+      "changed_keys": [
+        "risk.weight",
+        "risk.bias"
+      ]
+    },
+    "full": {
+      "chosen_epoch": 4,
+      "chosen_calibration_mean_auc": 0.8650171674138725,
+      "history": [
+        {
+          "epoch": 0,
+          "calibration_auc": {
+            "prefix_v2": 0.6866897147796024,
+            "runA": 0.5115310346246126
+          },
+          "mean": 0.5991103747021075
+        },
+        {
+          "epoch": 1,
+          "train_loss": 0.7809128170223585,
+          "calibration_auc": {
+            "prefix_v2": 0.8430423509075194,
+            "runA": 0.8332936268585275
+          },
+          "mean": 0.8381679888830235
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.6458540339465887,
+          "calibration_auc": {
+            "prefix_v2": 0.8558628637280322,
+            "runA": 0.8510149925158869
+          },
+          "mean": 0.8534389281219595
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.6069574660735915,
+          "calibration_auc": {
+            "prefix_v2": 0.8655430711610487,
+            "runA": 0.8596013653150525
+          },
+          "mean": 0.8625722182380506
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.5782801187062269,
+          "calibration_auc": {
+            "prefix_v2": 0.8659752232785941,
+            "runA": 0.8640591115491508
+          },
+          "mean": 0.8650171674138725
+        }
+      ],
+      "weights_sha256": "add8645c3e5b09c1b938711da83a1e8c722870980b2388b6e9c334a4901d5cf1",
+      "changed_keys": [
+        "projection.0.weight",
+        "projection.0.bias",
+        "projection.1.weight",
+        "projection.1.bias",
+        "risk.weight",
+        "risk.bias"
+      ]
+    }
+  }
+}

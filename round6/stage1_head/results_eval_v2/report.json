@@ -1,0 +1,84 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_stage1_eval_v1",
+  "role": "assistant",
+  "script_sha256": "19c00df6b5d6e0d9c61eaa5dee8f8bb1805aacaee67d4eae4eca2001b030088c",
+  "official_used_for_fitting": false,
+  "generated_tokens": 0,
+  "variants": {
+    "init": {
+      "weights_sha256": "166f6432a25bba3100ae75f0b2ce7ffaa1c63d86340a5e08b450c589e11043e2",
+      "counts": {
+        "runA_calibration": 5052,
+        "runA_skipped": 4,
+        "runA_dev": 5188,
+        "prefix_v2_calibration": 600,
+        "prefix_v2_dev": 800,
+        "official_unique_sequences": 1872
+      },
+      "files": {
+        "official_rows.jsonl.gz": "06c9d753f5477470d33e9d78d6b715f04e8a3d8034db1cf724b087691aa1269e",
+        "official_sequences.jsonl.gz": "ac34d1c58b8abba591a560d6d33e97891bb4593d38f737b6b353974316558e9e",
+        "prefix_v2_calibration.jsonl.gz": "02bdff2f941646f519034207bf7a694306f2791a7905b0a46c254bcfebebb789",
+        "prefix_v2_dev.jsonl.gz": "62bab81cd569317a689f5d21b1addb0e81126d102f8a819c9b459149c2b78c16",
+        "runA_calibration.jsonl.gz": "6eefb9b106ee4de04542c3ffbb53be7462d692cbb26ff78ecff326374fbaadbc",
+        "runA_dev.jsonl.gz": "55d173ea85d15b5ac0942a2d1551dc8bdd6acb74b2b38b9d27fc2dd9e0cfa60a"
+      }
+    },
+    "risk": {
+      "weights_sha256": "81100f848e5b4b931a0802252eea6afcd7c350329a5b3ba0ef1ee83fc3b93747",
+      "counts": {
+        "runA_calibration": 5052,
+        "runA_skipped": 4,
+        "runA_dev": 5188,
+        "prefix_v2_calibration": 600,
+        "prefix_v2_dev": 800,
+        "official_unique_sequences": 1872
+      },
+      "files": {
+        "official_rows.jsonl.gz": "aed4a22c36f893f77a53e915f313aed0bc6185d0717bb922e4e87e3c47f9c7f2",
+        "official_sequences.jsonl.gz": "790489e9673722ee112e326755a06602fdd3bcbfd50c8740bb4d2fac92f05510",
+        "prefix_v2_calibration.jsonl.gz": "266a9deaad76c78b5a4ee3b6d8a7de9dbb4edfa0f2e8dbbb3045a8a1ba748e02",
+        "prefix_v2_dev.jsonl.gz": "809829170d151727d1db561740a50562758d964d71f3780d87b965c00add9b12",
+        "runA_calibration.jsonl.gz": "ca7764b420ba7d4a8df855d6c74b30806b88712273cea6110116a6ae032a22e3",
+        "runA_dev.jsonl.gz": "ff96b8c19488ed50c41b4ecb75211c7730e04c096960651afb98f315064e9184"
+      }
+    },
+    "full": {
+      "weights_sha256": "add8645c3e5b09c1b938711da83a1e8c722870980b2388b6e9c334a4901d5cf1",
+      "counts": {
+        "runA_calibration": 5052,
+        "runA_skipped": 4,
+        "runA_dev": 5188,
+        "prefix_v2_calibration": 600,
+        "prefix_v2_dev": 800,
+        "official_unique_sequences": 1872
+      },
+      "files": {
+        "official_rows.jsonl.gz": "bbe52197dffa6a40b32c8c0bbabeeb68b43506de4fe26efbee1384c3b8a57423",
+        "official_sequences.jsonl.gz": "570fd21252060e12e8eb53dfbe7efe73aaa7f1e857dd4f9e1fc344f59ce71081",
+        "prefix_v2_calibration.jsonl.gz": "23ac93210150fa33a3ab70c73f8bba86773e7de9f60b2e37fc33ca8ccaa701b5",
+        "prefix_v2_dev.jsonl.gz": "327bb8f4587ef00d1e459346865f3ea3886a9a3563c5633c9049528faaedc76d",
+        "runA_calibration.jsonl.gz": "dbaa10e48959ade90beb4977ca7e3e603e1406a4e8b23a1f7e2a1f9afe731eb3",
+        "runA_dev.jsonl.gz": "fc602fe30ca68ec7559c83f9a1a5b188b87455288ae8a3cc99e4b907a584bb17"
+      }
+    }
+  },
+  "elapsed_seconds": 5899.122952124104,
+  "official_native_ids": {
+    "status": "passed",
+    "verified_rows": 2441,
+    "verified_source_tokens": 1717499,
+    "all_native_ids_and_start_sha256": "7d06577256bc325472a4efd1a2af212aa8f423056d2cd804657b2c4fbee8efb6",
+    "mismatched_rows": 0,
+    "replacement_ids_written": false,
+    "neural_forward_calls": 0
+  },
+  "phase": "finished",
+  "max_prob_diff": 8.046627044677734e-07,
+  "totals": {
+    "sequences": 40536,
+    "forward_tokens": 7465824
+  }
+}

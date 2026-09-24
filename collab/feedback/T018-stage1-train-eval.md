@@ -1,7 +1,7 @@
 # T018 反馈（v3）：评测进行中（接受 dropped_offsets = 25 后重跑）
 
 - 对应任务卡：T018 v3.1（df6255e）。25 个位置占 prefix_v2 train 的 0.0077%，低于 0.01%，Run A 两个来源都是 0，符合 v3.1 第 2 步。卡片说按原 yaml 重新提交，但用户指定用 7 份 GPU，按用户的来。
-- 状态：**评测进行中**，01:36 开始，预计 03:20 前后结束。
+- 状态：**完成，验收通过**。03:15 出现 done 标记，`exit_code` 为 `relabel=0 train=0 eval=0`。03:16 取回结果并写了 collected 标记，对比分析结果见文末“结果”一节。
 - 01:09 第一次跑时，因为 prefix_v2 train 的 `dropped_offsets` 是 25（不是 0），按卡片停下报告。原因已经定位，见下文：只涉及 1 条 safe 记录。
 - 用户 01:3x 指示继续，原话：
   > 继续完成你的训练工作吧 用7份就行了
@@ -76,6 +76,106 @@
 - 00:07:44 有人把 `worker_redline_v2.yaml` 和 `worker_user_redline_v1.yaml` 的 GPU 申请从 8 改成了 1，没有提交。用户看到后问这是什么意思；执行方这个会话没有改过这两个文件。
 - 这台节点只有 1 块 L20，按 `timeslice-8x` 分成 8 份：申请 8 份就是独占整卡，申请 1 份则会和别的作业共用这块卡。
 - 执行方重新提交时用的是 git 里提交的版本（8 份），本地这两个文件没有动，等用户决定。
+
+## 结果（01:34 那次重跑）
+
+### 验收
+
+| 项 | 结果 |
+|---|---|
+| 三步 exit code | `relabel=0 train=0 eval=0` ✓ |
+| `dropped_offsets` | prefix_v2 train 25（0.0077%，1 条记录），其余都是 0，符合 v3.1 ✓ |
+| 评测 `integrity_pass` | true ✓ |
+| `max_prob_diff` | 8.05e-7 < 0.001 ✓ |
+| 官方集 unique 序列数 | 1,872 ✓ |
+| 官方集 native ids | passed，2,441 行，mismatched 0 |
+
+- 评测用时 `elapsed_seconds` 5,899（约 98 分钟），共 40,536 个序列，7,465,824 个前向 token。
+- `train_report.json` 的 `version` 为 `round6-stage1-head-v2-redline`，`calibration_score` 为 `cut`，`sources_left_out` 为 `["s2", "s5"]`。
+
+### 训练
+
+`train_positions_by_class`（0 = safe，1 = unsafe，2 = controversial）：
+
+- prefix_v2：305,811 / 10,154 / 5,402；
+- runA：607,306 / 27,116 / 25,943。
+
+calibration positions：prefix_v2 2,938，runA 104,215。
+
+| 变体 | chosen_epoch | chosen_calibration_mean_auc | 各 epoch 的 calibration AUC 均值（0–4） |
+|---|---|---|---|
+| risk | 4 | 0.7932 | 0.599、0.766、0.782、0.790、0.793 |
+| full | 4 | 0.8650 | 0.599、0.838、0.853、0.863、0.865 |
+
+epoch 4 时分开看：risk 为 prefix_v2 0.794、runA 0.792；full 为 0.866、0.864。两个变体到最后一个 epoch 还在涨。
+
+### 评测 counts（三个头相同）
+
+runA_calibration 5,052（跳过 4 条），runA_dev 5,188，prefix_v2_calibration 600，prefix_v2_dev 800，official_unique_sequences 1,872。
+
+### `analyze_redline.py` 输出（全文）
+
+```
+
+init: T=6.7  stream AUC: runA_calibration 0.598, prefix_v2_calibration 0.728, runA_dev 0.597, prefix_v2_dev 0.743, official_thinking 0.779
+rule           | RunA FPR  normal  R-con  R-uns  early | pv2 FPR      R | off FPR      R
+threshold      |     0.0%    0.0%   0.0%   0.0%    n/a |    0.4%   0.9% |    0.0%   2.5%
+consecutive_2  |     0.0%    0.0%   0.0%   0.0%    n/a |    0.3%   0.0% |    0.0%   0.9%
+ema_0.1        |     0.0%    0.0%   0.0%   0.0%    n/a |    0.0%   0.0% |    0.0%   0.0%
+ema_0.3        |     0.0%    0.0%   0.0%   0.0%    n/a |    0.0%   0.0% |    0.0%   0.0%
+
+risk: T=2.1  stream AUC: runA_calibration 0.738, prefix_v2_calibration 0.795, runA_dev 0.744, prefix_v2_dev 0.816, official_thinking 0.470
+rule           | RunA FPR  normal  R-con  R-uns  early | pv2 FPR      R | off FPR      R
+threshold      |     2.6%    0.9%   8.9%   7.8%  20.3% |    1.9%  11.7% |    4.7%   9.3%
+consecutive_2  |     1.0%    0.2%   3.2%   4.1%  20.7% |    1.7%  10.8% |    4.7%   9.1%
+ema_0.1        |     0.1%    0.0%   1.6%   1.5%  16.7% |    2.3%  13.5% |    4.1%  12.1%
+ema_0.3        |     0.6%    0.2%   3.2%   3.7%  14.8% |    2.2%  13.5% |    4.7%  11.4%
+
+full: T=2.1  stream AUC: runA_calibration 0.832, prefix_v2_calibration 0.855, runA_dev 0.832, prefix_v2_dev 0.837, official_thinking 0.324
+rule           | RunA FPR  normal  R-con  R-uns  early | pv2 FPR      R | off FPR      R
+threshold      |     1.9%    0.0%  28.9%  16.3%   3.0% |    1.7%  23.4% |   20.8%  12.1%
+consecutive_2  |     2.7%    0.0%  36.5%  18.7%   4.5% |    2.3%  32.4% |   26.7%  16.7%
+ema_0.1        |     1.5%    0.0%  30.5%  14.6%   3.1% |    1.9%  31.5% |   21.4%  16.5%
+ema_0.3        |     2.7%    0.0%  39.4%  21.6%   4.9% |    2.5%  33.3% |   26.1%  16.2%
+```
+
+runA_dev 按分层的 FPR（阈值规则 / ema_0.1）：
+
+| 头 | normal | non_redline_harm | redline_topic | other_sensitive |
+|---|---|---|---|---|
+| init | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| risk | 0.9% / 0 | 2.2% / 0.1% | 6.0% / 0.3% | 3.8% / 0.3% |
+| full | 0 / 0 | 1.1% / 0.7% | 4.5% / 2.7% | 4.5% / 4.1% |
+
+### 执行方的读数（只陈述事实，结论请设计方下）
+
+- **init（现在的头）** 在新标签下几乎分不开，stream AUC 为 Run A 0.60、prefix_v2 0.73–0.74。按“每个校准分层 FPR ≤ 5%”定出的阈值（T=6.7）实际上不会触发：Run A 召回 0，prefix_v2 召回 0.9%。
+- **full** 最好：
+  - stream AUC 为 Run A 0.83、prefix_v2 0.84–0.86；
+  - normal 层误报为 0；
+  - 有争议的召回 29–39%，风险的召回 15–22%，prefix_v2 召回 23–33%；
+  - 早截（在有争议的起点分句之前就截断）只占 3–5%。
+- **risk** 召回低：Run A 有争议 2–9%、风险 2–8%，prefix_v2 11–14%。早截也多，占 15–21%。
+- **官方 thinking 集要注意。** 这个集只观察、不参与拟合，标签是另一套口径。
+  - full 在上面的 stream AUC 是 0.32，低于 0.5；risk 是 0.47；init 是 0.78。
+  - full 的官方集 FPR 是 20.8–26.7%，init 是 0。
+  - 也就是说，新头在官方集的 safe 思考过程上误报很多。官方集的 safe 和我们的口径不完全一样，但这和“正常内容绝不能误判”的要求有冲突，建议设计方看一下误报的是哪一类内容。
+- 两个新头在 epoch 4 时 AUC 还在上升，训练轮数可能不够。
+
+### 产物 SHA256
+
+| 文件 | SHA256 |
+|---|---|
+| `results_labels3_v2/report.json` | `b268bd0922404fff3d0936e6e9fbacde360dfe4b65cf650e8dc87cfed9d54959` |
+| `results_train_v2/train_report.json` | `99eddc809fbcd3cce462d15bfe290a4676d2cb9f2e453269994f543101e78f26` |
+| `results_train_v2/head_full.pt` | `add8645c3e5b09c1b938711da83a1e8c722870980b2388b6e9c334a4901d5cf1` |
+| `results_train_v2/head_risk.pt` | `81100f848e5b4b931a0802252eea6afcd7c350329a5b3ba0ef1ee83fc3b93747` |
+| `results_eval_v2/report.json` | `4c3a498d8e7bfee9ad0c6df2588916982ae0df757146448848a84c7102c50bb6` |
+| `results_eval_v2/compare_redline_v1.json` | `736ebcf339ef7690154b8c8e66f5b0df5f1ae8383f6eed88c743e508af0add7f` |
+
+- 取回的 23 个文件都和 PVC 上的 SHA 一致：3 个 report、train_report、2 个 head，以及 3 个 `eval_*/` 目录里的 18 个文件。
+- 权重和逐位置的 `.jsonl.gz` 只留在 Mac 和 PVC 上，被 gitignore 忽略，不提交。
+- init 头的 SHA 是 `166f6432…`，与 `init_sha256` 一致。
 
 ---
 
