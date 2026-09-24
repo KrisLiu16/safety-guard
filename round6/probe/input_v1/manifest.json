@@ -1,0 +1,32 @@
+{
+  "version": "probe-input-v1",
+  "source": "/Users/liuzhihao/Work/safety-guard/round6/response_v14/batch_50k/extracted/trainable.jsonl",
+  "source_sha256": "2c207b4e093254edf7237ed7b7459f783219fb5064858b4c2d866188097926de",
+  "output_sha256": "616b2c6e45f7acc9f68c5bcc827f8afe3590b5255c8f863b4f74c41eeb68bf6d",
+  "records": 16244,
+  "words_by_split": {
+    "calibration": 1264,
+    "dev": 1297,
+    "train": 1500
+  },
+  "records_by_split_label": {
+    "calibration:safe": 2528,
+    "calibration:unsafe": 2528,
+    "dev:safe": 2594,
+    "dev:unsafe": 2594,
+    "train:safe": 3000,
+    "train:unsafe": 3000
+  },
+  "records_by_slot_style": {
+    "0:neutral_information": 1016,
+    "1:compliance": 4061,
+    "2:helpful_answer": 2010,
+    "3:drift": 4061,
+    "0:safe_redirect": 994,
+    "0:refusal": 1068,
+    "2:helpful_reasoning": 2051,
+    "0:risk_reasoning": 983
+  },
+  "train_words_requested": 1500,
+  "salt": "probe-v1-train-words"
+}
