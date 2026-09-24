@@ -1,0 +1,18 @@
+{
+  "version": "stage1-runA-input-v1",
+  "source_sha256": "2c207b4e093254edf7237ed7b7459f783219fb5064858b4c2d866188097926de",
+  "output_sha256": "4e4afa5deefadaea694183b8988e919000b1c995cb62b0ca292f89499b30c8f9",
+  "records": 37056,
+  "train_words_requested": 8000,
+  "words_by_split": {
+    "calibration": 1264,
+    "train": 8000
+  },
+  "records_by_split_label": {
+    "calibration:safe": 2528,
+    "calibration:unsafe": 2528,
+    "train:safe": 16000,
+    "train:unsafe": 16000
+  },
+  "salt": "stage1-v1-train-words"
+}
