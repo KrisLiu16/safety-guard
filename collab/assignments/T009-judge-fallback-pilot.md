@@ -1,6 +1,6 @@
 # T009 judge v3.1 第二裁判 pilot（DeepSeek 与 luna 同一提示词对比）
 
-- 版本：v2（记录用户批准，内容其余未变）
+- 版本：v3（修订：用户已同意删除数据集。只补做第 5 步，其余步骤不用重做）
 - 目标：在 T002 pilot 的子集上，用同一份 v3.1 提示词分别让 DeepSeek 和 luna 判一遍，量出三件事：token 上限提到 8000 后 DeepSeek 的截断是否消失；luna 能否补上 DeepSeek 在政治类上不回答的条目；两个裁判在政治类和对照样本上的一致率。第三件决定政治类能否由 luna 兜底：Run A 的政治类样本也是 luna 生成的，一致率低就要人工复核或换第三个模型。
 - 依赖：T002 完成；用户已定侮辱性称呼按严格口径判（已写入 v3.1 提示词）。
 - 输入：`round6/judge_v3/`（v3.1 代码）；Mac 上的 `round6/judge_v3/pilot/items.jsonl` 和 `round6/judge_v3/pilot/extracted/judgments.jsonl`（T002 产物）。
@@ -19,7 +19,7 @@
      .venv/bin/python round6/judge_v3/extract_judgments.py <luna_run> --items round6/judge_v3/pilot_fallback/items.jsonl --out round6/judge_v3/pilot_fallback/extracted_luna_vs_deepseek --reference-judgments round6/judge_v3/pilot_fallback/extracted_deepseek/judgments.jsonl
      ```
      前两次的 `cross_judge` 是和 T002 的 v3 DeepSeek 结果比较；第三次是 luna 与 v3.1 DeepSeek 直接比较，这个是主要结果。
-  5. 两个 Run 都结束并抽取完之后，按 HANDOFF 第 5 节删除这个数据集（`aster datasets rm`），回执存为 `pilot_fallback/dataset_rm.json`。用户批准第 3 步时如果要求保留，以用户为准。
+  5. 删除这个数据集 `ds_01M390R8C2CTDTYJS8EGW8CFSB`（`aster datasets rm`），回执存为 `pilot_fallback/dataset_rm.json`。用户已同意（2026-09-24）。
 - 预期产物：可提交 `pilot_fallback/manifest.json`、两个 run_no、三个 `extracted_*/summary.json`、`dataset_rm.json`；`items.jsonl`、`tasks/`、归档和 `judgments.jsonl` 不提交。
 - 验收：
   - DeepSeek v3.1：T002 中因 `stop_reason:length` 失败的条目都有了结果；

@@ -7,4 +7,5 @@
 5. 长作业（Run、训练、评测）提交后，先写一份状态为“进行中”的反馈（包含作业名、预计时长）并推送，然后结束本次运行。下次被唤醒时检查作业状态，完成后更新同一份反馈。
 6. 反馈按 `collab/README.md` 的格式写到 `collab/feedback/<与任务单同名>.md`。只写统计数字、路径和 SHA；不写样本原文、凭证、token 或新的内网地址。
 7. 提交并推送：`git add collab/feedback/…`，提交信息以 `[exec] Txxx` 开头，然后 `git pull --rebase origin main`，再 `git push origin main`。
-8. 没有待办时什么都不做，不要创建空提交。
+8. pilot 用的 Aster 数据集在抽取完成、SHA 校验通过后直接删除，回执存为 `dataset_rm.json` 一并提交，不用再请用户确认（用户 2026-09-24 定）。正式放量用的数据集不在此列。
+9. 没有待办时什么都不做，不要创建空提交。
