@@ -1,0 +1,75 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_stage1_eval_v1",
+  "role": "user",
+  "script_sha256": "19c00df6b5d6e0d9c61eaa5dee8f8bb1805aacaee67d4eae4eca2001b030088c",
+  "official_used_for_fitting": false,
+  "generated_tokens": 0,
+  "variants": {
+    "init": {
+      "weights_sha256": "b2b1efb47a84677f3ebbabbfcfae12701c127ed7a4505f19db1701b993ebd53b",
+      "counts": {
+        "runA_prompts_calibration": 2526,
+        "runA_prompts_skipped": 2,
+        "runA_prompts_dev": 2594,
+        "prefix_v2_calibration": 300,
+        "prefix_v2_dev": 400
+      },
+      "files": {
+        "prefix_v2_calibration.jsonl.gz": "a1919a8d1519b7d44772c89be18dbcb60ee6dfccfdfbd9133544d243a69261f2",
+        "prefix_v2_dev.jsonl.gz": "663c90600de5d1fc4fad496d33f9dabcb71185d0e693ca6305a53c68d2f6922d",
+        "runA_prompts_calibration.jsonl.gz": "8dcae6c496e633b2c6462a1fd635f6985b3f1cf1d71ca3ebe45228e3f9abfa4e",
+        "runA_prompts_dev.jsonl.gz": "9f0118d32f6a49126bb96a878a6c5fb90bc4c591edac85a2963d4fb03ac936e0"
+      }
+    },
+    "risk": {
+      "weights_sha256": "2698a3ae10de44d987d5e47ce6e314e781886b2bfb854b2d9d2eaf289e367345",
+      "counts": {
+        "runA_prompts_calibration": 2526,
+        "runA_prompts_skipped": 2,
+        "runA_prompts_dev": 2594,
+        "prefix_v2_calibration": 300,
+        "prefix_v2_dev": 400
+      },
+      "files": {
+        "prefix_v2_calibration.jsonl.gz": "162befc1fd3a2c3611960a9c0bf2291fb49591b14797e379bf3730d564845e84",
+        "prefix_v2_dev.jsonl.gz": "4292af0ae57c05d063c6eb6e155daad54447a8cfef96e3fdd69447ca5804da62",
+        "runA_prompts_calibration.jsonl.gz": "85904a7b1f0ddd8e47fefc153f9003921dc51057230e55bf5e7c41f0476df356",
+        "runA_prompts_dev.jsonl.gz": "c11b6ce51c14492dcb2ff5ce247de9ace15ece8fc965998adb0278fba6208aa8"
+      }
+    },
+    "full": {
+      "weights_sha256": "c07c87e3cf2aa1af347877e526a5d8d2541c22895714d648356488e984c873f4",
+      "counts": {
+        "runA_prompts_calibration": 2526,
+        "runA_prompts_skipped": 2,
+        "runA_prompts_dev": 2594,
+        "prefix_v2_calibration": 300,
+        "prefix_v2_dev": 400
+      },
+      "files": {
+        "prefix_v2_calibration.jsonl.gz": "15a4b4388f25434cd87778e474de042db52d0b973b2062629a6cd850c2d01fa8",
+        "prefix_v2_dev.jsonl.gz": "316d684638a76eefd4d7e7221ff6d5370bc525cdf317125c6b1532976fbcbfb6",
+        "runA_prompts_calibration.jsonl.gz": "4665f8620f36b99b65270d96ec934ce2980c63d61cb09db64c7c186e67e5e783",
+        "runA_prompts_dev.jsonl.gz": "8208587b43f7cf322b6640b833e4a629ed0734416f7b4ca89b08b3f3d0d23009"
+      }
+    }
+  },
+  "elapsed_seconds": 720.3867467474192,
+  "official_native_ids": {
+    "status": "passed",
+    "verified_rows": 2441,
+    "verified_source_tokens": 1717499,
+    "all_native_ids_and_start_sha256": "7d06577256bc325472a4efd1a2af212aa8f423056d2cd804657b2c4fbee8efb6",
+    "mismatched_rows": 0,
+    "replacement_ids_written": false,
+    "neural_forward_calls": 0
+  },
+  "phase": "finished",
+  "max_prob_diff": 6.258487701416016e-07,
+  "totals": {
+    "sequences": 17460,
+    "forward_tokens": 696288
+  }
+}

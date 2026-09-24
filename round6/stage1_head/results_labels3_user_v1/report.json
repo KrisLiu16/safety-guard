@@ -1,0 +1,74 @@
+{
+  "version": "stage1-relabel-redline-v1",
+  "role": "user",
+  "class_index": {
+    "safe": 0,
+    "unsafe": 1,
+    "controversial": 2
+  },
+  "inputs": {
+    "/work/round6/redline_v1/labels/user_runA_stage1/labels.jsonl": "20df6bdab856e47919f4bb5ec5c9a5c8c2efffea7fd7dd99e5b66660798d12fa",
+    "/work/round6/redline_v1/labels/user_prefix_v2/labels.jsonl": "292f2705fb5a93ad8aaf4c29dc6f557aac3ff4466080da2de8072c9964b1d8ae"
+  },
+  "sources": {
+    "runA_prompts_train": {
+      "kept": 282982,
+      "dropped_onset_clause": 38267,
+      "dropped_unusable": 22,
+      "positions": 321271,
+      "old_to_new_class": {
+        "1->0": 131647,
+        "0->0": 139125,
+        "1->1": 7247,
+        "0->2": 2572,
+        "0->1": 2253,
+        "1->2": 138
+      }
+    },
+    "prefix_v2_train": {
+      "kept": 297442,
+      "dropped_onset_clause": 12387,
+      "dropped_unusable": 226,
+      "dropped_offsets": 55,
+      "positions": 310110,
+      "old_to_new_class": {
+        "0->0": 242147,
+        "1->0": 39278,
+        "0->2": 4704,
+        "1->1": 9007,
+        "0->1": 2163,
+        "1->2": 143
+      }
+    },
+    "runA_prompts_calibration": {
+      "dropped_onset_clause": 6282,
+      "kept": 44586,
+      "positions": 50868,
+      "old_to_new_class": {
+        "1->1": 1163,
+        "0->2": 443,
+        "1->0": 20458,
+        "0->0": 22181,
+        "0->1": 333,
+        "1->2": 8
+      }
+    },
+    "prefix_v2_calibration": {
+      "kept": 1366,
+      "dropped_onset_clause": 18,
+      "positions": 1384,
+      "old_to_new_class": {
+        "1->0": 115,
+        "0->0": 1202,
+        "0->1": 14,
+        "1->1": 35
+      }
+    }
+  },
+  "files": {
+    "labels3_prefix_v2_calibration.npz": "85282d7cc254ea5c9fec849781c160efa86bfa6f3f4c45896364567e640618e6",
+    "labels3_prefix_v2_train.npz": "2c4dd86a7b9a1dda0a6b6990fae59d51924e73d43ca6e711ba9297758b94e9e8",
+    "labels3_runA_prompts_calibration.npz": "8d1cd2555f27a6ddefaacdb398bf3187cfa8dab0b9965d3535e3d9b21d636f90",
+    "labels3_runA_prompts_train.npz": "567acff66b1ea3b48fceede95781f4b5e2d48393e43f276dc129f1182806a8b9"
+  }
+}

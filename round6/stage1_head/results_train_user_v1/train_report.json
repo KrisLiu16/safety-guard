@@ -1,0 +1,163 @@
+{
+  "version": "round6-stage1-head-v2-redline",
+  "device": "cuda",
+  "role": "user",
+  "init_sha256": "b2b1efb47a84677f3ebbabbfcfae12701c127ed7a4505f19db1701b993ebd53b",
+  "calibration_score": "cut",
+  "sources_left_out": [],
+  "train_positions": {
+    "prefix_v2": 297442,
+    "runA_prompts": 282982
+  },
+  "train_positions_by_class": {
+    "prefix_v2": {
+      "0": 281425,
+      "1": 11170,
+      "2": 4847
+    },
+    "runA_prompts": {
+      "0": 270772,
+      "1": 9500,
+      "2": 2710
+    }
+  },
+  "calibration_positions": {
+    "prefix_v2": 1366,
+    "runA_prompts": 44586
+  },
+  "settings": {
+    "variants": "risk,full",
+    "sources": "prefix_v2,runA_prompts",
+    "mix": {
+      "prefix_v2": 1.0,
+      "runA_prompts": 1.0
+    },
+    "epochs": 4,
+    "lr": 0.001,
+    "l2_to_init": 0.0001,
+    "batch": 4096,
+    "no_class_balance": false,
+    "seed": 0,
+    "labels3": "/work/output/round6/stage1_labels3_user_v1",
+    "role": "user"
+  },
+  "dev_read": false,
+  "variants": {
+    "risk": {
+      "chosen_epoch": 4,
+      "chosen_calibration_mean_auc": 0.8292967800003788,
+      "history": [
+        {
+          "epoch": 0,
+          "calibration_auc": {
+            "prefix_v2": 0.7757321781712025,
+            "runA_prompts": 0.5776466449805611
+          },
+          "mean": 0.6766894115758818
+        },
+        {
+          "epoch": 1,
+          "train_loss": 1.093628253144547,
+          "calibration_auc": {
+            "prefix_v2": 0.8118466898954704,
+            "runA_prompts": 0.7639133368609964
+          },
+          "mean": 0.7878800133782333
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.6864444809959076,
+          "calibration_auc": {
+            "prefix_v2": 0.8253131179960448,
+            "runA_prompts": 0.8025140001642773
+          },
+          "mean": 0.813913559080161
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.6607635907068174,
+          "calibration_auc": {
+            "prefix_v2": 0.8353893963650061,
+            "runA_prompts": 0.7972306544161863
+          },
+          "mean": 0.8163100253905962
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.6426090946534734,
+          "calibration_auc": {
+            "prefix_v2": 0.8384970336189849,
+            "runA_prompts": 0.8200965263817726
+          },
+          "mean": 0.8292967800003788
+        }
+      ],
+      "weights_sha256": "2698a3ae10de44d987d5e47ce6e314e781886b2bfb854b2d9d2eaf289e367345",
+      "changed_keys": [
+        "risk.weight",
+        "risk.bias"
+      ],
+      "deployable": true
+    },
+    "full": {
+      "chosen_epoch": 4,
+      "chosen_calibration_mean_auc": 0.8956379495818845,
+      "history": [
+        {
+          "epoch": 0,
+          "calibration_auc": {
+            "prefix_v2": 0.7754967511065072,
+            "runA_prompts": 0.5776441756405194
+          },
+          "mean": 0.6765704633735132
+        },
+        {
+          "epoch": 1,
+          "train_loss": 0.7170450981738887,
+          "calibration_auc": {
+            "prefix_v2": 0.8558244655805631,
+            "runA_prompts": 0.851450278940867
+          },
+          "mean": 0.8536373722607151
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.5506875654587142,
+          "calibration_auc": {
+            "prefix_v2": 0.8778604388360486,
+            "runA_prompts": 0.8396178820354825
+          },
+          "mean": 0.8587391604357655
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.50175642517928,
+          "calibration_auc": {
+            "prefix_v2": 0.8803088803088803,
+            "runA_prompts": 0.8804958490213216
+          },
+          "mean": 0.8804023646651009
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.47076435162835667,
+          "calibration_auc": {
+            "prefix_v2": 0.8930219418024296,
+            "runA_prompts": 0.8982539573613394
+          },
+          "mean": 0.8956379495818845
+        }
+      ],
+      "weights_sha256": "c07c87e3cf2aa1af347877e526a5d8d2541c22895714d648356488e984c873f4",
+      "changed_keys": [
+        "projection.0.weight",
+        "projection.0.bias",
+        "projection.1.weight",
+        "projection.1.bias",
+        "risk.weight",
+        "risk.bias"
+      ],
+      "deployable": true
+    }
+  }
+}
