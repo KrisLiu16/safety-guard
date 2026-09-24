@@ -1,0 +1,9 @@
+{
+  "status": "completed",
+  "branches": [
+    "full",
+    "w512"
+  ],
+  "safety_gold": false,
+  "same_initial_weights_and_training_examples": true
+}

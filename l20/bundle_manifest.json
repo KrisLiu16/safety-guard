@@ -1,0 +1,84 @@
+{
+  "model_revision": "419364a715de9840d47b1457982f64ff37f90ed4",
+  "checkpoint": "round1/training/step-0150",
+  "files": {
+    "runtime.py": {
+      "sha256": "7ee1f124590ac786e1820a75803bcc8db0c3808b8834f7bc277895214c25ec49",
+      "bytes": 9499
+    },
+    "run_cuda.py": {
+      "sha256": "3cef866db055a29258a278036e60dfcdd212282a4a40539cfca4304053e48d9d",
+      "bytes": 6069
+    },
+    "reference.json": {
+      "sha256": "03824122d9ed449b5e53d1d41812a100cb4d0cf64982444ee10e59a20d8f9a81",
+      "bytes": 3212
+    },
+    "dev.jsonl": {
+      "sha256": "194c472c9a63341590d640f975d33852c260b6725ff559b63e16ff60d9a04d12",
+      "bytes": 654457
+    },
+    "train.jsonl": {
+      "sha256": "c58533ab580c1bb9fd0c432b0f4c3509e75a6534ac19ab69ef8b0118e342c4b3",
+      "bytes": 3942416
+    },
+    "model/LICENSE": {
+      "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+      "bytes": 11343
+    },
+    "model/README.md": {
+      "sha256": "2ca500382dcdbba770cfb4c98ff4ae09f7c671a561b572a83b68e54e26bde9ce",
+      "bytes": 14638
+    },
+    "model/config.json": {
+      "sha256": "b3bcfee86ed04c86e3c92000a2768d3c879564ac45e7e97909bce2e5767503cd",
+      "bytes": 1509
+    },
+    "model/configuration_qwen3.py": {
+      "sha256": "db0bc8f36ab1857247263250cd37d62a3be8dacb58c75f486ddfbc0510dbb83e",
+      "bytes": 11817
+    },
+    "model/generation_config.json": {
+      "sha256": "52a5a5dd9227794548c6de5e0a1c8bc795a662912bdae6a3a7e4226c542e835c",
+      "bytes": 161
+    },
+    "model/merges.txt": {
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+      "bytes": 1671853
+    },
+    "model/model.safetensors": {
+      "sha256": "e0a2eac6cc79cca5bf35bf8fb356f94c333dd9715f4f0dd58883b01f2fe33419",
+      "bytes": 1194258680
+    },
+    "model/modeling_qwen3_guard.py": {
+      "sha256": "69cefff967313df5d8292afe3e7a9cec1f7bad5d52a15108bb52d4cff79f62ec",
+      "bytes": 28666
+    },
+    "model/tokenizer.json": {
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+      "bytes": 11422654
+    },
+    "model/tokenizer_config.json": {
+      "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+      "bytes": 9732
+    },
+    "model/vocab.json": {
+      "sha256": "87a257b04b17642a0688c98cd1df89c398bda4fee532d6f88b38a659ecb4ac8d",
+      "bytes": 3383407
+    },
+    "checkpoint/adapter.safetensors": {
+      "sha256": "36c8a111aa1e46a68b980e38d0c1859ef527a76fc9df7d96f087598c2f994b77",
+      "bytes": 1313968
+    },
+    "checkpoint/metadata.json": {
+      "sha256": "db1b609c14caf4f91ca4f16c2ec2b1754e61368415765b6797d00e4e342c82c6",
+      "bytes": 1224
+    },
+    "checkpoint/risk_heads.safetensors": {
+      "sha256": "10855b191d499967657657fb9a7242caa2fa38e5f894e52066af0ac419eb1011",
+      "bytes": 12472
+    }
+  },
+  "tar_sha256": "e40ef093ab0ea85fdee8b92ca8129774176bcc83a4f33242a47fef81fbc1d62c",
+  "tar_bytes": 1216798720
+}

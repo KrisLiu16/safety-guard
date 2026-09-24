@@ -1,0 +1,37 @@
+{
+  "pod": "safety-guard-prefix-round5-20260924-r1-t9m2k",
+  "job": "safety-guard-prefix-round5-20260924-r1",
+  "phase": "Running",
+  "delivery_status": "waiting_for_training",
+  "observed_at": "2026-09-23T20:15:38.634534+00:00",
+  "stages": [
+    {
+      "stage": "prefill_state_control",
+      "process_completed": true,
+      "returncode": 0,
+      "seconds": 38.22035595215857
+    },
+    {
+      "stage": "training_smoke",
+      "process_completed": true,
+      "returncode": 0,
+      "seconds": 38.31929437071085
+    }
+  ],
+  "smoke": {
+    "status": "completed",
+    "updates": 1,
+    "loss": 0.3950044924276881,
+    "gradient_norm": 35.69918441772461
+  },
+  "sft": {
+    "step": 2082,
+    "steps": 4164,
+    "epoch": 0,
+    "seconds": 3520.272977538407,
+    "loss": 0.3215809595603787,
+    "gradient_norm": 22.31891441345215,
+    "input_tokens": 2872
+  },
+  "gpu": "NVIDIA L20, GPU-7e45a669-5e2c-ae71-e610-e91a4018b3b8, 0 %, 13981 MiB"
+}

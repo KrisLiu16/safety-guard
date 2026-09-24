@@ -1,0 +1,194 @@
+{
+  "thinking": {
+    "strict": {
+      "n": 1059,
+      "tp": 468,
+      "fp": 116,
+      "tn": 374,
+      "fn": 101,
+      "precision": 0.8013698630136986,
+      "recall": 0.8224956063268892,
+      "f1": 0.8117953165654813,
+      "false_positive_rate": 0.23673469387755103,
+      "false_negative_rate": 0.17750439367311072,
+      "review_rate": 0.0018885741265344666,
+      "recall_wilson_95": [
+        0.7889678982292092,
+        0.8516978634752479
+      ],
+      "fpr_wilson_95": [
+        0.2012354067348611,
+        0.2763298692564689
+      ]
+    },
+    "loose": {
+      "n": 1059,
+      "tp": 470,
+      "fp": 116,
+      "tn": 374,
+      "fn": 99,
+      "precision": 0.8020477815699659,
+      "recall": 0.8260105448154658,
+      "f1": 0.8138528138528138,
+      "false_positive_rate": 0.23673469387755103,
+      "false_negative_rate": 0.17398945518453426,
+      "review_rate": 0.0018885741265344666,
+      "recall_wilson_95": [
+        0.7927022599659778,
+        0.8549462348360758
+      ],
+      "fpr_wilson_95": [
+        0.2012354067348611,
+        0.2763298692564689
+      ]
+    },
+    "latency": {
+      "unsafe_count": 569,
+      "bins": {
+        "Hit": 116,
+        "1-32": 44,
+        "Ahead": 254,
+        "Safe": 99,
+        "65-128": 13,
+        "33-64": 25,
+        "129-256": 9,
+        ">256": 9
+      },
+      "exact_hit_rate": 0.2038664323374341,
+      "published_first_128_stop_rate": 0.7943760984182777,
+      "note": "Published first-128 statistic includes ahead-of-annotation detections; annotations are sentence ranges."
+    },
+    "coverage": {
+      "requested": 1059,
+      "evaluated": 1059,
+      "skipped": {}
+    }
+  },
+  "thinking_loc": {
+    "strict": {
+      "n": 569,
+      "tp": 468,
+      "fp": 0,
+      "tn": 0,
+      "fn": 101,
+      "precision": 1.0,
+      "recall": 0.8224956063268892,
+      "f1": 0.9026036644165863,
+      "false_positive_rate": null,
+      "false_negative_rate": 0.17750439367311072,
+      "review_rate": 0.0035149384885764497,
+      "recall_wilson_95": [
+        0.7889678982292092,
+        0.8516978634752479
+      ],
+      "fpr_wilson_95": [
+        null,
+        null
+      ]
+    },
+    "loose": {
+      "n": 569,
+      "tp": 470,
+      "fp": 0,
+      "tn": 0,
+      "fn": 99,
+      "precision": 1.0,
+      "recall": 0.8260105448154658,
+      "f1": 0.904716073147257,
+      "false_positive_rate": null,
+      "false_negative_rate": 0.17398945518453426,
+      "review_rate": 0.0035149384885764497,
+      "recall_wilson_95": [
+        0.7927022599659778,
+        0.8549462348360758
+      ],
+      "fpr_wilson_95": [
+        null,
+        null
+      ]
+    },
+    "latency": {
+      "unsafe_count": 569,
+      "bins": {
+        "Safe": 99,
+        "Hit": 116,
+        "Ahead": 254,
+        "65-128": 13,
+        "1-32": 44,
+        "33-64": 25,
+        ">256": 9,
+        "129-256": 9
+      },
+      "exact_hit_rate": 0.2038664323374341,
+      "published_first_128_stop_rate": 0.7943760984182777,
+      "note": "Published first-128 statistic includes ahead-of-annotation detections; annotations are sentence ranges."
+    },
+    "coverage": {
+      "requested": 569,
+      "evaluated": 569,
+      "skipped": {}
+    }
+  },
+  "response_loc": {
+    "strict": {
+      "n": 813,
+      "tp": 725,
+      "fp": 0,
+      "tn": 0,
+      "fn": 88,
+      "precision": 1.0,
+      "recall": 0.8917589175891759,
+      "f1": 0.9427828348504551,
+      "false_positive_rate": null,
+      "false_negative_rate": 0.10824108241082411,
+      "review_rate": 0.014760147601476014,
+      "recall_wilson_95": [
+        0.8685307187756325,
+        0.9113022378220726
+      ],
+      "fpr_wilson_95": [
+        null,
+        null
+      ]
+    },
+    "loose": {
+      "n": 813,
+      "tp": 737,
+      "fp": 0,
+      "tn": 0,
+      "fn": 76,
+      "precision": 1.0,
+      "recall": 0.906519065190652,
+      "f1": 0.950967741935484,
+      "false_positive_rate": null,
+      "false_negative_rate": 0.09348093480934809,
+      "review_rate": 0.014760147601476014,
+      "recall_wilson_95": [
+        0.8845523501007434,
+        0.9246620679700309
+      ],
+      "fpr_wilson_95": [
+        null,
+        null
+      ]
+    },
+    "latency": {
+      "unsafe_count": 813,
+      "bins": {
+        "Hit": 678,
+        "Safe": 76,
+        "Ahead": 42,
+        "1-32": 9,
+        "33-64": 8
+      },
+      "exact_hit_rate": 0.8339483394833949,
+      "published_first_128_stop_rate": 0.906519065190652,
+      "note": "Published first-128 statistic includes ahead-of-annotation detections; annotations are sentence ranges."
+    },
+    "coverage": {
+      "requested": 813,
+      "evaluated": 813,
+      "skipped": {}
+    }
+  }
+}

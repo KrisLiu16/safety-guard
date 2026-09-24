@@ -1,0 +1,1663 @@
+{
+  "status": "completed",
+  "pass": true,
+  "variant": "window",
+  "window": 512,
+  "batch_size": 1,
+  "chunk_tokens": 8,
+  "checkpoint": "/work/output/round4/window/best.safetensors",
+  "generated_tokens": 0,
+  "production_entry_replaced": false,
+  "training_or_weights_modified": false,
+  "fixed_tolerances": {
+    "probability_atol": 0.001,
+    "state": {
+      "torch.bfloat16": {
+        "atol": 0.02,
+        "rtol": 0.01
+      },
+      "torch.float32": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    }
+  },
+  "checks": [
+    {
+      "case": "complete_seed_restore_after_warmup_and_capture",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": null
+    },
+    {
+      "case": "continuous_0",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "continuous_1",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "continuous_2",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "continuous_3",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "continuous_4",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "continuous_5",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "continuous_6",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "continuous_7",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "restore_snapshot_then_different_suffix",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "reuse_original_seed_after_many_replays",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_0_turn_0",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_1_turn_1",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_0_turn_2",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_1_turn_3",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_0_turn_4",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_1_turn_5",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_0_turn_6",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "interleaved_session_1_turn_7",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    },
+    {
+      "case": "same_timing_trajectory_final_state",
+      "pass": true,
+      "state": {
+        "pass": true,
+        "topology_equal": true,
+        "metadata_equal": true,
+        "families": {
+          "conv_states": {
+            "tensors": 18,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "recurrent_states": {
+            "tensors": 18,
+            "dtype": "torch.float32",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.002,
+              "rtol": 0.001
+            }
+          },
+          "keys": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          },
+          "values": {
+            "tensors": 6,
+            "dtype": "torch.bfloat16",
+            "max_absolute_error": 0.0,
+            "max_normalized_error": 0.0,
+            "finite": true,
+            "pass": true,
+            "tolerance": {
+              "atol": 0.02,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "probabilities": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.0,
+          "assistant": 0.0
+        },
+        "atol": 0.001
+      }
+    }
+  ],
+  "phase": "complete",
+  "device": "NVIDIA L20",
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "input_token_hashes": [
+    "9383e6294292706f24c672aa1f5201ab3999a1163a825d8f89d2c848d46a3d63",
+    "f285f139475cecb419f8b704c7cf818a77bb7746206e73f82854cab521a31648"
+  ],
+  "capture_setup_seconds": 0.30691766180098057,
+  "warm_capture_seed_restore_bitwise_equal": true,
+  "performance": {
+    "initial_context_tokens": 1024,
+    "chunk_tokens": 8,
+    "replays": 128,
+    "eager": {
+      "seconds": 3.0136196427047253,
+      "new_input_tokens": 1024,
+      "classifications": 128,
+      "itps": 339.7907239152979,
+      "classifications_per_second": 42.47384048941224,
+      "p50_ms": 23.51577579975128,
+      "p95_ms": 23.64986576139927,
+      "latencies_ms": [
+        24.457313120365143,
+        23.496849462389946,
+        23.416180163621902,
+        23.46314862370491,
+        23.512527346611023,
+        23.619454354047775,
+        23.446518927812576,
+        23.41674081981182,
+        23.64036627113819,
+        23.464880883693695,
+        23.510929197072983,
+        23.49371649324894,
+        23.555897176265717,
+        23.459861055016518,
+        23.52112904191017,
+        23.63082580268383,
+        23.52740801870823,
+        23.58856610953808,
+        23.535236716270447,
+        23.562489077448845,
+        23.520467802882195,
+        23.54438789188862,
+        23.47680926322937,
+        23.486310616135597,
+        23.534497246146202,
+        23.56097847223282,
+        23.566316813230515,
+        23.457959294319153,
+        23.491540923714638,
+        23.537637665867805,
+        23.387251421809196,
+        23.42682145535946,
+        23.428959771990776,
+        23.485437035560608,
+        23.547440767288208,
+        23.575246334075928,
+        23.528726771473885,
+        23.55276793241501,
+        23.714294657111168,
+        23.489447310566902,
+        23.51745031774044,
+        23.491211235523224,
+        23.510808125138283,
+        23.508967831730843,
+        23.558449000120163,
+        23.412222042679787,
+        23.51566031575203,
+        23.516828194260597,
+        23.523496463894844,
+        23.462889716029167,
+        23.4807301312685,
+        23.482173681259155,
+        23.47620017826557,
+        23.52267876267433,
+        23.370971903204918,
+        23.46871979534626,
+        23.429930210113525,
+        23.67330528795719,
+        23.961005732417107,
+        24.929793551564217,
+        23.64986576139927,
+        23.596296086907387,
+        23.5813669860363,
+        23.51025678217411,
+        23.61239865422249,
+        23.512287065386772,
+        23.50825071334839,
+        23.509420454502106,
+        23.49010668694973,
+        23.496711626648903,
+        23.503359407186508,
+        23.53420853614807,
+        23.514477536082268,
+        23.535918444395065,
+        23.453230038285255,
+        23.495789617300034,
+        23.499099537730217,
+        23.494159802794456,
+        23.515675216913223,
+        23.531807586550713,
+        23.668473586440086,
+        23.56857806444168,
+        23.480437695980072,
+        23.535069078207016,
+        23.421769961714745,
+        23.53392168879509,
+        23.5514547675848,
+        23.59100803732872,
+        23.494448512792587,
+        23.5446784645319,
+        23.52330833673477,
+        23.49902130663395,
+        23.476969450712204,
+        23.482060059905052,
+        23.48240837454796,
+        23.499710485339165,
+        23.49584922194481,
+        23.618414998054504,
+        23.502619937062263,
+        23.532196879386902,
+        23.53687956929207,
+        23.47376011312008,
+        23.586256429553032,
+        23.530658334493637,
+        23.53658713400364,
+        23.541497066617012,
+        23.587945848703384,
+        23.573076352477074,
+        23.558715358376503,
+        23.574676364660263,
+        23.503758013248444,
+        23.570647463202477,
+        23.48155900835991,
+        23.472679778933525,
+        23.506848141551018,
+        23.583456873893738,
+        23.49190041422844,
+        23.502761498093605,
+        23.489071056246758,
+        23.534178733825684,
+        23.47549982368946,
+        23.52271042764187,
+        23.61299656331539,
+        23.6143060028553,
+        23.465080186724663,
+        23.562127724289894,
+        23.51587638258934,
+        23.601576685905457
+      ]
+    },
+    "graph": {
+      "seconds": 0.7188476789742708,
+      "new_input_tokens": 1024,
+      "classifications": 128,
+      "itps": 1424.5020606606859,
+      "classifications_per_second": 178.06275758258573,
+      "p50_ms": 5.609444342553616,
+      "p95_ms": 5.63032366335392,
+      "latencies_ms": [
+        5.794350057840347,
+        5.836358293890953,
+        5.624664947390556,
+        5.621064454317093,
+        5.603654310107231,
+        5.63032366335392,
+        5.614113062620163,
+        5.61356358230114,
+        5.615074187517166,
+        5.600113421678543,
+        5.6106653064489365,
+        5.609443411231041,
+        5.601575598120689,
+        5.613893270492554,
+        5.599543452262878,
+        5.602942779660225,
+        5.610033869743347,
+        5.5963341146707535,
+        5.60622476041317,
+        5.5950842797756195,
+        5.628645420074463,
+        5.636954680085182,
+        5.614092573523521,
+        5.618782714009285,
+        5.60341402888298,
+        5.60307502746582,
+        5.613105371594429,
+        5.597103387117386,
+        5.607873201370239,
+        5.5996328592300415,
+        5.603251978754997,
+        5.6160371750593185,
+        5.591083317995071,
+        5.606824532151222,
+        5.595741793513298,
+        5.625205114483833,
+        5.629722028970718,
+        5.6073106825351715,
+        5.615344271063805,
+        5.623292177915573,
+        5.599305033683777,
+        5.6459940969944,
+        5.604904145002365,
+        5.622820928692818,
+        5.6183431297540665,
+        5.593815818428993,
+        5.616283044219017,
+        5.608554929494858,
+        5.599364638328552,
+        5.603164434432983,
+        5.619974806904793,
+        5.620211362838745,
+        5.62683492898941,
+        5.612203851342201,
+        5.6129153817892075,
+        5.590636283159256,
+        5.604244768619537,
+        5.625542253255844,
+        5.60307502746582,
+        5.605753511190414,
+        5.5946726351976395,
+        5.612865090370178,
+        5.616582930088043,
+        5.593603476881981,
+        5.614925175905228,
+        5.619501695036888,
+        5.6159235537052155,
+        5.618155002593994,
+        5.606433376669884,
+        5.6166741997003555,
+        5.625603720545769,
+        5.590377375483513,
+        5.609642714262009,
+        5.60048408806324,
+        5.6165531277656555,
+        5.606614053249359,
+        5.603903904557228,
+        5.610890686511993,
+        5.59343583881855,
+        5.6090448051691055,
+        5.634594708681107,
+        5.605632439255714,
+        5.618365481495857,
+        5.6064557284116745,
+        5.608625710010529,
+        5.612373352050781,
+        5.595704540610313,
+        5.6207142770290375,
+        5.606174468994141,
+        5.596483126282692,
+        5.6075118482112885,
+        5.60944527387619,
+        5.613474175333977,
+        5.615640431642532,
+        5.613824352622032,
+        5.624052137136459,
+        5.6067947298288345,
+        5.617192015051842,
+        5.628613755106926,
+        5.602844059467316,
+        5.821878090500832,
+        5.617743358016014,
+        5.608653649687767,
+        5.606744438409805,
+        5.601044744253159,
+        5.5996123701334,
+        5.617965012788773,
+        5.590483546257019,
+        5.607003346085548,
+        5.626484751701355,
+        5.608644336462021,
+        5.625024437904358,
+        5.602432414889336,
+        5.608612671494484,
+        5.6114234030246735,
+        5.600012838840485,
+        5.599504336714745,
+        5.595436319708824,
+        5.611035972833633,
+        5.613232031464577,
+        5.593303591012955,
+        5.613651126623154,
+        5.600715056061745,
+        5.608202889561653,
+        5.616912618279457,
+        5.603563040494919,
+        5.626322701573372,
+        5.60111366212368
+      ]
+    },
+    "itps_ratio_graph_over_eager": 4.192292374101954,
+    "p95_ratio_graph_over_eager": 0.23807000513903956,
+    "scope": "Both APIs return independent external cache and CPU-visible probabilities for both role heads. Eager includes input-cache deepcopy; graph includes locked arena copy-in, replay, copy-out and alias check. All per-call state allocation/copy, input transfer, position update and CPU output costs are timed. No tokenization, BPE rollback selection, HTTP, cross-request batching or input waiting. One matching complete trajectory warmed for both paths before measurement."
+  },
+  "external_seed_unchanged": true,
+  "cross_session_isolation_pass": true,
+  "rollback_replay_pass": true,
+  "graph_arena_return_alias": false,
+  "limitation": "A fixed-shape window-only research experiment; no full/memory/text-runtime deployment claim.",
+  "elapsed_seconds": 22.73820778913796,
+  "worker_log": "/work/output/round4_validation/graph_stream_audit.log",
+  "enforced_wall_limit_seconds": 900
+}

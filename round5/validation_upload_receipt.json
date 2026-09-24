@@ -1,0 +1,13 @@
+{
+  "path": "/work/round5/validation_input_v1.manifest.json",
+  "sha256": "9bb1f79b0585fc3c890e452547f1ddf1a5adc5771fbd3841f3288d769138f8d9",
+  "packaged_files": 25,
+  "external_files": 22,
+  "archive_sha256": "db9a820f7cbbec2e6f6558881ab7851f9c7814f52dca5ce633539469c5ec1b1b",
+  "neural_calls": 0,
+  "uploaded_to": "safety-guard-prefix-round5-20260924-r1-t9m2k",
+  "supplemental_helpers": [
+    "/work/round4/infer_classifier.py",
+    "/work/round4/evaluate_official_adapted.py"
+  ]
+}

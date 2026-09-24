@@ -1,0 +1,46 @@
+{
+  "binding": {
+    "proof_sha256": "cdcfa8e5d559396d34c423a9b5aceb0379ae70354c60f312a9aa291ed6ebb8ce",
+    "manifest_sha256": "3a0f3c71547bf71b9ff152169237bf30c66cb320ed940980edf1aa7d719c333e",
+    "trainer_sha256": "1aea85c2c1228aba6066c915922e790c7fb56cc26c4ef7d21329508937c13e7c",
+    "metrics_sha256": "20a803f17d846b729a64dc4f0d6ad28b22d714117197854755a47bd3f163faff",
+    "round4_helper_sha256": "81045f79de81e2b5f83faa4fa324a49fd52409a06cd395e5faf91f3ebc9cdda8",
+    "initial_checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+    "seed": 20260925,
+    "window": 512,
+    "effective_batch": 16,
+    "microbatch": 4
+  },
+  "epochs": 2,
+  "records_per_epoch": 33311,
+  "architecture": "24 original layers, fixed W512; no window curriculum",
+  "category_parameters_frozen": true,
+  "risk_and_backbone_parameters_trainable": true,
+  "sft_prefix_weight": 0.5,
+  "normalization": "valid original+active augmentation anchor count, not confidence sum",
+  "sft_evaluations": [
+    0,
+    1,
+    2
+  ],
+  "rl_evaluations": [
+    64,
+    128,
+    192,
+    256
+  ],
+  "rl_lr": 5e-07,
+  "rl_batch": 8,
+  "rl_microbatch": 4,
+  "rl_allowed_tiers": [
+    "public_source_reference",
+    "rubric_benign",
+    "synthetic_weak"
+  ],
+  "rl_anchor_sampling": "8 fixed-seed source records; mean over each record original endpoint and complete suffix anchors before source weighting",
+  "rl_not_episode_stopping_reward": true,
+  "reference_policy": "selected own SFT checkpoint; no semantic teacher",
+  "selection_uses_test": false,
+  "generated_tokens": 0,
+  "smoke_only": false
+}

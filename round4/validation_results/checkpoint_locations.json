@@ -1,0 +1,6 @@
+{
+  "pvc": "safety-guard-base-compare-data",
+  "checkpoints": [
+    "/work/output/round4_validation/bundle/classifier.safetensors"
+  ]
+}

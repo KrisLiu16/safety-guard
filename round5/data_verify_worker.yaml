@@ -1,0 +1,65 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-prefix-data-20260924-r1
+  namespace: default
+  labels:
+    app: safety-guard-prefix-data
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 7200
+  template:
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: verify
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              mkdir -p /work/round5 /work/output/round5
+              for i in $(seq 1 1800); do
+                if test -f /work/round5/package_ready; then
+                  cd /work/round5
+                  sha256sum -c input_files.sha256
+                  sha256sum -c external_files.sha256
+                  /work/modern/bin/python /work/round5/train_prefix.py --verify-data-only --data-root /work/round5/data/prefix_v2 --proof /work/round5/native_tokenizer_proof.json > /work/output/round5/data_verification.log 2>&1
+                  touch /work/output/round5/data_verified
+                  for j in $(seq 1 3600); do
+                    if test -f /work/output/round5/data_verification_collected; then exit 0; fi
+                    sleep 1
+                  done
+                  exit 1
+                fi
+                sleep 1
+              done
+              exit 1
+          env:
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: void
+            - name: CUDA_VISIBLE_DEVICES
+              value: ""
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: OMP_NUM_THREADS
+              value: "2"
+          resources:
+            requests:
+              cpu: "1"
+              memory: 2Gi
+            limits:
+              cpu: "4"
+              memory: 8Gi
+          volumeMounts:
+            - name: work
+              mountPath: /work
+      volumes:
+        - name: work
+          persistentVolumeClaim:
+            claimName: safety-guard-base-compare-data

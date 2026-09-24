@@ -1,0 +1,208 @@
+{
+  "input": "/Users/liuzhihao/Work/safety-guard/lexicon/research_nc/citizenlab-1eeb5e6/combined_task_seeds.jsonl",
+  "input_sha256": "6accf83fa822342214c6eea24ba43010ad113e06f88b1f55d8d6490a2d3b5f15",
+  "category_count": 33,
+  "total_terms": 449575,
+  "grouping": "source_file_or_source_family; not a safety label",
+  "categories": [
+    {
+      "source_group": "citizenlab/LINE",
+      "count": 483,
+      "file": "groups/104ca4691e7d5d88.jsonl",
+      "sha256": "cd1893cdd31c3e27008d1f0fc01d9833b47ef3985904718fde39a4ff1c228791"
+    },
+    {
+      "source_group": "citizenlab/SVP",
+      "count": 14147,
+      "file": "groups/6e9ce006e1d36b5e.jsonl",
+      "sha256": "5bc4cec57ffe10387c3e4700e4a9c1ea51076765074bf3030fbf7d31c9334c68"
+    },
+    {
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "count": 1829,
+      "file": "groups/47e375fbf84ad2ba.jsonl",
+      "sha256": "7f5b8a41451b1516eb3098d88bae93a8a361b6ec2073919ee709d34c26d955dc"
+    },
+    {
+      "source_group": "citizenlab/apple",
+      "count": 345,
+      "file": "groups/a92d3aa0927deccb.jsonl",
+      "sha256": "6db9098ed5a2eac5d7b489ade07abdb61e1507bf4948c4949e9f366c95bce6d9"
+    },
+    {
+      "source_group": "citizenlab/chinese-games",
+      "count": 58800,
+      "file": "groups/04ebc65c480ccc7e.jsonl",
+      "sha256": "62cd70a2162c4d704a96e49372000894d8b139cb7b60d90bf91f5e23f77719b7"
+    },
+    {
+      "source_group": "citizenlab/coronavirus",
+      "count": 42,
+      "file": "groups/b79e1620d09c9154.jsonl",
+      "sha256": "7358df0e3ae3b49cd5761849c99d6c605aaf55abf19683d003f43dba283128ec"
+    },
+    {
+      "source_group": "citizenlab/june-4",
+      "count": 595,
+      "file": "groups/69f94504ec3d8512.jsonl",
+      "sha256": "3fbea037f8e71560f68955fa47dd4b108e9e19d810580e028c0ecac2e306e2b5"
+    },
+    {
+      "source_group": "citizenlab/livestream",
+      "count": 159580,
+      "file": "groups/545aae44c3288a6a.jsonl",
+      "sha256": "eb3df225fdc6ca7a485a265dbb6cb3a54e2f184dc67b66b7b5ca0a6e7d1b20eb"
+    },
+    {
+      "source_group": "citizenlab/microsoft-bing",
+      "count": 963,
+      "file": "groups/636bf96636db2028.jsonl",
+      "sha256": "3c8a050f4d3119705dab27c644bed2fedd30d4386a0b7495969c0a6e61e1a3c8"
+    },
+    {
+      "source_group": "citizenlab/olympics",
+      "count": 1323,
+      "file": "groups/14aedae85ecf55e1.jsonl",
+      "sha256": "cef588d4d746cfe1a6b797f987d0b14356ddbba934797521a5400a745b6bd78f"
+    },
+    {
+      "source_group": "citizenlab/open-source",
+      "count": 108718,
+      "file": "groups/b8584c0b68a8c57d.jsonl",
+      "sha256": "62ee27fbcd0a7d37325301e6d2aad8de5c36b1a87c9f5e4f229c65a6a62c2543"
+    },
+    {
+      "source_group": "citizenlab/qqmail",
+      "count": 31,
+      "file": "groups/194f7ce805869638.jsonl",
+      "sha256": "ebf38f5a7f2d9da32fa3863973fd501a34af08e811f47319f3c3c98d351225ef"
+    },
+    {
+      "source_group": "citizenlab/search",
+      "count": 10122,
+      "file": "groups/b487f51fd5aa08ad.jsonl",
+      "sha256": "777a11e3b7850441320ad09a5d6b307f6a67523d1c0d3f9266e89712ce591cce"
+    },
+    {
+      "source_group": "citizenlab/wechat",
+      "count": 105,
+      "file": "groups/9928383cb4ae0d7d.jsonl",
+      "sha256": "4e771c48825b739495320c88f53b8341753d0313422e96b1394ab75a1e1c5a29"
+    },
+    {
+      "source_group": "permissive/COVID-19词库.txt",
+      "count": 35,
+      "file": "groups/6690cba23d1a05d9.jsonl",
+      "sha256": "7b3aa8957092357deccfe4826c102596c2c1b6e57f4efbe1b47cd0a8b7d4cc51"
+    },
+    {
+      "source_group": "permissive/GFW补充词库.txt",
+      "count": 6157,
+      "file": "groups/8b67b1107dd1881c.jsonl",
+      "sha256": "d7ec6789f328942d77f6d2b849743363572fbb518cfab901f1e5dee98ccd7059"
+    },
+    {
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "count": 56189,
+      "file": "groups/c68daf79887549cf.jsonl",
+      "sha256": "024df821067eff8949c50eb810b9b0ed28d09a0b400d68eecc0c818a8c75089e"
+    },
+    {
+      "source_group": "permissive/sensitive-lexicon",
+      "count": 2,
+      "file": "groups/528357ca00aa2af0.jsonl",
+      "sha256": "d413a55db7f5eb37d6363d8f93153e5f3c029d4f80006df17166b31158225436"
+    },
+    {
+      "source_group": "permissive/spacegather-worldwide-sensitive",
+      "count": 8,
+      "file": "groups/17552aa1735b2b44.jsonl",
+      "sha256": "29b96c45e0ac31c6e09b087d3e638165a55eeeba55738982035f90e289a9a938"
+    },
+    {
+      "source_group": "permissive/其他词库.txt",
+      "count": 146,
+      "file": "groups/94e635f5d17fae74.jsonl",
+      "sha256": "8c19e70f1d7dd0a802103cc5a9883e53e3bc3ce2d2b92781d68c6491e5def3ba"
+    },
+    {
+      "source_group": "permissive/反动词库.txt",
+      "count": 476,
+      "file": "groups/fef9f6d0c84b9d12.jsonl",
+      "sha256": "a12dc792cb96ede970dcc29ad1b9805847c834a5c0ee226674cd15ccb0eaa5b3"
+    },
+    {
+      "source_group": "permissive/广告类型.txt",
+      "count": 93,
+      "file": "groups/eb9ef5e63c4f7bcf.jsonl",
+      "sha256": "94a6eb8b35bb370de7697da10bd80cda52e9210464e3a11ad7085e11a13650e0"
+    },
+    {
+      "source_group": "permissive/政治类型.txt",
+      "count": 249,
+      "file": "groups/69de0c3ecdc49dae.jsonl",
+      "sha256": "0d348f7ec3ac004a3701b38219b1a6cd4644fb297b396fdc3478a760060aa75e"
+    },
+    {
+      "source_group": "permissive/新思想启蒙.txt",
+      "count": 16,
+      "file": "groups/1d5731bb3d656110.jsonl",
+      "sha256": "6a2e8c053d399a35108e9922e4af8329e2aee2003ed3ff6c9bd8ef001853efb4"
+    },
+    {
+      "source_group": "permissive/暴恐词库.txt",
+      "count": 138,
+      "file": "groups/00c004a9d25944dd.jsonl",
+      "sha256": "949113ca12b4bd8f13322ad1e988b64304e9cad889073855054c9e43dd2c08a8"
+    },
+    {
+      "source_group": "permissive/民生词库.txt",
+      "count": 290,
+      "file": "groups/7769d55b035f5396.jsonl",
+      "sha256": "96ff2a584dd52c1cd7464e9f251035930b9bf52a7ebb4c1bae146c363815119c"
+    },
+    {
+      "source_group": "permissive/涉枪涉爆.txt",
+      "count": 429,
+      "file": "groups/073d0a27af16cb58.jsonl",
+      "sha256": "c347f595ee76e0748095ee2064064a8441b5aca6c020d52f477607c3f3288e5a"
+    },
+    {
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "count": 7213,
+      "file": "groups/4197d9d70f0560d4.jsonl",
+      "sha256": "b1008d433035ec9b00222e2c2c139af3700e14840ba77532d0aa01acc73e4bcb"
+    },
+    {
+      "source_group": "permissive/色情类型.txt",
+      "count": 182,
+      "file": "groups/3bb43a5718093b0d.jsonl",
+      "sha256": "62bc6c2bd529502d666f74a2dfcbf05142647c80f0e92d30de1f4475696b7a79"
+    },
+    {
+      "source_group": "permissive/色情词库.txt",
+      "count": 179,
+      "file": "groups/2ee504b6d2b98aa2.jsonl",
+      "sha256": "11d4810c12cfa533dbb3e788ca651e956ad7ac42fe26572fc820f9a4048e204e"
+    },
+    {
+      "source_group": "permissive/补充词库.txt",
+      "count": 832,
+      "file": "groups/2284bbb6cf38f4fe.jsonl",
+      "sha256": "a491c0116a709bb48c09ecb073d472cdb7f96a7ff3b320e52e953b0786e03c94"
+    },
+    {
+      "source_group": "permissive/贪腐词库.txt",
+      "count": 171,
+      "file": "groups/abb5d123b87dd549.jsonl",
+      "sha256": "61daca0ad762b66ee1bfebf13d2948940a7609a3dc007c861150ad555598c7e3"
+    },
+    {
+      "source_group": "permissive/零时-Tencent.txt",
+      "count": 19687,
+      "file": "groups/e721aa1429d73c18.jsonl",
+      "sha256": "83984d39aa7f06148931fe9d4836f010d706c6a1d4960cccaa2aed21027417c1"
+    }
+  ],
+  "model_requests_submitted": 0
+}

@@ -1,0 +1,122 @@
+{
+  "rule": "block on two consecutive target-message token probabilities >= threshold; inspect all new tokens per chunk",
+  "target_calibration_fpr": 0.05,
+  "roles": {
+    "user": {
+      "threshold": 0.5145767331123353,
+      "splits": {
+        "calibration": {
+          "n": 224,
+          "tp": 130,
+          "fp": 4,
+          "tn": 90,
+          "fn": 0,
+          "precision": 0.9701492537313433,
+          "recall": 1.0,
+          "f1": 0.9848484848484849,
+          "false_positive_rate": 0.0425531914893617,
+          "false_negative_rate": 0.0,
+          "review_rate": 0.026785714285714284,
+          "safe_review_count": 6,
+          "unsafe_review_count": 0,
+          "safe_review_rate": 0.06382978723404255,
+          "safe_total_intervention_rate": 0.10638297872340426,
+          "unsafe_release_rate": 0.0,
+          "recall_wilson_95": [
+            0.9712974142568529,
+            1.0
+          ],
+          "fpr_wilson_95": [
+            0.016670278401570267,
+            0.10435799587031408
+          ]
+        },
+        "test": {
+          "n": 446,
+          "tp": 251,
+          "fp": 18,
+          "tn": 176,
+          "fn": 1,
+          "precision": 0.9330855018587361,
+          "recall": 0.996031746031746,
+          "f1": 0.963531669865643,
+          "false_positive_rate": 0.09278350515463918,
+          "false_negative_rate": 0.003968253968253968,
+          "review_rate": 0.03587443946188341,
+          "safe_review_count": 16,
+          "unsafe_review_count": 0,
+          "safe_review_rate": 0.08247422680412371,
+          "safe_total_intervention_rate": 0.17525773195876287,
+          "unsafe_release_rate": 0.003968253968253968,
+          "recall_wilson_95": [
+            0.9778679421784356,
+            0.9992991799783989
+          ],
+          "fpr_wilson_95": [
+            0.059496111297314296,
+            0.14188519576854042
+          ]
+        }
+      }
+    },
+    "assistant": {
+      "threshold": 0.07815424352884294,
+      "splits": {
+        "calibration": {
+          "n": 186,
+          "tp": 64,
+          "fp": 6,
+          "tn": 114,
+          "fn": 2,
+          "precision": 0.9142857142857143,
+          "recall": 0.9696969696969697,
+          "f1": 0.9411764705882354,
+          "false_positive_rate": 0.05,
+          "false_negative_rate": 0.030303030303030304,
+          "review_rate": 0.0,
+          "safe_review_count": 0,
+          "unsafe_review_count": 0,
+          "safe_review_rate": 0.0,
+          "safe_total_intervention_rate": 0.05,
+          "unsafe_release_rate": 0.030303030303030304,
+          "recall_wilson_95": [
+            0.8960728112941316,
+            0.9916502649240535
+          ],
+          "fpr_wilson_95": [
+            0.023114049304474235,
+            0.10480419464586234
+          ]
+        },
+        "test": {
+          "n": 358,
+          "tp": 115,
+          "fp": 4,
+          "tn": 238,
+          "fn": 1,
+          "precision": 0.9663865546218487,
+          "recall": 0.9913793103448276,
+          "f1": 0.9787234042553192,
+          "false_positive_rate": 0.01652892561983471,
+          "false_negative_rate": 0.008620689655172414,
+          "review_rate": 0.0,
+          "safe_review_count": 0,
+          "unsafe_review_count": 0,
+          "safe_review_rate": 0.0,
+          "safe_total_intervention_rate": 0.01652892561983471,
+          "unsafe_release_rate": 0.008620689655172414,
+          "recall_wilson_95": [
+            0.9527790060325537,
+            0.9984766514353037
+          ],
+          "fpr_wilson_95": [
+            0.00644596454774005,
+            0.04172163605362278
+          ]
+        }
+      }
+    }
+  },
+  "labels": "Luna synthetic, not independent gold",
+  "fpr_definition": "unsafe block only; safe hold and total interventions reported separately"
+}

@@ -1,0 +1,95 @@
+{
+  "format": "round5-prefix-selection-v1",
+  "status": "research_unvalidated_runtime",
+  "candidate": "initial_window_fallback",
+  "variant": "window",
+  "window": 512,
+  "backbone_layers": 24,
+  "checkpoint": "/work/output/round5/prefix_v2/classification_rl/best.safetensors",
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "inference_engine": "eager",
+  "graph_validation_passed": false,
+  "eligible_candidate_found": false,
+  "promoted_from_initial": false,
+  "training_promoted_from_initial": false,
+  "canonical_quality_gate_pass": false,
+  "promotion_reason": "Research classifier with diagnostic thresholds; serving gates failed",
+  "execution_contract": {
+    "name": "canonical32-v1",
+    "block_tokens": 32,
+    "pad_token_id": 248044,
+    "window": 512,
+    "backbone_layers": 24,
+    "partial_cache": "not_committed",
+    "readout": "all_32_positions_both_roles",
+    "max_input_tokens": 8192,
+    "risk_labels": [
+      "safe",
+      "unsafe",
+      "controversial"
+    ]
+  },
+  "thresholds": {
+    "whole": {
+      "en/assistant": 0.9506296515464783,
+      "zh/assistant": 0.9749637842178345,
+      "zh/user": 0.9905970692634583
+    },
+    "stream": {
+      "en/assistant": 0.9955323934555054,
+      "zh/assistant": 0.993289053440094,
+      "zh/user": 0.9961667656898499
+    }
+  },
+  "threshold_comparison": ">",
+  "calibrated_strata": {
+    "whole": [
+      "en/assistant",
+      "zh/assistant",
+      "zh/user"
+    ],
+    "stream": [
+      "en/assistant",
+      "zh/assistant",
+      "zh/user"
+    ]
+  },
+  "calibration_scope": {
+    "whole": "canonical32 complete original target endpoint",
+    "stream": "canonical32 episode maxima over predeclared native target tokens and native-retokenized text cuts"
+  },
+  "arbitrary_bpe_schedule_fpr_guarantee": false,
+  "episode_stopping_policy": false,
+  "selection_read_test": false,
+  "generated_tokens": 0,
+  "production_approval": false,
+  "risk_class_order": [
+    "safe",
+    "unsafe",
+    "controversial"
+  ],
+  "hard_supervised_classes_this_round": [
+    "safe",
+    "unsafe"
+  ],
+  "category_validated": false,
+  "selection_evidence": {
+    "summary": {
+      "path": "/work/output/round5/prefix_v2/summary.json",
+      "sha256": "255fe4246c84041fbcadfb4e280c8dcfd1da7de6d0c283b4ed7c19b32d7fbd00"
+    },
+    "sft_summary": {
+      "path": "/work/output/round5/prefix_v2/sft/summary.json",
+      "sha256": "ae004fd941f5f50a8bf4f85af4390c9286795fe065c9a9a5965ecdfc49450bae"
+    },
+    "rl_summary": {
+      "path": "/work/output/round5/prefix_v2/classification_rl/summary.json",
+      "sha256": "a8e348c00d12677a2b97e65bd74c43b1413e272e93976c925fea72b0e2b512b2"
+    },
+    "canonical_calibration": {
+      "path": "/work/output/round5/canonical32_calibration/selected/calibration.json",
+      "sha256": "9b68c3d0e1b1d301b0688c367160d5c10ad7a53d27c30c412742f1cf082189cb"
+    }
+  },
+  "created_at": "2026-09-23T21:46:21.390051+00:00"
+}

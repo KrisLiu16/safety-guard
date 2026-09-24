@@ -1,0 +1,25 @@
+{
+  "model": "qwen35",
+  "status": "completed",
+  "steps": 1280,
+  "trained_examples": 5120,
+  "native_training_tokens": 465597,
+  "training_seconds": 353.51304906234145,
+  "training_tokens_per_second": 1317.0574643141185,
+  "base_parameters": 752393024,
+  "trainable_parameters": 753456471,
+  "peak_cuda_allocated_bytes": 15089736192,
+  "training_mode": "full",
+  "head_only_steps": 64,
+  "export_max_risk_error": 0.023751527070999146,
+  "checkpoint_sha256": "8e01e428cc9f2455df75fe48cf556b85ad3a69bb3fc3593b06280077ac344d1c",
+  "has_lm_head": false,
+  "source_policy_probe_only": true,
+  "kernels": {
+    "attention": "torch sdpa",
+    "gdn_chunk": "fla-0.5.2",
+    "gdn_recurrent": "fla-0.5.2",
+    "short_convolution": "Transformers torch implementation"
+  },
+  "not_claimed_converged": true
+}

@@ -1,0 +1,233 @@
+{
+  "ok": true,
+  "schema_version": "aster.response.v1",
+  "data": {
+    "run": {
+      "id": "run_01M3555EFZGK9K6DH742RAVJ0R",
+      "run_no": "aster-dev-254",
+      "name": "[数据生产] Guard词库 · Luna · 50词×100条 · M5首轮",
+      "status": "queued",
+      "image": "",
+      "total_samples": 50,
+      "processed_count": 0,
+      "succeeded_count": 0,
+      "timed_out_count": 0,
+      "failed_count": 0,
+      "canceled_count": 0,
+      "error_code": null,
+      "config_digest": "2dddc372fbbabe5b437983d2e8c43044688d023f454793c7478f3939980b7028",
+      "effective_config": {
+        "artifacts": {
+          "collect": []
+        },
+        "flow": {
+          "atif": "none",
+          "digest": "af3f5881de885356007482bc04e3bb4152fb238180e3cf615143be6656b07b23",
+          "images": {},
+          "limits": {
+            "cpu": 1,
+            "max_creations": 1,
+            "max_sandboxes": 1,
+            "memory_gib": 1,
+            "storage_gib": 1,
+            "wall_seconds": 6620
+          },
+          "requires": [
+            "instruction"
+          ],
+          "scaffolds": [],
+          "sdk": {
+            "executables": 0,
+            "files": 277,
+            "host_interface": "4.1",
+            "links": 0,
+            "name": "aster-sdk",
+            "path": "runtimes/aster-sdk-8101d1e822f8/linux-x64",
+            "platform": "linux-x64",
+            "runtimes": [
+              {
+                "executables": 35,
+                "files": 17310,
+                "links": 0,
+                "name": "aster-sdk-deps",
+                "path": "runtimes/aster-sdk-deps-ab9848b22da1/linux-x64",
+                "tree_sha256": "ab9848b22da1be9084ada9a63e053534e53d58791fcc9ab8765b0719b3a1ef3a",
+                "version": "ab9848b22da1"
+              },
+              {
+                "env": {},
+                "executables": 51,
+                "files": 3487,
+                "library_dirs": [],
+                "links": 1048,
+                "name": "python",
+                "path": "runtimes/python-3.12.14/linux-x64",
+                "path_dirs": [
+                  "bin"
+                ],
+                "tree_sha256": "b56cb182e499431e15ee39cc437528dc995a7e1e783223a079b9d7e059e871aa",
+                "version": "3.12.14"
+              }
+            ],
+            "tree_sha256": "8101d1e822f83e6d5b1c2e2615c4553397483524c104b7921de88b1119d6cf79",
+            "version": "8101d1e822f8"
+          },
+          "sidecar": {
+            "name": "aster-sidecar",
+            "platforms": {
+              "linux-x64": {
+                "executables": 60,
+                "files": 693,
+                "links": 0,
+                "path": "runtimes/aster-sidecar-ae0375546683/linux-x64",
+                "runtimes": [
+                  {
+                    "env": {},
+                    "executables": 51,
+                    "files": 3487,
+                    "library_dirs": [],
+                    "links": 1048,
+                    "name": "python",
+                    "path": "runtimes/python-3.12.14/linux-x64",
+                    "path_dirs": [
+                      "bin"
+                    ],
+                    "tree_sha256": "b56cb182e499431e15ee39cc437528dc995a7e1e783223a079b9d7e059e871aa",
+                    "version": "3.12.14"
+                  }
+                ],
+                "tree_sha256": "7db98044015f3b2cd6f1d621f905f08893caeab5befa827a5af75ff03afc3da6"
+              },
+              "linux-x64-musl": {
+                "executables": 61,
+                "files": 694,
+                "links": 0,
+                "path": "runtimes/aster-sidecar-ae0375546683/linux-x64-musl",
+                "runtimes": [
+                  {
+                    "env": {},
+                    "executables": 51,
+                    "files": 3484,
+                    "library_dirs": [],
+                    "links": 1048,
+                    "name": "python",
+                    "path": "runtimes/python-3.12.14/linux-x64-musl",
+                    "path_dirs": [
+                      "bin"
+                    ],
+                    "tree_sha256": "05747a0272db740663c658da05cd9ca511329eff6a05b0a1a060124ab9797890",
+                    "version": "3.12.14"
+                  }
+                ],
+                "tree_sha256": "eb3664a5ad50ab12f2e4b9324f9f6fd716e235927eee82bc7e506f7b33c3b67c"
+              }
+            },
+            "version": "ae0375546683"
+          },
+          "timeouts": {
+            "finish": 60,
+            "setup": 60
+          }
+        },
+        "materials": [],
+        "model_access": "gateway",
+        "models": {
+          "main": {
+            "base_url": "http://172.93.108.177:8081",
+            "header_names": [],
+            "model_name": "gpt-5.6-luna",
+            "profile_id": "mdl_01M2TK4P8Z0DE5QCJYJ8RSK8YV",
+            "revision": null,
+            "sampling": {},
+            "secret_revision": 1,
+            "wire_api": "responses"
+          }
+        },
+        "placement": {
+          "id": "sg-public",
+          "label": "新加坡 · 公网",
+          "network": "public",
+          "npm_registry": null,
+          "provider": {
+            "cfs_file_system": "cfs-42znzuqf",
+            "delivery_mount": "delivery",
+            "delivery_path": "/delivery",
+            "endpoint": "ags.intl.tencentcloudapi.com",
+            "packs_mount": "packs",
+            "region": "ap-singapore",
+            "sandbox_domain": "ap-singapore.tencentags.com",
+            "tool": "aster-public"
+          }
+        },
+        "record_model_calls": false,
+        "sidecar": {
+          "resources": {
+            "cpu": 500,
+            "memory": 1024
+          }
+        },
+        "tito": {
+          "enabled": false,
+          "models": []
+        }
+      },
+      "parent_run_id": null,
+      "parent_run_no": null,
+      "reward_count": 0,
+      "reward_total": 0,
+      "first_round": null,
+      "repetition_count": 1,
+      "concurrency": 50,
+      "max_attempts": 1,
+      "priority": "normal",
+      "datasets": [
+        {
+          "version_id": "dsv_01M353J6QC0M0Z2BCEXDX57EMK",
+          "dataset_id": "ds_01M353HXW8F10YF3FG8SBE8H1N",
+          "dataset_name": "guard-lexicon-luna-pilot-20260922",
+          "version_no": 1,
+          "task_count": 50
+        }
+      ],
+      "archived_at": null,
+      "archived_by": null,
+      "archived_by_display_name": null,
+      "created_at": "2026-09-22T18:13:34.336869Z"
+    },
+    "idempotent_replay": false,
+    "config_digest": "5105094b886a34dced56183ece8e39c5cf956ffa01d0a8822e8b7c74e1a6ac58",
+    "plan": {
+      "task_count": 50,
+      "repetition_count": 1,
+      "total_samples": 50,
+      "sandbox_count": 50,
+      "concurrency": 50,
+      "max_attempts": 1,
+      "peak_cpu": 75,
+      "peak_memory_gib": 100,
+      "images": [],
+      "datasets": [
+        {
+          "version_id": "dsv_01M353J6QC0M0Z2BCEXDX57EMK",
+          "dataset_id": "ds_01M353HXW8F10YF3FG8SBE8H1N",
+          "dataset_name": "guard-lexicon-luna-pilot-20260922",
+          "version_no": 1,
+          "task_count": 50
+        }
+      ],
+      "quota_required": 1,
+      "quota_available": null,
+      "blocking": []
+    }
+  },
+  "meta": {
+    "warnings": []
+  },
+  "_notice": {
+    "update": {
+      "current": "998d2c26d76c",
+      "latest": "6f46d38e8ce5",
+      "command": "aster update"
+    }
+  }
+}

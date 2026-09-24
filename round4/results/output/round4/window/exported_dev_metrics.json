@@ -1,0 +1,51 @@
+{
+  "strata": {
+    "en/assistant": {
+      "n": 400,
+      "safe": 200,
+      "unsafe": 200,
+      "threshold_from_calibration": 0.95198792219162,
+      "calibration_safe_n": 150,
+      "recall": 0.675,
+      "fpr": 0.05,
+      "tp": 135,
+      "fp": 10,
+      "roc_auc": 0.896525,
+      "pr_auc": 0.914960407260587,
+      "brier": 0.16165021707851848
+    },
+    "zh/assistant": {
+      "n": 400,
+      "safe": 200,
+      "unsafe": 200,
+      "threshold_from_calibration": 0.9755336642265321,
+      "calibration_safe_n": 150,
+      "recall": 0.79,
+      "fpr": 0.07,
+      "tp": 158,
+      "fp": 14,
+      "roc_auc": 0.9518,
+      "pr_auc": 0.9427781105685591,
+      "brier": 0.09964029502056494
+    },
+    "zh/user": {
+      "n": 400,
+      "safe": 200,
+      "unsafe": 200,
+      "threshold_from_calibration": 0.9907044768333436,
+      "calibration_safe_n": 150,
+      "recall": 0.64,
+      "fpr": 0.085,
+      "tp": 128,
+      "fp": 17,
+      "roc_auc": 0.86915,
+      "pr_auc": 0.872927483223666,
+      "brier": 0.18015505242559526
+    }
+  },
+  "selection_score": 0.61,
+  "macro_recall": 0.7016666666666667,
+  "macro_pr_auc": 0.9102220003509375,
+  "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+  "scope": "public source risk labels; research criterion, not production SLA"
+}

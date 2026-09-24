@@ -1,0 +1,38 @@
+{
+  "run_id": "run_01M36NWG2G4NF17NYJAX95HPN5",
+  "run_no": "aster-dev-272",
+  "status_at_lock": "queued",
+  "dataset_version_id": "dsv_01M36JEXZBQ0E1X2BWZ94A8GFP",
+  "dataset_tree_sha256": "86673462f7c01291914a67ab56362dc6eae29fb881c21a2fa7275fc30f040e1f",
+  "plan_config_digest": "245591cd1517f3e4bc2aa6533207bc651b791601ded71e12f98115a4b4d63a6f",
+  "config_digest": "61bd9a019a2b860d5d010d2cbc204a1982787ce2bdda5c14bd5bec947bcac778",
+  "flow_digest": "70438dc781bb93b002dcef27c47ea1078c51cb95e46aeea8ded4ea7df014dc84",
+  "model_profile_id": "mdl_01M2W0QMTH0KFNJQFTBYY2QTVG",
+  "placement_id": "sg-public",
+  "model_name": "gpt-5.6-luna",
+  "model_secret_revision": 3,
+  "physical_tasks": 1517,
+  "logical_categories": 33,
+  "total_terms": 449575,
+  "calls_per_term": 1,
+  "examples_per_term": 2,
+  "languages_per_term": [
+    "zh",
+    "en"
+  ],
+  "concurrency": 40,
+  "max_attempts": 1,
+  "repetition_count": 1,
+  "prompt_version": "guard-luna-oneword-two-v12",
+  "record_version": "guard-record-v1",
+  "schema_sha256": "7929be91bfc6bc9f0ef1ae74f65678741c0e484baf37e4a474774c830974103e",
+  "system_prompt_sha256": "6b78a26a65743b9d1703c3d54a277e81742db8e4b94d2e21274f7d78a94bea8b",
+  "pipeline_sha256": "2134eed338cfe48265dfe1e26c9b1478aef75fd2baf8316f32a00a58c7682385",
+  "flow_sha256": "70e3e383a7dc8da68155d4029979f5d5f427f3ce63c8789d8600c0e746009c46",
+  "shard_manifest_sha256": "2f64b8d5dae7523110c74e95ce6e4627c54396b18c3639a7826553b42539273b",
+  "source_manifest": {
+    "total_terms": 449575,
+    "logical_categories": 33,
+    "physical_tasks": 1517
+  }
+}

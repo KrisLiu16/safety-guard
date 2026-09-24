@@ -1,0 +1,10 @@
+{
+  "archive_sha256": "e844141280595c5e5f863728978eb0268ef539b59fb46032537b944650ab3f2c",
+  "files": {
+    "run_training.py": "30d6ac9733d2e7f96bcb6a162ccaa14d2678c7faf2873db612846eece0d8e596",
+    "start_training_v1.sh": "23b01dd63d11cfb53697fd195d707e5d1eed9902d147515be482bc7e43a1ff69",
+    "test_prefill_stream_control_l20.py": "09fac65fb3c9c9f48b8628598d3405c12d0689ace496f8d9a573095024f3a798",
+    "native_tokenizer_proof.json": "cdcfa8e5d559396d34c423a9b5aceb0379ae70354c60f312a9aa291ed6ebb8ce",
+    "/work/round4/fast_runtime/process_runner.py": "25bf940d38f6715969d0dac7eec17c2b9fffc967cd3c8eaa5d6343aa4273d67d"
+  }
+}

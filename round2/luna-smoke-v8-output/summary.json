@@ -1,0 +1,31 @@
+{
+  "run_id": "run_01M36C9216MGDM47R1B17E4NQC",
+  "run_no": "aster-dev-266",
+  "run_status": "succeeded",
+  "word_artifacts": 1,
+  "valid_examples": 10,
+  "complete_words": 1,
+  "raw_complete_words": 1,
+  "repaired_examples": 0,
+  "repair_flags": {},
+  "token_usage": {
+    "input_tokens": 1909,
+    "output_tokens": 934,
+    "total_tokens": 2843
+  },
+  "latency_seconds": {
+    "mean": 74.53970976197161,
+    "p50": 74.53970976197161,
+    "p95": 74.53970976197161
+  },
+  "languages": {
+    "zh": 7,
+    "en": 3
+  },
+  "labels": {
+    "safe": 6,
+    "unsafe": 4
+  },
+  "error_types": {},
+  "synthetic_labels_are_gold": false
+}

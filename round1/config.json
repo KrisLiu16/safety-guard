@@ -1,0 +1,139 @@
+{
+  "status": "round_complete_with_documented_generation_shortfall",
+  "round": "m5-round1",
+  "model": {
+    "id": "Qwen/Qwen3Guard-Stream-0.6B",
+    "revision": "419364a715de9840d47b1457982f64ff37f90ed4",
+    "max_context_tokens": 8192
+  },
+  "hardware": {
+    "device": "Apple M5",
+    "unified_memory_gib": 32,
+    "backend": "pytorch_mps",
+    "cpu_fallback_allowed_for_training": false
+  },
+  "generation": {
+    "model_profile_id": "mdl_01M2TK4P8Z0DE5QCJYJ8RSK8YV",
+    "words": 50,
+    "examples_per_word": 100,
+    "examples_per_request": 10,
+    "repetition_count": 1,
+    "concurrency": 50,
+    "max_attempts": 1,
+    "flow_profile": "pilot/profiles/100-per-word",
+    "target_raw_examples": 5000,
+    "total_generation_requests": 500,
+    "run": "aster-dev-254"
+  },
+  "splits": {
+    "unit": "canonical_word_family_and_source_group",
+    "target_ratios": {
+      "train": 0.6,
+      "dev": 0.1,
+      "calibration": 0.1,
+      "test": 0.2
+    },
+    "seed": 20260922,
+    "counts_are_approximate": true
+  },
+  "training": {
+    "algorithm": "finite_action_policy_gradient_with_reference_kl",
+    "lora_rank": 8,
+    "lora_alpha": 16,
+    "lora_layers": "last_8",
+    "lora_targets": [
+      "q_proj",
+      "v_proj"
+    ],
+    "train_role_risk_heads": true,
+    "train_category_heads": false,
+    "microbatch": 1,
+    "gradient_accumulation": 16,
+    "max_length": 1024,
+    "overflow_policy": "quarantine_no_silent_truncation",
+    "epochs": 1,
+    "max_optimizer_steps": 300,
+    "adapter_lr": 3e-06,
+    "head_lr": 1e-05,
+    "max_grad_norm": 1.0,
+    "kl_beta": 0.02,
+    "categorical_actions_per_example": 4,
+    "seed": 20260922,
+    "save_every_steps": 50,
+    "reference_probabilities": "precomputed_on_identical_frozen_training_prefixes",
+    "precision": "fp32_smoke_then_bfloat16_if_supported_and_equivalent"
+  },
+  "stream_training": {
+    "use_prefixes": true,
+    "prefixes_per_selected_example": 2,
+    "require_reviewed_prefix_labels": true,
+    "controller": "fixed_threshold_and_buffer_for_round1",
+    "learned_release_hold_policy": "round2"
+  },
+  "evaluation": {
+    "public_benchmark": "Qwen/Qwen3GuardTest",
+    "official_metric_definitions": true,
+    "freeze_subset_ids_before_training": true,
+    "native_context_only": true,
+    "overlength_report_separately": true,
+    "test_used_for_checkpoint_selection": false
+  },
+  "performance": {
+    "context_lengths": [
+      256,
+      1024,
+      4096,
+      8192
+    ],
+    "reserve_new_tokens_within_context_budget": true,
+    "chunk_sizes": [
+      1,
+      8,
+      16,
+      32
+    ],
+    "concurrencies": [
+      1,
+      2,
+      4
+    ],
+    "timing_synchronize_mps": true,
+    "cold_and_warm_separate": true,
+    "candidate_optimized_backend": "mlx_only_after_parity_checks"
+  },
+  "resource_guards": {
+    "training_working_set_target_gib": 20,
+    "sustained_working_set_stop_gib": 24,
+    "training_active_wall_time_cap_hours": 2,
+    "official_eval_per_checkpoint_wall_cap_hours": 1,
+    "speed_measurement_wall_cap_minutes": 30,
+    "nan_inf_stop": true,
+    "thermal_or_sustained_swap_pause": true
+  },
+  "outputs": [
+    "baseline_report.md",
+    "adapter.safetensors",
+    "risk_heads.safetensors",
+    "training_metrics.jsonl",
+    "evaluation_before_after.json",
+    "performance_before_after.json",
+    "ROUND1_REPORT.md"
+  ],
+  "implementation": {
+    "transformers": "4.55.0",
+    "torch": "2.14.0",
+    "backbone_precision": "bfloat16",
+    "trainable_precision": "float32",
+    "trainable_parameters": 330752,
+    "cache_compatibility": "explicit DynamicCache() avoids config constructor bug",
+    "generation_terminal": "49 succeeded, 1 failed; no retry"
+  },
+  "result": {
+    "selected_checkpoint": "training/step-0150",
+    "recommended_variant": "unmerged",
+    "generation_raw": 4950,
+    "generation_target": 5000,
+    "completed_at_unix": 1790105222.3991199,
+    "second_round_started": false
+  }
+}

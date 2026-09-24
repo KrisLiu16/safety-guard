@@ -1,0 +1,13 @@
+{
+  "variant": "full",
+  "status": "completed",
+  "steps": 4164,
+  "selected_step": 2048,
+  "dev_score": 0.6116666666666666,
+  "best_training_dev_score": 0.61,
+  "input_tokens": 7466070,
+  "seconds": 4155.690331179649,
+  "checkpoint_sha256": "a3f6e5a7084be871553ef92feddfd3fae38a2e7a42fc1a38b52445aae3ebbaa2",
+  "has_lm_head": false,
+  "stream_parity_pass": true
+}

@@ -1,0 +1,69 @@
+{
+  "name": "a0",
+  "version": "a0",
+  "parameters": 597111296,
+  "has_lm_head": false,
+  "quality": {
+    "rows": 600,
+    "overlength_skipped": 0,
+    "label_scope": "Nemotron valid original labels, not project policy gold",
+    "roles": {
+      "user": {
+        "source_label_origin": "human",
+        "safe": 200,
+        "unsafe": 200,
+        "unsafe_auc": 0.86645,
+        "argmax_fpr": 0.09,
+        "argmax_unsafe_recall": 0.69,
+        "argmax_balanced_accuracy": 0.8
+      },
+      "assistant": {
+        "source_label_origin": "llm_jury",
+        "safe": 100,
+        "unsafe": 100,
+        "unsafe_auc": 0.9286,
+        "argmax_fpr": 0.11,
+        "argmax_unsafe_recall": 0.8,
+        "argmax_balanced_accuracy": 0.845
+      }
+    }
+  },
+  "speed": {
+    "one_token_one_session": {
+      "new_input_tokens": 8,
+      "classifications": 8,
+      "wall_seconds": 0.13348695635795593,
+      "itps": 59.93094919736848,
+      "classifications_per_second": 59.93094919736848,
+      "decision_latency_ms": {
+        "p50": 16.268249601125717,
+        "p95": 19.342103973031044
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    },
+    "eight_tokens_eight_sessions": {
+      "new_input_tokens": 512,
+      "classifications": 64,
+      "wall_seconds": 1.241792580112815,
+      "itps": 412.30718253565794,
+      "classifications_per_second": 51.53839781695724,
+      "decision_latency_ms": {
+        "p50": 19.300769083201885,
+        "p95": 20.018868148326874
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    },
+    "sixteen_tokens_32_sessions": {
+      "new_input_tokens": 4096,
+      "classifications": 256,
+      "wall_seconds": 4.981761641800404,
+      "itps": 822.1991123846121,
+      "classifications_per_second": 51.38744452403826,
+      "decision_latency_ms": {
+        "p50": 19.343133084475994,
+        "p95": 20.008336752653122
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    }
+  }
+}

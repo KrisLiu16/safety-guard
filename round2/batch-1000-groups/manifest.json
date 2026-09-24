@@ -1,0 +1,328 @@
+{
+  "source_sha256": "c4ccf8128628d05afdafdb8079791242287e5f38a5721a584ecd290a90934d4d",
+  "grouping": "source category, never inferred safety category",
+  "max_words_per_task": 30,
+  "categories": {
+    "citizenlab/LINE": 2,
+    "citizenlab/SVP": 51,
+    "citizenlab/TOM-Skype--Sina-UC": 17,
+    "citizenlab/apple": 1,
+    "citizenlab/chinese-games": 249,
+    "citizenlab/coronavirus": 1,
+    "citizenlab/june-4": 3,
+    "citizenlab/livestream": 150,
+    "citizenlab/olympics": 1,
+    "citizenlab/open-source": 25,
+    "permissive/GFW补充词库.txt": 44,
+    "permissive/houbb-sensitive-word-data": 277,
+    "permissive/反动词库.txt": 2,
+    "permissive/政治类型.txt": 1,
+    "permissive/暴恐词库.txt": 1,
+    "permissive/涉枪涉爆.txt": 3,
+    "permissive/网易前端过滤敏感词库.txt": 49,
+    "permissive/色情类型.txt": 1,
+    "permissive/色情词库.txt": 2,
+    "permissive/补充词库.txt": 8,
+    "permissive/贪腐词库.txt": 1,
+    "permissive/零时-Tencent.txt": 111
+  },
+  "tasks": [
+    {
+      "task_key": "grp-104ca4691e7d-000",
+      "source_group": "citizenlab/LINE",
+      "term_count": 2,
+      "first_term_key": "lex-10f854f9e701a977791a"
+    },
+    {
+      "task_key": "grp-6e9ce006e1d3-000",
+      "source_group": "citizenlab/SVP",
+      "term_count": 30,
+      "first_term_key": "lex-0f042a714872253dd257"
+    },
+    {
+      "task_key": "grp-6e9ce006e1d3-001",
+      "source_group": "citizenlab/SVP",
+      "term_count": 21,
+      "first_term_key": "lex-c2a6ec5ea7b13f743a3b"
+    },
+    {
+      "task_key": "grp-47e375fbf84a-000",
+      "source_group": "citizenlab/TOM-Skype--Sina-UC",
+      "term_count": 17,
+      "first_term_key": "lex-036b92b272f10cbaf2fa"
+    },
+    {
+      "task_key": "grp-a92d3aa0927d-000",
+      "source_group": "citizenlab/apple",
+      "term_count": 1,
+      "first_term_key": "lex-5fbd12f806719e1d1a03"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-000",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-01ec0eab2fba240ccd23"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-001",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-22fb8834d2fed6d3df57"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-002",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-3ad4624a34ea1fe8c1d6"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-003",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-5859fb2955a73bcc40f5"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-004",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-81fb417ac0f915979812"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-005",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-a08979555e4d748800b3"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-006",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-bd955d4f41145c34e149"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-007",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 30,
+      "first_term_key": "lex-d95b247af8a558313ecc"
+    },
+    {
+      "task_key": "grp-04ebc65c480c-008",
+      "source_group": "citizenlab/chinese-games",
+      "term_count": 9,
+      "first_term_key": "lex-f9638ac2a0005112be60"
+    },
+    {
+      "task_key": "grp-b79e1620d09c-000",
+      "source_group": "citizenlab/coronavirus",
+      "term_count": 1,
+      "first_term_key": "lex-959a197b6a33c4c641bc"
+    },
+    {
+      "task_key": "grp-69f94504ec3d-000",
+      "source_group": "citizenlab/june-4",
+      "term_count": 3,
+      "first_term_key": "lex-378315a35ff78000d373"
+    },
+    {
+      "task_key": "grp-545aae44c328-000",
+      "source_group": "citizenlab/livestream",
+      "term_count": 30,
+      "first_term_key": "lex-000d06bc5f2bcbf14364"
+    },
+    {
+      "task_key": "grp-545aae44c328-001",
+      "source_group": "citizenlab/livestream",
+      "term_count": 30,
+      "first_term_key": "lex-2ffffd24dbd55a41913b"
+    },
+    {
+      "task_key": "grp-545aae44c328-002",
+      "source_group": "citizenlab/livestream",
+      "term_count": 30,
+      "first_term_key": "lex-6937090451dd2ce1f58c"
+    },
+    {
+      "task_key": "grp-545aae44c328-003",
+      "source_group": "citizenlab/livestream",
+      "term_count": 30,
+      "first_term_key": "lex-9337afeb5f2929660f01"
+    },
+    {
+      "task_key": "grp-545aae44c328-004",
+      "source_group": "citizenlab/livestream",
+      "term_count": 30,
+      "first_term_key": "lex-ce4015166a5d8876e7b8"
+    },
+    {
+      "task_key": "grp-14aedae85ecf-000",
+      "source_group": "citizenlab/olympics",
+      "term_count": 1,
+      "first_term_key": "lex-3b6c726c0dd98ddcf5cd"
+    },
+    {
+      "task_key": "grp-b8584c0b68a8-000",
+      "source_group": "citizenlab/open-source",
+      "term_count": 25,
+      "first_term_key": "lex-06a59cf0cfde5435deb8"
+    },
+    {
+      "task_key": "grp-8b67b1107dd1-000",
+      "source_group": "permissive/GFW补充词库.txt",
+      "term_count": 30,
+      "first_term_key": "lex-0b2920691d8865134131"
+    },
+    {
+      "task_key": "grp-8b67b1107dd1-001",
+      "source_group": "permissive/GFW补充词库.txt",
+      "term_count": 14,
+      "first_term_key": "lex-cce1f1455399b932deb0"
+    },
+    {
+      "task_key": "grp-c68daf798875-000",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-0186d72f4c6b74deb9fc"
+    },
+    {
+      "task_key": "grp-c68daf798875-001",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-255c3437cb78db6e3212"
+    },
+    {
+      "task_key": "grp-c68daf798875-002",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-39c13661882e7b0830ab"
+    },
+    {
+      "task_key": "grp-c68daf798875-003",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-598e2807563c52e55386"
+    },
+    {
+      "task_key": "grp-c68daf798875-004",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-718076eec359d7a603db"
+    },
+    {
+      "task_key": "grp-c68daf798875-005",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-8a4e2e25fa1388c98f3b"
+    },
+    {
+      "task_key": "grp-c68daf798875-006",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-a96c1de55294ad75a32c"
+    },
+    {
+      "task_key": "grp-c68daf798875-007",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-bdee5f161f39ce4d6af1"
+    },
+    {
+      "task_key": "grp-c68daf798875-008",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 30,
+      "first_term_key": "lex-e265f746987e355b6793"
+    },
+    {
+      "task_key": "grp-c68daf798875-009",
+      "source_group": "permissive/houbb-sensitive-word-data",
+      "term_count": 7,
+      "first_term_key": "lex-fae2e52a36dbe0186a57"
+    },
+    {
+      "task_key": "grp-fef9f6d0c84b-000",
+      "source_group": "permissive/反动词库.txt",
+      "term_count": 2,
+      "first_term_key": "lex-abb54eb33ccd3e8c6b3c"
+    },
+    {
+      "task_key": "grp-69de0c3ecdc4-000",
+      "source_group": "permissive/政治类型.txt",
+      "term_count": 1,
+      "first_term_key": "lex-83470349c8b425f4bf89"
+    },
+    {
+      "task_key": "grp-00c004a9d259-000",
+      "source_group": "permissive/暴恐词库.txt",
+      "term_count": 1,
+      "first_term_key": "lex-a39f9d001c12071702e8"
+    },
+    {
+      "task_key": "grp-073d0a27af16-000",
+      "source_group": "permissive/涉枪涉爆.txt",
+      "term_count": 3,
+      "first_term_key": "lex-65f5d7108a51afa12f8f"
+    },
+    {
+      "task_key": "grp-4197d9d70f05-000",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "term_count": 30,
+      "first_term_key": "lex-000761ddcb6ca036fb24"
+    },
+    {
+      "task_key": "grp-4197d9d70f05-001",
+      "source_group": "permissive/网易前端过滤敏感词库.txt",
+      "term_count": 19,
+      "first_term_key": "lex-8f625d31cd91bdc2de60"
+    },
+    {
+      "task_key": "grp-3bb43a571809-000",
+      "source_group": "permissive/色情类型.txt",
+      "term_count": 1,
+      "first_term_key": "lex-299a5792ab8c9a8fef49"
+    },
+    {
+      "task_key": "grp-2ee504b6d2b9-000",
+      "source_group": "permissive/色情词库.txt",
+      "term_count": 2,
+      "first_term_key": "lex-788549cedac2118a71bf"
+    },
+    {
+      "task_key": "grp-2284bbb6cf38-000",
+      "source_group": "permissive/补充词库.txt",
+      "term_count": 8,
+      "first_term_key": "lex-01838e9090bdc80ce773"
+    },
+    {
+      "task_key": "grp-abb5d123b87d-000",
+      "source_group": "permissive/贪腐词库.txt",
+      "term_count": 1,
+      "first_term_key": "lex-69f298e688f48148f9cf"
+    },
+    {
+      "task_key": "grp-e721aa1429d7-000",
+      "source_group": "permissive/零时-Tencent.txt",
+      "term_count": 30,
+      "first_term_key": "lex-0382cc0e64fc8bf2b3bb"
+    },
+    {
+      "task_key": "grp-e721aa1429d7-001",
+      "source_group": "permissive/零时-Tencent.txt",
+      "term_count": 30,
+      "first_term_key": "lex-3cf9fede53ef78efe3ec"
+    },
+    {
+      "task_key": "grp-e721aa1429d7-002",
+      "source_group": "permissive/零时-Tencent.txt",
+      "term_count": 30,
+      "first_term_key": "lex-857bc0cb86c2bd3ace14"
+    },
+    {
+      "task_key": "grp-e721aa1429d7-003",
+      "source_group": "permissive/零时-Tencent.txt",
+      "term_count": 21,
+      "first_term_key": "lex-cfa2e2150f36381ef92e"
+    }
+  ],
+  "planned_model_requests": 1000,
+  "planned_examples": 10000,
+  "run_state": "not_submitted"
+}

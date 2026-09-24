@@ -1,0 +1,22 @@
+[
+  "--name",
+  "[数据生产] gpt-5.6-luna 全量 449575 词 · 33 来源类",
+  "--model-profile-id",
+  "mdl_01M2W0QMTH0KFNJQFTBYY2QTVG",
+  "--placement-id",
+  "sg-public",
+  "--tasks",
+  "dsv_01M369QVZ6A0V98RY6YY6DRT4Z",
+  "--repetition-count",
+  "1",
+  "--concurrency",
+  "40",
+  "--max-attempts",
+  "1",
+  "--flow",
+  "/Users/liuzhihao/Work/safety-guard/round2/luna_flow_v4",
+  "--tito-enabled",
+  "false",
+  "--model-access",
+  "gateway"
+]

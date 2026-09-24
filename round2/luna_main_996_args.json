@@ -1,0 +1,22 @@
+[
+  "--name",
+  "[数据生产] gpt-5.6-luna 双语安审 · 来源分组 996 词",
+  "--model-profile-id",
+  "mdl_01M2W0QMTH0KFNJQFTBYY2QTVG",
+  "--placement-id",
+  "sg-public",
+  "--tasks",
+  "dsv_01M369BNYFN097DA32TSA3XSDA:grp-104ca4691e7d-000,grp-6e9ce006e1d3-000,grp-47e375fbf84a-000,grp-a92d3aa0927d-000,grp-04ebc65c480c-000,grp-b79e1620d09c-000,grp-69f94504ec3d-000,grp-545aae44c328-000,grp-b8584c0b68a8-000,grp-8b67b1107dd1-000,grp-c68daf798875-000,grp-00c004a9d259-000,grp-073d0a27af16-000,grp-4197d9d70f05-000,grp-3bb43a571809-000,grp-2ee504b6d2b9-000,grp-2284bbb6cf38-000,grp-abb5d123b87d-000,grp-e721aa1429d7-000",
+  "--repetition-count",
+  "1",
+  "--concurrency",
+  "20",
+  "--max-attempts",
+  "1",
+  "--flow",
+  "/Users/liuzhihao/Work/safety-guard/round2/luna_flow_v4",
+  "--tito-enabled",
+  "false",
+  "--model-access",
+  "gateway"
+]

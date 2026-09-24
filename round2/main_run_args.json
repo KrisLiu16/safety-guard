@@ -1,0 +1,22 @@
+[
+  "--name",
+  "[数据生产] MiMo 双语安审 · 按来源分组 995 词",
+  "--model-profile-id",
+  "mdl_01M33V8C39GGNX33TFS5ETDNR3",
+  "--placement-id",
+  "sg-public",
+  "--tasks",
+  "dsv_01M3685G5FS8XR18EDE39EH78W:grp-6e9ce006e1d3-000,grp-6e9ce006e1d3-001,grp-47e375fbf84a-000,grp-a92d3aa0927d-000,grp-04ebc65c480c-000,grp-04ebc65c480c-001,grp-04ebc65c480c-002,grp-04ebc65c480c-003,grp-04ebc65c480c-004,grp-04ebc65c480c-005,grp-04ebc65c480c-006,grp-04ebc65c480c-007,grp-04ebc65c480c-008,grp-b79e1620d09c-000,grp-69f94504ec3d-000,grp-545aae44c328-000,grp-545aae44c328-001,grp-545aae44c328-002,grp-545aae44c328-003,grp-545aae44c328-004,grp-14aedae85ecf-000,grp-b8584c0b68a8-000,grp-8b67b1107dd1-000,grp-8b67b1107dd1-001,grp-c68daf798875-000,grp-c68daf798875-001,grp-c68daf798875-002,grp-c68daf798875-003,grp-c68daf798875-004,grp-c68daf798875-005,grp-c68daf798875-006,grp-c68daf798875-007,grp-c68daf798875-008,grp-c68daf798875-009,grp-00c004a9d259-000,grp-073d0a27af16-000,grp-4197d9d70f05-000,grp-4197d9d70f05-001,grp-3bb43a571809-000,grp-2ee504b6d2b9-000,grp-2284bbb6cf38-000,grp-abb5d123b87d-000,grp-e721aa1429d7-000,grp-e721aa1429d7-001,grp-e721aa1429d7-002,grp-e721aa1429d7-003",
+  "--repetition-count",
+  "1",
+  "--concurrency",
+  "50",
+  "--max-attempts",
+  "1",
+  "--flow",
+  "/Users/liuzhihao/Work/safety-guard/round2/group_flow",
+  "--tito-enabled",
+  "false",
+  "--model-access",
+  "gateway"
+]

@@ -1,0 +1,69 @@
+{
+  "name": "c14_stage0",
+  "version": "c1-stage0-20k-a0150b08ca51",
+  "parameters": 376878080,
+  "has_lm_head": false,
+  "quality": {
+    "rows": 600,
+    "overlength_skipped": 0,
+    "label_scope": "Nemotron valid original labels, not project policy gold",
+    "roles": {
+      "user": {
+        "source_label_origin": "human",
+        "safe": 200,
+        "unsafe": 200,
+        "unsafe_auc": 0.792875,
+        "argmax_fpr": 0.08,
+        "argmax_unsafe_recall": 0.495,
+        "argmax_balanced_accuracy": 0.7075
+      },
+      "assistant": {
+        "source_label_origin": "llm_jury",
+        "safe": 100,
+        "unsafe": 100,
+        "unsafe_auc": 0.7956,
+        "argmax_fpr": 0.12,
+        "argmax_unsafe_recall": 0.49,
+        "argmax_balanced_accuracy": 0.685
+      }
+    }
+  },
+  "speed": {
+    "one_token_one_session": {
+      "new_input_tokens": 8,
+      "classifications": 8,
+      "wall_seconds": 0.06875897943973541,
+      "itps": 116.34844009009312,
+      "classifications_per_second": 116.34844009009312,
+      "decision_latency_ms": {
+        "p50": 8.52139014750719,
+        "p95": 8.78092460334301
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    },
+    "eight_tokens_eight_sessions": {
+      "new_input_tokens": 512,
+      "classifications": 64,
+      "wall_seconds": 0.6597697623074055,
+      "itps": 776.0282893374623,
+      "classifications_per_second": 97.00353616718279,
+      "decision_latency_ms": {
+        "p50": 10.211968794465065,
+        "p95": 10.715283453464508
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    },
+    "sixteen_tokens_32_sessions": {
+      "new_input_tokens": 4096,
+      "classifications": 256,
+      "wall_seconds": 2.6304938085377216,
+      "itps": 1557.1220835820732,
+      "classifications_per_second": 97.32013022387957,
+      "decision_latency_ms": {
+        "p50": 10.189170017838478,
+        "p95": 10.600199922919273
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    }
+  }
+}

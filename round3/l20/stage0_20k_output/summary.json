@@ -1,0 +1,30 @@
+{
+  "stage": "open_corpus_prefix_distillation_v1",
+  "not_policy_safety_aligned": true,
+  "gpu": "NVIDIA L20",
+  "teacher_model_sha256": "e0a2eac6cc79cca5bf35bf8fb356f94c333dd9715f4f0dd58883b01f2fe33419",
+  "student_base_sha256": "ccac89f5952187e506f743582e9b896e6c609895692afd98a48254b4153923f7",
+  "initial_adapter_sha256": "459fa427d9da9ab3527be4507862835a275eff2f6725ba90584034b1dd677857",
+  "data_manifest_sha256": "4f9e812720d75200fa981238f546969adaf4f7988198d5b7afbf90adf85473cc",
+  "train_examples_seen": 19776,
+  "overlength_skipped": 224,
+  "optimizer_steps": 2472,
+  "trainable_parameters": 330752,
+  "dev_before": {
+    "examples": 1973,
+    "total": 1.3504352807787185,
+    "risk_kl": 0.7070905643591286,
+    "category_kl": 1.5902306103368007,
+    "representation_cosine_loss": 0.8313775536256337
+  },
+  "dev_after": {
+    "examples": 1973,
+    "total": 1.052259290280284,
+    "risk_kl": 0.555191222799199,
+    "category_kl": 1.1977534861815078,
+    "representation_cosine_loss": 0.6887100258576828
+  },
+  "adapter_sha256": "a0150b08ca515a8449e32ee29c3598e815d07fd900b5d8182bca2facde50f682",
+  "wall_seconds": 1145.711551874876,
+  "peak_cuda_allocated_gib": 2.0906128883361816
+}

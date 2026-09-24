@@ -1,0 +1,52 @@
+# Python / environment
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env*
+
+# Model weights and packaged bundles
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+*.tar
+*.tar.gz
+*.gz
+*.whl
+*.parquet
+*.sha256
+
+# Datasets, logs and third-party corpora
+*.jsonl
+*.csv
+*.log
+data/
+data_verified
+lexicon/corpora/
+lexicon/sources/
+lexicon/research_nc/
+lexicon/research_sources/
+lexicon/derived/
+pilot/lexicon_raw/
+
+# Generated task shards and run outputs
+artifacts/
+tasks/
+chunks/
+full-shards/
+full-shards-300/
+completed_snapshot*/
+partial_snapshot*/
+round1/generated/
+round1/model/
+round1/export/
+round3/checkpoints/
+*/release/
+by_word/
+
+# Third-party tokenizer copies
+tokenizer.json
+vocab.json
+merges.txt

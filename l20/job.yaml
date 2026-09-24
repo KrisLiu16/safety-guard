@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-l20-smoke-20260923
+  namespace: default
+  labels:
+    app: safety-guard-l20-smoke
+spec:
+  suspend: true
+  backoffLimit: 0
+  activeDeadlineSeconds: 1800
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels:
+        app: safety-guard-l20-smoke
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        naive-sandbox/gpu-product: L20
+        naive-sandbox/pool: l20-exclusive
+      tolerations:
+        - key: naive-sandbox/exclusive
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      containers:
+        - name: probe
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              for i in $(seq 1 600); do
+                if test -f /work/bundle.tar; then break; fi
+                sleep 1
+              done
+              test -f /work/bundle.tar
+              test -f /work/bundle.sha256
+              sha256sum -c /work/bundle.sha256
+              mkdir -p /work/input /work/output
+              tar -xf /work/bundle.tar -C /work/input
+              python -m pip install --no-cache-dir 'transformers==4.55.0' 'tokenizers==0.21.4' 'safetensors==0.8.0' 'psutil==7.2.2'
+              python /work/input/bundle/run_cuda.py --out /work/output/results.json
+          resources:
+            requests:
+              cpu: "2"
+              memory: 8Gi
+              nvidia.com/gpu: "1"
+            limits:
+              cpu: "4"
+              memory: 12Gi
+              nvidia.com/gpu: "1"
+          volumeMounts:
+            - name: work
+              mountPath: /work
+      volumes:
+        - name: work
+          emptyDir:
+            sizeLimit: 4Gi

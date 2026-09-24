@@ -1,0 +1,96 @@
+{
+  "format": "round4-direct-classifier-bundle-v1",
+  "created_at": "2026-09-23T17:51:22.569221+00:00",
+  "candidate": "classification_rl",
+  "variant": "full",
+  "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "runtime_versions": {
+    "torch": "2.7.1+cu128",
+    "transformers": "5.17.0",
+    "flash-linear-attention": "0.5.2",
+    "fla-core": "0.5.2",
+    "safetensors": "0.8.0",
+    "tokenizers": "0.23.2",
+    "triton": "3.3.1",
+    "huggingface-hub": "1.32.0"
+  },
+  "python_version_at_packaging": "3.11.13",
+  "runtime_image": "pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime",
+  "runtime_requirements": {
+    "physical_cuda_devices": 1,
+    "gpu": "L20",
+    "cuda": "12.8",
+    "system_packages": [
+      "gcc",
+      "libc6-dev"
+    ]
+  },
+  "weight_storage_at_packaging": "hard_linked",
+  "standalone_model_weights": true,
+  "reads_base_model_weights": false,
+  "reads_initial_h24_checkpoint": false,
+  "loading_dtype": {
+    "backbone_parameters": "bfloat16",
+    "heads": "float32",
+    "memory_feature_maps_and_gates": "float32",
+    "nonpersistent_buffers": "initialized by the ordinary text-model constructor"
+  },
+  "serialization": "uppercase role + ':\\n' + content; messages joined by '\\n\\n'; no special tokens",
+  "max_input_tokens": 8192,
+  "generated_tokens": 0,
+  "production_approval": false,
+  "third_risk_class_validated": false,
+  "category_validated": false,
+  "safe_prefix_release_validated": false,
+  "bundle_neural_parity_validation": "required separately on L20; packaging is not validation",
+  "files": {
+    "BUNDLE_USAGE.md": {
+      "sha256": "d2b28ceeee693714ca59a2ad9d1d15b2288a67f0acd0735da87b5237ab9ad21b",
+      "bytes": 4177
+    },
+    "MODEL_MANIFEST.json": {
+      "sha256": "ac55fc33463f1bf1c0be87cbac2419ff07a4c40d431e02f06505ffcfc6e90bcd",
+      "bytes": 1336
+    },
+    "assets/config.json": {
+      "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+      "bytes": 2907
+    },
+    "assets/merges.txt": {
+      "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+      "bytes": 3353259
+    },
+    "assets/tokenizer.json": {
+      "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+      "bytes": 12807196
+    },
+    "assets/tokenizer_config.json": {
+      "sha256": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+      "bytes": 16712
+    },
+    "assets/vocab.json": {
+      "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+      "bytes": 6722759
+    },
+    "classifier.safetensors": {
+      "sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+      "bytes": 1509079036
+    },
+    "requirements.txt": {
+      "sha256": "b818a5351cf5fcce69cfe4b3e9f59327bf41510355a1fff7d68ea8d6a2731e06",
+      "bytes": 162
+    },
+    "run_guard.py": {
+      "sha256": "ffb40fbb4a8a733b16fe0b15cbb8c70e8da98b77bcc10b27faec9a4df6c159d4",
+      "bytes": 12523
+    },
+    "standalone_model.py": {
+      "sha256": "91342841453366f80f59ef8b7dec9c6df4df5ef3adbd7280608f6a662459c409",
+      "bytes": 14999
+    },
+    "text_stream_runtime.py": {
+      "sha256": "5259bcb6400ad4f61e0d5cc6a2950d7493e2f104bee7757f324950a03968c707",
+      "bytes": 18139
+    }
+  }
+}

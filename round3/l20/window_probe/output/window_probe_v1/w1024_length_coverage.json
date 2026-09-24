@@ -1,0 +1,18 @@
+{
+  "train": {
+    "total": 5120,
+    "beyond_window": 0
+  },
+  "dev": {
+    "total": 512,
+    "beyond_window": 0
+  },
+  "test": {
+    "total": 1112,
+    "beyond_window": 5
+  },
+  "official_test": {
+    "total": 250,
+    "beyond_window": 66
+  }
+}

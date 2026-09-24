@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-prefix-artifacts-20260924-r1
+  namespace: default
+  labels:
+    app: safety-guard-prefix-artifacts
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 7200
+  template:
+    metadata:
+      labels:
+        app: safety-guard-prefix-artifacts
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: artifacts
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              test -f /work/output/round5/validation/bundle/classifier.safetensors
+              touch /work/output/round5/validation/download_worker_ready
+              for i in $(seq 1 7000); do
+                if test -f /work/output/round5/validation/weights_downloaded; then exit 0; fi
+                sleep 1
+              done
+              exit 1
+          env:
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: void
+            - name: CUDA_VISIBLE_DEVICES
+              value: ""
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          volumeMounts:
+            - name: work
+              mountPath: /work
+      volumes:
+        - name: work
+          persistentVolumeClaim:
+            claimName: safety-guard-base-compare-data

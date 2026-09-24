@@ -1,0 +1,156 @@
+{
+  "results": [
+    {
+      "active_sessions": 1,
+      "chunk": 1,
+      "total_tokens_per_session": 1024,
+      "new_tokens_per_session": 32,
+      "all_new_token_heads": true,
+      "service_latency": {
+        "n": 96,
+        "p50_ms": 16.67843749964959,
+        "p95_ms": 17.18114599952969
+      },
+      "ready_client_latency_including_queue": {
+        "n": 96,
+        "p50_ms": 16.679437499988126,
+        "p95_ms": 17.182062999381742
+      },
+      "group_prefill_latency": {
+        "n": 3,
+        "p50_ms": 166.4267500018468,
+        "p95_ms": 167.0174497008702
+      },
+      "aggregate_new_tokens_per_second": 59.910740784756406,
+      "mps_driver_bytes": 1493893120,
+      "schedule": "Independent KV sessions, single MPS device, round-robin; every session ready at each tick."
+    },
+    {
+      "active_sessions": 1,
+      "chunk": 16,
+      "total_tokens_per_session": 1024,
+      "new_tokens_per_session": 32,
+      "all_new_token_heads": true,
+      "service_latency": {
+        "n": 6,
+        "p50_ms": 27.85158299775503,
+        "p95_ms": 28.276260001803166
+      },
+      "ready_client_latency_including_queue": {
+        "n": 6,
+        "p50_ms": 27.85229149776569,
+        "p95_ms": 28.27767700091499
+      },
+      "group_prefill_latency": {
+        "n": 3,
+        "p50_ms": 163.33416699853842,
+        "p95_ms": 164.0813911006262
+      },
+      "aggregate_new_tokens_per_second": 575.2607910354374,
+      "mps_driver_bytes": 1493893120,
+      "schedule": "Independent KV sessions, single MPS device, round-robin; every session ready at each tick."
+    },
+    {
+      "active_sessions": 2,
+      "chunk": 1,
+      "total_tokens_per_session": 1024,
+      "new_tokens_per_session": 32,
+      "all_new_token_heads": true,
+      "service_latency": {
+        "n": 192,
+        "p50_ms": 16.65304200105311,
+        "p95_ms": 17.440201899626114
+      },
+      "ready_client_latency_including_queue": {
+        "n": 192,
+        "p50_ms": 25.426437501664623,
+        "p95_ms": 33.97856440005853
+      },
+      "group_prefill_latency": {
+        "n": 3,
+        "p50_ms": 330.93024999834597,
+        "p95_ms": 332.6824753017718
+      },
+      "aggregate_new_tokens_per_second": 59.900027770882446,
+      "mps_driver_bytes": 1594556416,
+      "schedule": "Independent KV sessions, single MPS device, round-robin; every session ready at each tick."
+    },
+    {
+      "active_sessions": 2,
+      "chunk": 16,
+      "total_tokens_per_session": 1024,
+      "new_tokens_per_session": 32,
+      "all_new_token_heads": true,
+      "service_latency": {
+        "n": 12,
+        "p50_ms": 27.889416998732486,
+        "p95_ms": 28.95699115069874
+      },
+      "ready_client_latency_including_queue": {
+        "n": 12,
+        "p50_ms": 41.97008299888694,
+        "p95_ms": 57.207670649040665
+      },
+      "group_prefill_latency": {
+        "n": 3,
+        "p50_ms": 330.06508300240966,
+        "p95_ms": 330.336732698197
+      },
+      "aggregate_new_tokens_per_second": 572.3306462868618,
+      "mps_driver_bytes": 1594556416,
+      "schedule": "Independent KV sessions, single MPS device, round-robin; every session ready at each tick."
+    },
+    {
+      "active_sessions": 4,
+      "chunk": 1,
+      "total_tokens_per_session": 1024,
+      "new_tokens_per_session": 32,
+      "all_new_token_heads": true,
+      "service_latency": {
+        "n": 384,
+        "p50_ms": 16.665520999595174,
+        "p95_ms": 17.463766999753716
+      },
+      "ready_client_latency_including_queue": {
+        "n": 384,
+        "p50_ms": 43.15029200006393,
+        "p95_ms": 66.8793706496217
+      },
+      "group_prefill_latency": {
+        "n": 3,
+        "p50_ms": 657.3802499988233,
+        "p95_ms": 661.2555753006745
+      },
+      "aggregate_new_tokens_per_second": 59.833284844950555,
+      "mps_driver_bytes": 1829437440,
+      "schedule": "Independent KV sessions, single MPS device, round-robin; every session ready at each tick."
+    },
+    {
+      "active_sessions": 4,
+      "chunk": 16,
+      "total_tokens_per_session": 1024,
+      "new_tokens_per_session": 32,
+      "all_new_token_heads": true,
+      "service_latency": {
+        "n": 24,
+        "p50_ms": 27.629583000816638,
+        "p95_ms": 28.447483899981307
+      },
+      "ready_client_latency_including_queue": {
+        "n": 24,
+        "p50_ms": 69.13797900233476,
+        "p95_ms": 110.96202320022712
+      },
+      "group_prefill_latency": {
+        "n": 3,
+        "p50_ms": 658.9430000021821,
+        "p95_ms": 661.5477871979238
+      },
+      "aggregate_new_tokens_per_second": 579.3427354506005,
+      "mps_driver_bytes": 1829437440,
+      "schedule": "Independent KV sessions, single MPS device, round-robin; every session ready at each tick."
+    }
+  ],
+  "warmup": "first of four repetitions excluded",
+  "limitation": "Closed-loop ready-client workload, not open-loop arrivals or a production SLO guarantee."
+}

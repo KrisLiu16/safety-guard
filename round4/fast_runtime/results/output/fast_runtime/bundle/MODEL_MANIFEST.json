@@ -1,0 +1,41 @@
+{
+  "status": "research_candidate",
+  "candidate": "window",
+  "variant": "window",
+  "checkpoint": "/work/output/round4/window/best.safetensors",
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "pvc": "safety-guard-base-compare-data",
+  "base_root": "/work",
+  "window": 512,
+  "exported_development_score": 0.61,
+  "selection_rule": "Auxiliary latency variant: keep the existing window SFT development-selected checkpoint unchanged; integrate the numerically verified static-window graph approach. Primary quality candidate remains classification_rl/full. No additional training or sealed-test-based checkpoint selection.",
+  "selection_read_sealed_test": false,
+  "thresholds": {
+    "en/assistant": 0.95198792219162,
+    "zh/assistant": 0.9755336642265321,
+    "zh/user": 0.9907044768333436
+  },
+  "calibrated_strata": [
+    "en/assistant",
+    "zh/assistant",
+    "zh/user"
+  ],
+  "risk_class_order": [
+    "safe",
+    "unsafe",
+    "controversial"
+  ],
+  "hard_supervised_classes_this_round": [
+    "safe",
+    "unsafe"
+  ],
+  "category_validated": false,
+  "generated_tokens": 0,
+  "streaming_scope": "Existing window weights passed token-ID 8K and baseline text streaming audits; integrated graph text runtime still requires its separate final L20 validation.",
+  "long_stream_audit": "/Users/liuzhihao/Work/safety-guard/round4/results/output/round4/long_stream_audit.json",
+  "production_approval": false,
+  "inference_engine": "window_cuda_graph",
+  "created_at": "2026-09-23T17:59:03.110847+00:00",
+  "primary_quality_candidate_manifest": "../MODEL_MANIFEST.json",
+  "auxiliary_latency_variant": true
+}

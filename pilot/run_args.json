@@ -1,0 +1,22 @@
+[
+  "--name",
+  "[数据生产] Guard词库 · Luna · 50词×10条",
+  "--model-profile-id",
+  "mdl_01M2TK4P8Z0DE5QCJYJ8RSK8YV",
+  "--placement-id",
+  "sg-public",
+  "--tasks",
+  "dsv_01M353J6QC0M0Z2BCEXDX57EMK",
+  "--repetition-count",
+  "1",
+  "--concurrency",
+  "5",
+  "--max-attempts",
+  "1",
+  "--flow",
+  "/Users/liuzhihao/Work/safety-guard/pilot/flow",
+  "--tito-enabled",
+  "false",
+  "--model-access",
+  "gateway"
+]

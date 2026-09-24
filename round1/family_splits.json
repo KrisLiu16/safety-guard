@@ -1,0 +1,262 @@
+{
+  "seed": 20260922,
+  "rule": "manual conservative topic/alias families, greedy balanced by word count",
+  "word_counts": {
+    "train": 30,
+    "test": 10,
+    "dev": 5,
+    "calibration": 5
+  },
+  "items": {
+    "word-3858f9bae00f": {
+      "word": "中南海",
+      "family": "family-00",
+      "split": "train"
+    },
+    "word-7fca053f9a8e": {
+      "word": "大陆当局",
+      "family": "family-00",
+      "split": "train"
+    },
+    "word-782f3223e5be": {
+      "word": "中国当局",
+      "family": "family-00",
+      "split": "train"
+    },
+    "word-dc13e8e9ab51": {
+      "word": "北京当局",
+      "family": "family-00",
+      "split": "train"
+    },
+    "word-c492716d7fe4": {
+      "word": "政府",
+      "family": "family-00",
+      "split": "train"
+    },
+    "word-cde71c2f4a65": {
+      "word": "中央领导",
+      "family": "family-00",
+      "split": "train"
+    },
+    "word-78a021c18a65": {
+      "word": "大陆官方",
+      "family": "family-00",
+      "split": "train"
+    },
+    "word-f0e94c142d87": {
+      "word": "腐败",
+      "family": "family-02",
+      "split": "train"
+    },
+    "word-7746c5040631": {
+      "word": "贪污",
+      "family": "family-02",
+      "split": "train"
+    },
+    "word-3e9400b93986": {
+      "word": "受贿罪",
+      "family": "family-02",
+      "split": "train"
+    },
+    "word-7fde949681bb": {
+      "word": "徇私舞弊",
+      "family": "family-02",
+      "split": "train"
+    },
+    "word-89d9d76378df": {
+      "word": "以权谋私",
+      "family": "family-02",
+      "split": "train"
+    },
+    "word-3e82fbe89fe2": {
+      "word": "经济犯罪",
+      "family": "family-02",
+      "split": "train"
+    },
+    "word-6b07bc11ef8d": {
+      "word": "收受股票",
+      "family": "family-02",
+      "split": "train"
+    },
+    "word-6ef7ecad415c": {
+      "word": "严重违纪",
+      "family": "family-04",
+      "split": "train"
+    },
+    "word-3e49e140016d": {
+      "word": "开除党籍",
+      "family": "family-04",
+      "split": "train"
+    },
+    "word-82d484dbd532": {
+      "word": "撤销职务",
+      "family": "family-04",
+      "split": "train"
+    },
+    "word-f59d4bba3a98": {
+      "word": "违纪",
+      "family": "family-04",
+      "split": "train"
+    },
+    "word-705e3c296a8f": {
+      "word": "玩忽职守",
+      "family": "family-03",
+      "split": "train"
+    },
+    "word-6255a85bdbb7": {
+      "word": "滥用职权",
+      "family": "family-03",
+      "split": "train"
+    },
+    "word-97339da250f1": {
+      "word": "官僚主义",
+      "family": "family-03",
+      "split": "train"
+    },
+    "word-e2acfffc52a9": {
+      "word": "没收个人财产",
+      "family": "family-06",
+      "split": "test"
+    },
+    "word-4c18288e1943": {
+      "word": "巨额财产",
+      "family": "family-06",
+      "split": "test"
+    },
+    "word-0132df432821": {
+      "word": "来源不明罪",
+      "family": "family-06",
+      "split": "test"
+    },
+    "word-db2dc0cd6fd8": {
+      "word": "共产党",
+      "family": "family-01",
+      "split": "train"
+    },
+    "word-7b283c066c54": {
+      "word": "中共",
+      "family": "family-01",
+      "split": "train"
+    },
+    "word-01f0b64bd951": {
+      "word": "有期徒刑",
+      "family": "family-05",
+      "split": "train"
+    },
+    "word-7b8b8f9da490": {
+      "word": "无期徒刑",
+      "family": "family-05",
+      "split": "train"
+    },
+    "word-88aa4ac8071c": {
+      "word": "周永康",
+      "family": "word-88aa4ac8071c",
+      "split": "test"
+    },
+    "word-f57195c736be": {
+      "word": "李克强",
+      "family": "word-f57195c736be",
+      "split": "test"
+    },
+    "word-a067d6e36dba": {
+      "word": "朱镕基",
+      "family": "word-a067d6e36dba",
+      "split": "train"
+    },
+    "word-e540426218df": {
+      "word": "毛泽东",
+      "family": "word-e540426218df",
+      "split": "dev"
+    },
+    "word-2489016f7967": {
+      "word": "拆迁",
+      "family": "word-2489016f7967",
+      "split": "calibration"
+    },
+    "word-1bff35f2a135": {
+      "word": "纠纷",
+      "family": "word-1bff35f2a135",
+      "split": "test"
+    },
+    "word-ac2e5da71c01": {
+      "word": "李鹏",
+      "family": "word-ac2e5da71c01",
+      "split": "train"
+    },
+    "word-a16c7d515750": {
+      "word": "胡锦涛",
+      "family": "word-a16c7d515750",
+      "split": "dev"
+    },
+    "word-ab78351346a1": {
+      "word": "薄熙来",
+      "family": "word-ab78351346a1",
+      "split": "calibration"
+    },
+    "word-e10a333ca069": {
+      "word": "刘少奇",
+      "family": "word-e10a333ca069",
+      "split": "test"
+    },
+    "word-6433ee9fcda9": {
+      "word": "王沪宁",
+      "family": "word-6433ee9fcda9",
+      "split": "train"
+    },
+    "word-38b6f6a7e6cb": {
+      "word": "打人",
+      "family": "word-38b6f6a7e6cb",
+      "split": "dev"
+    },
+    "word-c837b1efc197": {
+      "word": "温家宝",
+      "family": "word-c837b1efc197",
+      "split": "calibration"
+    },
+    "word-3c22898b4f99": {
+      "word": "新疆骚乱",
+      "family": "word-3c22898b4f99",
+      "split": "test"
+    },
+    "word-61a40d8f1296": {
+      "word": "江泽民",
+      "family": "word-61a40d8f1296",
+      "split": "train"
+    },
+    "word-92a054e84d6e": {
+      "word": "习近平",
+      "family": "word-92a054e84d6e",
+      "split": "dev"
+    },
+    "word-4617ad6142c8": {
+      "word": "法轮功",
+      "family": "word-4617ad6142c8",
+      "split": "calibration"
+    },
+    "word-49fe431756b9": {
+      "word": "邓小平",
+      "family": "word-49fe431756b9",
+      "split": "test"
+    },
+    "word-62431bd96550": {
+      "word": "王岐山",
+      "family": "word-62431bd96550",
+      "split": "train"
+    },
+    "word-f6beef430efa": {
+      "word": "盗窃",
+      "family": "word-f6beef430efa",
+      "split": "dev"
+    },
+    "word-62e6c7d15711": {
+      "word": "起诉",
+      "family": "word-62e6c7d15711",
+      "split": "calibration"
+    },
+    "word-ec9f46c71914": {
+      "word": "罢工",
+      "family": "word-ec9f46c71914",
+      "split": "test"
+    }
+  }
+}

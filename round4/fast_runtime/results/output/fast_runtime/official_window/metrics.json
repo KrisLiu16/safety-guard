@@ -1,0 +1,140 @@
+{
+  "status": "completed",
+  "kind": "student",
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "splits": {
+    "thinking": {
+      "coverage": {
+        "requested": 1059,
+        "evaluated": 1059,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 1059,
+        "tp": 560,
+        "fp": 441,
+        "tn": 49,
+        "fn": 9,
+        "recall": 0.984182776801406,
+        "fpr": 0.9,
+        "precision": 0.5594405594405595,
+        "f1": 0.7133757961783439
+      },
+      "native_two_consecutive_loose": {
+        "n": 1059,
+        "tp": 560,
+        "fp": 441,
+        "tn": 49,
+        "fn": 9,
+        "recall": 0.984182776801406,
+        "fpr": 0.9,
+        "precision": 0.5594405594405595,
+        "f1": 0.7133757961783439
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 1059,
+        "tp": 380,
+        "fp": 25,
+        "tn": 465,
+        "fn": 189,
+        "recall": 0.6678383128295254,
+        "fpr": 0.05102040816326531,
+        "precision": 0.9382716049382716,
+        "f1": 0.7802874743326489
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    },
+    "thinking_loc": {
+      "coverage": {
+        "requested": 569,
+        "evaluated": 569,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 569,
+        "tp": 560,
+        "fp": 0,
+        "tn": 0,
+        "fn": 9,
+        "recall": 0.984182776801406,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9920283436669619
+      },
+      "native_two_consecutive_loose": {
+        "n": 569,
+        "tp": 560,
+        "fp": 0,
+        "tn": 0,
+        "fn": 9,
+        "recall": 0.984182776801406,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9920283436669619
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 569,
+        "tp": 380,
+        "fp": 0,
+        "tn": 0,
+        "fn": 189,
+        "recall": 0.6678383128295254,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.8008429926238145
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    },
+    "response_loc": {
+      "coverage": {
+        "requested": 813,
+        "evaluated": 813,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 813,
+        "tp": 776,
+        "fp": 0,
+        "tn": 0,
+        "fn": 37,
+        "recall": 0.9544895448954489,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9767149150409062
+      },
+      "native_two_consecutive_loose": {
+        "n": 813,
+        "tp": 776,
+        "fp": 0,
+        "tn": 0,
+        "fn": 37,
+        "recall": 0.9544895448954489,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9767149150409062
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 813,
+        "tp": 701,
+        "fp": 0,
+        "tn": 0,
+        "fn": 112,
+        "recall": 0.8622386223862238,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9260237780713342
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    }
+  },
+  "selection_uses_this_benchmark": false,
+  "protocol": "Student: canonical training serialization and native two-consecutive decisions. A0: original chat template/tokenizer and published two-consecutive decisions. Template/token granularity differ, so this is an adapted quality comparison.",
+  "overlap_note": "thinking and thinking_loc overlap; no pooled total score. Location splits contain no safe examples, so FPR is undefined.",
+  "neural_forward_calls": 1872,
+  "reuse_rule": "Exact full input token IDs and evaluation start, within the same checkpoint only",
+  "generated_tokens": 0,
+  "seconds": 72.18093676492572
+}

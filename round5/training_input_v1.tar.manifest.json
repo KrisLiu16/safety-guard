@@ -1,0 +1,34 @@
+{
+  "archive_sha256": "c4d15548e6f05869a6962f587099e5d096366de8f668d8eae980c2debefe6b15",
+  "files": {
+    "train_prefix.py": "1aea85c2c1228aba6066c915922e790c7fb56cc26c4ef7d21329508937c13e7c",
+    "stream_metrics.py": "20a803f17d846b729a64dc4f0d6ad28b22d714117197854755a47bd3f163faff",
+    "prepare_prefix_data.py": "90aae8ff8ca4c914cb752b3fdbed2a66a2219a9ca4fd02a5e97246a94a77b88f",
+    "prepare_fresh_holdout.py": "d881902e3751dd7f1bbb73cbc37ff68ec4a678aedcea51a06937caf2b04c83d8",
+    "PREFIX_TRAINING_PROTOCOL.md": "c3961f9b788797dea7797c12c444368fa8acda440995776580a9f3bef32d3348",
+    "TRAIN_PREFIX_USAGE.md": "2f11b496e4ff877a25eb4a3dd070995521dc4e6d6a275ca075e70a67a43049ed",
+    "test_prefix_protocol.py": "a29d433c4fa33e11ad98a167164413a18263d552e9b1131e8a8f36a631d861f1",
+    "test_train_prefix_cpu.py": "71352da9ec0636c41d2e97124bb92310b3a55c515d6d5e99cd7c311d04efc3a8",
+    "data/prefix_v2/train.jsonl": "77c31a0f34e3171a7391bc0c448098248a89b42abfd5b2cd908712e635b0772e",
+    "data/prefix_v2/calibration.jsonl": "8db0d6bf4996060712e5ee37938dedfe04cf8a6ca5941dbb2ead544195dc0808",
+    "data/prefix_v2/dev.jsonl": "53d7593f989a62ae696915942333eff4cc834f187b009611b9308e39941e3211",
+    "data/prefix_v2/manifest.json": "3a0f3c71547bf71b9ff152169237bf30c66cb320ed940980edf1aa7d719c333e",
+    "data/fresh_holdout_v1/episodes.jsonl": "f571f2a93c0c5352a7835e7b522dffd48139063eee3daa229efea409c6a56cd1",
+    "data/fresh_holdout_v1/manifest.json": "e694f938ae3298f631242a50ac0559bc109a148dbdc7c6fdb71c5adc781f1838",
+    "external_files.sha256": "06506ee6ae3d6d643d55c9ff190b87e4cbcdde03a5a4148e9c50328ba42c5105"
+  },
+  "external_files": {
+    "/work/round4/train_risk.py": "81045f79de81e2b5f83faa4fa324a49fd52409a06cd395e5faf91f3ebc9cdda8",
+    "/work/round4/risk_metrics.py": "21227ed43e7172bd42faad9ecfdb7eefb62361565b914bcb287c80bf793e7453",
+    "/work/round4/memory_attention.py": "bd9c4d2ff3ba778c9076a38214ac017f203d3161cd012c7d4f5b2fd1a510e360",
+    "/work/input/train_base.py": "19ebfd8ec2bd0253aff822e34524dc01bd8dad9dba6bd88a6c8316e1154f0018",
+    "/work/input/experiment_common.py": "498454eef081454d1b2c334f85a4b2f3dda8d82190a8fd4a81512116cac20d2e",
+    "/work/input/speed_probe.py": "036c52f96dbf0cb9214f40c8f4060c69f2df47818f801271720521b533323cca",
+    "/work/window/window_attention.py": "65613e26e6db49ed6f8190ba9ad8e101f222595a18588638db99a15fa9ed5227",
+    "/work/window/run_probe.py": "7320f017c19d47699bdb3e9e96cdb4d905fec96cf08f9a3125e85dd54bbabf34",
+    "/work/output/round4/window/best.safetensors": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2"
+  },
+  "raw_generation_format_changed": false,
+  "frozen_holdout_selection_use": false,
+  "neural_model_calls": 0
+}

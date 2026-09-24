@@ -1,0 +1,3100 @@
+{
+  "status": "cpu_analysis_complete",
+  "original_status": "completed",
+  "original_pass": false,
+  "source": "/Users/liuzhihao/Work/safety-guard/round4/fast_runtime/diagnostics/fast_text_audit.original.json",
+  "source_sha256": "11635ba5abc48a466363aa75ef98b146e65f8dae0cf9fad19d07b98eb833234c",
+  "checks": 164,
+  "passed_checks": 55,
+  "failed_checks": 109,
+  "failed_check_groups": {
+    "exact_length": 96,
+    "whole_8192": 2,
+    "text_pair": 11
+  },
+  "failed_comparison_roots": [
+    {
+      "case": "exact_length_1_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_1_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_1_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_2_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_2_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_2_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_3_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_3_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_3_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_4_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_4_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_4_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_5_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_5_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_5_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_6_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_6_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_6_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_7_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_7_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_7_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_8_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_8_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_8_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_9_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_9_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_9_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_10_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_10_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_10_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_11_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_11_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_11_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_12_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_12_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_12_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_13_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_13_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_13_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_14_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_14_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_14_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_15_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_15_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_15_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_16_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_16_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_16_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_17_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_17_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_17_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_18_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_18_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_18_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_19_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_19_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_19_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_20_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_20_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_20_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_21_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_21_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_21_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_22_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_22_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_22_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_23_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_23_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_23_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_24_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_24_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_24_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_25_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_25_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_25_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_26_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_26_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_26_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_27_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_27_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_27_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_28_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_28_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_28_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_29_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_29_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_29_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_30_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_30_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_30_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_31_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_31_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_31_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_32_block_0",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_32_block_1",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "exact_length_32_block_2",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "whole_8192_[32]",
+      "failed_comparison_roots": [
+        "state"
+      ]
+    },
+    {
+      "case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+      "failed_comparison_roots": [
+        "state"
+      ]
+    },
+    {
+      "case": "bpe_704_before",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "bpe_to_703",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "bpe_to_704",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "interleave_primary_5",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "interleave_other_5",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "role_switch_assistant",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "role_switch_user",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "raise_after_forward_retry",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "nonfinite_after_forward_retry",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "all_transactions_final",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    },
+    {
+      "case": "measured_trajectory_final",
+      "failed_comparison_roots": [
+        "whole_state"
+      ]
+    }
+  ],
+  "all_false_json_paths": [
+    "$.pass",
+    "$.quality_candidate_changed",
+    "$.training_or_weights_modified",
+    "$.checks[1].pass",
+    "$.checks[1].whole_state.pass",
+    "$.checks[1].whole_state.families.conv_states.pass",
+    "$.checks[1].whole_state.families.recurrent_states.pass",
+    "$.checks[1].whole_state.families.keys.pass",
+    "$.checks[1].whole_state.families.values.pass",
+    "$.checks[2].pass",
+    "$.checks[2].whole_state.pass",
+    "$.checks[2].whole_state.families.conv_states.pass",
+    "$.checks[2].whole_state.families.recurrent_states.pass",
+    "$.checks[2].whole_state.families.keys.pass",
+    "$.checks[2].whole_state.families.values.pass",
+    "$.checks[3].pass",
+    "$.checks[3].whole_state.pass",
+    "$.checks[3].whole_state.families.conv_states.pass",
+    "$.checks[3].whole_state.families.recurrent_states.pass",
+    "$.checks[3].whole_state.families.keys.pass",
+    "$.checks[3].whole_state.families.values.pass",
+    "$.checks[4].pass",
+    "$.checks[4].whole_state.pass",
+    "$.checks[4].whole_state.families.conv_states.pass",
+    "$.checks[4].whole_state.families.recurrent_states.pass",
+    "$.checks[4].whole_state.families.keys.pass",
+    "$.checks[4].whole_state.families.values.pass",
+    "$.checks[5].pass",
+    "$.checks[5].whole_state.pass",
+    "$.checks[5].whole_state.families.conv_states.pass",
+    "$.checks[5].whole_state.families.recurrent_states.pass",
+    "$.checks[5].whole_state.families.keys.pass",
+    "$.checks[5].whole_state.families.values.pass",
+    "$.checks[6].pass",
+    "$.checks[6].whole_state.pass",
+    "$.checks[6].whole_state.families.conv_states.pass",
+    "$.checks[6].whole_state.families.recurrent_states.pass",
+    "$.checks[6].whole_state.families.keys.pass",
+    "$.checks[6].whole_state.families.values.pass",
+    "$.checks[7].pass",
+    "$.checks[7].whole_state.pass",
+    "$.checks[7].whole_state.families.conv_states.pass",
+    "$.checks[7].whole_state.families.recurrent_states.pass",
+    "$.checks[7].whole_state.families.keys.pass",
+    "$.checks[7].whole_state.families.values.pass",
+    "$.checks[8].pass",
+    "$.checks[8].whole_state.pass",
+    "$.checks[8].whole_state.families.conv_states.pass",
+    "$.checks[8].whole_state.families.recurrent_states.pass",
+    "$.checks[8].whole_state.families.keys.pass",
+    "$.checks[8].whole_state.families.values.pass",
+    "$.checks[9].pass",
+    "$.checks[9].whole_state.pass",
+    "$.checks[9].whole_state.families.conv_states.pass",
+    "$.checks[9].whole_state.families.recurrent_states.pass",
+    "$.checks[9].whole_state.families.keys.pass",
+    "$.checks[9].whole_state.families.values.pass",
+    "$.checks[10].pass",
+    "$.checks[10].whole_state.pass",
+    "$.checks[10].whole_state.families.conv_states.pass",
+    "$.checks[10].whole_state.families.recurrent_states.pass",
+    "$.checks[10].whole_state.families.keys.pass",
+    "$.checks[10].whole_state.families.values.pass",
+    "$.checks[11].pass",
+    "$.checks[11].whole_state.pass",
+    "$.checks[11].whole_state.families.conv_states.pass",
+    "$.checks[11].whole_state.families.recurrent_states.pass",
+    "$.checks[11].whole_state.families.keys.pass",
+    "$.checks[11].whole_state.families.values.pass",
+    "$.checks[12].pass",
+    "$.checks[12].whole_state.pass",
+    "$.checks[12].whole_state.families.conv_states.pass",
+    "$.checks[12].whole_state.families.recurrent_states.pass",
+    "$.checks[12].whole_state.families.keys.pass",
+    "$.checks[12].whole_state.families.values.pass",
+    "$.checks[13].pass",
+    "$.checks[13].whole_state.pass",
+    "$.checks[13].whole_state.families.conv_states.pass",
+    "$.checks[13].whole_state.families.recurrent_states.pass",
+    "$.checks[13].whole_state.families.keys.pass",
+    "$.checks[13].whole_state.families.values.pass",
+    "$.checks[14].pass",
+    "$.checks[14].whole_state.pass",
+    "$.checks[14].whole_state.families.conv_states.pass",
+    "$.checks[14].whole_state.families.recurrent_states.pass",
+    "$.checks[14].whole_state.families.keys.pass",
+    "$.checks[14].whole_state.families.values.pass",
+    "$.checks[15].pass",
+    "$.checks[15].whole_state.pass",
+    "$.checks[15].whole_state.families.conv_states.pass",
+    "$.checks[15].whole_state.families.recurrent_states.pass",
+    "$.checks[15].whole_state.families.keys.pass",
+    "$.checks[15].whole_state.families.values.pass",
+    "$.checks[16].pass",
+    "$.checks[16].whole_state.pass",
+    "$.checks[16].whole_state.families.conv_states.pass",
+    "$.checks[16].whole_state.families.recurrent_states.pass",
+    "$.checks[16].whole_state.families.keys.pass",
+    "$.checks[16].whole_state.families.values.pass",
+    "$.checks[17].pass",
+    "$.checks[17].whole_state.pass",
+    "$.checks[17].whole_state.families.conv_states.pass",
+    "$.checks[17].whole_state.families.recurrent_states.pass",
+    "$.checks[17].whole_state.families.keys.pass",
+    "$.checks[17].whole_state.families.values.pass",
+    "$.checks[18].pass",
+    "$.checks[18].whole_state.pass",
+    "$.checks[18].whole_state.families.conv_states.pass",
+    "$.checks[18].whole_state.families.recurrent_states.pass",
+    "$.checks[18].whole_state.families.keys.pass",
+    "$.checks[18].whole_state.families.values.pass",
+    "$.checks[19].pass",
+    "$.checks[19].whole_state.pass",
+    "$.checks[19].whole_state.families.conv_states.pass",
+    "$.checks[19].whole_state.families.recurrent_states.pass",
+    "$.checks[19].whole_state.families.keys.pass",
+    "$.checks[19].whole_state.families.values.pass",
+    "$.checks[20].pass",
+    "$.checks[20].whole_state.pass",
+    "$.checks[20].whole_state.families.conv_states.pass",
+    "$.checks[20].whole_state.families.recurrent_states.pass",
+    "$.checks[20].whole_state.families.keys.pass",
+    "$.checks[20].whole_state.families.values.pass",
+    "$.checks[21].pass",
+    "$.checks[21].whole_state.pass",
+    "$.checks[21].whole_state.families.conv_states.pass",
+    "$.checks[21].whole_state.families.recurrent_states.pass",
+    "$.checks[21].whole_state.families.keys.pass",
+    "$.checks[21].whole_state.families.values.pass",
+    "$.checks[22].pass",
+    "$.checks[22].whole_state.pass",
+    "$.checks[22].whole_state.families.conv_states.pass",
+    "$.checks[22].whole_state.families.recurrent_states.pass",
+    "$.checks[22].whole_state.families.keys.pass",
+    "$.checks[22].whole_state.families.values.pass",
+    "$.checks[23].pass",
+    "$.checks[23].whole_state.pass",
+    "$.checks[23].whole_state.families.conv_states.pass",
+    "$.checks[23].whole_state.families.recurrent_states.pass",
+    "$.checks[23].whole_state.families.keys.pass",
+    "$.checks[23].whole_state.families.values.pass",
+    "$.checks[24].pass",
+    "$.checks[24].whole_state.pass",
+    "$.checks[24].whole_state.families.conv_states.pass",
+    "$.checks[24].whole_state.families.recurrent_states.pass",
+    "$.checks[24].whole_state.families.keys.pass",
+    "$.checks[24].whole_state.families.values.pass",
+    "$.checks[25].pass",
+    "$.checks[25].whole_state.pass",
+    "$.checks[25].whole_state.families.conv_states.pass",
+    "$.checks[25].whole_state.families.recurrent_states.pass",
+    "$.checks[25].whole_state.families.keys.pass",
+    "$.checks[25].whole_state.families.values.pass",
+    "$.checks[26].pass",
+    "$.checks[26].whole_state.pass",
+    "$.checks[26].whole_state.families.conv_states.pass",
+    "$.checks[26].whole_state.families.recurrent_states.pass",
+    "$.checks[26].whole_state.families.keys.pass",
+    "$.checks[26].whole_state.families.values.pass",
+    "$.checks[27].pass",
+    "$.checks[27].whole_state.pass",
+    "$.checks[27].whole_state.families.conv_states.pass",
+    "$.checks[27].whole_state.families.recurrent_states.pass",
+    "$.checks[27].whole_state.families.keys.pass",
+    "$.checks[27].whole_state.families.values.pass",
+    "$.checks[28].pass",
+    "$.checks[28].whole_state.pass",
+    "$.checks[28].whole_state.families.conv_states.pass",
+    "$.checks[28].whole_state.families.recurrent_states.pass",
+    "$.checks[28].whole_state.families.keys.pass",
+    "$.checks[28].whole_state.families.values.pass",
+    "$.checks[29].pass",
+    "$.checks[29].whole_state.pass",
+    "$.checks[29].whole_state.families.conv_states.pass",
+    "$.checks[29].whole_state.families.recurrent_states.pass",
+    "$.checks[29].whole_state.families.keys.pass",
+    "$.checks[29].whole_state.families.values.pass",
+    "$.checks[30].pass",
+    "$.checks[30].whole_state.pass",
+    "$.checks[30].whole_state.families.conv_states.pass",
+    "$.checks[30].whole_state.families.recurrent_states.pass",
+    "$.checks[30].whole_state.families.keys.pass",
+    "$.checks[30].whole_state.families.values.pass",
+    "$.checks[31].pass",
+    "$.checks[31].whole_state.pass",
+    "$.checks[31].whole_state.families.conv_states.pass",
+    "$.checks[31].whole_state.families.recurrent_states.pass",
+    "$.checks[31].whole_state.families.keys.pass",
+    "$.checks[31].whole_state.families.values.pass",
+    "$.checks[32].pass",
+    "$.checks[32].whole_state.pass",
+    "$.checks[32].whole_state.families.conv_states.pass",
+    "$.checks[32].whole_state.families.recurrent_states.pass",
+    "$.checks[32].whole_state.families.keys.pass",
+    "$.checks[32].whole_state.families.values.pass",
+    "$.checks[33].pass",
+    "$.checks[33].whole_state.pass",
+    "$.checks[33].whole_state.families.conv_states.pass",
+    "$.checks[33].whole_state.families.recurrent_states.pass",
+    "$.checks[33].whole_state.families.keys.pass",
+    "$.checks[33].whole_state.families.values.pass",
+    "$.checks[34].pass",
+    "$.checks[34].whole_state.pass",
+    "$.checks[34].whole_state.families.conv_states.pass",
+    "$.checks[34].whole_state.families.recurrent_states.pass",
+    "$.checks[34].whole_state.families.keys.pass",
+    "$.checks[34].whole_state.families.values.pass",
+    "$.checks[35].pass",
+    "$.checks[35].whole_state.pass",
+    "$.checks[35].whole_state.families.conv_states.pass",
+    "$.checks[35].whole_state.families.recurrent_states.pass",
+    "$.checks[35].whole_state.families.keys.pass",
+    "$.checks[35].whole_state.families.values.pass",
+    "$.checks[36].pass",
+    "$.checks[36].whole_state.pass",
+    "$.checks[36].whole_state.families.conv_states.pass",
+    "$.checks[36].whole_state.families.recurrent_states.pass",
+    "$.checks[36].whole_state.families.keys.pass",
+    "$.checks[36].whole_state.families.values.pass",
+    "$.checks[37].pass",
+    "$.checks[37].whole_state.pass",
+    "$.checks[37].whole_state.families.conv_states.pass",
+    "$.checks[37].whole_state.families.recurrent_states.pass",
+    "$.checks[37].whole_state.families.keys.pass",
+    "$.checks[37].whole_state.families.values.pass",
+    "$.checks[38].pass",
+    "$.checks[38].whole_state.pass",
+    "$.checks[38].whole_state.families.conv_states.pass",
+    "$.checks[38].whole_state.families.recurrent_states.pass",
+    "$.checks[38].whole_state.families.keys.pass",
+    "$.checks[38].whole_state.families.values.pass",
+    "$.checks[39].pass",
+    "$.checks[39].whole_state.pass",
+    "$.checks[39].whole_state.families.conv_states.pass",
+    "$.checks[39].whole_state.families.recurrent_states.pass",
+    "$.checks[39].whole_state.families.keys.pass",
+    "$.checks[39].whole_state.families.values.pass",
+    "$.checks[40].pass",
+    "$.checks[40].whole_state.pass",
+    "$.checks[40].whole_state.families.conv_states.pass",
+    "$.checks[40].whole_state.families.recurrent_states.pass",
+    "$.checks[40].whole_state.families.keys.pass",
+    "$.checks[40].whole_state.families.values.pass",
+    "$.checks[41].pass",
+    "$.checks[41].whole_state.pass",
+    "$.checks[41].whole_state.families.conv_states.pass",
+    "$.checks[41].whole_state.families.recurrent_states.pass",
+    "$.checks[41].whole_state.families.keys.pass",
+    "$.checks[41].whole_state.families.values.pass",
+    "$.checks[42].pass",
+    "$.checks[42].whole_state.pass",
+    "$.checks[42].whole_state.families.conv_states.pass",
+    "$.checks[42].whole_state.families.recurrent_states.pass",
+    "$.checks[42].whole_state.families.keys.pass",
+    "$.checks[42].whole_state.families.values.pass",
+    "$.checks[43].pass",
+    "$.checks[43].whole_state.pass",
+    "$.checks[43].whole_state.families.conv_states.pass",
+    "$.checks[43].whole_state.families.recurrent_states.pass",
+    "$.checks[43].whole_state.families.keys.pass",
+    "$.checks[43].whole_state.families.values.pass",
+    "$.checks[44].pass",
+    "$.checks[44].whole_state.pass",
+    "$.checks[44].whole_state.families.conv_states.pass",
+    "$.checks[44].whole_state.families.recurrent_states.pass",
+    "$.checks[44].whole_state.families.keys.pass",
+    "$.checks[44].whole_state.families.values.pass",
+    "$.checks[45].pass",
+    "$.checks[45].whole_state.pass",
+    "$.checks[45].whole_state.families.conv_states.pass",
+    "$.checks[45].whole_state.families.recurrent_states.pass",
+    "$.checks[45].whole_state.families.keys.pass",
+    "$.checks[45].whole_state.families.values.pass",
+    "$.checks[46].pass",
+    "$.checks[46].whole_state.pass",
+    "$.checks[46].whole_state.families.conv_states.pass",
+    "$.checks[46].whole_state.families.recurrent_states.pass",
+    "$.checks[46].whole_state.families.keys.pass",
+    "$.checks[46].whole_state.families.values.pass",
+    "$.checks[47].pass",
+    "$.checks[47].whole_state.pass",
+    "$.checks[47].whole_state.families.conv_states.pass",
+    "$.checks[47].whole_state.families.recurrent_states.pass",
+    "$.checks[47].whole_state.families.keys.pass",
+    "$.checks[47].whole_state.families.values.pass",
+    "$.checks[48].pass",
+    "$.checks[48].whole_state.pass",
+    "$.checks[48].whole_state.families.conv_states.pass",
+    "$.checks[48].whole_state.families.recurrent_states.pass",
+    "$.checks[48].whole_state.families.keys.pass",
+    "$.checks[48].whole_state.families.values.pass",
+    "$.checks[49].pass",
+    "$.checks[49].whole_state.pass",
+    "$.checks[49].whole_state.families.conv_states.pass",
+    "$.checks[49].whole_state.families.recurrent_states.pass",
+    "$.checks[49].whole_state.families.keys.pass",
+    "$.checks[49].whole_state.families.values.pass",
+    "$.checks[50].pass",
+    "$.checks[50].whole_state.pass",
+    "$.checks[50].whole_state.families.conv_states.pass",
+    "$.checks[50].whole_state.families.recurrent_states.pass",
+    "$.checks[50].whole_state.families.keys.pass",
+    "$.checks[50].whole_state.families.values.pass",
+    "$.checks[51].pass",
+    "$.checks[51].whole_state.pass",
+    "$.checks[51].whole_state.families.conv_states.pass",
+    "$.checks[51].whole_state.families.recurrent_states.pass",
+    "$.checks[51].whole_state.families.keys.pass",
+    "$.checks[51].whole_state.families.values.pass",
+    "$.checks[52].pass",
+    "$.checks[52].whole_state.pass",
+    "$.checks[52].whole_state.families.conv_states.pass",
+    "$.checks[52].whole_state.families.recurrent_states.pass",
+    "$.checks[52].whole_state.families.keys.pass",
+    "$.checks[52].whole_state.families.values.pass",
+    "$.checks[53].pass",
+    "$.checks[53].whole_state.pass",
+    "$.checks[53].whole_state.families.conv_states.pass",
+    "$.checks[53].whole_state.families.recurrent_states.pass",
+    "$.checks[53].whole_state.families.keys.pass",
+    "$.checks[53].whole_state.families.values.pass",
+    "$.checks[54].pass",
+    "$.checks[54].whole_state.pass",
+    "$.checks[54].whole_state.families.conv_states.pass",
+    "$.checks[54].whole_state.families.recurrent_states.pass",
+    "$.checks[54].whole_state.families.keys.pass",
+    "$.checks[54].whole_state.families.values.pass",
+    "$.checks[55].pass",
+    "$.checks[55].whole_state.pass",
+    "$.checks[55].whole_state.families.conv_states.pass",
+    "$.checks[55].whole_state.families.recurrent_states.pass",
+    "$.checks[55].whole_state.families.keys.pass",
+    "$.checks[55].whole_state.families.values.pass",
+    "$.checks[56].pass",
+    "$.checks[56].whole_state.pass",
+    "$.checks[56].whole_state.families.conv_states.pass",
+    "$.checks[56].whole_state.families.recurrent_states.pass",
+    "$.checks[56].whole_state.families.keys.pass",
+    "$.checks[56].whole_state.families.values.pass",
+    "$.checks[57].pass",
+    "$.checks[57].whole_state.pass",
+    "$.checks[57].whole_state.families.conv_states.pass",
+    "$.checks[57].whole_state.families.recurrent_states.pass",
+    "$.checks[57].whole_state.families.keys.pass",
+    "$.checks[57].whole_state.families.values.pass",
+    "$.checks[58].pass",
+    "$.checks[58].whole_state.pass",
+    "$.checks[58].whole_state.families.conv_states.pass",
+    "$.checks[58].whole_state.families.recurrent_states.pass",
+    "$.checks[58].whole_state.families.keys.pass",
+    "$.checks[58].whole_state.families.values.pass",
+    "$.checks[59].pass",
+    "$.checks[59].whole_state.pass",
+    "$.checks[59].whole_state.families.conv_states.pass",
+    "$.checks[59].whole_state.families.recurrent_states.pass",
+    "$.checks[59].whole_state.families.keys.pass",
+    "$.checks[59].whole_state.families.values.pass",
+    "$.checks[60].pass",
+    "$.checks[60].whole_state.pass",
+    "$.checks[60].whole_state.families.conv_states.pass",
+    "$.checks[60].whole_state.families.recurrent_states.pass",
+    "$.checks[60].whole_state.families.keys.pass",
+    "$.checks[60].whole_state.families.values.pass",
+    "$.checks[61].pass",
+    "$.checks[61].whole_state.pass",
+    "$.checks[61].whole_state.families.conv_states.pass",
+    "$.checks[61].whole_state.families.recurrent_states.pass",
+    "$.checks[61].whole_state.families.keys.pass",
+    "$.checks[61].whole_state.families.values.pass",
+    "$.checks[62].pass",
+    "$.checks[62].whole_state.pass",
+    "$.checks[62].whole_state.families.conv_states.pass",
+    "$.checks[62].whole_state.families.recurrent_states.pass",
+    "$.checks[62].whole_state.families.keys.pass",
+    "$.checks[62].whole_state.families.values.pass",
+    "$.checks[63].pass",
+    "$.checks[63].whole_state.pass",
+    "$.checks[63].whole_state.families.conv_states.pass",
+    "$.checks[63].whole_state.families.recurrent_states.pass",
+    "$.checks[63].whole_state.families.keys.pass",
+    "$.checks[63].whole_state.families.values.pass",
+    "$.checks[64].pass",
+    "$.checks[64].whole_state.pass",
+    "$.checks[64].whole_state.families.conv_states.pass",
+    "$.checks[64].whole_state.families.recurrent_states.pass",
+    "$.checks[64].whole_state.families.keys.pass",
+    "$.checks[64].whole_state.families.values.pass",
+    "$.checks[65].pass",
+    "$.checks[65].whole_state.pass",
+    "$.checks[65].whole_state.families.conv_states.pass",
+    "$.checks[65].whole_state.families.recurrent_states.pass",
+    "$.checks[65].whole_state.families.keys.pass",
+    "$.checks[65].whole_state.families.values.pass",
+    "$.checks[66].pass",
+    "$.checks[66].whole_state.pass",
+    "$.checks[66].whole_state.families.conv_states.pass",
+    "$.checks[66].whole_state.families.recurrent_states.pass",
+    "$.checks[66].whole_state.families.keys.pass",
+    "$.checks[66].whole_state.families.values.pass",
+    "$.checks[67].pass",
+    "$.checks[67].whole_state.pass",
+    "$.checks[67].whole_state.families.conv_states.pass",
+    "$.checks[67].whole_state.families.recurrent_states.pass",
+    "$.checks[67].whole_state.families.keys.pass",
+    "$.checks[67].whole_state.families.values.pass",
+    "$.checks[68].pass",
+    "$.checks[68].whole_state.pass",
+    "$.checks[68].whole_state.families.conv_states.pass",
+    "$.checks[68].whole_state.families.recurrent_states.pass",
+    "$.checks[68].whole_state.families.keys.pass",
+    "$.checks[68].whole_state.families.values.pass",
+    "$.checks[69].pass",
+    "$.checks[69].whole_state.pass",
+    "$.checks[69].whole_state.families.conv_states.pass",
+    "$.checks[69].whole_state.families.recurrent_states.pass",
+    "$.checks[69].whole_state.families.keys.pass",
+    "$.checks[69].whole_state.families.values.pass",
+    "$.checks[70].pass",
+    "$.checks[70].whole_state.pass",
+    "$.checks[70].whole_state.families.conv_states.pass",
+    "$.checks[70].whole_state.families.recurrent_states.pass",
+    "$.checks[70].whole_state.families.keys.pass",
+    "$.checks[70].whole_state.families.values.pass",
+    "$.checks[71].pass",
+    "$.checks[71].whole_state.pass",
+    "$.checks[71].whole_state.families.conv_states.pass",
+    "$.checks[71].whole_state.families.recurrent_states.pass",
+    "$.checks[71].whole_state.families.keys.pass",
+    "$.checks[71].whole_state.families.values.pass",
+    "$.checks[72].pass",
+    "$.checks[72].whole_state.pass",
+    "$.checks[72].whole_state.families.conv_states.pass",
+    "$.checks[72].whole_state.families.recurrent_states.pass",
+    "$.checks[72].whole_state.families.keys.pass",
+    "$.checks[72].whole_state.families.values.pass",
+    "$.checks[73].pass",
+    "$.checks[73].whole_state.pass",
+    "$.checks[73].whole_state.families.conv_states.pass",
+    "$.checks[73].whole_state.families.recurrent_states.pass",
+    "$.checks[73].whole_state.families.keys.pass",
+    "$.checks[73].whole_state.families.values.pass",
+    "$.checks[74].pass",
+    "$.checks[74].whole_state.pass",
+    "$.checks[74].whole_state.families.conv_states.pass",
+    "$.checks[74].whole_state.families.recurrent_states.pass",
+    "$.checks[74].whole_state.families.keys.pass",
+    "$.checks[74].whole_state.families.values.pass",
+    "$.checks[75].pass",
+    "$.checks[75].whole_state.pass",
+    "$.checks[75].whole_state.families.conv_states.pass",
+    "$.checks[75].whole_state.families.recurrent_states.pass",
+    "$.checks[75].whole_state.families.keys.pass",
+    "$.checks[75].whole_state.families.values.pass",
+    "$.checks[76].pass",
+    "$.checks[76].whole_state.pass",
+    "$.checks[76].whole_state.families.conv_states.pass",
+    "$.checks[76].whole_state.families.recurrent_states.pass",
+    "$.checks[76].whole_state.families.keys.pass",
+    "$.checks[76].whole_state.families.values.pass",
+    "$.checks[77].pass",
+    "$.checks[77].whole_state.pass",
+    "$.checks[77].whole_state.families.conv_states.pass",
+    "$.checks[77].whole_state.families.recurrent_states.pass",
+    "$.checks[77].whole_state.families.keys.pass",
+    "$.checks[77].whole_state.families.values.pass",
+    "$.checks[78].pass",
+    "$.checks[78].whole_state.pass",
+    "$.checks[78].whole_state.families.conv_states.pass",
+    "$.checks[78].whole_state.families.recurrent_states.pass",
+    "$.checks[78].whole_state.families.keys.pass",
+    "$.checks[78].whole_state.families.values.pass",
+    "$.checks[79].pass",
+    "$.checks[79].whole_state.pass",
+    "$.checks[79].whole_state.families.conv_states.pass",
+    "$.checks[79].whole_state.families.recurrent_states.pass",
+    "$.checks[79].whole_state.families.keys.pass",
+    "$.checks[79].whole_state.families.values.pass",
+    "$.checks[80].pass",
+    "$.checks[80].whole_state.pass",
+    "$.checks[80].whole_state.families.conv_states.pass",
+    "$.checks[80].whole_state.families.recurrent_states.pass",
+    "$.checks[80].whole_state.families.keys.pass",
+    "$.checks[80].whole_state.families.values.pass",
+    "$.checks[81].pass",
+    "$.checks[81].whole_state.pass",
+    "$.checks[81].whole_state.families.conv_states.pass",
+    "$.checks[81].whole_state.families.recurrent_states.pass",
+    "$.checks[81].whole_state.families.keys.pass",
+    "$.checks[81].whole_state.families.values.pass",
+    "$.checks[82].pass",
+    "$.checks[82].whole_state.pass",
+    "$.checks[82].whole_state.families.conv_states.pass",
+    "$.checks[82].whole_state.families.recurrent_states.pass",
+    "$.checks[82].whole_state.families.keys.pass",
+    "$.checks[82].whole_state.families.values.pass",
+    "$.checks[83].pass",
+    "$.checks[83].whole_state.pass",
+    "$.checks[83].whole_state.families.conv_states.pass",
+    "$.checks[83].whole_state.families.recurrent_states.pass",
+    "$.checks[83].whole_state.families.keys.pass",
+    "$.checks[83].whole_state.families.values.pass",
+    "$.checks[84].pass",
+    "$.checks[84].whole_state.pass",
+    "$.checks[84].whole_state.families.conv_states.pass",
+    "$.checks[84].whole_state.families.recurrent_states.pass",
+    "$.checks[84].whole_state.families.keys.pass",
+    "$.checks[84].whole_state.families.values.pass",
+    "$.checks[85].pass",
+    "$.checks[85].whole_state.pass",
+    "$.checks[85].whole_state.families.conv_states.pass",
+    "$.checks[85].whole_state.families.recurrent_states.pass",
+    "$.checks[85].whole_state.families.keys.pass",
+    "$.checks[85].whole_state.families.values.pass",
+    "$.checks[86].pass",
+    "$.checks[86].whole_state.pass",
+    "$.checks[86].whole_state.families.conv_states.pass",
+    "$.checks[86].whole_state.families.recurrent_states.pass",
+    "$.checks[86].whole_state.families.keys.pass",
+    "$.checks[86].whole_state.families.values.pass",
+    "$.checks[87].pass",
+    "$.checks[87].whole_state.pass",
+    "$.checks[87].whole_state.families.conv_states.pass",
+    "$.checks[87].whole_state.families.recurrent_states.pass",
+    "$.checks[87].whole_state.families.keys.pass",
+    "$.checks[87].whole_state.families.values.pass",
+    "$.checks[88].pass",
+    "$.checks[88].whole_state.pass",
+    "$.checks[88].whole_state.families.conv_states.pass",
+    "$.checks[88].whole_state.families.recurrent_states.pass",
+    "$.checks[88].whole_state.families.keys.pass",
+    "$.checks[88].whole_state.families.values.pass",
+    "$.checks[89].pass",
+    "$.checks[89].whole_state.pass",
+    "$.checks[89].whole_state.families.conv_states.pass",
+    "$.checks[89].whole_state.families.recurrent_states.pass",
+    "$.checks[89].whole_state.families.keys.pass",
+    "$.checks[89].whole_state.families.values.pass",
+    "$.checks[90].pass",
+    "$.checks[90].whole_state.pass",
+    "$.checks[90].whole_state.families.conv_states.pass",
+    "$.checks[90].whole_state.families.recurrent_states.pass",
+    "$.checks[90].whole_state.families.keys.pass",
+    "$.checks[90].whole_state.families.values.pass",
+    "$.checks[91].pass",
+    "$.checks[91].whole_state.pass",
+    "$.checks[91].whole_state.families.conv_states.pass",
+    "$.checks[91].whole_state.families.recurrent_states.pass",
+    "$.checks[91].whole_state.families.keys.pass",
+    "$.checks[91].whole_state.families.values.pass",
+    "$.checks[92].pass",
+    "$.checks[92].whole_state.pass",
+    "$.checks[92].whole_state.families.conv_states.pass",
+    "$.checks[92].whole_state.families.recurrent_states.pass",
+    "$.checks[92].whole_state.families.keys.pass",
+    "$.checks[92].whole_state.families.values.pass",
+    "$.checks[93].pass",
+    "$.checks[93].whole_state.pass",
+    "$.checks[93].whole_state.families.conv_states.pass",
+    "$.checks[93].whole_state.families.recurrent_states.pass",
+    "$.checks[93].whole_state.families.keys.pass",
+    "$.checks[93].whole_state.families.values.pass",
+    "$.checks[94].pass",
+    "$.checks[94].whole_state.pass",
+    "$.checks[94].whole_state.families.conv_states.pass",
+    "$.checks[94].whole_state.families.recurrent_states.pass",
+    "$.checks[94].whole_state.families.keys.pass",
+    "$.checks[94].whole_state.families.values.pass",
+    "$.checks[95].pass",
+    "$.checks[95].whole_state.pass",
+    "$.checks[95].whole_state.families.conv_states.pass",
+    "$.checks[95].whole_state.families.recurrent_states.pass",
+    "$.checks[95].whole_state.families.keys.pass",
+    "$.checks[95].whole_state.families.values.pass",
+    "$.checks[96].pass",
+    "$.checks[96].whole_state.pass",
+    "$.checks[96].whole_state.families.conv_states.pass",
+    "$.checks[96].whole_state.families.recurrent_states.pass",
+    "$.checks[96].whole_state.families.keys.pass",
+    "$.checks[96].whole_state.families.values.pass",
+    "$.checks[99].pass",
+    "$.checks[99].state.pass",
+    "$.checks[99].state.families.conv_states.pass",
+    "$.checks[99].state.families.recurrent_states.pass",
+    "$.checks[99].state.families.keys.pass",
+    "$.checks[99].state.families.values.pass",
+    "$.checks[108].pass",
+    "$.checks[108].state.pass",
+    "$.checks[108].state.families.conv_states.pass",
+    "$.checks[108].state.families.recurrent_states.pass",
+    "$.checks[108].state.families.keys.pass",
+    "$.checks[108].state.families.values.pass",
+    "$.checks[113].pass",
+    "$.checks[113].whole_state.pass",
+    "$.checks[113].whole_state.families.conv_states.pass",
+    "$.checks[113].whole_state.families.recurrent_states.pass",
+    "$.checks[113].whole_state.families.keys.pass",
+    "$.checks[113].whole_state.families.values.pass",
+    "$.checks[115].pass",
+    "$.checks[115].whole_state.pass",
+    "$.checks[115].whole_state.families.conv_states.pass",
+    "$.checks[115].whole_state.families.recurrent_states.pass",
+    "$.checks[115].whole_state.families.keys.pass",
+    "$.checks[115].whole_state.families.values.pass",
+    "$.checks[117].pass",
+    "$.checks[117].whole_state.pass",
+    "$.checks[117].whole_state.families.conv_states.pass",
+    "$.checks[117].whole_state.families.recurrent_states.pass",
+    "$.checks[117].whole_state.families.keys.pass",
+    "$.checks[117].whole_state.families.values.pass",
+    "$.checks[118].eager_counters.rollback",
+    "$.checks[118].eager_counters.fallback_full_replay",
+    "$.checks[118].graph_counters.rollback",
+    "$.checks[118].graph_counters.fallback_full_replay",
+    "$.checks[141].pass",
+    "$.checks[141].whole_state.pass",
+    "$.checks[141].whole_state.families.conv_states.pass",
+    "$.checks[141].whole_state.families.recurrent_states.pass",
+    "$.checks[141].whole_state.families.keys.pass",
+    "$.checks[141].whole_state.families.values.pass",
+    "$.checks[142].pass",
+    "$.checks[142].whole_state.pass",
+    "$.checks[142].whole_state.families.conv_states.pass",
+    "$.checks[142].whole_state.families.recurrent_states.pass",
+    "$.checks[142].whole_state.families.keys.pass",
+    "$.checks[142].whole_state.families.values.pass",
+    "$.checks[144].pass",
+    "$.checks[144].whole_state.pass",
+    "$.checks[144].whole_state.families.conv_states.pass",
+    "$.checks[144].whole_state.families.recurrent_states.pass",
+    "$.checks[144].whole_state.families.keys.pass",
+    "$.checks[144].whole_state.families.values.pass",
+    "$.checks[145].pass",
+    "$.checks[145].whole_state.pass",
+    "$.checks[145].whole_state.families.conv_states.pass",
+    "$.checks[145].whole_state.families.recurrent_states.pass",
+    "$.checks[145].whole_state.families.keys.pass",
+    "$.checks[145].whole_state.families.values.pass",
+    "$.checks[152].pass",
+    "$.checks[152].whole_state.pass",
+    "$.checks[152].whole_state.families.conv_states.pass",
+    "$.checks[152].whole_state.families.recurrent_states.pass",
+    "$.checks[152].whole_state.families.keys.pass",
+    "$.checks[152].whole_state.families.values.pass",
+    "$.checks[155].pass",
+    "$.checks[155].whole_state.pass",
+    "$.checks[155].whole_state.families.conv_states.pass",
+    "$.checks[155].whole_state.families.recurrent_states.pass",
+    "$.checks[155].whole_state.families.keys.pass",
+    "$.checks[155].whole_state.families.values.pass",
+    "$.checks[158].pass",
+    "$.checks[158].whole_state.pass",
+    "$.checks[158].whole_state.families.conv_states.pass",
+    "$.checks[158].whole_state.families.recurrent_states.pass",
+    "$.checks[158].whole_state.families.keys.pass",
+    "$.checks[158].whole_state.families.values.pass",
+    "$.checks[160].pass",
+    "$.checks[160].whole_state.pass",
+    "$.checks[160].whole_state.families.conv_states.pass",
+    "$.checks[160].whole_state.families.recurrent_states.pass",
+    "$.checks[160].whole_state.families.keys.pass",
+    "$.checks[160].whole_state.families.values.pass",
+    "$.model_metadata.production_approval",
+    "$.model_metadata.third_risk_class_validated",
+    "$.model_metadata.category_validated",
+    "$.model_metadata.safe_prefix_release_validated",
+    "$.model_metadata.selection.selection_read_sealed_test",
+    "$.model_metadata.selection.category_validated",
+    "$.model_metadata.selection.production_approval",
+    "$.startup.capture_during_requests",
+    "$.startup.graph_error_fallback",
+    "$.text_performance.eager.per_append_accounting[0].rollback",
+    "$.text_performance.eager.per_append_accounting[1].rollback",
+    "$.text_performance.eager.per_append_accounting[2].rollback",
+    "$.text_performance.eager.per_append_accounting[3].rollback",
+    "$.text_performance.eager.per_append_accounting[4].rollback",
+    "$.text_performance.eager.per_append_accounting[5].rollback",
+    "$.text_performance.eager.per_append_accounting[6].rollback",
+    "$.text_performance.eager.per_append_accounting[7].rollback",
+    "$.text_performance.eager.per_append_accounting[8].rollback",
+    "$.text_performance.eager.per_append_accounting[9].rollback",
+    "$.text_performance.eager.per_append_accounting[10].rollback",
+    "$.text_performance.eager.per_append_accounting[11].rollback",
+    "$.text_performance.eager.per_append_accounting[12].rollback",
+    "$.text_performance.eager.per_append_accounting[13].rollback",
+    "$.text_performance.eager.per_append_accounting[14].rollback",
+    "$.text_performance.eager.per_append_accounting[15].rollback",
+    "$.text_performance.eager.per_append_accounting[16].rollback",
+    "$.text_performance.eager.per_append_accounting[17].rollback",
+    "$.text_performance.eager.per_append_accounting[18].rollback",
+    "$.text_performance.eager.per_append_accounting[19].rollback",
+    "$.text_performance.eager.per_append_accounting[20].rollback",
+    "$.text_performance.eager.per_append_accounting[21].rollback",
+    "$.text_performance.eager.per_append_accounting[22].rollback",
+    "$.text_performance.eager.per_append_accounting[23].rollback",
+    "$.text_performance.eager.per_append_accounting[24].rollback",
+    "$.text_performance.eager.per_append_accounting[25].rollback",
+    "$.text_performance.eager.per_append_accounting[26].rollback",
+    "$.text_performance.eager.per_append_accounting[27].rollback",
+    "$.text_performance.eager.per_append_accounting[28].rollback",
+    "$.text_performance.eager.per_append_accounting[29].rollback",
+    "$.text_performance.eager.per_append_accounting[30].rollback",
+    "$.text_performance.eager.per_append_accounting[31].rollback",
+    "$.text_performance.eager.per_append_accounting[32].rollback",
+    "$.text_performance.eager.per_append_accounting[33].rollback",
+    "$.text_performance.eager.per_append_accounting[34].rollback",
+    "$.text_performance.eager.per_append_accounting[35].rollback",
+    "$.text_performance.eager.per_append_accounting[36].rollback",
+    "$.text_performance.eager.per_append_accounting[37].rollback",
+    "$.text_performance.eager.per_append_accounting[38].rollback",
+    "$.text_performance.eager.per_append_accounting[39].rollback",
+    "$.text_performance.eager.per_append_accounting[40].rollback",
+    "$.text_performance.eager.per_append_accounting[41].rollback",
+    "$.text_performance.eager.per_append_accounting[42].rollback",
+    "$.text_performance.eager.per_append_accounting[43].rollback",
+    "$.text_performance.eager.per_append_accounting[44].rollback",
+    "$.text_performance.eager.per_append_accounting[45].rollback",
+    "$.text_performance.eager.per_append_accounting[46].rollback",
+    "$.text_performance.eager.per_append_accounting[47].rollback",
+    "$.text_performance.eager.per_append_accounting[48].rollback",
+    "$.text_performance.eager.per_append_accounting[49].rollback",
+    "$.text_performance.eager.per_append_accounting[50].rollback",
+    "$.text_performance.eager.per_append_accounting[51].rollback",
+    "$.text_performance.eager.per_append_accounting[52].rollback",
+    "$.text_performance.eager.per_append_accounting[53].rollback",
+    "$.text_performance.eager.per_append_accounting[54].rollback",
+    "$.text_performance.eager.per_append_accounting[55].rollback",
+    "$.text_performance.eager.per_append_accounting[56].rollback",
+    "$.text_performance.eager.per_append_accounting[57].rollback",
+    "$.text_performance.eager.per_append_accounting[58].rollback",
+    "$.text_performance.eager.per_append_accounting[59].rollback",
+    "$.text_performance.eager.per_append_accounting[60].rollback",
+    "$.text_performance.eager.per_append_accounting[61].rollback",
+    "$.text_performance.eager.per_append_accounting[62].rollback",
+    "$.text_performance.eager.per_append_accounting[63].rollback",
+    "$.text_performance.eager.per_append_accounting[64].rollback",
+    "$.text_performance.eager.per_append_accounting[65].rollback",
+    "$.text_performance.eager.per_append_accounting[66].rollback",
+    "$.text_performance.eager.per_append_accounting[67].rollback",
+    "$.text_performance.eager.per_append_accounting[68].rollback",
+    "$.text_performance.eager.per_append_accounting[69].rollback",
+    "$.text_performance.eager.per_append_accounting[70].rollback",
+    "$.text_performance.eager.per_append_accounting[71].rollback",
+    "$.text_performance.eager.per_append_accounting[72].rollback",
+    "$.text_performance.eager.per_append_accounting[73].rollback",
+    "$.text_performance.eager.per_append_accounting[74].rollback",
+    "$.text_performance.eager.per_append_accounting[75].rollback",
+    "$.text_performance.eager.per_append_accounting[76].rollback",
+    "$.text_performance.eager.per_append_accounting[77].rollback",
+    "$.text_performance.eager.per_append_accounting[78].rollback",
+    "$.text_performance.eager.per_append_accounting[79].rollback",
+    "$.text_performance.eager.per_append_accounting[80].rollback",
+    "$.text_performance.eager.per_append_accounting[81].rollback",
+    "$.text_performance.eager.per_append_accounting[82].rollback",
+    "$.text_performance.eager.per_append_accounting[83].rollback",
+    "$.text_performance.eager.per_append_accounting[84].rollback",
+    "$.text_performance.eager.per_append_accounting[85].rollback",
+    "$.text_performance.eager.per_append_accounting[86].rollback",
+    "$.text_performance.eager.per_append_accounting[87].rollback",
+    "$.text_performance.eager.per_append_accounting[88].rollback",
+    "$.text_performance.eager.per_append_accounting[89].rollback",
+    "$.text_performance.eager.per_append_accounting[90].rollback",
+    "$.text_performance.eager.per_append_accounting[91].rollback",
+    "$.text_performance.eager.per_append_accounting[92].rollback",
+    "$.text_performance.eager.per_append_accounting[93].rollback",
+    "$.text_performance.eager.per_append_accounting[94].rollback",
+    "$.text_performance.eager.per_append_accounting[95].rollback",
+    "$.text_performance.eager.per_append_accounting[96].rollback",
+    "$.text_performance.eager.per_append_accounting[97].rollback",
+    "$.text_performance.eager.per_append_accounting[98].rollback",
+    "$.text_performance.eager.per_append_accounting[99].rollback",
+    "$.text_performance.eager.per_append_accounting[100].rollback",
+    "$.text_performance.eager.per_append_accounting[101].rollback",
+    "$.text_performance.eager.per_append_accounting[102].rollback",
+    "$.text_performance.eager.per_append_accounting[103].rollback",
+    "$.text_performance.eager.per_append_accounting[104].rollback",
+    "$.text_performance.eager.per_append_accounting[105].rollback",
+    "$.text_performance.eager.per_append_accounting[106].rollback",
+    "$.text_performance.eager.per_append_accounting[107].rollback",
+    "$.text_performance.eager.per_append_accounting[108].rollback",
+    "$.text_performance.eager.per_append_accounting[109].rollback",
+    "$.text_performance.eager.per_append_accounting[110].rollback",
+    "$.text_performance.eager.per_append_accounting[111].rollback",
+    "$.text_performance.eager.per_append_accounting[112].rollback",
+    "$.text_performance.eager.per_append_accounting[113].rollback",
+    "$.text_performance.eager.per_append_accounting[114].rollback",
+    "$.text_performance.eager.per_append_accounting[115].rollback",
+    "$.text_performance.eager.per_append_accounting[116].rollback",
+    "$.text_performance.eager.per_append_accounting[117].rollback",
+    "$.text_performance.eager.per_append_accounting[118].rollback",
+    "$.text_performance.eager.per_append_accounting[119].rollback",
+    "$.text_performance.eager.per_append_accounting[120].rollback",
+    "$.text_performance.eager.per_append_accounting[121].rollback",
+    "$.text_performance.eager.per_append_accounting[122].rollback",
+    "$.text_performance.eager.per_append_accounting[123].rollback",
+    "$.text_performance.eager.per_append_accounting[124].rollback",
+    "$.text_performance.eager.per_append_accounting[125].rollback",
+    "$.text_performance.eager.per_append_accounting[126].rollback",
+    "$.text_performance.eager.per_append_accounting[127].rollback",
+    "$.text_performance.graph.per_append_accounting[0].rollback",
+    "$.text_performance.graph.per_append_accounting[1].rollback",
+    "$.text_performance.graph.per_append_accounting[2].rollback",
+    "$.text_performance.graph.per_append_accounting[3].rollback",
+    "$.text_performance.graph.per_append_accounting[4].rollback",
+    "$.text_performance.graph.per_append_accounting[5].rollback",
+    "$.text_performance.graph.per_append_accounting[6].rollback",
+    "$.text_performance.graph.per_append_accounting[7].rollback",
+    "$.text_performance.graph.per_append_accounting[8].rollback",
+    "$.text_performance.graph.per_append_accounting[9].rollback",
+    "$.text_performance.graph.per_append_accounting[10].rollback",
+    "$.text_performance.graph.per_append_accounting[11].rollback",
+    "$.text_performance.graph.per_append_accounting[12].rollback",
+    "$.text_performance.graph.per_append_accounting[13].rollback",
+    "$.text_performance.graph.per_append_accounting[14].rollback",
+    "$.text_performance.graph.per_append_accounting[15].rollback",
+    "$.text_performance.graph.per_append_accounting[16].rollback",
+    "$.text_performance.graph.per_append_accounting[17].rollback",
+    "$.text_performance.graph.per_append_accounting[18].rollback",
+    "$.text_performance.graph.per_append_accounting[19].rollback",
+    "$.text_performance.graph.per_append_accounting[20].rollback",
+    "$.text_performance.graph.per_append_accounting[21].rollback",
+    "$.text_performance.graph.per_append_accounting[22].rollback",
+    "$.text_performance.graph.per_append_accounting[23].rollback",
+    "$.text_performance.graph.per_append_accounting[24].rollback",
+    "$.text_performance.graph.per_append_accounting[25].rollback",
+    "$.text_performance.graph.per_append_accounting[26].rollback",
+    "$.text_performance.graph.per_append_accounting[27].rollback",
+    "$.text_performance.graph.per_append_accounting[28].rollback",
+    "$.text_performance.graph.per_append_accounting[29].rollback",
+    "$.text_performance.graph.per_append_accounting[30].rollback",
+    "$.text_performance.graph.per_append_accounting[31].rollback",
+    "$.text_performance.graph.per_append_accounting[32].rollback",
+    "$.text_performance.graph.per_append_accounting[33].rollback",
+    "$.text_performance.graph.per_append_accounting[34].rollback",
+    "$.text_performance.graph.per_append_accounting[35].rollback",
+    "$.text_performance.graph.per_append_accounting[36].rollback",
+    "$.text_performance.graph.per_append_accounting[37].rollback",
+    "$.text_performance.graph.per_append_accounting[38].rollback",
+    "$.text_performance.graph.per_append_accounting[39].rollback",
+    "$.text_performance.graph.per_append_accounting[40].rollback",
+    "$.text_performance.graph.per_append_accounting[41].rollback",
+    "$.text_performance.graph.per_append_accounting[42].rollback",
+    "$.text_performance.graph.per_append_accounting[43].rollback",
+    "$.text_performance.graph.per_append_accounting[44].rollback",
+    "$.text_performance.graph.per_append_accounting[45].rollback",
+    "$.text_performance.graph.per_append_accounting[46].rollback",
+    "$.text_performance.graph.per_append_accounting[47].rollback",
+    "$.text_performance.graph.per_append_accounting[48].rollback",
+    "$.text_performance.graph.per_append_accounting[49].rollback",
+    "$.text_performance.graph.per_append_accounting[50].rollback",
+    "$.text_performance.graph.per_append_accounting[51].rollback",
+    "$.text_performance.graph.per_append_accounting[52].rollback",
+    "$.text_performance.graph.per_append_accounting[53].rollback",
+    "$.text_performance.graph.per_append_accounting[54].rollback",
+    "$.text_performance.graph.per_append_accounting[55].rollback",
+    "$.text_performance.graph.per_append_accounting[56].rollback",
+    "$.text_performance.graph.per_append_accounting[57].rollback",
+    "$.text_performance.graph.per_append_accounting[58].rollback",
+    "$.text_performance.graph.per_append_accounting[59].rollback",
+    "$.text_performance.graph.per_append_accounting[60].rollback",
+    "$.text_performance.graph.per_append_accounting[61].rollback",
+    "$.text_performance.graph.per_append_accounting[62].rollback",
+    "$.text_performance.graph.per_append_accounting[63].rollback",
+    "$.text_performance.graph.per_append_accounting[64].rollback",
+    "$.text_performance.graph.per_append_accounting[65].rollback",
+    "$.text_performance.graph.per_append_accounting[66].rollback",
+    "$.text_performance.graph.per_append_accounting[67].rollback",
+    "$.text_performance.graph.per_append_accounting[68].rollback",
+    "$.text_performance.graph.per_append_accounting[69].rollback",
+    "$.text_performance.graph.per_append_accounting[70].rollback",
+    "$.text_performance.graph.per_append_accounting[71].rollback",
+    "$.text_performance.graph.per_append_accounting[72].rollback",
+    "$.text_performance.graph.per_append_accounting[73].rollback",
+    "$.text_performance.graph.per_append_accounting[74].rollback",
+    "$.text_performance.graph.per_append_accounting[75].rollback",
+    "$.text_performance.graph.per_append_accounting[76].rollback",
+    "$.text_performance.graph.per_append_accounting[77].rollback",
+    "$.text_performance.graph.per_append_accounting[78].rollback",
+    "$.text_performance.graph.per_append_accounting[79].rollback",
+    "$.text_performance.graph.per_append_accounting[80].rollback",
+    "$.text_performance.graph.per_append_accounting[81].rollback",
+    "$.text_performance.graph.per_append_accounting[82].rollback",
+    "$.text_performance.graph.per_append_accounting[83].rollback",
+    "$.text_performance.graph.per_append_accounting[84].rollback",
+    "$.text_performance.graph.per_append_accounting[85].rollback",
+    "$.text_performance.graph.per_append_accounting[86].rollback",
+    "$.text_performance.graph.per_append_accounting[87].rollback",
+    "$.text_performance.graph.per_append_accounting[88].rollback",
+    "$.text_performance.graph.per_append_accounting[89].rollback",
+    "$.text_performance.graph.per_append_accounting[90].rollback",
+    "$.text_performance.graph.per_append_accounting[91].rollback",
+    "$.text_performance.graph.per_append_accounting[92].rollback",
+    "$.text_performance.graph.per_append_accounting[93].rollback",
+    "$.text_performance.graph.per_append_accounting[94].rollback",
+    "$.text_performance.graph.per_append_accounting[95].rollback",
+    "$.text_performance.graph.per_append_accounting[96].rollback",
+    "$.text_performance.graph.per_append_accounting[97].rollback",
+    "$.text_performance.graph.per_append_accounting[98].rollback",
+    "$.text_performance.graph.per_append_accounting[99].rollback",
+    "$.text_performance.graph.per_append_accounting[100].rollback",
+    "$.text_performance.graph.per_append_accounting[101].rollback",
+    "$.text_performance.graph.per_append_accounting[102].rollback",
+    "$.text_performance.graph.per_append_accounting[103].rollback",
+    "$.text_performance.graph.per_append_accounting[104].rollback",
+    "$.text_performance.graph.per_append_accounting[105].rollback",
+    "$.text_performance.graph.per_append_accounting[106].rollback",
+    "$.text_performance.graph.per_append_accounting[107].rollback",
+    "$.text_performance.graph.per_append_accounting[108].rollback",
+    "$.text_performance.graph.per_append_accounting[109].rollback",
+    "$.text_performance.graph.per_append_accounting[110].rollback",
+    "$.text_performance.graph.per_append_accounting[111].rollback",
+    "$.text_performance.graph.per_append_accounting[112].rollback",
+    "$.text_performance.graph.per_append_accounting[113].rollback",
+    "$.text_performance.graph.per_append_accounting[114].rollback",
+    "$.text_performance.graph.per_append_accounting[115].rollback",
+    "$.text_performance.graph.per_append_accounting[116].rollback",
+    "$.text_performance.graph.per_append_accounting[117].rollback",
+    "$.text_performance.graph.per_append_accounting[118].rollback",
+    "$.text_performance.graph.per_append_accounting[119].rollback",
+    "$.text_performance.graph.per_append_accounting[120].rollback",
+    "$.text_performance.graph.per_append_accounting[121].rollback",
+    "$.text_performance.graph.per_append_accounting[122].rollback",
+    "$.text_performance.graph.per_append_accounting[123].rollback",
+    "$.text_performance.graph.per_append_accounting[124].rollback",
+    "$.text_performance.graph.per_append_accounting[125].rollback",
+    "$.text_performance.graph.per_append_accounting[126].rollback",
+    "$.text_performance.graph.per_append_accounting[127].rollback"
+  ],
+  "failed_pass_json_paths": [
+    "$.pass",
+    "$.checks[1].pass",
+    "$.checks[1].whole_state.pass",
+    "$.checks[1].whole_state.families.conv_states.pass",
+    "$.checks[1].whole_state.families.recurrent_states.pass",
+    "$.checks[1].whole_state.families.keys.pass",
+    "$.checks[1].whole_state.families.values.pass",
+    "$.checks[2].pass",
+    "$.checks[2].whole_state.pass",
+    "$.checks[2].whole_state.families.conv_states.pass",
+    "$.checks[2].whole_state.families.recurrent_states.pass",
+    "$.checks[2].whole_state.families.keys.pass",
+    "$.checks[2].whole_state.families.values.pass",
+    "$.checks[3].pass",
+    "$.checks[3].whole_state.pass",
+    "$.checks[3].whole_state.families.conv_states.pass",
+    "$.checks[3].whole_state.families.recurrent_states.pass",
+    "$.checks[3].whole_state.families.keys.pass",
+    "$.checks[3].whole_state.families.values.pass",
+    "$.checks[4].pass",
+    "$.checks[4].whole_state.pass",
+    "$.checks[4].whole_state.families.conv_states.pass",
+    "$.checks[4].whole_state.families.recurrent_states.pass",
+    "$.checks[4].whole_state.families.keys.pass",
+    "$.checks[4].whole_state.families.values.pass",
+    "$.checks[5].pass",
+    "$.checks[5].whole_state.pass",
+    "$.checks[5].whole_state.families.conv_states.pass",
+    "$.checks[5].whole_state.families.recurrent_states.pass",
+    "$.checks[5].whole_state.families.keys.pass",
+    "$.checks[5].whole_state.families.values.pass",
+    "$.checks[6].pass",
+    "$.checks[6].whole_state.pass",
+    "$.checks[6].whole_state.families.conv_states.pass",
+    "$.checks[6].whole_state.families.recurrent_states.pass",
+    "$.checks[6].whole_state.families.keys.pass",
+    "$.checks[6].whole_state.families.values.pass",
+    "$.checks[7].pass",
+    "$.checks[7].whole_state.pass",
+    "$.checks[7].whole_state.families.conv_states.pass",
+    "$.checks[7].whole_state.families.recurrent_states.pass",
+    "$.checks[7].whole_state.families.keys.pass",
+    "$.checks[7].whole_state.families.values.pass",
+    "$.checks[8].pass",
+    "$.checks[8].whole_state.pass",
+    "$.checks[8].whole_state.families.conv_states.pass",
+    "$.checks[8].whole_state.families.recurrent_states.pass",
+    "$.checks[8].whole_state.families.keys.pass",
+    "$.checks[8].whole_state.families.values.pass",
+    "$.checks[9].pass",
+    "$.checks[9].whole_state.pass",
+    "$.checks[9].whole_state.families.conv_states.pass",
+    "$.checks[9].whole_state.families.recurrent_states.pass",
+    "$.checks[9].whole_state.families.keys.pass",
+    "$.checks[9].whole_state.families.values.pass",
+    "$.checks[10].pass",
+    "$.checks[10].whole_state.pass",
+    "$.checks[10].whole_state.families.conv_states.pass",
+    "$.checks[10].whole_state.families.recurrent_states.pass",
+    "$.checks[10].whole_state.families.keys.pass",
+    "$.checks[10].whole_state.families.values.pass",
+    "$.checks[11].pass",
+    "$.checks[11].whole_state.pass",
+    "$.checks[11].whole_state.families.conv_states.pass",
+    "$.checks[11].whole_state.families.recurrent_states.pass",
+    "$.checks[11].whole_state.families.keys.pass",
+    "$.checks[11].whole_state.families.values.pass",
+    "$.checks[12].pass",
+    "$.checks[12].whole_state.pass",
+    "$.checks[12].whole_state.families.conv_states.pass",
+    "$.checks[12].whole_state.families.recurrent_states.pass",
+    "$.checks[12].whole_state.families.keys.pass",
+    "$.checks[12].whole_state.families.values.pass",
+    "$.checks[13].pass",
+    "$.checks[13].whole_state.pass",
+    "$.checks[13].whole_state.families.conv_states.pass",
+    "$.checks[13].whole_state.families.recurrent_states.pass",
+    "$.checks[13].whole_state.families.keys.pass",
+    "$.checks[13].whole_state.families.values.pass",
+    "$.checks[14].pass",
+    "$.checks[14].whole_state.pass",
+    "$.checks[14].whole_state.families.conv_states.pass",
+    "$.checks[14].whole_state.families.recurrent_states.pass",
+    "$.checks[14].whole_state.families.keys.pass",
+    "$.checks[14].whole_state.families.values.pass",
+    "$.checks[15].pass",
+    "$.checks[15].whole_state.pass",
+    "$.checks[15].whole_state.families.conv_states.pass",
+    "$.checks[15].whole_state.families.recurrent_states.pass",
+    "$.checks[15].whole_state.families.keys.pass",
+    "$.checks[15].whole_state.families.values.pass",
+    "$.checks[16].pass",
+    "$.checks[16].whole_state.pass",
+    "$.checks[16].whole_state.families.conv_states.pass",
+    "$.checks[16].whole_state.families.recurrent_states.pass",
+    "$.checks[16].whole_state.families.keys.pass",
+    "$.checks[16].whole_state.families.values.pass",
+    "$.checks[17].pass",
+    "$.checks[17].whole_state.pass",
+    "$.checks[17].whole_state.families.conv_states.pass",
+    "$.checks[17].whole_state.families.recurrent_states.pass",
+    "$.checks[17].whole_state.families.keys.pass",
+    "$.checks[17].whole_state.families.values.pass",
+    "$.checks[18].pass",
+    "$.checks[18].whole_state.pass",
+    "$.checks[18].whole_state.families.conv_states.pass",
+    "$.checks[18].whole_state.families.recurrent_states.pass",
+    "$.checks[18].whole_state.families.keys.pass",
+    "$.checks[18].whole_state.families.values.pass",
+    "$.checks[19].pass",
+    "$.checks[19].whole_state.pass",
+    "$.checks[19].whole_state.families.conv_states.pass",
+    "$.checks[19].whole_state.families.recurrent_states.pass",
+    "$.checks[19].whole_state.families.keys.pass",
+    "$.checks[19].whole_state.families.values.pass",
+    "$.checks[20].pass",
+    "$.checks[20].whole_state.pass",
+    "$.checks[20].whole_state.families.conv_states.pass",
+    "$.checks[20].whole_state.families.recurrent_states.pass",
+    "$.checks[20].whole_state.families.keys.pass",
+    "$.checks[20].whole_state.families.values.pass",
+    "$.checks[21].pass",
+    "$.checks[21].whole_state.pass",
+    "$.checks[21].whole_state.families.conv_states.pass",
+    "$.checks[21].whole_state.families.recurrent_states.pass",
+    "$.checks[21].whole_state.families.keys.pass",
+    "$.checks[21].whole_state.families.values.pass",
+    "$.checks[22].pass",
+    "$.checks[22].whole_state.pass",
+    "$.checks[22].whole_state.families.conv_states.pass",
+    "$.checks[22].whole_state.families.recurrent_states.pass",
+    "$.checks[22].whole_state.families.keys.pass",
+    "$.checks[22].whole_state.families.values.pass",
+    "$.checks[23].pass",
+    "$.checks[23].whole_state.pass",
+    "$.checks[23].whole_state.families.conv_states.pass",
+    "$.checks[23].whole_state.families.recurrent_states.pass",
+    "$.checks[23].whole_state.families.keys.pass",
+    "$.checks[23].whole_state.families.values.pass",
+    "$.checks[24].pass",
+    "$.checks[24].whole_state.pass",
+    "$.checks[24].whole_state.families.conv_states.pass",
+    "$.checks[24].whole_state.families.recurrent_states.pass",
+    "$.checks[24].whole_state.families.keys.pass",
+    "$.checks[24].whole_state.families.values.pass",
+    "$.checks[25].pass",
+    "$.checks[25].whole_state.pass",
+    "$.checks[25].whole_state.families.conv_states.pass",
+    "$.checks[25].whole_state.families.recurrent_states.pass",
+    "$.checks[25].whole_state.families.keys.pass",
+    "$.checks[25].whole_state.families.values.pass",
+    "$.checks[26].pass",
+    "$.checks[26].whole_state.pass",
+    "$.checks[26].whole_state.families.conv_states.pass",
+    "$.checks[26].whole_state.families.recurrent_states.pass",
+    "$.checks[26].whole_state.families.keys.pass",
+    "$.checks[26].whole_state.families.values.pass",
+    "$.checks[27].pass",
+    "$.checks[27].whole_state.pass",
+    "$.checks[27].whole_state.families.conv_states.pass",
+    "$.checks[27].whole_state.families.recurrent_states.pass",
+    "$.checks[27].whole_state.families.keys.pass",
+    "$.checks[27].whole_state.families.values.pass",
+    "$.checks[28].pass",
+    "$.checks[28].whole_state.pass",
+    "$.checks[28].whole_state.families.conv_states.pass",
+    "$.checks[28].whole_state.families.recurrent_states.pass",
+    "$.checks[28].whole_state.families.keys.pass",
+    "$.checks[28].whole_state.families.values.pass",
+    "$.checks[29].pass",
+    "$.checks[29].whole_state.pass",
+    "$.checks[29].whole_state.families.conv_states.pass",
+    "$.checks[29].whole_state.families.recurrent_states.pass",
+    "$.checks[29].whole_state.families.keys.pass",
+    "$.checks[29].whole_state.families.values.pass",
+    "$.checks[30].pass",
+    "$.checks[30].whole_state.pass",
+    "$.checks[30].whole_state.families.conv_states.pass",
+    "$.checks[30].whole_state.families.recurrent_states.pass",
+    "$.checks[30].whole_state.families.keys.pass",
+    "$.checks[30].whole_state.families.values.pass",
+    "$.checks[31].pass",
+    "$.checks[31].whole_state.pass",
+    "$.checks[31].whole_state.families.conv_states.pass",
+    "$.checks[31].whole_state.families.recurrent_states.pass",
+    "$.checks[31].whole_state.families.keys.pass",
+    "$.checks[31].whole_state.families.values.pass",
+    "$.checks[32].pass",
+    "$.checks[32].whole_state.pass",
+    "$.checks[32].whole_state.families.conv_states.pass",
+    "$.checks[32].whole_state.families.recurrent_states.pass",
+    "$.checks[32].whole_state.families.keys.pass",
+    "$.checks[32].whole_state.families.values.pass",
+    "$.checks[33].pass",
+    "$.checks[33].whole_state.pass",
+    "$.checks[33].whole_state.families.conv_states.pass",
+    "$.checks[33].whole_state.families.recurrent_states.pass",
+    "$.checks[33].whole_state.families.keys.pass",
+    "$.checks[33].whole_state.families.values.pass",
+    "$.checks[34].pass",
+    "$.checks[34].whole_state.pass",
+    "$.checks[34].whole_state.families.conv_states.pass",
+    "$.checks[34].whole_state.families.recurrent_states.pass",
+    "$.checks[34].whole_state.families.keys.pass",
+    "$.checks[34].whole_state.families.values.pass",
+    "$.checks[35].pass",
+    "$.checks[35].whole_state.pass",
+    "$.checks[35].whole_state.families.conv_states.pass",
+    "$.checks[35].whole_state.families.recurrent_states.pass",
+    "$.checks[35].whole_state.families.keys.pass",
+    "$.checks[35].whole_state.families.values.pass",
+    "$.checks[36].pass",
+    "$.checks[36].whole_state.pass",
+    "$.checks[36].whole_state.families.conv_states.pass",
+    "$.checks[36].whole_state.families.recurrent_states.pass",
+    "$.checks[36].whole_state.families.keys.pass",
+    "$.checks[36].whole_state.families.values.pass",
+    "$.checks[37].pass",
+    "$.checks[37].whole_state.pass",
+    "$.checks[37].whole_state.families.conv_states.pass",
+    "$.checks[37].whole_state.families.recurrent_states.pass",
+    "$.checks[37].whole_state.families.keys.pass",
+    "$.checks[37].whole_state.families.values.pass",
+    "$.checks[38].pass",
+    "$.checks[38].whole_state.pass",
+    "$.checks[38].whole_state.families.conv_states.pass",
+    "$.checks[38].whole_state.families.recurrent_states.pass",
+    "$.checks[38].whole_state.families.keys.pass",
+    "$.checks[38].whole_state.families.values.pass",
+    "$.checks[39].pass",
+    "$.checks[39].whole_state.pass",
+    "$.checks[39].whole_state.families.conv_states.pass",
+    "$.checks[39].whole_state.families.recurrent_states.pass",
+    "$.checks[39].whole_state.families.keys.pass",
+    "$.checks[39].whole_state.families.values.pass",
+    "$.checks[40].pass",
+    "$.checks[40].whole_state.pass",
+    "$.checks[40].whole_state.families.conv_states.pass",
+    "$.checks[40].whole_state.families.recurrent_states.pass",
+    "$.checks[40].whole_state.families.keys.pass",
+    "$.checks[40].whole_state.families.values.pass",
+    "$.checks[41].pass",
+    "$.checks[41].whole_state.pass",
+    "$.checks[41].whole_state.families.conv_states.pass",
+    "$.checks[41].whole_state.families.recurrent_states.pass",
+    "$.checks[41].whole_state.families.keys.pass",
+    "$.checks[41].whole_state.families.values.pass",
+    "$.checks[42].pass",
+    "$.checks[42].whole_state.pass",
+    "$.checks[42].whole_state.families.conv_states.pass",
+    "$.checks[42].whole_state.families.recurrent_states.pass",
+    "$.checks[42].whole_state.families.keys.pass",
+    "$.checks[42].whole_state.families.values.pass",
+    "$.checks[43].pass",
+    "$.checks[43].whole_state.pass",
+    "$.checks[43].whole_state.families.conv_states.pass",
+    "$.checks[43].whole_state.families.recurrent_states.pass",
+    "$.checks[43].whole_state.families.keys.pass",
+    "$.checks[43].whole_state.families.values.pass",
+    "$.checks[44].pass",
+    "$.checks[44].whole_state.pass",
+    "$.checks[44].whole_state.families.conv_states.pass",
+    "$.checks[44].whole_state.families.recurrent_states.pass",
+    "$.checks[44].whole_state.families.keys.pass",
+    "$.checks[44].whole_state.families.values.pass",
+    "$.checks[45].pass",
+    "$.checks[45].whole_state.pass",
+    "$.checks[45].whole_state.families.conv_states.pass",
+    "$.checks[45].whole_state.families.recurrent_states.pass",
+    "$.checks[45].whole_state.families.keys.pass",
+    "$.checks[45].whole_state.families.values.pass",
+    "$.checks[46].pass",
+    "$.checks[46].whole_state.pass",
+    "$.checks[46].whole_state.families.conv_states.pass",
+    "$.checks[46].whole_state.families.recurrent_states.pass",
+    "$.checks[46].whole_state.families.keys.pass",
+    "$.checks[46].whole_state.families.values.pass",
+    "$.checks[47].pass",
+    "$.checks[47].whole_state.pass",
+    "$.checks[47].whole_state.families.conv_states.pass",
+    "$.checks[47].whole_state.families.recurrent_states.pass",
+    "$.checks[47].whole_state.families.keys.pass",
+    "$.checks[47].whole_state.families.values.pass",
+    "$.checks[48].pass",
+    "$.checks[48].whole_state.pass",
+    "$.checks[48].whole_state.families.conv_states.pass",
+    "$.checks[48].whole_state.families.recurrent_states.pass",
+    "$.checks[48].whole_state.families.keys.pass",
+    "$.checks[48].whole_state.families.values.pass",
+    "$.checks[49].pass",
+    "$.checks[49].whole_state.pass",
+    "$.checks[49].whole_state.families.conv_states.pass",
+    "$.checks[49].whole_state.families.recurrent_states.pass",
+    "$.checks[49].whole_state.families.keys.pass",
+    "$.checks[49].whole_state.families.values.pass",
+    "$.checks[50].pass",
+    "$.checks[50].whole_state.pass",
+    "$.checks[50].whole_state.families.conv_states.pass",
+    "$.checks[50].whole_state.families.recurrent_states.pass",
+    "$.checks[50].whole_state.families.keys.pass",
+    "$.checks[50].whole_state.families.values.pass",
+    "$.checks[51].pass",
+    "$.checks[51].whole_state.pass",
+    "$.checks[51].whole_state.families.conv_states.pass",
+    "$.checks[51].whole_state.families.recurrent_states.pass",
+    "$.checks[51].whole_state.families.keys.pass",
+    "$.checks[51].whole_state.families.values.pass",
+    "$.checks[52].pass",
+    "$.checks[52].whole_state.pass",
+    "$.checks[52].whole_state.families.conv_states.pass",
+    "$.checks[52].whole_state.families.recurrent_states.pass",
+    "$.checks[52].whole_state.families.keys.pass",
+    "$.checks[52].whole_state.families.values.pass",
+    "$.checks[53].pass",
+    "$.checks[53].whole_state.pass",
+    "$.checks[53].whole_state.families.conv_states.pass",
+    "$.checks[53].whole_state.families.recurrent_states.pass",
+    "$.checks[53].whole_state.families.keys.pass",
+    "$.checks[53].whole_state.families.values.pass",
+    "$.checks[54].pass",
+    "$.checks[54].whole_state.pass",
+    "$.checks[54].whole_state.families.conv_states.pass",
+    "$.checks[54].whole_state.families.recurrent_states.pass",
+    "$.checks[54].whole_state.families.keys.pass",
+    "$.checks[54].whole_state.families.values.pass",
+    "$.checks[55].pass",
+    "$.checks[55].whole_state.pass",
+    "$.checks[55].whole_state.families.conv_states.pass",
+    "$.checks[55].whole_state.families.recurrent_states.pass",
+    "$.checks[55].whole_state.families.keys.pass",
+    "$.checks[55].whole_state.families.values.pass",
+    "$.checks[56].pass",
+    "$.checks[56].whole_state.pass",
+    "$.checks[56].whole_state.families.conv_states.pass",
+    "$.checks[56].whole_state.families.recurrent_states.pass",
+    "$.checks[56].whole_state.families.keys.pass",
+    "$.checks[56].whole_state.families.values.pass",
+    "$.checks[57].pass",
+    "$.checks[57].whole_state.pass",
+    "$.checks[57].whole_state.families.conv_states.pass",
+    "$.checks[57].whole_state.families.recurrent_states.pass",
+    "$.checks[57].whole_state.families.keys.pass",
+    "$.checks[57].whole_state.families.values.pass",
+    "$.checks[58].pass",
+    "$.checks[58].whole_state.pass",
+    "$.checks[58].whole_state.families.conv_states.pass",
+    "$.checks[58].whole_state.families.recurrent_states.pass",
+    "$.checks[58].whole_state.families.keys.pass",
+    "$.checks[58].whole_state.families.values.pass",
+    "$.checks[59].pass",
+    "$.checks[59].whole_state.pass",
+    "$.checks[59].whole_state.families.conv_states.pass",
+    "$.checks[59].whole_state.families.recurrent_states.pass",
+    "$.checks[59].whole_state.families.keys.pass",
+    "$.checks[59].whole_state.families.values.pass",
+    "$.checks[60].pass",
+    "$.checks[60].whole_state.pass",
+    "$.checks[60].whole_state.families.conv_states.pass",
+    "$.checks[60].whole_state.families.recurrent_states.pass",
+    "$.checks[60].whole_state.families.keys.pass",
+    "$.checks[60].whole_state.families.values.pass",
+    "$.checks[61].pass",
+    "$.checks[61].whole_state.pass",
+    "$.checks[61].whole_state.families.conv_states.pass",
+    "$.checks[61].whole_state.families.recurrent_states.pass",
+    "$.checks[61].whole_state.families.keys.pass",
+    "$.checks[61].whole_state.families.values.pass",
+    "$.checks[62].pass",
+    "$.checks[62].whole_state.pass",
+    "$.checks[62].whole_state.families.conv_states.pass",
+    "$.checks[62].whole_state.families.recurrent_states.pass",
+    "$.checks[62].whole_state.families.keys.pass",
+    "$.checks[62].whole_state.families.values.pass",
+    "$.checks[63].pass",
+    "$.checks[63].whole_state.pass",
+    "$.checks[63].whole_state.families.conv_states.pass",
+    "$.checks[63].whole_state.families.recurrent_states.pass",
+    "$.checks[63].whole_state.families.keys.pass",
+    "$.checks[63].whole_state.families.values.pass",
+    "$.checks[64].pass",
+    "$.checks[64].whole_state.pass",
+    "$.checks[64].whole_state.families.conv_states.pass",
+    "$.checks[64].whole_state.families.recurrent_states.pass",
+    "$.checks[64].whole_state.families.keys.pass",
+    "$.checks[64].whole_state.families.values.pass",
+    "$.checks[65].pass",
+    "$.checks[65].whole_state.pass",
+    "$.checks[65].whole_state.families.conv_states.pass",
+    "$.checks[65].whole_state.families.recurrent_states.pass",
+    "$.checks[65].whole_state.families.keys.pass",
+    "$.checks[65].whole_state.families.values.pass",
+    "$.checks[66].pass",
+    "$.checks[66].whole_state.pass",
+    "$.checks[66].whole_state.families.conv_states.pass",
+    "$.checks[66].whole_state.families.recurrent_states.pass",
+    "$.checks[66].whole_state.families.keys.pass",
+    "$.checks[66].whole_state.families.values.pass",
+    "$.checks[67].pass",
+    "$.checks[67].whole_state.pass",
+    "$.checks[67].whole_state.families.conv_states.pass",
+    "$.checks[67].whole_state.families.recurrent_states.pass",
+    "$.checks[67].whole_state.families.keys.pass",
+    "$.checks[67].whole_state.families.values.pass",
+    "$.checks[68].pass",
+    "$.checks[68].whole_state.pass",
+    "$.checks[68].whole_state.families.conv_states.pass",
+    "$.checks[68].whole_state.families.recurrent_states.pass",
+    "$.checks[68].whole_state.families.keys.pass",
+    "$.checks[68].whole_state.families.values.pass",
+    "$.checks[69].pass",
+    "$.checks[69].whole_state.pass",
+    "$.checks[69].whole_state.families.conv_states.pass",
+    "$.checks[69].whole_state.families.recurrent_states.pass",
+    "$.checks[69].whole_state.families.keys.pass",
+    "$.checks[69].whole_state.families.values.pass",
+    "$.checks[70].pass",
+    "$.checks[70].whole_state.pass",
+    "$.checks[70].whole_state.families.conv_states.pass",
+    "$.checks[70].whole_state.families.recurrent_states.pass",
+    "$.checks[70].whole_state.families.keys.pass",
+    "$.checks[70].whole_state.families.values.pass",
+    "$.checks[71].pass",
+    "$.checks[71].whole_state.pass",
+    "$.checks[71].whole_state.families.conv_states.pass",
+    "$.checks[71].whole_state.families.recurrent_states.pass",
+    "$.checks[71].whole_state.families.keys.pass",
+    "$.checks[71].whole_state.families.values.pass",
+    "$.checks[72].pass",
+    "$.checks[72].whole_state.pass",
+    "$.checks[72].whole_state.families.conv_states.pass",
+    "$.checks[72].whole_state.families.recurrent_states.pass",
+    "$.checks[72].whole_state.families.keys.pass",
+    "$.checks[72].whole_state.families.values.pass",
+    "$.checks[73].pass",
+    "$.checks[73].whole_state.pass",
+    "$.checks[73].whole_state.families.conv_states.pass",
+    "$.checks[73].whole_state.families.recurrent_states.pass",
+    "$.checks[73].whole_state.families.keys.pass",
+    "$.checks[73].whole_state.families.values.pass",
+    "$.checks[74].pass",
+    "$.checks[74].whole_state.pass",
+    "$.checks[74].whole_state.families.conv_states.pass",
+    "$.checks[74].whole_state.families.recurrent_states.pass",
+    "$.checks[74].whole_state.families.keys.pass",
+    "$.checks[74].whole_state.families.values.pass",
+    "$.checks[75].pass",
+    "$.checks[75].whole_state.pass",
+    "$.checks[75].whole_state.families.conv_states.pass",
+    "$.checks[75].whole_state.families.recurrent_states.pass",
+    "$.checks[75].whole_state.families.keys.pass",
+    "$.checks[75].whole_state.families.values.pass",
+    "$.checks[76].pass",
+    "$.checks[76].whole_state.pass",
+    "$.checks[76].whole_state.families.conv_states.pass",
+    "$.checks[76].whole_state.families.recurrent_states.pass",
+    "$.checks[76].whole_state.families.keys.pass",
+    "$.checks[76].whole_state.families.values.pass",
+    "$.checks[77].pass",
+    "$.checks[77].whole_state.pass",
+    "$.checks[77].whole_state.families.conv_states.pass",
+    "$.checks[77].whole_state.families.recurrent_states.pass",
+    "$.checks[77].whole_state.families.keys.pass",
+    "$.checks[77].whole_state.families.values.pass",
+    "$.checks[78].pass",
+    "$.checks[78].whole_state.pass",
+    "$.checks[78].whole_state.families.conv_states.pass",
+    "$.checks[78].whole_state.families.recurrent_states.pass",
+    "$.checks[78].whole_state.families.keys.pass",
+    "$.checks[78].whole_state.families.values.pass",
+    "$.checks[79].pass",
+    "$.checks[79].whole_state.pass",
+    "$.checks[79].whole_state.families.conv_states.pass",
+    "$.checks[79].whole_state.families.recurrent_states.pass",
+    "$.checks[79].whole_state.families.keys.pass",
+    "$.checks[79].whole_state.families.values.pass",
+    "$.checks[80].pass",
+    "$.checks[80].whole_state.pass",
+    "$.checks[80].whole_state.families.conv_states.pass",
+    "$.checks[80].whole_state.families.recurrent_states.pass",
+    "$.checks[80].whole_state.families.keys.pass",
+    "$.checks[80].whole_state.families.values.pass",
+    "$.checks[81].pass",
+    "$.checks[81].whole_state.pass",
+    "$.checks[81].whole_state.families.conv_states.pass",
+    "$.checks[81].whole_state.families.recurrent_states.pass",
+    "$.checks[81].whole_state.families.keys.pass",
+    "$.checks[81].whole_state.families.values.pass",
+    "$.checks[82].pass",
+    "$.checks[82].whole_state.pass",
+    "$.checks[82].whole_state.families.conv_states.pass",
+    "$.checks[82].whole_state.families.recurrent_states.pass",
+    "$.checks[82].whole_state.families.keys.pass",
+    "$.checks[82].whole_state.families.values.pass",
+    "$.checks[83].pass",
+    "$.checks[83].whole_state.pass",
+    "$.checks[83].whole_state.families.conv_states.pass",
+    "$.checks[83].whole_state.families.recurrent_states.pass",
+    "$.checks[83].whole_state.families.keys.pass",
+    "$.checks[83].whole_state.families.values.pass",
+    "$.checks[84].pass",
+    "$.checks[84].whole_state.pass",
+    "$.checks[84].whole_state.families.conv_states.pass",
+    "$.checks[84].whole_state.families.recurrent_states.pass",
+    "$.checks[84].whole_state.families.keys.pass",
+    "$.checks[84].whole_state.families.values.pass",
+    "$.checks[85].pass",
+    "$.checks[85].whole_state.pass",
+    "$.checks[85].whole_state.families.conv_states.pass",
+    "$.checks[85].whole_state.families.recurrent_states.pass",
+    "$.checks[85].whole_state.families.keys.pass",
+    "$.checks[85].whole_state.families.values.pass",
+    "$.checks[86].pass",
+    "$.checks[86].whole_state.pass",
+    "$.checks[86].whole_state.families.conv_states.pass",
+    "$.checks[86].whole_state.families.recurrent_states.pass",
+    "$.checks[86].whole_state.families.keys.pass",
+    "$.checks[86].whole_state.families.values.pass",
+    "$.checks[87].pass",
+    "$.checks[87].whole_state.pass",
+    "$.checks[87].whole_state.families.conv_states.pass",
+    "$.checks[87].whole_state.families.recurrent_states.pass",
+    "$.checks[87].whole_state.families.keys.pass",
+    "$.checks[87].whole_state.families.values.pass",
+    "$.checks[88].pass",
+    "$.checks[88].whole_state.pass",
+    "$.checks[88].whole_state.families.conv_states.pass",
+    "$.checks[88].whole_state.families.recurrent_states.pass",
+    "$.checks[88].whole_state.families.keys.pass",
+    "$.checks[88].whole_state.families.values.pass",
+    "$.checks[89].pass",
+    "$.checks[89].whole_state.pass",
+    "$.checks[89].whole_state.families.conv_states.pass",
+    "$.checks[89].whole_state.families.recurrent_states.pass",
+    "$.checks[89].whole_state.families.keys.pass",
+    "$.checks[89].whole_state.families.values.pass",
+    "$.checks[90].pass",
+    "$.checks[90].whole_state.pass",
+    "$.checks[90].whole_state.families.conv_states.pass",
+    "$.checks[90].whole_state.families.recurrent_states.pass",
+    "$.checks[90].whole_state.families.keys.pass",
+    "$.checks[90].whole_state.families.values.pass",
+    "$.checks[91].pass",
+    "$.checks[91].whole_state.pass",
+    "$.checks[91].whole_state.families.conv_states.pass",
+    "$.checks[91].whole_state.families.recurrent_states.pass",
+    "$.checks[91].whole_state.families.keys.pass",
+    "$.checks[91].whole_state.families.values.pass",
+    "$.checks[92].pass",
+    "$.checks[92].whole_state.pass",
+    "$.checks[92].whole_state.families.conv_states.pass",
+    "$.checks[92].whole_state.families.recurrent_states.pass",
+    "$.checks[92].whole_state.families.keys.pass",
+    "$.checks[92].whole_state.families.values.pass",
+    "$.checks[93].pass",
+    "$.checks[93].whole_state.pass",
+    "$.checks[93].whole_state.families.conv_states.pass",
+    "$.checks[93].whole_state.families.recurrent_states.pass",
+    "$.checks[93].whole_state.families.keys.pass",
+    "$.checks[93].whole_state.families.values.pass",
+    "$.checks[94].pass",
+    "$.checks[94].whole_state.pass",
+    "$.checks[94].whole_state.families.conv_states.pass",
+    "$.checks[94].whole_state.families.recurrent_states.pass",
+    "$.checks[94].whole_state.families.keys.pass",
+    "$.checks[94].whole_state.families.values.pass",
+    "$.checks[95].pass",
+    "$.checks[95].whole_state.pass",
+    "$.checks[95].whole_state.families.conv_states.pass",
+    "$.checks[95].whole_state.families.recurrent_states.pass",
+    "$.checks[95].whole_state.families.keys.pass",
+    "$.checks[95].whole_state.families.values.pass",
+    "$.checks[96].pass",
+    "$.checks[96].whole_state.pass",
+    "$.checks[96].whole_state.families.conv_states.pass",
+    "$.checks[96].whole_state.families.recurrent_states.pass",
+    "$.checks[96].whole_state.families.keys.pass",
+    "$.checks[96].whole_state.families.values.pass",
+    "$.checks[99].pass",
+    "$.checks[99].state.pass",
+    "$.checks[99].state.families.conv_states.pass",
+    "$.checks[99].state.families.recurrent_states.pass",
+    "$.checks[99].state.families.keys.pass",
+    "$.checks[99].state.families.values.pass",
+    "$.checks[108].pass",
+    "$.checks[108].state.pass",
+    "$.checks[108].state.families.conv_states.pass",
+    "$.checks[108].state.families.recurrent_states.pass",
+    "$.checks[108].state.families.keys.pass",
+    "$.checks[108].state.families.values.pass",
+    "$.checks[113].pass",
+    "$.checks[113].whole_state.pass",
+    "$.checks[113].whole_state.families.conv_states.pass",
+    "$.checks[113].whole_state.families.recurrent_states.pass",
+    "$.checks[113].whole_state.families.keys.pass",
+    "$.checks[113].whole_state.families.values.pass",
+    "$.checks[115].pass",
+    "$.checks[115].whole_state.pass",
+    "$.checks[115].whole_state.families.conv_states.pass",
+    "$.checks[115].whole_state.families.recurrent_states.pass",
+    "$.checks[115].whole_state.families.keys.pass",
+    "$.checks[115].whole_state.families.values.pass",
+    "$.checks[117].pass",
+    "$.checks[117].whole_state.pass",
+    "$.checks[117].whole_state.families.conv_states.pass",
+    "$.checks[117].whole_state.families.recurrent_states.pass",
+    "$.checks[117].whole_state.families.keys.pass",
+    "$.checks[117].whole_state.families.values.pass",
+    "$.checks[141].pass",
+    "$.checks[141].whole_state.pass",
+    "$.checks[141].whole_state.families.conv_states.pass",
+    "$.checks[141].whole_state.families.recurrent_states.pass",
+    "$.checks[141].whole_state.families.keys.pass",
+    "$.checks[141].whole_state.families.values.pass",
+    "$.checks[142].pass",
+    "$.checks[142].whole_state.pass",
+    "$.checks[142].whole_state.families.conv_states.pass",
+    "$.checks[142].whole_state.families.recurrent_states.pass",
+    "$.checks[142].whole_state.families.keys.pass",
+    "$.checks[142].whole_state.families.values.pass",
+    "$.checks[144].pass",
+    "$.checks[144].whole_state.pass",
+    "$.checks[144].whole_state.families.conv_states.pass",
+    "$.checks[144].whole_state.families.recurrent_states.pass",
+    "$.checks[144].whole_state.families.keys.pass",
+    "$.checks[144].whole_state.families.values.pass",
+    "$.checks[145].pass",
+    "$.checks[145].whole_state.pass",
+    "$.checks[145].whole_state.families.conv_states.pass",
+    "$.checks[145].whole_state.families.recurrent_states.pass",
+    "$.checks[145].whole_state.families.keys.pass",
+    "$.checks[145].whole_state.families.values.pass",
+    "$.checks[152].pass",
+    "$.checks[152].whole_state.pass",
+    "$.checks[152].whole_state.families.conv_states.pass",
+    "$.checks[152].whole_state.families.recurrent_states.pass",
+    "$.checks[152].whole_state.families.keys.pass",
+    "$.checks[152].whole_state.families.values.pass",
+    "$.checks[155].pass",
+    "$.checks[155].whole_state.pass",
+    "$.checks[155].whole_state.families.conv_states.pass",
+    "$.checks[155].whole_state.families.recurrent_states.pass",
+    "$.checks[155].whole_state.families.keys.pass",
+    "$.checks[155].whole_state.families.values.pass",
+    "$.checks[158].pass",
+    "$.checks[158].whole_state.pass",
+    "$.checks[158].whole_state.families.conv_states.pass",
+    "$.checks[158].whole_state.families.recurrent_states.pass",
+    "$.checks[158].whole_state.families.keys.pass",
+    "$.checks[158].whole_state.families.values.pass",
+    "$.checks[160].pass",
+    "$.checks[160].whole_state.pass",
+    "$.checks[160].whole_state.families.conv_states.pass",
+    "$.checks[160].whole_state.families.recurrent_states.pass",
+    "$.checks[160].whole_state.families.keys.pass",
+    "$.checks[160].whole_state.families.values.pass"
+  ],
+  "state_comparisons": [
+    {
+      "comparison": "eager_vs_graph_state",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 22,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "early_prefix_eager_character_input",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "early_prefix_eager_character_input",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "eager_vs_graph_state",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 22,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "early_prefix_eager_character_input",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "early_prefix_eager_character_input",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "eager_vs_graph_state",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 22,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "early_prefix_eager_character_input",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "early_prefix_eager_character_input",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "eager_vs_graph_state",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 22,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "early_prefix_eager_character_input",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "early_prefix_eager_character_input",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "independent_eager_trajectory_state",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "independent_eager_trajectory_state",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "independent_eager_trajectory_state",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "independent_eager_trajectory_state",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "restored_seed_state[]",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 32,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "restored_seed_state[]",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 32,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "restored_seed_state[]",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 32,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "restored_seed_state[]",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 32,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "startup_all_32_arenas_restored_to_independent_seed",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "same_input_cache_state",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "same_input_cache_state",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "same_input_cache_state",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "same_input_cache_state",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 96,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "exact_length_1_block_0",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "exact_length_1_block_0",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "snapshot_eager_vs_graph_state",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 42,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "bpe_704_before",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "bpe_704_before",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "snapshot_eager_vs_graph_state",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 42,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "bpe_704_before",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "bpe_704_before",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "snapshot_eager_vs_graph_state",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 42,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "bpe_704_before",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "bpe_704_before",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "snapshot_eager_vs_graph_state",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 42,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "bpe_704_before",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "bpe_704_before",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "state",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 9,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "state",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 9,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "state",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 9,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "state",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 9,
+      "failed": 0,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0,
+      "absolute_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "max_normalized_error": 0.0,
+      "normalized_error_case": "raw_snapshot_restore_replay_after_another_length",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "whole_state",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 108,
+      "failed": 107,
+      "nonfinite": 0,
+      "max_absolute_error": 0.6171875,
+      "absolute_error_case": "bpe_to_703",
+      "max_normalized_error": 24.534162521362305,
+      "normalized_error_case": "bpe_to_703",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "whole_state",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 108,
+      "failed": 107,
+      "nonfinite": 0,
+      "max_absolute_error": 1.44921875,
+      "absolute_error_case": "bpe_704_before",
+      "max_normalized_error": 58.60979461669922,
+      "normalized_error_case": "bpe_704_before",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "whole_state",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 108,
+      "failed": 107,
+      "nonfinite": 0,
+      "max_absolute_error": 0.05468177795410156,
+      "absolute_error_case": "exact_length_14_block_0",
+      "max_normalized_error": 19.099964141845703,
+      "normalized_error_case": "interleave_other_5",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "whole_state",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 108,
+      "failed": 107,
+      "nonfinite": 0,
+      "max_absolute_error": 0.521484375,
+      "absolute_error_case": "bpe_704_before",
+      "max_normalized_error": 22.93814468383789,
+      "normalized_error_case": "bpe_704_before",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "whole_state_at_8192",
+      "family": "conv_states",
+      "dtype": "torch.bfloat16",
+      "comparisons": 2,
+      "failed": 2,
+      "nonfinite": 0,
+      "max_absolute_error": 0.125,
+      "absolute_error_case": "whole_8192_[32]",
+      "max_normalized_error": 2.8520500659942627,
+      "normalized_error_case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "whole_state_at_8192",
+      "family": "keys",
+      "dtype": "torch.bfloat16",
+      "comparisons": 2,
+      "failed": 2,
+      "nonfinite": 0,
+      "max_absolute_error": 0.125,
+      "absolute_error_case": "whole_8192_[32]",
+      "max_normalized_error": 5.095155715942383,
+      "normalized_error_case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    },
+    {
+      "comparison": "whole_state_at_8192",
+      "family": "recurrent_states",
+      "dtype": "torch.float32",
+      "comparisons": 2,
+      "failed": 2,
+      "nonfinite": 0,
+      "max_absolute_error": 0.009352266788482666,
+      "absolute_error_case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+      "max_normalized_error": 4.115776062011719,
+      "normalized_error_case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+      "tolerances": {
+        "atol": 0.002,
+        "rtol": 0.001
+      }
+    },
+    {
+      "comparison": "whole_state_at_8192",
+      "family": "values",
+      "dtype": "torch.bfloat16",
+      "comparisons": 2,
+      "failed": 2,
+      "nonfinite": 0,
+      "max_absolute_error": 0.0625,
+      "absolute_error_case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+      "max_normalized_error": 2.4234111309051514,
+      "normalized_error_case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+      "tolerances": {
+        "atol": 0.02,
+        "rtol": 0.01
+      }
+    }
+  ],
+  "probability_comparisons": [
+    {
+      "comparison": "eager_vs_graph_probabilities",
+      "comparisons": 22,
+      "failed": 0,
+      "by_role": {
+        "user": {
+          "max_absolute_error": 0.0,
+          "case": "early_prefix_eager_character_input",
+          "missing_or_invalid_count": 0
+        },
+        "assistant": {
+          "max_absolute_error": 0.0,
+          "case": "early_prefix_eager_character_input",
+          "missing_or_invalid_count": 0
+        }
+      }
+    },
+    {
+      "comparison": "independent_eager_trajectory_probabilities",
+      "comparisons": 96,
+      "failed": 0,
+      "by_role": {
+        "user": {
+          "max_absolute_error": 0.0,
+          "case": "exact_length_1_block_0",
+          "missing_or_invalid_count": 0
+        },
+        "assistant": {
+          "max_absolute_error": 0.0,
+          "case": "exact_length_1_block_0",
+          "missing_or_invalid_count": 0
+        }
+      }
+    },
+    {
+      "comparison": "probabilities",
+      "comparisons": 9,
+      "failed": 0,
+      "by_role": {
+        "user": {
+          "max_absolute_error": 0.0,
+          "case": "raw_snapshot_restore_replay_after_another_length",
+          "missing_or_invalid_count": 0
+        },
+        "assistant": {
+          "max_absolute_error": 0.0,
+          "case": "raw_snapshot_restore_replay_after_another_length",
+          "missing_or_invalid_count": 0
+        }
+      }
+    },
+    {
+      "comparison": "same_input_cache_probabilities",
+      "comparisons": 96,
+      "failed": 0,
+      "by_role": {
+        "user": {
+          "max_absolute_error": 0.0,
+          "case": "exact_length_1_block_0",
+          "missing_or_invalid_count": 0
+        },
+        "assistant": {
+          "max_absolute_error": 0.0,
+          "case": "exact_length_1_block_0",
+          "missing_or_invalid_count": 0
+        }
+      }
+    },
+    {
+      "comparison": "snapshot_eager_vs_graph_probabilities",
+      "comparisons": 42,
+      "failed": 0,
+      "by_role": {
+        "user": {
+          "max_absolute_error": 0.0,
+          "case": "bpe_704_before",
+          "missing_or_invalid_count": 0
+        },
+        "assistant": {
+          "max_absolute_error": 0.0,
+          "case": "bpe_704_before",
+          "missing_or_invalid_count": 0
+        }
+      }
+    },
+    {
+      "comparison": "whole_probabilities",
+      "comparisons": 108,
+      "failed": 0,
+      "by_role": {
+        "user": {
+          "max_absolute_error": 8.89897346496582e-05,
+          "case": "bpe_704_before",
+          "missing_or_invalid_count": 0
+        },
+        "assistant": {
+          "max_absolute_error": 0.00010463781654834747,
+          "case": "exact_length_32_block_2",
+          "missing_or_invalid_count": 0
+        }
+      }
+    },
+    {
+      "comparison": "whole_probabilities_at_8192",
+      "comparisons": 2,
+      "failed": 0,
+      "by_role": {
+        "user": {
+          "max_absolute_error": 7.86827877163887e-06,
+          "case": "whole_8192_[1, 2, 3, 4, 5, 6, 11]",
+          "missing_or_invalid_count": 0
+        },
+        "assistant": {
+          "max_absolute_error": 1.7011305317282677e-05,
+          "case": "whole_8192_[32]",
+          "missing_or_invalid_count": 0
+        }
+      }
+    }
+  ],
+  "text_performance": {
+    "eager": {
+      "accepted_appends": 128,
+      "initial_native_tokens": 863,
+      "final_native_tokens": 1247,
+      "net_new_native_tokens": 384,
+      "actual_forward_tokens": 384,
+      "forward_calls": 134,
+      "replay_tokens": 0,
+      "rollback_events": 0,
+      "seconds": 3.2942732460796833,
+      "itps_net_native_input": 116.56592253146437,
+      "p50_ms": 24.93079099804163,
+      "p95_ms": 27.354737743735313,
+      "session_storage_before": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_768",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_832",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          }
+        ],
+        "total_tensor_storage_bytes": 78114816
+      },
+      "session_storage_after": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_1152",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_1216",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          }
+        ],
+        "total_tensor_storage_bytes": 78114816
+      }
+    },
+    "graph": {
+      "accepted_appends": 128,
+      "initial_native_tokens": 863,
+      "final_native_tokens": 1247,
+      "net_new_native_tokens": 384,
+      "actual_forward_tokens": 384,
+      "forward_calls": 134,
+      "replay_tokens": 0,
+      "rollback_events": 0,
+      "seconds": 1.1040205229073763,
+      "itps_net_native_input": 347.8196211323658,
+      "p50_ms": 8.472767658531666,
+      "p95_ms": 8.804241195321083,
+      "session_storage_before": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_768",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_832",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          }
+        ],
+        "total_tensor_storage_bytes": 78114816
+      },
+      "session_storage_after": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_1152",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_1216",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          }
+        ],
+        "total_tensor_storage_bytes": 78114816
+      }
+    }
+  },
+  "performance_comparison": {
+    "graph_over_eager_net_itps": 2.983887688432094,
+    "eager_over_graph_p95": 3.1069954964742093,
+    "same_model_same_device_same_trace": true,
+    "order": [
+      "eager",
+      "graph"
+    ],
+    "independent_complete_warmup_appends_each": 128,
+    "speedup_is_not_a_correctness_gate": true,
+    "limitation": "One sequential 128-append measurement per engine; not a randomized concurrency or service-load benchmark."
+  },
+  "startup": {
+    "inference_engine": "window_cuda_graph",
+    "window_tokens": 512,
+    "batch_size": 1,
+    "captured_chunk_lengths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "startup_seconds": 15.433400016278028,
+    "capture_seconds": 8.730815963819623,
+    "capture_seconds_scope": "sum of per-length warmup, capture and state restoration; seed prefill excluded",
+    "startup_forward_calls": 129,
+    "startup_forward_tokens": 2624,
+    "auxiliary_input_tokens": 2624,
+    "synthetic_seed_tokens": 512,
+    "seed_ids_sha256": "b263db4f81bccc55187f10e5bb1ca407211abb84dc0acca79dac8ee1d98e88fc",
+    "seed_text_sha256": "39df1a3d607a1b7680656d7f7d9e1875d6f5bb1d1e2208fa2478f6f86d8f418b",
+    "shared_graph_arena_storage_bytes": 833224704,
+    "shared_engine_allocated_delta_bytes": 1105921024,
+    "shared_engine_reserved_delta_bytes": 2489319424,
+    "shared_memory_scope": "one model-shared engine with 32 private graph arenas/pools; allocation deltas exclude pre-existing model allocations and are not per-session cache size",
+    "initialization_excluded_from_request_accounting": true,
+    "capture_during_requests": false,
+    "graph_error_fallback": false,
+    "eager_scope": "prefix shorter than 512 or input block larger than 32 tokens",
+    "maximum_session_tokens": 8192,
+    "generated_tokens": 0,
+    "external_wall_seconds": 15.434061300009489,
+    "allocated_before_bytes": 1534230528,
+    "reserved_before_bytes": 1604321280,
+    "allocated_after_bytes": 2640151552,
+    "reserved_after_bytes": 4093640704,
+    "peak_allocated_bytes": 2678947328,
+    "peak_reserved_bytes": 4093640704,
+    "allocation_scope": "Model already loaded; graph initialization only. Shared arenas/pools are not session caches.",
+    "shared_arena_storage_bytes_independent": 833224704,
+    "shared_arena_and_io_storage_bytes_independent": 833238144
+  },
+  "no_gate_changed": true,
+  "no_model_calls": true,
+  "promotion_approved": false
+}

@@ -1,0 +1,537 @@
+{
+  "model": "c1_stage0_20k",
+  "model_version": "c1-stage0-20k-a0150b08ca51",
+  "parameter_count": 376878080,
+  "has_lm_head": false,
+  "parity": {
+    "1": {
+      "risk_max_abs_error": 0.0006320774555206299,
+      "category_max_abs_error": 0.007332652807235718,
+      "input_tokens": 16,
+      "model_forward_input_tokens": 16
+    },
+    "8": {
+      "risk_max_abs_error": 0.0034011900424957275,
+      "category_max_abs_error": 0.0033669471740722656,
+      "input_tokens": 16,
+      "model_forward_input_tokens": 16
+    },
+    "16": {
+      "risk_max_abs_error": 0.004152446985244751,
+      "category_max_abs_error": 0.0029347240924835205,
+      "input_tokens": 16,
+      "model_forward_input_tokens": 16
+    }
+  },
+  "speed": {
+    "prefill": {
+      "256": {
+        "latency": {
+          "n": 5,
+          "p50_ms": 9.271832183003426,
+          "p95_ms": 9.428856894373894,
+          "p99_ms": 9.428856894373894
+        },
+        "median_input_tokens_per_second": 27610.508359856216
+      },
+      "1024": {
+        "latency": {
+          "n": 5,
+          "p50_ms": 9.94628481566906,
+          "p95_ms": 10.200988501310349,
+          "p99_ms": 10.200988501310349
+        },
+        "median_input_tokens_per_second": 102953.01401251079
+      },
+      "2048": {
+        "latency": {
+          "n": 5,
+          "p50_ms": 18.250755965709686,
+          "p95_ms": 18.264248967170715,
+          "p99_ms": 18.264248967170715
+        },
+        "median_input_tokens_per_second": 112214.52984456488
+      }
+    },
+    "continuation": {
+      "prefix256_chunk1_sessions1": {
+        "new_input_tokens": 4,
+        "classification_count": 4,
+        "model_forward_input_tokens": 4,
+        "wall_seconds": 0.03455245494842529,
+        "input_tokens_per_second": 115.76601448350337,
+        "classifications_per_second": 115.76601448350337,
+        "decision_latency": {
+          "n": 4,
+          "p50_ms": 8.555326610803604,
+          "p95_ms": 8.885679766535759,
+          "p99_ms": 8.885679766535759
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk1_sessions8": {
+        "new_input_tokens": 32,
+        "classification_count": 32,
+        "model_forward_input_tokens": 32,
+        "wall_seconds": 0.2786927279084921,
+        "input_tokens_per_second": 114.82179761255594,
+        "classifications_per_second": 114.82179761255594,
+        "decision_latency": {
+          "n": 32,
+          "p50_ms": 8.589006960391998,
+          "p95_ms": 9.113863110542297,
+          "p99_ms": 9.359627962112427
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk1_sessions32": {
+        "new_input_tokens": 128,
+        "classification_count": 128,
+        "model_forward_input_tokens": 128,
+        "wall_seconds": 1.1325259171426296,
+        "input_tokens_per_second": 113.02169607115468,
+        "classifications_per_second": 113.02169607115468,
+        "decision_latency": {
+          "n": 128,
+          "p50_ms": 8.749334141612053,
+          "p95_ms": 9.243782609701157,
+          "p99_ms": 9.359737858176231
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk8_sessions1": {
+        "new_input_tokens": 32,
+        "classification_count": 4,
+        "model_forward_input_tokens": 32,
+        "wall_seconds": 0.040905704721808434,
+        "input_tokens_per_second": 782.2869748272433,
+        "classifications_per_second": 97.78587185340541,
+        "decision_latency": {
+          "n": 4,
+          "p50_ms": 10.206857696175575,
+          "p95_ms": 10.274726897478104,
+          "p99_ms": 10.274726897478104
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk8_sessions8": {
+        "new_input_tokens": 256,
+        "classification_count": 32,
+        "model_forward_input_tokens": 256,
+        "wall_seconds": 0.3314014617353678,
+        "input_tokens_per_second": 772.4769790074804,
+        "classifications_per_second": 96.55962237593505,
+        "decision_latency": {
+          "n": 32,
+          "p50_ms": 10.322362184524536,
+          "p95_ms": 10.502448305487633,
+          "p99_ms": 10.98528876900673
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk8_sessions32": {
+        "new_input_tokens": 1024,
+        "classification_count": 128,
+        "model_forward_input_tokens": 1024,
+        "wall_seconds": 1.3365594670176506,
+        "input_tokens_per_second": 766.146232374468,
+        "classifications_per_second": 95.7682790468085,
+        "decision_latency": {
+          "n": 128,
+          "p50_ms": 10.418031364679337,
+          "p95_ms": 10.67248359322548,
+          "p99_ms": 11.034796014428139
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk32_sessions1": {
+        "new_input_tokens": 128,
+        "classification_count": 4,
+        "model_forward_input_tokens": 128,
+        "wall_seconds": 0.042083846405148506,
+        "input_tokens_per_second": 3041.5470764654387,
+        "classifications_per_second": 95.04834613954496,
+        "decision_latency": {
+          "n": 4,
+          "p50_ms": 10.525340214371681,
+          "p95_ms": 10.541338473558426,
+          "p99_ms": 10.541338473558426
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk32_sessions8": {
+        "new_input_tokens": 1024,
+        "classification_count": 32,
+        "model_forward_input_tokens": 1024,
+        "wall_seconds": 0.3378211222589016,
+        "input_tokens_per_second": 3031.1899775622082,
+        "classifications_per_second": 94.72468679881901,
+        "decision_latency": {
+          "n": 32,
+          "p50_ms": 10.51517017185688,
+          "p95_ms": 10.76948270201683,
+          "p99_ms": 11.083463206887245
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix256_chunk32_sessions32": {
+        "new_input_tokens": 4096,
+        "classification_count": 128,
+        "model_forward_input_tokens": 4096,
+        "wall_seconds": 1.3726496044546366,
+        "input_tokens_per_second": 2984.009893498909,
+        "classifications_per_second": 93.25030917184091,
+        "decision_latency": {
+          "n": 128,
+          "p50_ms": 10.620398446917534,
+          "p95_ms": 11.264419183135033,
+          "p99_ms": 11.330727487802505
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk1_sessions1": {
+        "new_input_tokens": 4,
+        "classification_count": 4,
+        "model_forward_input_tokens": 4,
+        "wall_seconds": 0.03485989570617676,
+        "input_tokens_per_second": 114.74503635107685,
+        "classifications_per_second": 114.74503635107685,
+        "decision_latency": {
+          "n": 4,
+          "p50_ms": 8.670283481478691,
+          "p95_ms": 8.789561688899994,
+          "p99_ms": 8.789561688899994
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk1_sessions8": {
+        "new_input_tokens": 32,
+        "classification_count": 32,
+        "model_forward_input_tokens": 32,
+        "wall_seconds": 0.2822581697255373,
+        "input_tokens_per_second": 113.37138631316222,
+        "classifications_per_second": 113.37138631316222,
+        "decision_latency": {
+          "n": 32,
+          "p50_ms": 8.744955062866211,
+          "p95_ms": 9.046806022524834,
+          "p99_ms": 9.136762470006943
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk1_sessions32": {
+        "new_input_tokens": 128,
+        "classification_count": 128,
+        "model_forward_input_tokens": 128,
+        "wall_seconds": 1.1225437242537737,
+        "input_tokens_per_second": 114.02673876698188,
+        "classifications_per_second": 114.02673876698188,
+        "decision_latency": {
+          "n": 128,
+          "p50_ms": 8.71320441365242,
+          "p95_ms": 9.038835763931274,
+          "p99_ms": 9.219983592629433
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk8_sessions1": {
+        "new_input_tokens": 32,
+        "classification_count": 4,
+        "model_forward_input_tokens": 32,
+        "wall_seconds": 0.04431917145848274,
+        "input_tokens_per_second": 722.0351587569032,
+        "classifications_per_second": 90.2543948446129,
+        "decision_latency": {
+          "n": 4,
+          "p50_ms": 10.367494076490402,
+          "p95_ms": 12.606438249349594,
+          "p99_ms": 12.606438249349594
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk8_sessions8": {
+        "new_input_tokens": 256,
+        "classification_count": 32,
+        "model_forward_input_tokens": 256,
+        "wall_seconds": 0.33475957065820694,
+        "input_tokens_per_second": 764.7279493657217,
+        "classifications_per_second": 95.5909936707152,
+        "decision_latency": {
+          "n": 32,
+          "p50_ms": 10.400759056210518,
+          "p95_ms": 10.78319363296032,
+          "p99_ms": 11.113645508885384
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk8_sessions32": {
+        "new_input_tokens": 1024,
+        "classification_count": 128,
+        "model_forward_input_tokens": 1024,
+        "wall_seconds": 1.3484668210148811,
+        "input_tokens_per_second": 759.3809384418659,
+        "classifications_per_second": 94.92261730523323,
+        "decision_latency": {
+          "n": 128,
+          "p50_ms": 10.480927303433418,
+          "p95_ms": 10.852580890059471,
+          "p99_ms": 11.526674032211304
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk32_sessions1": {
+        "new_input_tokens": 128,
+        "classification_count": 4,
+        "model_forward_input_tokens": 128,
+        "wall_seconds": 0.042335739359259605,
+        "input_tokens_per_second": 3023.4502086711295,
+        "classifications_per_second": 94.4828190209728,
+        "decision_latency": {
+          "n": 4,
+          "p50_ms": 10.566087439656258,
+          "p95_ms": 10.608615353703499,
+          "p99_ms": 10.608615353703499
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk32_sessions8": {
+        "new_input_tokens": 1024,
+        "classification_count": 32,
+        "model_forward_input_tokens": 1024,
+        "wall_seconds": 0.3424898460507393,
+        "input_tokens_per_second": 2989.8696612695962,
+        "classifications_per_second": 93.43342691467488,
+        "decision_latency": {
+          "n": 32,
+          "p50_ms": 10.632917284965515,
+          "p95_ms": 11.08914241194725,
+          "p99_ms": 11.369269341230392
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      },
+      "prefix1024_chunk32_sessions32": {
+        "new_input_tokens": 4096,
+        "classification_count": 128,
+        "model_forward_input_tokens": 4096,
+        "wall_seconds": 1.375398175790906,
+        "input_tokens_per_second": 2978.0467010177945,
+        "classifications_per_second": 93.06395940680608,
+        "decision_latency": {
+          "n": 128,
+          "p50_ms": 10.70660725235939,
+          "p95_ms": 10.988648980855942,
+          "p99_ms": 11.137094348669052
+        },
+        "scope": "in-process synchronized stream; excludes network and external queue"
+      }
+    }
+  },
+  "official_subset_metrics": {
+    "thinking": {
+      "strict": {
+        "n": 100,
+        "tp": 35,
+        "fp": 28,
+        "tn": 19,
+        "fn": 18,
+        "precision": 0.5555555555555556,
+        "recall": 0.660377358490566,
+        "f1": 0.6034482758620691,
+        "false_positive_rate": 0.5957446808510638,
+        "false_negative_rate": 0.33962264150943394,
+        "review_rate": 0.0,
+        "recall_wilson_95": [
+          0.5259453611082096,
+          0.773131371425709
+        ],
+        "fpr_wilson_95": [
+          0.45341868236312644,
+          0.7236017103861182
+        ]
+      },
+      "loose": {
+        "n": 100,
+        "tp": 35,
+        "fp": 28,
+        "tn": 19,
+        "fn": 18,
+        "precision": 0.5555555555555556,
+        "recall": 0.660377358490566,
+        "f1": 0.6034482758620691,
+        "false_positive_rate": 0.5957446808510638,
+        "false_negative_rate": 0.33962264150943394,
+        "review_rate": 0.0,
+        "recall_wilson_95": [
+          0.5259453611082096,
+          0.773131371425709
+        ],
+        "fpr_wilson_95": [
+          0.45341868236312644,
+          0.7236017103861182
+        ]
+      },
+      "latency": {
+        "unsafe_count": 53,
+        "bins": {
+          "Safe": 18,
+          "Ahead": 21,
+          "Hit": 6,
+          "129-256": 3,
+          ">256": 3,
+          "33-64": 2
+        },
+        "exact_hit_rate": 0.11320754716981132,
+        "published_first_128_stop_rate": 0.5471698113207547,
+        "note": "Published first-128 statistic includes ahead-of-annotation detections; annotations are sentence ranges."
+      },
+      "coverage": {
+        "requested": 100,
+        "evaluated": 100,
+        "skipped": {}
+      }
+    },
+    "thinking_loc": {
+      "strict": {
+        "n": 50,
+        "tp": 38,
+        "fp": 0,
+        "tn": 0,
+        "fn": 12,
+        "precision": 1.0,
+        "recall": 0.76,
+        "f1": 0.8636363636363636,
+        "false_positive_rate": null,
+        "false_negative_rate": 0.24,
+        "review_rate": 0.0,
+        "recall_wilson_95": [
+          0.6258705062480763,
+          0.8570274759812779
+        ],
+        "fpr_wilson_95": [
+          null,
+          null
+        ]
+      },
+      "loose": {
+        "n": 50,
+        "tp": 38,
+        "fp": 0,
+        "tn": 0,
+        "fn": 12,
+        "precision": 1.0,
+        "recall": 0.76,
+        "f1": 0.8636363636363636,
+        "false_positive_rate": null,
+        "false_negative_rate": 0.24,
+        "review_rate": 0.0,
+        "recall_wilson_95": [
+          0.6258705062480763,
+          0.8570274759812779
+        ],
+        "fpr_wilson_95": [
+          null,
+          null
+        ]
+      },
+      "latency": {
+        "unsafe_count": 50,
+        "bins": {
+          "1-32": 2,
+          "Safe": 12,
+          "Ahead": 28,
+          "129-256": 2,
+          ">256": 1,
+          "Hit": 3,
+          "33-64": 1,
+          "65-128": 1
+        },
+        "exact_hit_rate": 0.06,
+        "published_first_128_stop_rate": 0.7,
+        "note": "Published first-128 statistic includes ahead-of-annotation detections; annotations are sentence ranges."
+      },
+      "coverage": {
+        "requested": 50,
+        "evaluated": 50,
+        "skipped": {}
+      }
+    },
+    "response_loc": {
+      "strict": {
+        "n": 100,
+        "tp": 62,
+        "fp": 0,
+        "tn": 0,
+        "fn": 38,
+        "precision": 1.0,
+        "recall": 0.62,
+        "f1": 0.7654320987654321,
+        "false_positive_rate": null,
+        "false_negative_rate": 0.38,
+        "review_rate": 0.0,
+        "recall_wilson_95": [
+          0.5220957382071033,
+          0.7090255079986562
+        ],
+        "fpr_wilson_95": [
+          null,
+          null
+        ]
+      },
+      "loose": {
+        "n": 100,
+        "tp": 62,
+        "fp": 0,
+        "tn": 0,
+        "fn": 38,
+        "precision": 1.0,
+        "recall": 0.62,
+        "f1": 0.7654320987654321,
+        "false_positive_rate": null,
+        "false_negative_rate": 0.38,
+        "review_rate": 0.0,
+        "recall_wilson_95": [
+          0.5220957382071033,
+          0.7090255079986562
+        ],
+        "fpr_wilson_95": [
+          null,
+          null
+        ]
+      },
+      "latency": {
+        "unsafe_count": 100,
+        "bins": {
+          "1-32": 15,
+          "Safe": 38,
+          "Hit": 44,
+          "Ahead": 2,
+          "33-64": 1
+        },
+        "exact_hit_rate": 0.44,
+        "published_first_128_stop_rate": 0.62,
+        "note": "Published first-128 statistic includes ahead-of-annotation detections; annotations are sentence ranges."
+      },
+      "coverage": {
+        "requested": 100,
+        "evaluated": 100,
+        "skipped": {}
+      }
+    }
+  },
+  "http": {
+    "first_append_has_classification": true,
+    "final_stream_risk_max_abs_error": 0.002401888370513916,
+    "complete_requests": 24,
+    "input_tokens": 3120,
+    "wall_seconds": 0.34114587865769863,
+    "input_tokens_per_second": 9145.647639878329,
+    "classifications_per_second": 70.35113569137175,
+    "decision_latency": {
+      "n": 24,
+      "p50_ms": 14.136448502540588,
+      "p95_ms": 14.56901803612709,
+      "p99_ms": 14.59318958222866
+    },
+    "scope": "localhost HTTP complete classification, one serialized GPU worker"
+  }
+}

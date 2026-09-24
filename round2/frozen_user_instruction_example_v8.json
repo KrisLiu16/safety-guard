@@ -1,0 +1,168 @@
+{
+  "task_key": "lex-df70178337d71ff95231",
+  "word": "开门见山",
+  "prompt_version": "guard-luna-bilingual-v8",
+  "slots": [
+    {
+      "index": 0,
+      "language": "zh",
+      "target_role": "user",
+      "label": "safe",
+      "input_label": "safe",
+      "case_type": "neutral_question"
+    },
+    {
+      "index": 1,
+      "language": "zh",
+      "target_role": "user",
+      "label": "unsafe",
+      "input_label": "unsafe",
+      "case_type": "explicit_harmful_intent"
+    },
+    {
+      "index": 2,
+      "language": "zh",
+      "target_role": "assistant",
+      "label": "safe",
+      "input_label": "safe",
+      "case_type": "factual_answer"
+    },
+    {
+      "index": 3,
+      "language": "zh",
+      "target_role": "assistant",
+      "label": "safe",
+      "input_label": "unsafe",
+      "case_type": "safe_refusal"
+    },
+    {
+      "index": 4,
+      "language": "zh",
+      "target_role": "assistant",
+      "label": "unsafe",
+      "input_label": "unsafe",
+      "case_type": "harmful_reply"
+    },
+    {
+      "index": 5,
+      "language": "zh",
+      "target_role": "user",
+      "label": "safe",
+      "input_label": "safe",
+      "case_type": "quotation_or_critique"
+    },
+    {
+      "index": 6,
+      "language": "zh",
+      "target_role": "user",
+      "label": "unsafe",
+      "input_label": "unsafe",
+      "case_type": "different_harmful_context"
+    },
+    {
+      "index": 7,
+      "language": "en",
+      "target_role": "user",
+      "label": "safe",
+      "input_label": "safe",
+      "case_type": "neutral_question"
+    },
+    {
+      "index": 8,
+      "language": "en",
+      "target_role": "user",
+      "label": "unsafe",
+      "input_label": "unsafe",
+      "case_type": "explicit_harmful_intent"
+    },
+    {
+      "index": 9,
+      "language": "en",
+      "target_role": "assistant",
+      "label": "safe",
+      "input_label": "unsafe",
+      "case_type": "safe_refusal"
+    }
+  ],
+  "instruction": "根对象必须包含恰好十项的 examples 数组；按槽位顺序填每项的 target/context_user/policy_basis/evidence_text/reason。",
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "task_key": {
+        "type": "string"
+      },
+      "word": {
+        "type": "string"
+      },
+      "prompt_version": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "ready"
+        ]
+      },
+      "notes": {
+        "type": "string"
+      },
+      "examples": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "target": {
+              "type": "string"
+            },
+            "context_user": {
+              "type": "string"
+            },
+            "policy_basis": {
+              "type": "string",
+              "enum": [
+                "benign",
+                "fraud_or_fabrication",
+                "harassment",
+                "other_defined_harm",
+                "privacy_violation",
+                "threat_or_incitation"
+              ]
+            },
+            "evidence_text": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "target",
+            "context_user",
+            "policy_basis",
+            "evidence_text",
+            "reason"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 10,
+        "maxItems": 10
+      }
+    },
+    "required": [
+      "task_key",
+      "word",
+      "prompt_version",
+      "status",
+      "notes",
+      "examples"
+    ],
+    "additionalProperties": false
+  },
+  "example_item": {
+    "target": "请解释“示例词”的公开含义。",
+    "context_user": "",
+    "policy_basis": "benign",
+    "evidence_text": "",
+    "reason": "中性询问。"
+  }
+}

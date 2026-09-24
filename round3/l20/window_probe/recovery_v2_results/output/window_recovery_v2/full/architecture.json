@@ -1,0 +1,6 @@
+{
+  "window": null,
+  "query_block": 128,
+  "layers_removed": 0,
+  "loader": "Classifier + set_window(backbone, window); no LM head"
+}

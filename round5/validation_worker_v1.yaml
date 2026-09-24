@@ -1,0 +1,80 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-prefix-validation-20260924-r1
+  namespace: default
+  labels:
+    app: safety-guard-prefix-validation
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 7200
+  template:
+    metadata:
+      labels:
+        app: safety-guard-prefix-validation
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: validation
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              nvidia-smi --query-gpu=name,uuid,memory.total --format=csv,noheader
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              test -f /work/output/round5/prefix_v2/summary.json
+              test -f /work/round5/validation_input_v1.manifest.json
+              apt-get update > /work/output/round5/validation_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> /work/output/round5/validation_compiler_install.log 2>&1
+              set +e
+              /work/modern/bin/python -B /work/round5/post_training_validate.py > /work/output/round5/validation_coordinator.log 2>&1
+              validation_code=$?
+              set -e
+              echo "$validation_code" > /work/output/round5/validation_exit_code.txt
+              touch /work/output/round5_validation_ready
+              for i in $(seq 1 1200); do
+                if test -f /work/output/round5_validation_collected; then exit 0; fi
+                sleep 1
+              done
+              echo 'Validation report collection timed out' >&2
+              exit 1
+          env:
+            - name: HF_HOME
+              value: /work/hf
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: OMP_NUM_THREADS
+              value: "4"
+            - name: TORCHINDUCTOR_COMPILE_THREADS
+              value: "4"
+            - name: TRITON_CACHE_DIR
+              value: /work/triton-cache
+          resources:
+            requests:
+              cpu: "4"
+              memory: 16Gi
+              nvidia.com/gpu: "8"
+            limits:
+              cpu: "8"
+              memory: 40Gi
+              nvidia.com/gpu: "8"
+          volumeMounts:
+            - name: work
+              mountPath: /work
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+        - name: work
+          persistentVolumeClaim:
+            claimName: safety-guard-base-compare-data
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 4Gi

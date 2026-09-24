@@ -1,0 +1,30 @@
+{
+  "status": "architecture_budget_only_not_implemented",
+  "source_repo": "Qwen/Qwen3.5-0.8B-Base",
+  "source_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "text_backbone_parameters": 752393024,
+  "classification_head_budget": 536599,
+  "h24_classifier_parameters": 752929623,
+  "moe_layer_indices_zero_based": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "experts_per_moe_layer": 4,
+  "one_dense_ffn_parameters": 11010048,
+  "additional_expert_parameters": 198180864,
+  "router_parameters": 24576,
+  "h24_m4_classifier_parameters": 951135063,
+  "top1_selected_path_parameter_convention": 752954199,
+  "top2_selected_path_parameter_convention": 819014487,
+  "selected_path_warning": "Includes the whole embedding table for parameter accounting; not FLOPs or actual bytes read per token. Batched routes can touch all experts.",
+  "fixed_state_budget_bytes": {
+    "gdn_fp32_18_layers": 18874368,
+    "local_kv_bf16_6_layers_window512": 6291456,
+    "conv_state_bf16_4_slots_18_layers": 884736
+  },
+  "state_warning": "Proposed local-window variant only; excludes activations, padding, allocator, kernels, tokenizer and rollback state. Original full-attention variant is not fixed-state."
+}

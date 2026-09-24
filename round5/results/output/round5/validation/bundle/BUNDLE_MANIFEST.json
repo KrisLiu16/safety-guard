@@ -1,0 +1,176 @@
+{
+  "format": "round5-prefix-classifier-bundle-v1",
+  "created_at": "2026-09-23T21:46:23.645321+00:00",
+  "candidate": "initial_window_fallback",
+  "variant": "window",
+  "inference_engine": "eager",
+  "selection_status": "research_unvalidated_runtime",
+  "promoted_from_initial": false,
+  "thresholds": {
+    "whole": {
+      "en/assistant": 0.9506296515464783,
+      "zh/assistant": 0.9749637842178345,
+      "zh/user": 0.9905970692634583
+    },
+    "stream": {
+      "en/assistant": 0.9955323934555054,
+      "zh/assistant": 0.993289053440094,
+      "zh/user": 0.9961667656898499
+    }
+  },
+  "threshold_comparison": ">",
+  "execution_contract": {
+    "name": "canonical32-v1",
+    "block_tokens": 32,
+    "pad_token_id": 248044,
+    "window": 512,
+    "backbone_layers": 24,
+    "partial_cache": "not_committed",
+    "readout": "all_32_positions_both_roles",
+    "max_input_tokens": 8192,
+    "risk_labels": [
+      "safe",
+      "unsafe",
+      "controversial"
+    ]
+  },
+  "canonical_quality_gate_pass": false,
+  "graph_validation_passed": false,
+  "text_engine_contract": {
+    "default": "eager",
+    "experimental_option": "window_cuda_graph",
+    "whole_input": "eager",
+    "graph_validation_status": "experimental; prior extended graph text whole-state audit failed; no full validation claim",
+    "experimental_graph_capture_lengths": [
+      32
+    ],
+    "window": 512,
+    "batch_size": 1,
+    "graph_dispatch": "aligned cache has at least 512 tokens; always exactly32 physical tokens",
+    "eager_dispatch": "aligned prefix below512 or explicit eager implementation; always exactly32 physical tokens",
+    "capture_failure_fallback": false,
+    "initialization_excluded_from_request_accounting": true
+  },
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "runtime_versions": {
+    "torch": "2.7.1+cu128",
+    "transformers": "5.17.0",
+    "flash-linear-attention": "0.5.2",
+    "fla-core": "0.5.2",
+    "safetensors": "0.8.0",
+    "tokenizers": "0.23.2",
+    "triton": "3.3.1",
+    "huggingface-hub": "1.32.0"
+  },
+  "python_version_at_packaging": "3.11.13",
+  "runtime_image": "pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime",
+  "runtime_requirements": {
+    "physical_cuda_devices": 1,
+    "gpu": "L20",
+    "cuda": "12.8",
+    "system_packages": [
+      "gcc",
+      "libc6-dev"
+    ]
+  },
+  "weight_storage_at_packaging": "hard_linked",
+  "standalone_model_weights": true,
+  "reads_base_model_weights": false,
+  "reads_initial_h24_checkpoint": false,
+  "loading_dtype": {
+    "backbone_parameters": "bfloat16",
+    "heads": "float32",
+    "memory_feature_maps_and_gates": "float32",
+    "nonpersistent_buffers": "initialized by the ordinary text-model constructor"
+  },
+  "serialization": "uppercase role + ':\\n' + content; messages joined by '\\n\\n'; no special tokens",
+  "max_input_tokens": 8192,
+  "generated_tokens": 0,
+  "production_approval": false,
+  "third_risk_class_validated": false,
+  "category_validated": false,
+  "safe_prefix_release_validated": false,
+  "bundle_neural_parity_validation": "required separately on L20; packaging is not validation",
+  "files": {
+    "BUNDLE_USAGE.md": {
+      "sha256": "71ca386fc40db80013b41d3a581e866e66ec4a4004aa5649db2e88fc19b17857",
+      "bytes": 6589
+    },
+    "MODEL_MANIFEST.json": {
+      "sha256": "0f9003aeb923789993eb38f13edf99de6c8807532e0606d273fba1337cfd06d2",
+      "bytes": 2947
+    },
+    "assets/config.json": {
+      "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+      "bytes": 2907
+    },
+    "assets/merges.txt": {
+      "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+      "bytes": 3353259
+    },
+    "assets/tokenizer.json": {
+      "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+      "bytes": 12807196
+    },
+    "assets/tokenizer_config.json": {
+      "sha256": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+      "bytes": 16712
+    },
+    "assets/vocab.json": {
+      "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+      "bytes": 6722759
+    },
+    "canonical_block_engine.py": {
+      "sha256": "4b3214c20d263d147850356f1751014ec326ed85f8b9dd2510f40c6be4cfa9b5",
+      "bytes": 17480
+    },
+    "canonical_text_runtime.py": {
+      "sha256": "bae9a7f228506e3c372891adc9d5af1c4fdab94f20a8b0affefcee8757b975f7",
+      "bytes": 14929
+    },
+    "classifier.safetensors": {
+      "sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+      "bytes": 1509079036
+    },
+    "graph_stream.py": {
+      "sha256": "6cab997727f2072ce2bf077a50f5c4f11f68fc48ad7ecdf1fb6030ed91a39524",
+      "bytes": 16093
+    },
+    "requirements.txt": {
+      "sha256": "b818a5351cf5fcce69cfe4b3e9f59327bf41510355a1fff7d68ea8d6a2731e06",
+      "bytes": 162
+    },
+    "run_guard.py": {
+      "sha256": "74781a12bb015f91bb6aa97232c62c4e6a9109cfde19f3f630bfaa91751f4f79",
+      "bytes": 13855
+    },
+    "selection/canonical_calibration.json": {
+      "sha256": "9b68c3d0e1b1d301b0688c367160d5c10ad7a53d27c30c412742f1cf082189cb",
+      "bytes": 94326
+    },
+    "selection/rl_summary.json": {
+      "sha256": "a8e348c00d12677a2b97e65bd74c43b1413e272e93976c925fea72b0e2b512b2",
+      "bytes": 5383
+    },
+    "selection/sft_summary.json": {
+      "sha256": "ae004fd941f5f50a8bf4f85af4390c9286795fe065c9a9a5965ecdfc49450bae",
+      "bytes": 5067
+    },
+    "selection/summary.json": {
+      "sha256": "255fe4246c84041fbcadfb4e280c8dcfd1da7de6d0c283b4ed7c19b32d7fbd00",
+      "bytes": 12174
+    },
+    "standalone_model.py": {
+      "sha256": "23bbf46fbff0183e31df20c6772cebbd9911e7e4fa0a59df71b331a118b50d2a",
+      "bytes": 26530
+    },
+    "text_stream_runtime.py": {
+      "sha256": "5259bcb6400ad4f61e0d5cc6a2950d7493e2f104bee7757f324950a03968c707",
+      "bytes": 18139
+    },
+    "window_attention.py": {
+      "sha256": "65613e26e6db49ed6f8190ba9ad8e101f222595a18588638db99a15fa9ed5227",
+      "bytes": 6823
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "status": "completed_local_bundle_verified",
+  "started_at": "2026-09-23T18:41:10.965141+00:00",
+  "attempt": 3,
+  "pod": "safety-guard-round4-artifacts-20260923-r1-bbl9j",
+  "metadata": "/Users/liuzhihao/Work/safety-guard/round4/validation_results/output/round4_validation/bundle",
+  "bundle": "/Users/liuzhihao/Work/safety-guard/round4/release",
+  "remote_bundle": "/work/output/round4_validation/bundle",
+  "expected_checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "expected_weight_bytes": 1509079036,
+  "proof_upload_confirmed_by_parent": true,
+  "local_neural_model_calls": 0,
+  "log": "/Users/liuzhihao/Work/safety-guard/round4/release_download.log",
+  "updated_at": "2026-09-23T18:51:59.089427+00:00",
+  "process_pid": 34086,
+  "last_event": {
+    "bundle": "/Users/liuzhihao/Work/safety-guard/round4/release",
+    "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+    "all_bundle_hashes_verified": true,
+    "model_calls": 0
+  },
+  "downloaded_bytes": 1509079036,
+  "download_returncode": 0,
+  "elapsed_seconds": 648.124263,
+  "attempt_history": [
+    {
+      "attempt": 1,
+      "status": "download_failed_partial_preserved",
+      "returncode": 1,
+      "partial_bytes": 1492905984,
+      "elapsed_seconds": 502.1296713750053
+    },
+    {
+      "attempt": 2,
+      "status": "download_failed_partial_preserved",
+      "returncode": 1,
+      "partial_bytes": 1507205115,
+      "elapsed_seconds": 11.680470624996815
+    }
+  ],
+  "resume_offset": 1507205115,
+  "attempt_elapsed_seconds": 10.637804541998776,
+  "verify_only_returncode": 0,
+  "verify_only_result": {
+    "event": "bundle_verified",
+    "bundle": "/Users/liuzhihao/Work/safety-guard/round4/release",
+    "candidate": "classification_rl",
+    "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+    "files": 12,
+    "model_calls": 0
+  },
+  "actual_weight_bytes": 1509079036,
+  "actual_checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "bundle_manifest_sha256": "af68ba51478af03cbaccaa2eea678f1b9e5cc25f59c7afe408d1a57db239268e",
+  "model_manifest_sha256": "ac55fc33463f1bf1c0be87cbac2419ff07a4c40d431e02f06505ffcfc6e90bcd",
+  "all_file_count": 13,
+  "finished_at": "2026-09-23T18:51:59.089404+00:00",
+  "total_elapsed_seconds": 648.124263,
+  "only_manifest_listed_files_delivered": true,
+  "delivered_files": [
+    "BUNDLE_MANIFEST.json",
+    "BUNDLE_USAGE.md",
+    "MODEL_MANIFEST.json",
+    "assets/config.json",
+    "assets/merges.txt",
+    "assets/tokenizer.json",
+    "assets/tokenizer_config.json",
+    "assets/vocab.json",
+    "classifier.safetensors",
+    "requirements.txt",
+    "run_guard.py",
+    "standalone_model.py",
+    "text_stream_runtime.py"
+  ],
+  "artifact_pod_phase": "Succeeded",
+  "artifact_pod_exit_code": 0,
+  "artifact_job": "safety-guard-round4-artifacts-20260923-r1",
+  "acknowledgement_completed": true
+}

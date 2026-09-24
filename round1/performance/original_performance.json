@@ -1,0 +1,772 @@
+{
+  "model": "original",
+  "measurements": [
+    {
+      "model": "original",
+      "mode": "published",
+      "total_tokens": 256,
+      "prefill_tokens": 224,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 45.972166499268496,
+        "p95_ms": 49.10225975072535,
+        "mean_ms": 46.109509530917116
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 45.28095800196752,
+        "p95_ms": 47.13544579826703,
+        "mean_ms": 45.50755533394598
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 1524.2258320031397,
+        "p95_ms": 1524.9569334850094,
+        "mean_ms": 1521.0118603232938
+      },
+      "continuation_tokens_per_second": 21.6875002612961,
+      "probability_max_error": 0.0,
+      "mps_driver_bytes": 1233846272,
+      "rss_bytes": 727908352,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 256,
+      "prefill_tokens": 224,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 15.757250499518705,
+        "p95_ms": 16.632604249025462,
+        "mean_ms": 15.703409333355012
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 44.795834000979085,
+        "p95_ms": 46.167170301123406,
+        "mean_ms": 45.26420833402275
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 541.2376700078312,
+        "p95_ms": 562.2113420024107,
+        "mean_ms": 547.7733070013832
+      },
+      "continuation_tokens_per_second": 63.680438990782605,
+      "probability_max_error": 0.0009992122650146484,
+      "mps_driver_bytes": 1275789312,
+      "rss_bytes": 733872128,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 256,
+      "prefill_tokens": 224,
+      "new_tokens": 32,
+      "chunk": 8,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 12,
+        "p50_ms": 19.730062000235193,
+        "p95_ms": 20.71207080007298,
+        "mean_ms": 19.744006833207095
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 43.84487500283285,
+        "p95_ms": 44.46988720119407,
+        "mean_ms": 44.02311100056977
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 122.47883199597709,
+        "p95_ms": 124.0250338029,
+        "mean_ms": 122.99913833339815
+      },
+      "continuation_tokens_per_second": 405.1862455064056,
+      "probability_max_error": 0.0009992122650146484,
+      "mps_driver_bytes": 1284177920,
+      "rss_bytes": 737067008,
+      "buffer_wait_max_ms_at_100_tokens_s": 70,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 256,
+      "prefill_tokens": 224,
+      "new_tokens": 32,
+      "chunk": 16,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 6,
+        "p50_ms": 23.133333499572473,
+        "p95_ms": 23.839468751248205,
+        "mean_ms": 23.186895999970147
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 45.05816699747811,
+        "p95_ms": 45.09937889997673,
+        "mean_ms": 44.990860998950666
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 91.3706249993993,
+        "p95_ms": 91.42968750056752,
+        "mean_ms": 91.36465299889096
+      },
+      "continuation_tokens_per_second": 690.0449288262042,
+      "probability_max_error": 0.0013208985328674316,
+      "mps_driver_bytes": 1284177920,
+      "rss_bytes": 738689024,
+      "buffer_wait_max_ms_at_100_tokens_s": 150,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 256,
+      "prefill_tokens": 224,
+      "new_tokens": 32,
+      "chunk": 32,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 3,
+        "p50_ms": 24.766625003394438,
+        "p95_ms": 25.22779940154578,
+        "mean_ms": 24.771097002182312
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 44.33345799770905,
+        "p95_ms": 44.71153360209428,
+        "mean_ms": 44.24159700041249
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 69.02116700439365,
+        "p95_ms": 69.55336579958384,
+        "mean_ms": 69.0126940025948
+      },
+      "continuation_tokens_per_second": 1291.8281332950587,
+      "probability_max_error": 0.0009914636611938477,
+      "mps_driver_bytes": 1284177920,
+      "rss_bytes": 739573760,
+      "buffer_wait_max_ms_at_100_tokens_s": 310,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "published",
+      "total_tokens": 1024,
+      "prefill_tokens": 992,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 195.0152294994041,
+        "p95_ms": 201.5970525008015,
+        "mean_ms": 195.5904653334907
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 191.2901249997958,
+        "p95_ms": 195.08373749813472,
+        "mean_ms": 191.92273600007562
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 6448.211419003201,
+        "p95_ms": 6488.915192494096,
+        "mean_ms": 6450.817626671778
+      },
+      "continuation_tokens_per_second": 5.112723661119953,
+      "probability_max_error": 0.0,
+      "mps_driver_bytes": 1334509568,
+      "rss_bytes": 717045760,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 1024,
+      "prefill_tokens": 992,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 16.797833499367698,
+        "p95_ms": 18.573010251202504,
+        "mean_ms": 17.110329416747543
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 172.017249999044,
+        "p95_ms": 174.62882500076375,
+        "mean_ms": 172.81183333398076
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 721.1000820061599,
+        "p95_ms": 724.4093837944092,
+        "mean_ms": 720.3423746699021
+      },
+      "continuation_tokens_per_second": 58.444228374773594,
+      "probability_max_error": 0.003195524215698242,
+      "mps_driver_bytes": 1468727296,
+      "rss_bytes": 717193216,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 1024,
+      "prefill_tokens": 992,
+      "new_tokens": 32,
+      "chunk": 8,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 12,
+        "p50_ms": 28.216958502525813,
+        "p95_ms": 35.71158590002596,
+        "mean_ms": 29.41339941692907
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 176.35491699911654,
+        "p95_ms": 177.738291699643,
+        "mean_ms": 175.79227766691474
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 290.7557920043473,
+        "p95_ms": 298.8348670038249,
+        "mean_ms": 293.445875334631
+      },
+      "continuation_tokens_per_second": 271.98488303244363,
+      "probability_max_error": 0.004419207572937012,
+      "mps_driver_bytes": 1468727296,
+      "rss_bytes": 717291520,
+      "buffer_wait_max_ms_at_100_tokens_s": 70,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 1024,
+      "prefill_tokens": 992,
+      "new_tokens": 32,
+      "chunk": 16,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 6,
+        "p50_ms": 29.526125497795874,
+        "p95_ms": 29.835999997885665,
+        "mean_ms": 29.47865299878079
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 174.19583299852093,
+        "p95_ms": 175.33898330038937,
+        "mean_ms": 174.33920800006794
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 233.64174999369425,
+        "p95_ms": 234.12632620056684,
+        "mean_ms": 233.29651399762952
+      },
+      "continuation_tokens_per_second": 542.7656413154883,
+      "probability_max_error": 0.001923203468322754,
+      "mps_driver_bytes": 1468727296,
+      "rss_bytes": 717307904,
+      "buffer_wait_max_ms_at_100_tokens_s": 150,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 1024,
+      "prefill_tokens": 992,
+      "new_tokens": 32,
+      "chunk": 32,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 3,
+        "p50_ms": 29.485916998964967,
+        "p95_ms": 29.92489199859847,
+        "mean_ms": 29.526819666595355
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 174.42400000072666,
+        "p95_ms": 175.91593809993356,
+        "mean_ms": 174.88768100035182
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 204.3976669992844,
+        "p95_ms": 205.12209230182634,
+        "mean_ms": 204.4145006669472
+      },
+      "continuation_tokens_per_second": 1083.7604713724938,
+      "probability_max_error": 0.0038715004920959473,
+      "mps_driver_bytes": 1468727296,
+      "rss_bytes": 717357056,
+      "buffer_wait_max_ms_at_100_tokens_s": 310,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "published",
+      "total_tokens": 4096,
+      "prefill_tokens": 4064,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 1126.763229000062,
+        "p95_ms": 1159.58046850119,
+        "mean_ms": 1129.5503454585212
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 1107.8959580008814,
+        "p95_ms": 1125.023071398391,
+        "mean_ms": 1108.1125833334227
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 37146.60816800824,
+        "p95_ms": 37614.891587900274,
+        "mean_ms": 37253.7236380061
+      },
+      "continuation_tokens_per_second": 0.8853080378582573,
+      "probability_max_error": 0.0,
+      "mps_driver_bytes": 2300248064,
+      "rss_bytes": 722124800,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 4096,
+      "prefill_tokens": 4064,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 27.63849949769792,
+        "p95_ms": 29.529863999414374,
+        "mean_ms": 27.85427947901553
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 833.3765420029522,
+        "p95_ms": 852.7478414001962,
+        "mean_ms": 838.3483053342692
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 1731.85511999327,
+        "p95_ms": 1754.5530515919381,
+        "mean_ms": 1729.685248662766
+      },
+      "continuation_tokens_per_second": 35.90112609997204,
+      "probability_max_error": 0.0037120580673217773,
+      "mps_driver_bytes": 2300248064,
+      "rss_bytes": 722059264,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 4096,
+      "prefill_tokens": 4064,
+      "new_tokens": 32,
+      "chunk": 8,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 12,
+        "p50_ms": 60.03070800034038,
+        "p95_ms": 62.459934898652136,
+        "mean_ms": 59.97326374957387
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 863.1576670013601,
+        "p95_ms": 864.4886913993105,
+        "mean_ms": 852.3228889995759
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 1095.183998997527,
+        "p95_ms": 1109.0298986982816,
+        "mean_ms": 1092.2159439978714
+      },
+      "continuation_tokens_per_second": 133.39277371004914,
+      "probability_max_error": 0.0037120580673217773,
+      "mps_driver_bytes": 2300248064,
+      "rss_bytes": 722255872,
+      "buffer_wait_max_ms_at_100_tokens_s": 70,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 4096,
+      "prefill_tokens": 4064,
+      "new_tokens": 32,
+      "chunk": 16,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 6,
+        "p50_ms": 59.81125000107568,
+        "p95_ms": 61.438447749424085,
+        "mean_ms": 60.13486100043034
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 827.5595000013709,
+        "p95_ms": 859.3077874993469,
+        "mean_ms": 838.5496943325658
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 947.1453330043005,
+        "p95_ms": 980.951058298524,
+        "mean_ms": 958.8194163334265
+      },
+      "continuation_tokens_per_second": 266.0686286426354,
+      "probability_max_error": 0.0004806816577911377,
+      "mps_driver_bytes": 2300248064,
+      "rss_bytes": 722337792,
+      "buffer_wait_max_ms_at_100_tokens_s": 150,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 4096,
+      "prefill_tokens": 4064,
+      "new_tokens": 32,
+      "chunk": 32,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 3,
+        "p50_ms": 62.17862500125193,
+        "p95_ms": 63.63621279742801,
+        "mean_ms": 62.505305665884705
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 836.291584000719,
+        "p95_ms": 848.7518959002045,
+        "mean_ms": 838.4377363339203
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 897.8307090001181,
+        "p95_ms": 912.3241586974473,
+        "mean_ms": 900.9430419998049
+      },
+      "continuation_tokens_per_second": 511.9565396744479,
+      "probability_max_error": 0.0016739964485168457,
+      "mps_driver_bytes": 2300248064,
+      "rss_bytes": 722583552,
+      "buffer_wait_max_ms_at_100_tokens_s": 310,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "published",
+      "total_tokens": 8192,
+      "prefill_tokens": 8160,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 3192.6727289992414,
+        "p95_ms": 3244.627968749228,
+        "mean_ms": 3194.3571219894316
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 3114.814374999696,
+        "p95_ms": 3115.3221999997186,
+        "mean_ms": 3108.762916666213
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 105204.64562498455,
+        "p95_ms": 105607.22031400765,
+        "mean_ms": 105328.19082032802
+      },
+      "continuation_tokens_per_second": 0.3130520357652448,
+      "probability_max_error": 0.0,
+      "mps_driver_bytes": 2300248064,
+      "rss_bytes": 725090304,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 8192,
+      "prefill_tokens": 8160,
+      "new_tokens": 32,
+      "chunk": 1,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 96,
+        "p50_ms": 43.60095849915524,
+        "p95_ms": 47.747447999427095,
+        "mean_ms": 44.21268841671614
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 1956.9404169997142,
+        "p95_ms": 1963.6890669989953,
+        "mean_ms": 1959.3219863321185
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 3372.548998995626,
+        "p95_ms": 3384.9879422054073,
+        "mean_ms": 3374.128015667035
+      },
+      "continuation_tokens_per_second": 22.617941496222503,
+      "probability_max_error": 0.0015058666467666626,
+      "mps_driver_bytes": 3373989888,
+      "rss_bytes": 726220800,
+      "buffer_wait_max_ms_at_100_tokens_s": 0,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 8192,
+      "prefill_tokens": 8160,
+      "new_tokens": 32,
+      "chunk": 8,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 12,
+        "p50_ms": 97.37377149940585,
+        "p95_ms": 101.0942642502414,
+        "mean_ms": 98.11498625064512
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 1978.4365839987004,
+        "p95_ms": 1991.1109833978117,
+        "mean_ms": 1976.8929029984672
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 2378.958834004152,
+        "p95_ms": 2381.95988489897,
+        "mean_ms": 2369.3528480010477
+      },
+      "continuation_tokens_per_second": 81.53698334689824,
+      "probability_max_error": 0.001203775405883789,
+      "mps_driver_bytes": 3373989888,
+      "rss_bytes": 726401024,
+      "buffer_wait_max_ms_at_100_tokens_s": 70,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 8192,
+      "prefill_tokens": 8160,
+      "new_tokens": 32,
+      "chunk": 16,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 6,
+        "p50_ms": 102.50495850050356,
+        "p95_ms": 105.72404199956509,
+        "mean_ms": 103.21193750011541
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 1989.445084000181,
+        "p95_ms": 1995.257058101197,
+        "mean_ms": 1984.715597332979
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 2193.510500001139,
+        "p95_ms": 2199.698862200239,
+        "mean_ms": 2191.13947233321
+      },
+      "continuation_tokens_per_second": 155.02082789582465,
+      "probability_max_error": 0.0,
+      "mps_driver_bytes": 3373989888,
+      "rss_bytes": 726417408,
+      "buffer_wait_max_ms_at_100_tokens_s": 150,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "incremental",
+      "total_tokens": 8192,
+      "prefill_tokens": 8160,
+      "new_tokens": 32,
+      "chunk": 32,
+      "concurrency": 1,
+      "chunk_latency": {
+        "n": 3,
+        "p50_ms": 104.7599999983504,
+        "p95_ms": 106.94047499819135,
+        "mean_ms": 105.25091666446922
+      },
+      "prefill_latency": {
+        "n": 3,
+        "p50_ms": 1980.4143330002262,
+        "p95_ms": 1991.7977957989933,
+        "mean_ms": 1984.482735999336
+      },
+      "total_latency": {
+        "n": 3,
+        "p50_ms": 2085.1743329985766,
+        "p95_ms": 2098.7382707971847,
+        "mean_ms": 2089.733652663805
+      },
+      "continuation_tokens_per_second": 304.0353567847131,
+      "probability_max_error": 0.0,
+      "mps_driver_bytes": 3373989888,
+      "rss_bytes": 726646784,
+      "buffer_wait_max_ms_at_100_tokens_s": 310,
+      "buffer_wait_is_modeled_not_measured": true
+    },
+    {
+      "model": "original",
+      "mode": "equal_length_batch",
+      "tokens_per_request": 256,
+      "batch": 1,
+      "concurrent_ready_requests": 1,
+      "request_latency": {
+        "n": 10,
+        "p50_ms": 45.86391650082078,
+        "p95_ms": 46.443085050304944,
+        "mean_ms": 45.85674990012194
+      },
+      "requests_per_second": 21.80704045049082,
+      "tokens_per_second": 5582.60235532565,
+      "queue_wait": "zero: all requests ready together; no arrival-process SLO claim",
+      "mps_driver_bytes": 1234894848
+    },
+    {
+      "model": "original",
+      "mode": "equal_length_batch",
+      "tokens_per_request": 256,
+      "batch": 2,
+      "concurrent_ready_requests": 2,
+      "request_latency": {
+        "n": 10,
+        "p50_ms": 89.82527099942672,
+        "p95_ms": 90.39113110047765,
+        "mean_ms": 89.317600099821
+      },
+      "requests_per_second": 22.392003342732092,
+      "tokens_per_second": 5732.352855739416,
+      "queue_wait": "zero: all requests ready together; no arrival-process SLO claim",
+      "mps_driver_bytes": 1270562816
+    },
+    {
+      "model": "original",
+      "mode": "equal_length_batch",
+      "tokens_per_request": 256,
+      "batch": 4,
+      "concurrent_ready_requests": 4,
+      "request_latency": {
+        "n": 10,
+        "p50_ms": 173.65191650060297,
+        "p95_ms": 176.9684626511662,
+        "mean_ms": 174.0743915008352
+      },
+      "requests_per_second": 22.978681502274895,
+      "tokens_per_second": 5882.542464582373,
+      "queue_wait": "zero: all requests ready together; no arrival-process SLO claim",
+      "mps_driver_bytes": 1337688064
+    },
+    {
+      "model": "original",
+      "mode": "equal_length_batch",
+      "tokens_per_request": 1024,
+      "batch": 1,
+      "concurrent_ready_requests": 1,
+      "request_latency": {
+        "n": 10,
+        "p50_ms": 188.04966699826764,
+        "p95_ms": 194.82541874876915,
+        "mean_ms": 189.56058349867817
+      },
+      "requests_per_second": 5.275358313121953,
+      "tokens_per_second": 5401.96691263688,
+      "queue_wait": "zero: all requests ready together; no arrival-process SLO claim",
+      "mps_driver_bytes": 1337688064
+    },
+    {
+      "model": "original",
+      "mode": "equal_length_batch",
+      "tokens_per_request": 1024,
+      "batch": 2,
+      "concurrent_ready_requests": 2,
+      "request_latency": {
+        "n": 10,
+        "p50_ms": 385.163625000132,
+        "p95_ms": 397.70455000034417,
+        "mean_ms": 387.40917929972056
+      },
+      "requests_per_second": 5.162500288752044,
+      "tokens_per_second": 5286.400295682093,
+      "queue_wait": "zero: all requests ready together; no arrival-process SLO claim",
+      "mps_driver_bytes": 2444984320
+    },
+    {
+      "model": "original",
+      "mode": "equal_length_batch",
+      "tokens_per_request": 1024,
+      "batch": 4,
+      "concurrent_ready_requests": 4,
+      "request_latency": {
+        "n": 10,
+        "p50_ms": 781.0167919997184,
+        "p95_ms": 807.594427049662,
+        "mean_ms": 787.3183585004881
+      },
+      "requests_per_second": 5.080536935044073,
+      "tokens_per_second": 5202.4698214851305,
+      "queue_wait": "zero: all requests ready together; no arrival-process SLO claim",
+      "mps_driver_bytes": 2444984320
+    }
+  ],
+  "wall_seconds": 695.6842810000016,
+  "warmup": "first repetition discarded",
+  "timing": "MPS synchronize before and after each forward",
+  "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=21954659)\t63%; charging; (no estimate) present: true",
+  "cold_load_seconds": 0.39431100000001607
+}

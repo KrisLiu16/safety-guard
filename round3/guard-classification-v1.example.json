@@ -1,0 +1,29 @@
+{
+  "schema_version": "guard-classification-v1",
+  "model_version": "c1-stage0-20k-example",
+  "training_status": "stage0_teacher_distilled_unaligned",
+  "target_role": "user",
+  "risk_level": "safe",
+  "risk_probabilities": {
+    "safe": 0.91,
+    "unsafe": 0.04,
+    "controversial": 0.05
+  },
+  "category": "Political",
+  "category_distribution": {
+    "Violent": 0.04,
+    "Sexual Content": 0.03,
+    "Self-Harm": 0.02,
+    "Political": 0.54,
+    "PII": 0.03,
+    "Copyright": 0.04,
+    "Illegal Acts": 0.08,
+    "Unethical": 0.12,
+    "Jailbreak": 0.10
+  },
+  "category_semantics": "single_choice_source_head; topic is not an unsafe decision",
+  "calibrated": false,
+  "input_tokens_total": 128,
+  "input_tokens_forwarded": 8,
+  "cache_reused_tokens": 120
+}

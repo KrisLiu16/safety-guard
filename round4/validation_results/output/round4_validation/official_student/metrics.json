@@ -1,0 +1,140 @@
+{
+  "status": "completed",
+  "kind": "student",
+  "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "splits": {
+    "thinking": {
+      "coverage": {
+        "requested": 1059,
+        "evaluated": 1059,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 1059,
+        "tp": 559,
+        "fp": 443,
+        "tn": 47,
+        "fn": 10,
+        "recall": 0.9824253075571178,
+        "fpr": 0.9040816326530612,
+        "precision": 0.5578842315369261,
+        "f1": 0.7116486314449395
+      },
+      "native_two_consecutive_loose": {
+        "n": 1059,
+        "tp": 559,
+        "fp": 443,
+        "tn": 47,
+        "fn": 10,
+        "recall": 0.9824253075571178,
+        "fpr": 0.9040816326530612,
+        "precision": 0.5578842315369261,
+        "f1": 0.7116486314449395
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 1059,
+        "tp": 447,
+        "fp": 57,
+        "tn": 433,
+        "fn": 122,
+        "recall": 0.7855887521968365,
+        "fpr": 0.11632653061224489,
+        "precision": 0.8869047619047619,
+        "f1": 0.8331780055917987
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    },
+    "thinking_loc": {
+      "coverage": {
+        "requested": 569,
+        "evaluated": 569,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 569,
+        "tp": 559,
+        "fp": 0,
+        "tn": 0,
+        "fn": 10,
+        "recall": 0.9824253075571178,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9911347517730497
+      },
+      "native_two_consecutive_loose": {
+        "n": 569,
+        "tp": 559,
+        "fp": 0,
+        "tn": 0,
+        "fn": 10,
+        "recall": 0.9824253075571178,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9911347517730497
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 569,
+        "tp": 447,
+        "fp": 0,
+        "tn": 0,
+        "fn": 122,
+        "recall": 0.7855887521968365,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.8799212598425197
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    },
+    "response_loc": {
+      "coverage": {
+        "requested": 813,
+        "evaluated": 813,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 813,
+        "tp": 770,
+        "fp": 0,
+        "tn": 0,
+        "fn": 43,
+        "recall": 0.947109471094711,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9728363866077069
+      },
+      "native_two_consecutive_loose": {
+        "n": 813,
+        "tp": 770,
+        "fp": 0,
+        "tn": 0,
+        "fn": 43,
+        "recall": 0.947109471094711,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9728363866077069
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 813,
+        "tp": 727,
+        "fp": 0,
+        "tn": 0,
+        "fn": 86,
+        "recall": 0.8942189421894219,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9441558441558442
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    }
+  },
+  "selection_uses_this_benchmark": false,
+  "protocol": "Student: canonical training serialization and native two-consecutive decisions. A0: original chat template/tokenizer and published two-consecutive decisions. Template/token granularity differ, so this is an adapted quality comparison.",
+  "overlap_note": "thinking and thinking_loc overlap; no pooled total score. Location splits contain no safe examples, so FPR is undefined.",
+  "neural_forward_calls": 1872,
+  "reuse_rule": "Exact full input token IDs and evaluation start, within the same checkpoint only",
+  "generated_tokens": 0,
+  "seconds": 66.23397117480636
+}

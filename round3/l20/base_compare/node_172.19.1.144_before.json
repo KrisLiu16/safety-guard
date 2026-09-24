@@ -1,0 +1,440 @@
+{
+  "apiVersion": "v1",
+  "kind": "Node",
+  "metadata": {
+    "annotations": {
+      "cluster-autoscaler.kubernetes.io/scale-down-disabled": "true",
+      "csi.volume.kubernetes.io/nodeid": "{\"com.tencent.cloud.csi.cbs\":\"ins-hwbfysn4\",\"com.tencent.cloud.csi.cfs\":\"172.19.1.144\",\"com.tencent.cloud.csi.cosfs\":\"172.19.1.144\"}",
+      "node.alpha.kubernetes.io/ttl": "0",
+      "tke.cloud.tencent.com/eni-resource-status": "{\"warmupTotal\":7,\"used\":2}",
+      "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+    },
+    "creationTimestamp": "2026-05-20T02:31:03Z",
+    "labels": {
+      "beta.kubernetes.io/arch": "amd64",
+      "beta.kubernetes.io/instance-type": "PNV5b.8XLARGE96",
+      "beta.kubernetes.io/os": "linux",
+      "cloud.tencent.com/auto-scaling-group-id": "asg-c4gseo6f",
+      "cloud.tencent.com/node-instance-id": "ins-hwbfysn4",
+      "failure-domain.beta.kubernetes.io/region": "hk",
+      "failure-domain.beta.kubernetes.io/zone": "300002",
+      "kubernetes.io/arch": "amd64",
+      "kubernetes.io/hostname": "172.19.1.144",
+      "kubernetes.io/os": "linux",
+      "node.kubernetes.io/instance-type": "PNV5b.8XLARGE96",
+      "node.tke.cloud.tencent.com/accelerator-type": "gpu",
+      "node.tke.cloud.tencent.com/cpu": "32",
+      "node.tke.cloud.tencent.com/gpu": "1",
+      "node.tke.cloud.tencent.com/installed-by": "nodectl",
+      "node.tke.cloud.tencent.com/memory": "96",
+      "nvidia-device-enable": "enable",
+      "nvidia.com/device-plugin.config": "timeslice-8x",
+      "tke.cloud.tencent.com/cbs-mountable": "true",
+      "tke.cloud.tencent.com/nodepool-id": "np-jf2j17wy",
+      "topology.com.tencent.cloud.csi.cbs/zone": "ap-hongkong-2",
+      "topology.kubernetes.io/region": "hk",
+      "topology.kubernetes.io/zone": "300002"
+    },
+    "name": "172.19.1.144",
+    "resourceVersion": "11785865228",
+    "uid": "c04bc2b5-2c72-4bad-a960-f28c4e162295"
+  },
+  "spec": {
+    "providerID": "qcloud:///300002/ins-hwbfysn4"
+  },
+  "status": {
+    "addresses": [
+      {
+        "address": "172.19.1.144",
+        "type": "InternalIP"
+      },
+      {
+        "address": "172.19.1.144",
+        "type": "Hostname"
+      }
+    ],
+    "allocatable": {
+      "cpu": "31850m",
+      "ephemeral-storage": "1947996058062",
+      "hugepages-1Gi": "0",
+      "hugepages-2Mi": "0",
+      "memory": "90857804Ki",
+      "nvidia.com/gpu": "8",
+      "pods": "273",
+      "tke.cloud.tencent.com/eip": "6",
+      "tke.cloud.tencent.com/eni-ip": "273"
+    },
+    "capacity": {
+      "cpu": "32",
+      "ephemeral-storage": "2113711004Ki",
+      "hugepages-1Gi": "0",
+      "hugepages-2Mi": "0",
+      "memory": "96813388Ki",
+      "nvidia.com/gpu": "8",
+      "pods": "273",
+      "tke.cloud.tencent.com/eip": "6",
+      "tke.cloud.tencent.com/eni-ip": "273"
+    },
+    "conditions": [
+      {
+        "lastHeartbeatTime": "2026-05-20T02:31:33Z",
+        "lastTransitionTime": "2026-05-20T02:31:33Z",
+        "message": "eni-ip resources of node is set",
+        "reason": "HasENIIP",
+        "status": "False",
+        "type": "RouteENINetworkUnavailable"
+      },
+      {
+        "lastHeartbeatTime": "2026-09-23T11:19:00Z",
+        "lastTransitionTime": "2026-06-24T04:15:36Z",
+        "message": "kubelet has sufficient memory available",
+        "reason": "KubeletHasSufficientMemory",
+        "status": "False",
+        "type": "MemoryPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-09-23T11:19:00Z",
+        "lastTransitionTime": "2026-07-30T03:48:25Z",
+        "message": "kubelet has no disk pressure",
+        "reason": "KubeletHasNoDiskPressure",
+        "status": "False",
+        "type": "DiskPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-09-23T11:19:00Z",
+        "lastTransitionTime": "2026-05-20T02:31:03Z",
+        "message": "kubelet has sufficient PID available",
+        "reason": "KubeletHasSufficientPID",
+        "status": "False",
+        "type": "PIDPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-09-23T11:19:00Z",
+        "lastTransitionTime": "2026-05-20T02:31:28Z",
+        "message": "kubelet is posting ready status",
+        "reason": "KubeletReady",
+        "status": "True",
+        "type": "Ready"
+      }
+    ],
+    "daemonEndpoints": {
+      "kubeletEndpoint": {
+        "Port": 10250
+      }
+    },
+    "images": [
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/mlx-speech_appautomaton-qwen3-asr-1.7b-bf16-mlx@sha256:c1b4bfd4132e5de450cefeff9d89c06553d651a1e5df21a1a4cc771a5b50a029"
+        ],
+        "sizeBytes": 27639824903
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/videodepthviewer3d_depth-anything-da3metric-large@sha256:7189a4f01427923299eb306cb1874e9a8370d3fc03b2d44d60afeeabd2272e9d"
+        ],
+        "sizeBytes": 5945012975
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/ml-autofocusformer_aff_small.pth@sha256:33927cd35a420b83ebc167fd4d9e63bb020a275880fb6a0eef00da2883be84de"
+        ],
+        "sizeBytes": 5911478634
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/demo-stable-diffusion-xl-base-1-0_stabilityai-stable-diffusion-xl-base-1.0@sha256:180823537bb459eb9befd619efd88764f5ab657b3bfc68c44235a6ff4bf2ddf1"
+        ],
+        "sizeBytes": 5845341850
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/noeris_meta-llama-llama-3.2-1b@sha256:c6ceadd207d35138a858374719d3d79ce0f6e8bf3b438b41dd56c492af85c061"
+        ],
+        "sizeBytes": 5830432177
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/docmind-ai-llm_qwen-qwen3-4b-instruct-2507-fp8@sha256:54a57ccc6ba933dc62dc12748ec7b1459e1cf832d3dd55ff1832b6ed7ad033db"
+        ],
+        "sizeBytes": 5059911326
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/histocartography_bracs_tggnn_7_classes_pna.pt@sha256:7a206eadcf9bc7a4c6635ccb131695b38bf41732d6216149fb0902235cfc418d"
+        ],
+        "sizeBytes": 4460240442
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/scene-fab_f5-tts@sha256:b011b16bfbb30835711819b79dce73a0a78bf3c7ce2193e874324f45a17e51e5"
+        ],
+        "sizeBytes": 4035654911
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/lerobot_startouch_lerobot-smolvla_base@sha256:d7a670b4d6782478690c0cc2e27ff42429ef3afe774b89c1f4f74a5f7b8d17ab"
+        ],
+        "sizeBytes": 3920506202
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_10001-15000/lerobot_pi0_lerobot-diffusion_pusht@sha256:7f6e50476912a91b72e81ba09bd7947ea9e8eba713116e8f06a91d2c847f45df"
+        ],
+        "sizeBytes": 3869876550
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_10001-15000/chatglm-efficient-tuning_thudm-chatglm-6b@sha256:dbac7a37f9a9770e22f48ba218a3e8dcb2657edd3f04342ca66023f0105e279c"
+        ],
+        "sizeBytes": 3864814218
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/pyvoiceagent_chatterboxtts@sha256:8b25620dfdf7152463e1d2025198b79311d36baf81bf508e7458987b6a402ae4"
+        ],
+        "sizeBytes": 3850964866
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/dsine_exp002_kappa-dsine_plus_scannet.pt@sha256:d9550c03d136d64633acf8a4387aaba9de30a34b4601c1714b0742bbbbde5c2d"
+        ],
+        "sizeBytes": 3848792203
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/localsoundsapi_ace-step-ace-step-v1-3.5b@sha256:7878e2bfec28c046c4e9a5d0ea60f836c5e124ea6416c9877e10266c2fd40913"
+        ],
+        "sizeBytes": 3824583127
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260611/show-o_showlab-show-o-w-clip-vit-512x512@sha256:0b3f8bf91a9be10c5caaa9145542cca3982c69875892cccf25a18ec89170453d"
+        ],
+        "sizeBytes": 3689452608
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/llama-factory-main_microsoft-phi-3-mini-4k-instruct@sha256:c0ad654ed1f394e0549e5a188cf5b0a2582bf46c5180b6e6392d9fe5b8ec8fa2"
+        ],
+        "sizeBytes": 3628186772
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/gemma3-finetune_google-gemma-3-4b-it@sha256:2580603e6da7b7717a89261c7fb2dfa99736fee3607ad8a8a64a1261a05dd038"
+        ],
+        "sizeBytes": 3583466180
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/custom-diffusion_nupurkmr9-custom-diffusion-models-delta_cat.ckpt@sha256:09fcdeee9c6987d5a5e998cb2f2363a6a38101d01960b5276041d6dd505a4b6b"
+        ],
+        "sizeBytes": 3581606949
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260611/llama-factory_google-gemma-3-1b-it@sha256:e79affabf32a42280bf40db7a517c6ad80fb94ae0a0a9026245e170a25ae9389"
+        ],
+        "sizeBytes": 3576609705
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/food-segmentation-with-pre-trained-model_groundingdino_swint_ogc-mobilesam_vit_t@sha256:5df3f8b46d28d7a523622b37505f802da4d25712b85d868cf81a99a6125aec06"
+        ],
+        "sizeBytes": 3575368004
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/pipelinets_maple728-timemoe-50m@sha256:e3f98f6699295c85d6c2e5e08d81d72481435337b03177a9e31d5772e496842c"
+        ],
+        "sizeBytes": 3548582589
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/yolo-gen_qwen-qwen3-vl-2b-instruct@sha256:ed7ea361557463857faa40afdd08849db2efea707ff13383d0e8a032f53d714f"
+        ],
+        "sizeBytes": 3540852428
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/petals_bigscience-bloom-7b1-petals@sha256:ecf69e2cd524888c4ce28678423a742af2265c07b8bdece5ffc4f16b12ebb49a"
+        ],
+        "sizeBytes": 3535054233
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/mvf-vit_pip_32_16_60_r18_l2_l1_10_1_nb10_wcc-epoch59.pth@sha256:ea0e39e37220a8ca200b97b45e64fef7021a061593451cd8d0bd037f2f23b10b"
+        ],
+        "sizeBytes": 3534598427
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/cellseg3d_wnet_latest.pth@sha256:354ffeb47f1c5571d71c3c28f30849c009d26d833cd46baf08007bb76db3f416"
+        ],
+        "sizeBytes": 3531745583
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/deepseek-model-finetune-inference-platform_deepseek-ai-deepseek-coder-6.7b-base@sha256:91bf978573cad18f32167fb28e67462fa67e32f53d2be21d3d094a0b73dfa34e"
+        ],
+        "sizeBytes": 3492605235
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/license-plate-recognition_yolov8n.pt@sha256:961ce79633abf82ecd3a47ed57231c78ca0384c7cafa7078d5678f06b482b996"
+        ],
+        "sizeBytes": 3465000378
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/the-sam2-to-sam3-gap-in-the-segment-anything-model-family_sam2.1_hiera_large.pt@sha256:741709d14cf859c0769a3509784ad92571085e4aa9add06665fec857dc3980bb"
+        ],
+        "sizeBytes": 3461787819
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/chattts_colab_2noise-chattts@sha256:b20507178058a4942588edcac642d886ccfe598679a9dace2a174aadc7f7be68"
+        ],
+        "sizeBytes": 3458140441
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_10001-15000/rec_pangu_xdeepfm@sha256:7e5d6a6683858e536a8d657816d039740ed99ee7f06051cf5212087445e62b9e"
+        ],
+        "sizeBytes": 3444418209
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/mlm-scoring_roberta-large-en-cased@sha256:99ba655a27f4a4e90eff89ba96307348cea4592d6cc08ed468ac3c5c2b45fec0"
+        ],
+        "sizeBytes": 3437543020
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/fev_nx-ai-tirex@sha256:dc712e3ffcf6a404bae2b8846e138e78712d7b788855c87f5987866d16447466"
+        ],
+        "sizeBytes": 3434145929
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/cukurova-mevzuat-agent1_sentence-transformers-paraphrase-multilingual-minilm-l12-v2@sha256:208c48900cff3527e43729f74452695fa140dda291293f5de80df4a9ccc98fd8"
+        ],
+        "sizeBytes": 3418938016
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/qwen3-asr-onnx_andrewleech-qwen3-asr-0.6b-onnx@sha256:3e5b99edea9e28c8a1cf7ccdc7373cfdbced184e1a09e0cea6a96e9933c330cb"
+        ],
+        "sizeBytes": 3418397934
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/paper-agent_sentence-transformers-all-minilm-l6-v2@sha256:d25d0442d0726437403dc6c0fa859aedbca930aa0b504d7b4ada2bf275bae398"
+        ],
+        "sizeBytes": 3411044501
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/exploresingapore_sentence-transformers-all-minilm-l6-v2@sha256:6a5c3eb7cb4988c7eb37ffbd209fa20e2fab80e0a4547b4e3f83e095a2b9c280"
+        ],
+        "sizeBytes": 3404481652
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_10001-15000/transformer-explainability_textattack-bert-base-uncased-sst-2@sha256:c3c08f44c8ee01ab146c193da8013db834586560bfa9db8b713117b73a4fbec1"
+        ],
+        "sizeBytes": 3401455670
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/ovis_aidc-ai-ovis2.5-2b@sha256:d5c6e18b8905b5a6b30ea3b2960315412a5833b907470999f6e675411dfa4667"
+        ],
+        "sizeBytes": 3400614475
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/smart-park-with-yolo-v3_yolov3.weights@sha256:595f0b2ce0ce6f29d7b58d59406d630a3cdc1c355c8ce6c08725946db20ba291"
+        ],
+        "sizeBytes": 3395590569
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_10001-15000/mobileclip_benchmark_xlm-roberta-base-vit-b-32-laion5b_s13b_b90k@sha256:3a488399e97c21540cc00c88d636d6b08decf43d45e6433bf6079b454062d732"
+        ],
+        "sizeBytes": 3391487241
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/hamilton_dslim-bert-base-ner@sha256:7ffc58d7cd2de825f6d8c38f58e1792b08ee85436597d91629dd30c10cdc5274"
+        ],
+        "sizeBytes": 3388353109
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/nice-gan-pytorch_cat2dog_params_latest.pt@sha256:da0b4a821086d7b5b36ffc96269fc02cf0d73a1482e85c6386d12b65d48835a5"
+        ],
+        "sizeBytes": 3386535289
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/beir_castorini-monot5-base-msmarco@sha256:108c9ae0d5a07e2b6468857bf84fee784798e69d1d142a7c3bae9c9f8de4d81e"
+        ],
+        "sizeBytes": 3384361190
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/retrivex_baai-bge-m3@sha256:b9fd191a7ad6b2a3a4f979efab65fda5bac7cc39ccbe21c27b0dc3322c734eb6"
+        ],
+        "sizeBytes": 3376504102
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/yolo_bev_yolo11n.pt@sha256:21536fa2009833623c5fb2213daaafcbbb4767da4d6a079ea1c824c80260e019"
+        ],
+        "sizeBytes": 3370923471
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/tner_tner-bertweet-base-tweetner7-all@sha256:c3848e66e33dc3846182c3b0384d22e579f4bbe6de39f8844d1cde7b2c6f08b3"
+        ],
+        "sizeBytes": 3368106909
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/chattts_2noise-chattts@sha256:9ab3341c6c3b0121df01a05b45e28c1b4d596af57eb81e9cb02da1a4b42f5f7b"
+        ],
+        "sizeBytes": 3364532392
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_10001-15000/advanced-multi-object-tracking_yolov8m.pt@sha256:ccf2db3244970e2be7b5d7da19a6e3c42e2025272c8841a2c8c790140bfaf2e0"
+        ],
+        "sizeBytes": 3361312365
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/htu-rag-yjjh_qwen-qwen3-reranker-0.6b@sha256:1a0070c2a99a40937d8195720a32e8bf0ec8a9f5cfcd456d4cfe06e562639315"
+        ],
+        "sizeBytes": 3358685437
+      },
+      {
+        "names": [
+          "rl-dev.tencentcloudcr.com/ml-dl-setup-task-dev/v260616_1-5000/audioldm2_audioldm2-speech-gigaspeech@sha256:d9352d2f2fb1b07e79c62a48592e0bf231729362bdd7a12255902969576a7f08"
+        ],
+        "sizeBytes": 3349821427
+      }
+    ],
+    "nodeInfo": {
+      "architecture": "amd64",
+      "bootID": "5a500c4e-a96e-4231-b39b-f8153ed1e933",
+      "containerRuntimeVersion": "containerd://1.7.28-tke.2",
+      "kernelVersion": "5.4.119-19.0009.65.1",
+      "kubeProxyVersion": "",
+      "kubeletVersion": "v1.34.1-tke.5",
+      "machineID": "cbb3b660c0bf43989d3ceefddaf9bdb2",
+      "operatingSystem": "linux",
+      "osImage": "TencentOS Server 3.1 (Final)",
+      "systemUUID": "cbb3b660-c0bf-4398-9d3c-eefddaf9bdb2"
+    }
+  }
+}

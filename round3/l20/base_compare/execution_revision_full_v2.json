@@ -1,0 +1,23 @@
+{
+  "updated_at": "2026-09-23T11:56:50.822805+00:00",
+  "active_job": "safety-guard-base-compare-20260923-r2",
+  "physical_gpu": "one L20 on 172.19.1.144",
+  "scheduler_gpu_shares": 8,
+  "node_timeslicing_configuration_changed": false,
+  "training_default": "64 head-only warmup batches, then full backbone + head post-training",
+  "lora": "explicit optional control, not default",
+  "architecture_work": "classification heads implemented; original mixing layers retained; window and MoE changes not implemented",
+  "previous_job_failure": "teacher labels exported; A0 speed probe failed at Transformers 4.55.0 DynamicCache(config) construction; fixed by explicit ordinary DynamicCache for all-full-attention A0",
+  "new_gradient_training_completed": false,
+  "source_files": {
+    "train_base.py": "19ebfd8ec2bd0253aff822e34524dc01bd8dad9dba6bd88a6c8316e1154f0018",
+    "export_teacher.py": "0b640622bfebb019dd22975a5a9cafbc73ffaab313515e5a75ea1e024c9c12c7",
+    "start.sh": "dfd84d9d8f5dae226a34d6580e37e2be0689632493af77bfddefb20947f3f974",
+    "restart_full.sh": "65b06d645f69d6710d44a96721a2aa87124b1a0bdb4a61df7f850500827eea58"
+  },
+  "a0_teacher_and_baseline": "completed",
+  "qwen3_full_gradient_smoke": "passed",
+  "qwen3_stream_probability_max_error": 0.0024467408657073975,
+  "qwen3_training": "64 warmup batches completed; full backbone unfrozen at step 65; >200/1280 steps observed",
+  "qwen35_training": "queued after qwen3"
+}

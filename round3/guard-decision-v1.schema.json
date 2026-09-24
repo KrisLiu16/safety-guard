@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GuardDecisionV1",
+  "description": "Only the service serializes this fixed object. The model emits logits, never text tokens.",
+  "type": "object",
+  "properties": {
+    "schema_version": {"const": "guard-decision-v1"},
+    "model_version": {"type": "string", "minLength": 1},
+    "policy_version": {"type": "string", "minLength": 1},
+    "target_role": {"enum": ["user", "assistant"]},
+    "risk_probabilities": {
+      "type": "object",
+      "properties": {
+        "safe": {"type": "number", "minimum": 0, "maximum": 1},
+        "controversial": {"type": "number", "minimum": 0, "maximum": 1},
+        "unsafe": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "required": ["safe", "controversial", "unsafe"],
+      "additionalProperties": false
+    },
+    "category_probabilities": {
+      "type": "object",
+      "properties": {
+        "violence": {"type": "number", "minimum": 0, "maximum": 1},
+        "nonviolent_illegal": {"type": "number", "minimum": 0, "maximum": 1},
+        "sexual_harm": {"type": "number", "minimum": 0, "maximum": 1},
+        "privacy": {"type": "number", "minimum": 0, "maximum": 1},
+        "self_harm": {"type": "number", "minimum": 0, "maximum": 1},
+        "targeted_harassment": {"type": "number", "minimum": 0, "maximum": 1},
+        "deception_fraud": {"type": "number", "minimum": 0, "maximum": 1},
+        "prompt_injection": {"type": "number", "minimum": 0, "maximum": 1},
+        "other_defined_harm": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "required": ["violence", "nonviolent_illegal", "sexual_harm", "privacy", "self_harm", "targeted_harassment", "deception_fraud", "prompt_injection", "other_defined_harm"],
+      "additionalProperties": false
+    },
+    "evidence_sufficient_probability": {"type": "number", "minimum": 0, "maximum": 1},
+    "refusal_probability": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "action": {"enum": ["allow", "hold", "block"]}
+  },
+  "required": ["schema_version", "model_version", "policy_version", "target_role", "risk_probabilities", "category_probabilities", "evidence_sufficient_probability", "refusal_probability", "action"],
+  "additionalProperties": false
+}

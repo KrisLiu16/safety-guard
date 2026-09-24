@@ -1,0 +1,17 @@
+{
+  "source_rows": 449575,
+  "unsuitable": 75975,
+  "previous_pilot": 50,
+  "input_sha256": "6accf83fa822342214c6eea24ba43010ad113e06f88b1f55d8d6490a2d3b5f15",
+  "selection_salt": "mimo-bilingual-first-batch-v1",
+  "target_by_layer": {
+    "permissive": 500,
+    "noncommercial": 500
+  },
+  "selected": 1000,
+  "seeds_sha256": "eee840a09d4c911c5da3afb887aa267d04f89edbe65195c3d9be71816755650f",
+  "planned_examples": 10000,
+  "planned_model_requests": 1000,
+  "model_profile_id": "mdl_01M33V8C39GGNX33TFS5ETDNR3",
+  "run_state": "not_submitted"
+}

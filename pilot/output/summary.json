@@ -1,0 +1,414 @@
+{
+  "run_id": "run_01M353MXQ938K0SG0GXPRW4Z33",
+  "run_no": "aster-dev-253",
+  "status": "succeeded",
+  "total_tasks": 50,
+  "processed_tasks": 50,
+  "succeeded_tasks": 50,
+  "failed_tasks": 0,
+  "valid_examples": 459,
+  "words_with_results": 50,
+  "rl_candidates": 352,
+  "review_required": 107,
+  "quality_flags": {
+    "fiction_context_requires_semantic_review": 102,
+    "seed_entity_recast_as_fictional": 17,
+    "safe_input_label_has_risk_cues": 1
+  },
+  "labels": {
+    "safe": 233,
+    "unsafe": 226
+  },
+  "target_roles": {
+    "user": 241,
+    "assistant": 218
+  },
+  "policies": {
+    "benign": 233,
+    "fraud_fabrication": 112,
+    "privacy_violation": 52,
+    "violence_threat": 61,
+    "harassment": 1
+  },
+  "rejection_events": 24,
+  "per_word": [
+    {
+      "seed_id": "word-0132df432821",
+      "word": "来源不明罪",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQGN8N6SJ2WP2NWJG03"
+    },
+    {
+      "seed_id": "word-1bff35f2a135",
+      "word": "纠纷",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQH05REB722H0FCJY7V"
+    },
+    {
+      "seed_id": "word-3e82fbe89fe2",
+      "word": "经济犯罪",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQH0P7WVE17JA1FW5C3"
+    },
+    {
+      "seed_id": "word-4c18288e1943",
+      "word": "巨额财产",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQH40HDTW9629Y3X7VB"
+    },
+    {
+      "seed_id": "word-3c22898b4f99",
+      "word": "新疆骚乱",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQH6WTBE3318V49V81X"
+    },
+    {
+      "seed_id": "word-38b6f6a7e6cb",
+      "word": "打人",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQH7JHC19QHK3YATM5G"
+    },
+    {
+      "seed_id": "word-6255a85bdbb7",
+      "word": "滥用职权",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQH8E9KRKEN2HRFNG90"
+    },
+    {
+      "seed_id": "word-3e9400b93986",
+      "word": "受贿罪",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQH99R85T1WRBBR5E15"
+    },
+    {
+      "seed_id": "word-01f0b64bd951",
+      "word": "有期徒刑",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQHD72VNW9B2DV4SNTJ"
+    },
+    {
+      "seed_id": "word-61a40d8f1296",
+      "word": "江泽民",
+      "requested": 10,
+      "valid": 7,
+      "attempt_id": "att_wi_01M353MXQHEXZAK6V8KM0179PY"
+    },
+    {
+      "seed_id": "word-62e6c7d15711",
+      "word": "起诉",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQHGWR39W3A94Z3GN3H"
+    },
+    {
+      "seed_id": "word-62431bd96550",
+      "word": "王岐山",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQHKK3SXZMMSGXJACVR"
+    },
+    {
+      "seed_id": "word-4617ad6142c8",
+      "word": "法轮功",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQHR2WDV3WAGCY2Y12A"
+    },
+    {
+      "seed_id": "word-3858f9bae00f",
+      "word": "中南海",
+      "requested": 10,
+      "valid": 8,
+      "attempt_id": "att_wi_01M353MXQHSB0ARS01PNSXYZKH"
+    },
+    {
+      "seed_id": "word-49fe431756b9",
+      "word": "邓小平",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQHTFC93588RJ8KYVP0"
+    },
+    {
+      "seed_id": "word-2489016f7967",
+      "word": "拆迁",
+      "requested": 10,
+      "valid": 5,
+      "attempt_id": "att_wi_01M353MXQHTK54CSP2PX240YAJ"
+    },
+    {
+      "seed_id": "word-3e49e140016d",
+      "word": "开除党籍",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQHW3KT6NAPTYXJGR7W"
+    },
+    {
+      "seed_id": "word-7fde949681bb",
+      "word": "徇私舞弊",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQJ1JAE67KP2YC93JVH"
+    },
+    {
+      "seed_id": "word-705e3c296a8f",
+      "word": "玩忽职守",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQJ1JYXSDDJ3K39CWN3"
+    },
+    {
+      "seed_id": "word-92a054e84d6e",
+      "word": "习近平",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJ3JN1VQKW9H7D400D"
+    },
+    {
+      "seed_id": "word-89d9d76378df",
+      "word": "以权谋私",
+      "requested": 10,
+      "valid": 7,
+      "attempt_id": "att_wi_01M353MXQJ4CP791HSNAZPA5PM"
+    },
+    {
+      "seed_id": "word-82d484dbd532",
+      "word": "撤销职务",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJ5AMFR542Q639AQPK"
+    },
+    {
+      "seed_id": "word-a16c7d515750",
+      "word": "胡锦涛",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJ5E9MTCWRDN5V5Y4P"
+    },
+    {
+      "seed_id": "word-6ef7ecad415c",
+      "word": "严重违纪",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJ6MCF34MZHTWKSE6B"
+    },
+    {
+      "seed_id": "word-ab78351346a1",
+      "word": "薄熙来",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJ7M6742XQN75GM5R5"
+    },
+    {
+      "seed_id": "word-7b283c066c54",
+      "word": "中共",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJCM9MR5HF4TENDV0P"
+    },
+    {
+      "seed_id": "word-6b07bc11ef8d",
+      "word": "收受股票",
+      "requested": 10,
+      "valid": 7,
+      "attempt_id": "att_wi_01M353MXQJFYK8ZY6CQRQWRJD3"
+    },
+    {
+      "seed_id": "word-a067d6e36dba",
+      "word": "朱镕基",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJJHEHS45E3JZWM5TG"
+    },
+    {
+      "seed_id": "word-97339da250f1",
+      "word": "官僚主义",
+      "requested": 10,
+      "valid": 7,
+      "attempt_id": "att_wi_01M353MXQJKHAGH6KQQ7CDK90W"
+    },
+    {
+      "seed_id": "word-782f3223e5be",
+      "word": "中国当局",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJP8AQEZA2KMBFJK1E"
+    },
+    {
+      "seed_id": "word-88aa4ac8071c",
+      "word": "周永康",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQJQ4KWMWPNS8WXB0AP"
+    },
+    {
+      "seed_id": "word-6433ee9fcda9",
+      "word": "王沪宁",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJQEHW2HZ7BRZXPMSS"
+    },
+    {
+      "seed_id": "word-7b8b8f9da490",
+      "word": "无期徒刑",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQJRCNMFH5JTC1Z0B5Z"
+    },
+    {
+      "seed_id": "word-7fca053f9a8e",
+      "word": "大陆当局",
+      "requested": 10,
+      "valid": 8,
+      "attempt_id": "att_wi_01M353MXQJRMBG49WJW54ZJDTY"
+    },
+    {
+      "seed_id": "word-78a021c18a65",
+      "word": "大陆官方",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQJT1MSF4BT5JHA4W5N"
+    },
+    {
+      "seed_id": "word-7746c5040631",
+      "word": "贪污",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQJTT3BQWPE84S2ERNJ"
+    },
+    {
+      "seed_id": "word-cde71c2f4a65",
+      "word": "中央领导",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQK1S1601E2GFTZNVPA"
+    },
+    {
+      "seed_id": "word-e10a333ca069",
+      "word": "刘少奇",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQK2VF4B0SENDTKWTXN"
+    },
+    {
+      "seed_id": "word-ec9f46c71914",
+      "word": "罢工",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQK36TRQDMAXM7M731A"
+    },
+    {
+      "seed_id": "word-f57195c736be",
+      "word": "李克强",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQK3TJA7KP30Z9G95DV"
+    },
+    {
+      "seed_id": "word-c492716d7fe4",
+      "word": "政府",
+      "requested": 10,
+      "valid": 8,
+      "attempt_id": "att_wi_01M353MXQK44QGD7D1SA3SN7V1"
+    },
+    {
+      "seed_id": "word-e540426218df",
+      "word": "毛泽东",
+      "requested": 10,
+      "valid": 8,
+      "attempt_id": "att_wi_01M353MXQK4YNY0PN1W1BFKTQN"
+    },
+    {
+      "seed_id": "word-ac2e5da71c01",
+      "word": "李鹏",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQK632E8QAZNYH6WS8K"
+    },
+    {
+      "seed_id": "word-e2acfffc52a9",
+      "word": "没收个人财产",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQK9ZBX2PJKQWRCK8SA"
+    },
+    {
+      "seed_id": "word-f0e94c142d87",
+      "word": "腐败",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQKC6JJ4EWB6E0P8K0J"
+    },
+    {
+      "seed_id": "word-db2dc0cd6fd8",
+      "word": "共产党",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQKGY8H96WWED633ZJB"
+    },
+    {
+      "seed_id": "word-c837b1efc197",
+      "word": "温家宝",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQKH0VCP4P5MJ06D4SS"
+    },
+    {
+      "seed_id": "word-f59d4bba3a98",
+      "word": "违纪",
+      "requested": 10,
+      "valid": 10,
+      "attempt_id": "att_wi_01M353MXQKHCPWKGWY8Y971R2V"
+    },
+    {
+      "seed_id": "word-dc13e8e9ab51",
+      "word": "北京当局",
+      "requested": 10,
+      "valid": 9,
+      "attempt_id": "att_wi_01M353MXQKP39R88G7C35QZ7M2"
+    },
+    {
+      "seed_id": "word-f6beef430efa",
+      "word": "盗窃",
+      "requested": 10,
+      "valid": 8,
+      "attempt_id": "att_wi_01M353MXQKPJ1AT2RGZ30VJ2JT"
+    }
+  ],
+  "usage": {
+    "input_tokens": 70017,
+    "output_tokens": 76141,
+    "total_tokens": 146158
+  },
+  "semantic_review": "not_automatically_verified",
+  "data_split": "unassigned",
+  "raw_examples": 500,
+  "model_responses": 50,
+  "structural_rejected": 41,
+  "structural_pass_rate": 0.918,
+  "validation_error_counts": {
+    "message_roles": 17,
+    "missing_seed_word": 1,
+    "evidence_after_prefix": 13,
+    "prefix": 6,
+    "evidence_span": 4,
+    "slot:input_label": 1,
+    "unsafe_policy": 2
+  },
+  "rl_candidate_labels": {
+    "safe": 228,
+    "unsafe": 124
+  },
+  "model_call_seconds": {
+    "median": 65.55,
+    "max": 85.53
+  }
+}

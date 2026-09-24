@@ -1,0 +1,246 @@
+{
+  "status": "completed",
+  "pipeline_integrity_pass": true,
+  "stages": [
+    {
+      "name": "canonical_core",
+      "dependencies": [],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/runtime/test_canonical_l20.py",
+        "--checkpoint",
+        "/work/output/round5/prefix_v2/classification_rl/best.safetensors",
+        "--checkpoint-sha256",
+        "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+        "--training-summary",
+        "/work/output/round5/prefix_v2/summary.json",
+        "--output",
+        "/work/output/round5/validation/canonical_core_audit.json",
+        "--timeout-seconds",
+        "540"
+      ],
+      "artifact_path": "/work/output/round5/validation/canonical_core_audit.json",
+      "status": "completed",
+      "timeout_seconds": 720,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/validation/canonical_core_audit.json",
+        "sha256": "8952b5fe499fee5a9ba8884c10c69cb36e3f13e30c15029e388e5dc693fc1cc7",
+        "canonical_quality_gate_pass": null,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 88.24228892475367
+    },
+    {
+      "name": "canonical_calibration",
+      "dependencies": [
+        "canonical_core"
+      ],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/calibrate_canonical_l20.py",
+        "--calibrate",
+        "--inference-engine",
+        "eager",
+        "--output",
+        "/work/output/round5/canonical32_calibration"
+      ],
+      "artifact_path": "/work/output/round5/canonical32_calibration/audit.json",
+      "status": "completed",
+      "timeout_seconds": 2000,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/canonical32_calibration/audit.json",
+        "sha256": "15cb854d8e90b5624d60fcf875f5c19ba0406c26f7bc0f1e5abe5be6c3ad6a52",
+        "canonical_quality_gate_pass": false,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 792.5874707419425
+    },
+    {
+      "name": "prepare_manifest",
+      "dependencies": [
+        "canonical_calibration"
+      ],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/runtime/prepare_manifest.py",
+        "--summary",
+        "/work/output/round5/prefix_v2/summary.json",
+        "--canonical-calibration",
+        "/work/output/round5/canonical32_calibration/selected/calibration.json",
+        "--output",
+        "/work/output/round5/validation/MODEL_MANIFEST.json"
+      ],
+      "artifact_path": "/work/output/round5/validation/MODEL_MANIFEST.json",
+      "status": "completed",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/validation/MODEL_MANIFEST.json",
+        "sha256": "0f9003aeb923789993eb38f13edf99de6c8807532e0606d273fba1337cfd06d2",
+        "canonical_quality_gate_pass": false,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 1.165648588910699
+    },
+    {
+      "name": "package",
+      "dependencies": [
+        "prepare_manifest"
+      ],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/runtime/package_model.py",
+        "--manifest",
+        "/work/output/round5/validation/MODEL_MANIFEST.json",
+        "--output",
+        "/work/output/round5/validation/bundle"
+      ],
+      "artifact_path": "/work/output/round5/validation/bundle/BUNDLE_MANIFEST.json",
+      "status": "completed",
+      "timeout_seconds": 180,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/validation/bundle/BUNDLE_MANIFEST.json",
+        "sha256": "f5f9c343fcd3a9696f1206ecfb9676cee29bd6319bfe81eaaad916ddb44aa213",
+        "canonical_quality_gate_pass": false,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 3.318776624277234
+    },
+    {
+      "name": "portable_bundle",
+      "dependencies": [
+        "package"
+      ],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/runtime/test_bundle_l20.py",
+        "--manifest",
+        "/work/output/round5/validation/MODEL_MANIFEST.json",
+        "--bundle",
+        "/work/output/round5/validation/bundle",
+        "--output",
+        "/work/output/round5/validation/bundle_audit.json",
+        "--timeout-seconds",
+        "360"
+      ],
+      "artifact_path": "/work/output/round5/validation/bundle_audit.json",
+      "status": "completed",
+      "timeout_seconds": 540,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/validation/bundle_audit.json",
+        "sha256": "760393629762fcded857142bbd3e4a405a4973509d8b1a7fa647c42976c6ebfc",
+        "canonical_quality_gate_pass": null,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 48.22966601140797
+    },
+    {
+      "name": "canonical_fresh390",
+      "dependencies": [
+        "canonical_calibration"
+      ],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/evaluate_canonical_fresh_l20.py",
+        "--evaluate-fresh",
+        "--calibration-output",
+        "/work/output/round5/canonical32_calibration",
+        "--output",
+        "/work/output/round5/canonical32_fresh390"
+      ],
+      "artifact_path": "/work/output/round5/canonical32_fresh390/audit.json",
+      "status": "completed",
+      "timeout_seconds": 800,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/canonical32_fresh390/audit.json",
+        "sha256": "0004cbb6b2c7f033d66b639143b42aea45755932f9dcf12fe01053d00a86c8a3",
+        "canonical_quality_gate_pass": null,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 172.95978247001767
+    },
+    {
+      "name": "canonical_official2441",
+      "dependencies": [
+        "canonical_calibration"
+      ],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/evaluate_canonical_official_l20.py",
+        "--calibration-output",
+        "/work/output/round5/canonical32_calibration",
+        "--output",
+        "/work/output/round5/canonical32_official"
+      ],
+      "artifact_path": "/work/output/round5/canonical32_official/metrics.json",
+      "status": "completed",
+      "timeout_seconds": 1200,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/canonical32_official/metrics.json",
+        "sha256": "8986f0baebc4bad5f85b83de5ef1887c71d1f90ffb4960dc241ba1b4b3589ca8",
+        "canonical_quality_gate_pass": false,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 871.8958301320672
+    },
+    {
+      "name": "bulk_reference_fresh390",
+      "dependencies": [],
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/evaluate_final_l20.py",
+        "--output",
+        "/work/output/round5/fresh390_final"
+      ],
+      "artifact_path": "/work/output/round5/fresh390_final/audit.json",
+      "status": "completed",
+      "timeout_seconds": 600,
+      "returncode": 0,
+      "artifact_receipt": {
+        "path": "/work/output/round5/fresh390_final/audit.json",
+        "sha256": "c7452156dd3113dcbe3a1b6e33cec63e9376dd08ac9308fa815c9d7602169e2f",
+        "canonical_quality_gate_pass": null,
+        "quality_approval_implied": false
+      },
+      "completed": true,
+      "seconds": 55.391029592603445
+    }
+  ],
+  "started_at": "2026-09-23T21:31:22.303279+00:00",
+  "script_sha256": "61da174a1b1f9cd462c9159085c2b77039d94b4e49fb3b27fa35e563ed33164b",
+  "budget_seconds": 4200,
+  "generated_tokens": 0,
+  "selection_changed": false,
+  "quality_approval_implied": false,
+  "input_receipt": {
+    "path": "/work/round5/validation_input_v1.manifest.json",
+    "sha256": "9bb1f79b0585fc3c890e452547f1ddf1a5adc5771fbd3841f3288d769138f8d9",
+    "packaged_files": 25,
+    "external_files": 22
+  },
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "training_summary_sha256": "255fe4246c84041fbcadfb4e280c8dcfd1da7de6d0c283b4ed7c19b32d7fbd00",
+  "active_stage": null,
+  "elapsed_seconds": 2051.0651213675737
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "versions": {
+    "transformers": "5.17.0",
+    "tokenizers": "0.23.2"
+  },
+  "tokenizer_class": "Qwen2Tokenizer",
+  "tokenizer_assets_sha256": {
+    "tokenizer.json": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+    "tokenizer_config.json": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+    "config.json": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+    "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+    "merges.txt": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+    "added_tokens.json": null,
+    "special_tokens_map.json": null,
+    "chat_template.jinja": null
+  },
+  "original_records": 390,
+  "verified_original_and_cut_views": 3493,
+  "verified_views_sha256": "7de924aae8976458fcd310a4ee4163c9cdf65728741aca309c05498751c4ccc2",
+  "mismatched_views": 0,
+  "replacement_ids_written": false,
+  "neural_forward_calls": 0
+}

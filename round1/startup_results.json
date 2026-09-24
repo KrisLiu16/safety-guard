@@ -1,0 +1,27 @@
+{
+  "original": {
+    "fresh_process_to_first_result_seconds": [
+      2.5115407910016074,
+      2.451570500001253,
+      2.4485006659997453
+    ],
+    "median_seconds": 2.451570500001253
+  },
+  "rl": {
+    "fresh_process_to_first_result_seconds": [
+      2.4308567500011122,
+      2.4371890840011474,
+      2.4148010829994746
+    ],
+    "median_seconds": 2.4308567500011122
+  },
+  "rl_merged": {
+    "fresh_process_to_first_result_seconds": [
+      2.406794999998965,
+      2.3782144590004464,
+      2.4233974580020003
+    ],
+    "median_seconds": 2.406794999998965
+  },
+  "scope": "Includes Python imports, weight/adapter loading, MPS first inference and first JSON. One batch of two fixed short conversations. OS/Metal caches not purged; not a reboot-cold measurement."
+}

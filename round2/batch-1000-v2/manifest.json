@@ -1,0 +1,19 @@
+{
+  "source_rows": 449575,
+  "unsuitable": 161777,
+  "previous_pilot": 50,
+  "single_family_nc_skipped": 197158,
+  "input_sha256": "6accf83fa822342214c6eea24ba43010ad113e06f88b1f55d8d6490a2d3b5f15",
+  "selection_salt": "mimo-bilingual-first-batch-v2",
+  "eligibility": "2-12 CJK ideographs; NC term observed in at least two archive families",
+  "target_by_layer": {
+    "permissive": 500,
+    "noncommercial": 500
+  },
+  "selected": 1000,
+  "seeds_sha256": "c4ccf8128628d05afdafdb8079791242287e5f38a5721a584ecd290a90934d4d",
+  "planned_examples": 10000,
+  "planned_model_requests": 1000,
+  "model_profile_id": "mdl_01M33V8C39GGNX33TFS5ETDNR3",
+  "run_state": "not_submitted"
+}

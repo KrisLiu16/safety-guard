@@ -1,0 +1,35 @@
+{
+  "status": "completed",
+  "all_cases_pass": true,
+  "results": {
+    "user": {
+      "case": "user",
+      "target_role": "user",
+      "variant": "full",
+      "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+      "input_tokens": 20,
+      "stream_classification_calls": 3,
+      "probability_errors": {
+        "user": 0.0002766847610473633,
+        "assistant": 0.00010366551578044891
+      },
+      "pass": true,
+      "scope": "CLI contract and numerical parity; this fixture is not a safety-quality benchmark"
+    },
+    "assistant": {
+      "case": "assistant",
+      "target_role": "assistant",
+      "variant": "full",
+      "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+      "input_tokens": 50,
+      "stream_classification_calls": 7,
+      "probability_errors": {
+        "user": 4.696287214756012e-05,
+        "assistant": 1.1274591088294983e-05
+      },
+      "pass": true,
+      "scope": "CLI contract and numerical parity; this fixture is not a safety-quality benchmark"
+    }
+  },
+  "generated_tokens": 0
+}

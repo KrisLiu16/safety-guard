@@ -1,0 +1,1179 @@
+{
+  "status": "completed",
+  "all_candidates_pass": false,
+  "device": "NVIDIA L20",
+  "window": 512,
+  "prefix_lengths": [
+    513,
+    1025,
+    4097,
+    8192
+  ],
+  "generated_tokens": 0,
+  "results": {
+    "full": {
+      "name": "full",
+      "variant": "full",
+      "checkpoint_sha256": "a3f6e5a7084be871553ef92feddfd3fae38a2e7a42fc1a38b52445aae3ebbaa2",
+      "max_probability_error": 0.002535104751586914,
+      "probability_tolerance": 0.03,
+      "long_stream_parity_pass": true,
+      "bounded_state_pass": null,
+      "pass": true,
+      "absolute_memory_gates": [],
+      "input_token_hashes": [
+        "04109938b5ee2a0dbbbb989035dca25b982312b56d893f2924e4d49a63ba71ca",
+        "5d88305e22e125cf5fa34c68cc729947403cd90d2834c43db827fcbface0d2aa"
+      ],
+      "records": [
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.00042593106627464294,
+            "assistant": 0.00023472681641578674
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 0.0005170702934265137,
+            "assistant": 0.00019109249114990234
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00029663369059562683,
+            "assistant": 9.906291961669922e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.000785335898399353,
+            "assistant": 0.0004901885986328125
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 0.00027507543563842773,
+            "assistant": 9.864568710327148e-05
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00030718371272087097,
+            "assistant": 9.66191291809082e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.002312004566192627,
+            "assistant": 0.002535104751586914
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.00025135278701782227,
+            "assistant": 0.0002477578818798065
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 0.0001265052706003189,
+            "assistant": 6.831716746091843e-05
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00014632567763328552,
+            "assistant": 5.872547626495361e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 3.5643577575683594e-05,
+            "assistant": 8.177012205123901e-06
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 9.131059050559998e-05,
+            "assistant": 8.154287934303284e-05
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 4.25092875957489e-05,
+            "assistant": 2.950429916381836e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 3.36766242980957e-05,
+            "assistant": 2.276897430419922e-05
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        }
+      ]
+    },
+    "window": {
+      "name": "window",
+      "variant": "window",
+      "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+      "max_probability_error": 0.0030629634857177734,
+      "probability_tolerance": 0.03,
+      "long_stream_parity_pass": true,
+      "bounded_state_pass": true,
+      "pass": true,
+      "absolute_memory_gates": [],
+      "input_token_hashes": [
+        "04109938b5ee2a0dbbbb989035dca25b982312b56d893f2924e4d49a63ba71ca",
+        "5d88305e22e125cf5fa34c68cc729947403cd90d2834c43db827fcbface0d2aa"
+      ],
+      "records": [
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 4.253489896655083e-05,
+            "assistant": 7.519591599702835e-05
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 0.000134151428937912,
+            "assistant": 0.00015082024037837982
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 5.9701502323150635e-05,
+            "assistant": 1.482735387980938e-05
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.0030629634857177734,
+            "assistant": 0.0013502836227416992
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 6.147846579551697e-05,
+            "assistant": 0.00012189336121082306
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 1.2874603271484375e-05,
+            "assistant": 9.357929229736328e-06
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.001248776912689209,
+            "assistant": 0.000697307288646698
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.00034992024302482605,
+            "assistant": 6.246566772460938e-05
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 2.1755695343017578e-05,
+            "assistant": 7.008202373981476e-07
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 4.135444760322571e-05,
+            "assistant": 9.298324584960938e-06
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 1.2695789337158203e-05,
+            "assistant": 1.4027813449501991e-05
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 5.4001808166503906e-05,
+            "assistant": 6.140675395727158e-06
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00022166967391967773,
+            "assistant": 0.00014188559725880623
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 3.311317414045334e-06,
+            "assistant": 1.6960548236966133e-05
+          },
+          "state_bytes": 26038272,
+          "memory_bytes": 0
+        }
+      ]
+    },
+    "memory": {
+      "name": "memory",
+      "variant": "memory",
+      "checkpoint_sha256": "41f6143d0df5dee1e5107d9601257cc341f035fcb20235e4c2cf131b213cb283",
+      "max_probability_error": 0.03256136178970337,
+      "probability_tolerance": 0.03,
+      "long_stream_parity_pass": false,
+      "bounded_state_pass": true,
+      "pass": false,
+      "absolute_memory_gates": [
+        0.019775390625,
+        0.030029296875,
+        0.0172119140625,
+        0.0159912109375,
+        0.033935546875,
+        0.0125732421875
+      ],
+      "input_token_hashes": [
+        "04109938b5ee2a0dbbbb989035dca25b982312b56d893f2924e4d49a63ba71ca",
+        "5d88305e22e125cf5fa34c68cc729947403cd90d2834c43db827fcbface0d2aa"
+      ],
+      "records": [
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 3.4150434657931328e-06,
+            "assistant": 6.348825991153717e-06
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 9.683892130851746e-06,
+            "assistant": 1.3232231140136719e-05
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 3.993511199951172e-06,
+            "assistant": 5.374196916818619e-06
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.0045465826988220215,
+            "assistant": 0.009379655122756958
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 1.025758683681488e-05,
+            "assistant": 2.167467027902603e-05
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 1.0967254638671875e-05,
+            "assistant": 1.7881393432617188e-06
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.01387256383895874,
+            "assistant": 0.03256136178970337
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.001728057861328125,
+            "assistant": 0.003672957420349121
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 1.4423392713069916e-05,
+            "assistant": 5.102483555674553e-06
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00012195110321044922,
+            "assistant": 1.138448715209961e-05
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 1.8775463104248047e-05,
+            "assistant": 2.5033950805664062e-06
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 1.4424324035644531e-05,
+            "assistant": 3.7492718547582626e-06
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 7.75456428527832e-05,
+            "assistant": 1.9037164747714996e-05
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 1.150369644165039e-05,
+            "assistant": 2.7418136596679688e-06
+          },
+          "state_bytes": 29208576,
+          "memory_bytes": 3158016
+        }
+      ]
+    },
+    "classification_rl": {
+      "name": "classification_rl",
+      "variant": "full",
+      "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+      "max_probability_error": 0.002354443073272705,
+      "probability_tolerance": 0.03,
+      "long_stream_parity_pass": true,
+      "bounded_state_pass": null,
+      "pass": true,
+      "absolute_memory_gates": [],
+      "input_token_hashes": [
+        "04109938b5ee2a0dbbbb989035dca25b982312b56d893f2924e4d49a63ba71ca",
+        "5d88305e22e125cf5fa34c68cc729947403cd90d2834c43db827fcbface0d2aa"
+      ],
+      "records": [
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.00016378611326217651,
+            "assistant": 0.00011366233229637146
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 0.001135207712650299,
+            "assistant": 0.0005304217338562012
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00011080503463745117,
+            "assistant": 4.319101572036743e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.0017064809799194336,
+            "assistant": 0.002114534378051758
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 0.0009759590029716492,
+            "assistant": 0.0003051161766052246
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00014859437942504883,
+            "assistant": 5.594361573457718e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "forward",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 0.0019425153732299805,
+            "assistant": 0.002354443073272705
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 2.3227185010910034e-05,
+            "assistant": 2.008676528930664e-05
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 0.00014313030987977982,
+            "assistant": 8.048675954341888e-05
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 0.00010347366333007812,
+            "assistant": 2.881418913602829e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            257,
+            1,
+            7,
+            127,
+            31,
+            512
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 1.1861324310302734e-05,
+            "assistant": 2.1365471184253693e-05
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 513,
+          "risk_probability_errors": {
+            "user": 0.0,
+            "assistant": 0.0
+          },
+          "state_bytes": 26062848,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 1025,
+          "risk_probability_errors": {
+            "user": 4.386529326438904e-05,
+            "assistant": 5.081295967102051e-05
+          },
+          "state_bytes": 32354304,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 4097,
+          "risk_probability_errors": {
+            "user": 3.463029861450195e-05,
+            "assistant": 1.3713724911212921e-05
+          },
+          "state_bytes": 70103040,
+          "memory_bytes": 0
+        },
+        {
+          "input_order": "reverse",
+          "schedule": [
+            1024,
+            32,
+            8,
+            1
+          ],
+          "prefix_tokens": 8192,
+          "risk_probability_errors": {
+            "user": 3.2782554626464844e-06,
+            "assistant": 1.0380521416664124e-05
+          },
+          "state_bytes": 120422400,
+          "memory_bytes": 0
+        }
+      ]
+    }
+  },
+  "scope": "Exported weights; exact token-ID numerical parity and cache bounds. Development-message concatenations have no long-context semantic gold labels. No arbitrary-text rollback, HTTP, or production approval."
+}

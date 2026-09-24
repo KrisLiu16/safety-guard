@@ -1,0 +1,9 @@
+{
+  "pvc": "safety-guard-base-compare-data",
+  "checkpoints": [
+    "/work/output/round4/full/best.safetensors",
+    "/work/output/round4/window/best.safetensors",
+    "/work/output/round4/memory/best.safetensors",
+    "/work/output/round4/classification_rl/best.safetensors"
+  ]
+}

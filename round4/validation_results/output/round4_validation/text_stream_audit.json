@@ -1,0 +1,2299 @@
+{
+  "status": "completed",
+  "all_candidates_pass": true,
+  "results": {
+    "full": {
+      "name": "full",
+      "variant": "full",
+      "checkpoint_sha256": "a3f6e5a7084be871553ef92feddfd3fae38a2e7a42fc1a38b52445aae3ebbaa2",
+      "max_probability_error": 0.0006088614463806152,
+      "tolerance": 0.03,
+      "all_text_parity_pass": true,
+      "cache_isolation": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 22118400,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_128",
+            "tensor_storage_bytes": 21331968,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_192",
+            "tensor_storage_bytes": 22118400,
+            "unique_storages": 48
+          },
+          {
+            "session": 1,
+            "state": "current",
+            "tensor_storage_bytes": 20201472,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "current",
+            "tensor_storage_bytes": 44249088,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1920",
+            "tensor_storage_bytes": 43352064,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1984",
+            "tensor_storage_bytes": 44138496,
+            "unique_storages": 48
+          },
+          {
+            "session": 3,
+            "state": "current",
+            "tensor_storage_bytes": 20017152,
+            "unique_storages": 48
+          }
+        ],
+        "total_tensor_storage_bytes": 237527040
+      },
+      "overflow_transaction_pass": true,
+      "failed_forward_transaction_pass": true,
+      "bounded_session_state_pass": null,
+      "session_state_bytes_before": 130043904,
+      "session_state_bytes_after": 160149504,
+      "pass": true,
+      "cases": [
+        {
+          "case": "contraction_before",
+          "probability_error": 9.665638208389282e-05,
+          "native_tokens": 192,
+          "net_new_tokens": 192,
+          "forward_tokens": 192,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "contraction_192_to_191",
+          "probability_error": 4.865974187850952e-05,
+          "native_tokens": 191,
+          "net_new_tokens": -1,
+          "forward_tokens": 191,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": [
+            64,
+            128
+          ]
+        },
+        {
+          "case": "contraction_grow_back",
+          "probability_error": 6.541609764099121e-05,
+          "native_tokens": 192,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 191,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "empty_user_header",
+          "probability_error": 0.0,
+          "native_tokens": 3,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 9.266287088394165e-05,
+          "native_tokens": 4,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 3,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 9.66191291809082e-05,
+          "native_tokens": 5,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 4,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 5,
+          "net_new_tokens": 0,
+          "forward_tokens": 5,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00018355250358581543,
+          "native_tokens": 6,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 5,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 6,
+          "net_new_tokens": 0,
+          "forward_tokens": 6,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0006088614463806152,
+          "native_tokens": 7,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 6,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 7,
+          "net_new_tokens": 0,
+          "forward_tokens": 7,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 2.4318695068359375e-05,
+          "native_tokens": 8,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 7,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00020134449005126953,
+          "native_tokens": 9,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 8,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -1,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 2.8073787689208984e-05,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 0,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 5.060434341430664e-05,
+          "native_tokens": 11,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 10,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 11,
+          "net_new_tokens": 0,
+          "forward_tokens": 11,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -2,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "assistant_role",
+          "probability_error": 7.674098014831543e-05,
+          "native_tokens": 27,
+          "net_new_tokens": 18,
+          "forward_tokens": 18,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "next_user_role",
+          "probability_error": 5.07161021232605e-05,
+          "native_tokens": 36,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 27,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_prefill",
+          "probability_error": 5.406886339187622e-05,
+          "native_tokens": 1983,
+          "net_new_tokens": 1983,
+          "forward_tokens": 1983,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1856,
+            1920
+          ]
+        },
+        {
+          "case": "isolated_session_start",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 2.6404857635498047e-05,
+          "native_tokens": 1984,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1983,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.9781291484832764e-06,
+          "native_tokens": 11,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 0.00012756884098052979,
+          "native_tokens": 1985,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 2.6285648345947266e-05,
+          "native_tokens": 13,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 11,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 4.5418739318847656e-05,
+          "native_tokens": 1988,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1985,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 0.00014787912368774414,
+          "native_tokens": 15,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 13,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 4.264339804649353e-05,
+          "native_tokens": 1986,
+          "net_new_tokens": -2,
+          "forward_tokens": 2,
+          "rollback": true,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 4.8201531171798706e-05,
+          "native_tokens": 17,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 15,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 6.214156746864319e-05,
+          "native_tokens": 1989,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1986,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 3.929808735847473e-05,
+          "native_tokens": 19,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 17,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 2.205371856689453e-05,
+          "native_tokens": 1993,
+          "net_new_tokens": 4,
+          "forward_tokens": 4,
+          "rollback": false,
+          "restore_position": 1989,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 4.202127456665039e-05,
+          "native_tokens": 21,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 19,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "retry_after_failure",
+          "probability_error": 9.08970832824707e-05,
+          "native_tokens": 1995,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 1993,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "benchmark_end",
+          "probability_error": 2.0444393157958984e-05,
+          "native_tokens": 2769,
+          "net_new_tokens": 6,
+          "forward_tokens": 6,
+          "rollback": false,
+          "restore_position": 2763,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            2688,
+            2752
+          ]
+        }
+      ],
+      "text_stream_performance": {
+        "initial_native_tokens": 2001,
+        "accepted_appends": 128,
+        "net_new_native_tokens": 768,
+        "actual_forward_tokens": 768,
+        "replay_tokens": 0,
+        "rollback_events": 0,
+        "seconds": 3.5415741708129644,
+        "itps_net_native_input": 216.85272225251927,
+        "classifications_per_second": 36.14212037541988,
+        "input_utf8_bytes_per_second": 1264.9742131396956,
+        "p50_ms": 25.66440124064684,
+        "p95_ms": 46.87863029539585,
+        "scope": "L20 warmed text append API; includes tokenization, clones, replay and CPU-visible probabilities; no HTTP or input-arrival waiting; denominator counts accepted net tokens, not replay tokens"
+      },
+      "generated_tokens": 0
+    },
+    "window": {
+      "name": "window",
+      "variant": "window",
+      "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+      "max_probability_error": 0.0005554556846618652,
+      "tolerance": 0.03,
+      "all_text_parity_pass": true,
+      "cache_isolation": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 22118400,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_128",
+            "tensor_storage_bytes": 21331968,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_192",
+            "tensor_storage_bytes": 22118400,
+            "unique_storages": 48
+          },
+          {
+            "session": 1,
+            "state": "current",
+            "tensor_storage_bytes": 20201472,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "current",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1920",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1984",
+            "tensor_storage_bytes": 26038272,
+            "unique_storages": 48
+          },
+          {
+            "session": 3,
+            "state": "current",
+            "tensor_storage_bytes": 20017152,
+            "unique_storages": 48
+          }
+        ],
+        "total_tensor_storage_bytes": 183902208
+      },
+      "overflow_transaction_pass": true,
+      "failed_forward_transaction_pass": true,
+      "bounded_session_state_pass": true,
+      "session_state_bytes_before": 78114816,
+      "session_state_bytes_after": 78114816,
+      "pass": true,
+      "cases": [
+        {
+          "case": "contraction_before",
+          "probability_error": 1.2615695595741272e-05,
+          "native_tokens": 192,
+          "net_new_tokens": 192,
+          "forward_tokens": 192,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "contraction_192_to_191",
+          "probability_error": 3.421306610107422e-05,
+          "native_tokens": 191,
+          "net_new_tokens": -1,
+          "forward_tokens": 191,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": [
+            64,
+            128
+          ]
+        },
+        {
+          "case": "contraction_grow_back",
+          "probability_error": 1.239776611328125e-05,
+          "native_tokens": 192,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 191,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "empty_user_header",
+          "probability_error": 0.0,
+          "native_tokens": 3,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00011197850108146667,
+          "native_tokens": 4,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 3,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 2.7011148631572723e-05,
+          "native_tokens": 5,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 4,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 5,
+          "net_new_tokens": 0,
+          "forward_tokens": 5,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0005554556846618652,
+          "native_tokens": 6,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 5,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 6,
+          "net_new_tokens": 0,
+          "forward_tokens": 6,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00010693073272705078,
+          "native_tokens": 7,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 6,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 7,
+          "net_new_tokens": 0,
+          "forward_tokens": 7,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 3.1993258744478226e-06,
+          "native_tokens": 8,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 7,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 3.629922866821289e-05,
+          "native_tokens": 9,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 8,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -1,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 1.3113021850585938e-05,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 0,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 5.9604644775390625e-06,
+          "native_tokens": 11,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 10,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 11,
+          "net_new_tokens": 0,
+          "forward_tokens": 11,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -2,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "assistant_role",
+          "probability_error": 2.5605550035834312e-06,
+          "native_tokens": 27,
+          "net_new_tokens": 18,
+          "forward_tokens": 18,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "next_user_role",
+          "probability_error": 8.771894499659538e-07,
+          "native_tokens": 36,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 27,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_prefill",
+          "probability_error": 1.1920928955078125e-05,
+          "native_tokens": 1983,
+          "net_new_tokens": 1983,
+          "forward_tokens": 1983,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1856,
+            1920
+          ]
+        },
+        {
+          "case": "isolated_session_start",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 1.7464160919189453e-05,
+          "native_tokens": 1984,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1983,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 5.427282303571701e-07,
+          "native_tokens": 11,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 1.2127216905355453e-05,
+          "native_tokens": 1985,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 4.76837158203125e-07,
+          "native_tokens": 13,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 11,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 2.7633504942059517e-06,
+          "native_tokens": 1988,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1985,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.996755599975586e-05,
+          "native_tokens": 15,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 13,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 1.266133040189743e-06,
+          "native_tokens": 1986,
+          "net_new_tokens": -2,
+          "forward_tokens": 2,
+          "rollback": true,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 8.344650268554688e-06,
+          "native_tokens": 17,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 15,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 2.0310108084231615e-07,
+          "native_tokens": 1989,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1986,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.0577728971838951e-05,
+          "native_tokens": 19,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 17,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 7.745577022433281e-06,
+          "native_tokens": 1993,
+          "net_new_tokens": 4,
+          "forward_tokens": 4,
+          "rollback": false,
+          "restore_position": 1989,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.655996311455965e-05,
+          "native_tokens": 21,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 19,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "retry_after_failure",
+          "probability_error": 1.6033649444580078e-05,
+          "native_tokens": 1995,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 1993,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "benchmark_end",
+          "probability_error": 1.5079975128173828e-05,
+          "native_tokens": 2769,
+          "net_new_tokens": 6,
+          "forward_tokens": 6,
+          "rollback": false,
+          "restore_position": 2763,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            2688,
+            2752
+          ]
+        }
+      ],
+      "text_stream_performance": {
+        "initial_native_tokens": 2001,
+        "accepted_appends": 128,
+        "net_new_native_tokens": 768,
+        "actual_forward_tokens": 768,
+        "replay_tokens": 0,
+        "rollback_events": 0,
+        "seconds": 3.577142184600234,
+        "itps_net_native_input": 214.6965259883368,
+        "classifications_per_second": 35.78275433138946,
+        "input_utf8_bytes_per_second": 1252.3964015986312,
+        "p50_ms": 25.857501663267612,
+        "p95_ms": 47.860775142908096,
+        "scope": "L20 warmed text append API; includes tokenization, clones, replay and CPU-visible probabilities; no HTTP or input-arrival waiting; denominator counts accepted net tokens, not replay tokens"
+      },
+      "generated_tokens": 0
+    },
+    "memory": {
+      "name": "memory",
+      "variant": "memory",
+      "checkpoint_sha256": "41f6143d0df5dee1e5107d9601257cc341f035fcb20235e4c2cf131b213cb283",
+      "max_probability_error": 0.000264585018157959,
+      "tolerance": 0.03,
+      "all_text_parity_pass": true,
+      "cache_isolation": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 25276416,
+            "unique_storages": 60
+          },
+          {
+            "session": 0,
+            "state": "snapshot_128",
+            "tensor_storage_bytes": 24489984,
+            "unique_storages": 60
+          },
+          {
+            "session": 0,
+            "state": "snapshot_192",
+            "tensor_storage_bytes": 25276416,
+            "unique_storages": 60
+          },
+          {
+            "session": 1,
+            "state": "current",
+            "tensor_storage_bytes": 23359488,
+            "unique_storages": 60
+          },
+          {
+            "session": 2,
+            "state": "current",
+            "tensor_storage_bytes": 29208576,
+            "unique_storages": 60
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1920",
+            "tensor_storage_bytes": 29208576,
+            "unique_storages": 60
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1984",
+            "tensor_storage_bytes": 29208576,
+            "unique_storages": 60
+          },
+          {
+            "session": 3,
+            "state": "current",
+            "tensor_storage_bytes": 23175168,
+            "unique_storages": 60
+          }
+        ],
+        "total_tensor_storage_bytes": 209203200
+      },
+      "overflow_transaction_pass": true,
+      "failed_forward_transaction_pass": true,
+      "bounded_session_state_pass": true,
+      "session_state_bytes_before": 87625728,
+      "session_state_bytes_after": 87625728,
+      "pass": true,
+      "cases": [
+        {
+          "case": "contraction_before",
+          "probability_error": 8.392333984375e-05,
+          "native_tokens": 192,
+          "net_new_tokens": 192,
+          "forward_tokens": 192,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "contraction_192_to_191",
+          "probability_error": 6.026029586791992e-05,
+          "native_tokens": 191,
+          "net_new_tokens": -1,
+          "forward_tokens": 191,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": [
+            64,
+            128
+          ]
+        },
+        {
+          "case": "contraction_grow_back",
+          "probability_error": 9.036064147949219e-05,
+          "native_tokens": 192,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 191,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "empty_user_header",
+          "probability_error": 0.0,
+          "native_tokens": 3,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.000264585018157959,
+          "native_tokens": 4,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 3,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00017208047211170197,
+          "native_tokens": 5,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 4,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 5,
+          "net_new_tokens": 0,
+          "forward_tokens": 5,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 6.568431854248047e-05,
+          "native_tokens": 6,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 5,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 6,
+          "net_new_tokens": 0,
+          "forward_tokens": 6,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0001271963119506836,
+          "native_tokens": 7,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 6,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 7,
+          "net_new_tokens": 0,
+          "forward_tokens": 7,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 1.7285346984863281e-06,
+          "native_tokens": 8,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 7,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 4.3155159801244736e-07,
+          "native_tokens": 9,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 8,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -1,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 1.5497207641601562e-06,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 0,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 6.735324859619141e-06,
+          "native_tokens": 11,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 10,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 11,
+          "net_new_tokens": 0,
+          "forward_tokens": 11,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -2,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "assistant_role",
+          "probability_error": 1.4603137969970703e-05,
+          "native_tokens": 27,
+          "net_new_tokens": 18,
+          "forward_tokens": 18,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "next_user_role",
+          "probability_error": 1.0132789611816406e-05,
+          "native_tokens": 36,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 27,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_prefill",
+          "probability_error": 1.1920928955078125e-06,
+          "native_tokens": 1983,
+          "net_new_tokens": 1983,
+          "forward_tokens": 1983,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1856,
+            1920
+          ]
+        },
+        {
+          "case": "isolated_session_start",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 9.348150342702866e-06,
+          "native_tokens": 1984,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1983,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.3415701687335968e-06,
+          "native_tokens": 11,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 6.794929504394531e-06,
+          "native_tokens": 1985,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 7.510185241699219e-06,
+          "native_tokens": 13,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 11,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 3.933906555175781e-06,
+          "native_tokens": 1988,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1985,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.1093216016888618e-06,
+          "native_tokens": 15,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 13,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 9.100534953176975e-06,
+          "native_tokens": 1986,
+          "net_new_tokens": -2,
+          "forward_tokens": 2,
+          "rollback": true,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.061463262885809e-05,
+          "native_tokens": 17,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 15,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 9.417533874511719e-06,
+          "native_tokens": 1989,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1986,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 2.405489794909954e-06,
+          "native_tokens": 19,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 17,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 2.1457672119140625e-06,
+          "native_tokens": 1993,
+          "net_new_tokens": 4,
+          "forward_tokens": 4,
+          "rollback": false,
+          "restore_position": 1989,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 5.384208634495735e-06,
+          "native_tokens": 21,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 19,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "retry_after_failure",
+          "probability_error": 8.953909855335951e-06,
+          "native_tokens": 1995,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 1993,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "benchmark_end",
+          "probability_error": 8.821487426757812e-06,
+          "native_tokens": 2769,
+          "net_new_tokens": 6,
+          "forward_tokens": 6,
+          "rollback": false,
+          "restore_position": 2763,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            2688,
+            2752
+          ]
+        }
+      ],
+      "text_stream_performance": {
+        "initial_native_tokens": 2001,
+        "accepted_appends": 128,
+        "net_new_native_tokens": 768,
+        "actual_forward_tokens": 768,
+        "replay_tokens": 0,
+        "rollback_events": 0,
+        "seconds": 4.048170737922192,
+        "itps_net_native_input": 189.7153182808174,
+        "classifications_per_second": 31.619219713469565,
+        "input_utf8_bytes_per_second": 1106.6726899714347,
+        "p50_ms": 29.18156608939171,
+        "p95_ms": 54.37575466930866,
+        "scope": "L20 warmed text append API; includes tokenization, clones, replay and CPU-visible probabilities; no HTTP or input-arrival waiting; denominator counts accepted net tokens, not replay tokens"
+      },
+      "generated_tokens": 0
+    },
+    "classification_rl": {
+      "name": "classification_rl",
+      "variant": "full",
+      "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+      "max_probability_error": 0.00032448768615722656,
+      "tolerance": 0.03,
+      "all_text_parity_pass": true,
+      "cache_isolation": {
+        "pass": true,
+        "states": [
+          {
+            "session": 0,
+            "state": "current",
+            "tensor_storage_bytes": 22118400,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_128",
+            "tensor_storage_bytes": 21331968,
+            "unique_storages": 48
+          },
+          {
+            "session": 0,
+            "state": "snapshot_192",
+            "tensor_storage_bytes": 22118400,
+            "unique_storages": 48
+          },
+          {
+            "session": 1,
+            "state": "current",
+            "tensor_storage_bytes": 20201472,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "current",
+            "tensor_storage_bytes": 44249088,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1920",
+            "tensor_storage_bytes": 43352064,
+            "unique_storages": 48
+          },
+          {
+            "session": 2,
+            "state": "snapshot_1984",
+            "tensor_storage_bytes": 44138496,
+            "unique_storages": 48
+          },
+          {
+            "session": 3,
+            "state": "current",
+            "tensor_storage_bytes": 20017152,
+            "unique_storages": 48
+          }
+        ],
+        "total_tensor_storage_bytes": 237527040
+      },
+      "overflow_transaction_pass": true,
+      "failed_forward_transaction_pass": true,
+      "bounded_session_state_pass": null,
+      "session_state_bytes_before": 130043904,
+      "session_state_bytes_after": 160149504,
+      "pass": true,
+      "cases": [
+        {
+          "case": "contraction_before",
+          "probability_error": 5.662441253662109e-06,
+          "native_tokens": 192,
+          "net_new_tokens": 192,
+          "forward_tokens": 192,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "contraction_192_to_191",
+          "probability_error": 0.0001906752586364746,
+          "native_tokens": 191,
+          "net_new_tokens": -1,
+          "forward_tokens": 191,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": [
+            64,
+            128
+          ]
+        },
+        {
+          "case": "contraction_grow_back",
+          "probability_error": 5.4895877838134766e-05,
+          "native_tokens": 192,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 191,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            128,
+            192
+          ]
+        },
+        {
+          "case": "empty_user_header",
+          "probability_error": 0.0,
+          "native_tokens": 3,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00027430057525634766,
+          "native_tokens": 4,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 3,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0001894831657409668,
+          "native_tokens": 5,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 4,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 5,
+          "net_new_tokens": 0,
+          "forward_tokens": 5,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00024602562189102173,
+          "native_tokens": 6,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 5,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 6,
+          "net_new_tokens": 0,
+          "forward_tokens": 6,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.00032448768615722656,
+          "native_tokens": 7,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 6,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 7,
+          "net_new_tokens": 0,
+          "forward_tokens": 7,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 9.97781753540039e-05,
+          "native_tokens": 8,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 7,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 3.415346145629883e-05,
+          "native_tokens": 9,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 8,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 0,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -1,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 3.7729740142822266e-05,
+          "native_tokens": 10,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 10,
+          "net_new_tokens": 0,
+          "forward_tokens": 10,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 4.684925079345703e-05,
+          "native_tokens": 11,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 10,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 11,
+          "net_new_tokens": 0,
+          "forward_tokens": 11,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "character_append",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": -2,
+          "forward_tokens": 9,
+          "rollback": true,
+          "restore_position": 0,
+          "fallback_full_replay": true,
+          "snapshot_positions": []
+        },
+        {
+          "case": "assistant_role",
+          "probability_error": 9.492039680480957e-05,
+          "native_tokens": 27,
+          "net_new_tokens": 18,
+          "forward_tokens": 18,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "next_user_role",
+          "probability_error": 1.3172626495361328e-05,
+          "native_tokens": 36,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 27,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_prefill",
+          "probability_error": 3.165006637573242e-05,
+          "native_tokens": 1983,
+          "net_new_tokens": 1983,
+          "forward_tokens": 1983,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1856,
+            1920
+          ]
+        },
+        {
+          "case": "isolated_session_start",
+          "probability_error": 0.0,
+          "native_tokens": 9,
+          "net_new_tokens": 9,
+          "forward_tokens": 9,
+          "rollback": false,
+          "restore_position": 0,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 6.699562072753906e-05,
+          "native_tokens": 1984,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1983,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.6808509826660156e-05,
+          "native_tokens": 11,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 9,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 2.7239322662353516e-05,
+          "native_tokens": 1985,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "rollback": false,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.8358230590820312e-05,
+          "native_tokens": 13,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 11,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 3.5703182220458984e-05,
+          "native_tokens": 1988,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1985,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 8.58306884765625e-05,
+          "native_tokens": 15,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 13,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 0.0001049041748046875,
+          "native_tokens": 1986,
+          "net_new_tokens": -2,
+          "forward_tokens": 2,
+          "rollback": true,
+          "restore_position": 1984,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 1.6629695892333984e-05,
+          "native_tokens": 17,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 15,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 1.4223158359527588e-05,
+          "native_tokens": 1989,
+          "net_new_tokens": 3,
+          "forward_tokens": 3,
+          "rollback": false,
+          "restore_position": 1986,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 5.662441253662109e-06,
+          "native_tokens": 19,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 17,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "long_variable_append",
+          "probability_error": 4.498101770877838e-05,
+          "native_tokens": 1993,
+          "net_new_tokens": 4,
+          "forward_tokens": 4,
+          "rollback": false,
+          "restore_position": 1989,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "interleaved_session",
+          "probability_error": 4.929304122924805e-05,
+          "native_tokens": 21,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 19,
+          "fallback_full_replay": false,
+          "snapshot_positions": []
+        },
+        {
+          "case": "retry_after_failure",
+          "probability_error": 5.9664249420166016e-05,
+          "native_tokens": 1995,
+          "net_new_tokens": 2,
+          "forward_tokens": 2,
+          "rollback": false,
+          "restore_position": 1993,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            1920,
+            1984
+          ]
+        },
+        {
+          "case": "benchmark_end",
+          "probability_error": 2.393871545791626e-05,
+          "native_tokens": 2769,
+          "net_new_tokens": 6,
+          "forward_tokens": 6,
+          "rollback": false,
+          "restore_position": 2763,
+          "fallback_full_replay": false,
+          "snapshot_positions": [
+            2688,
+            2752
+          ]
+        }
+      ],
+      "text_stream_performance": {
+        "initial_native_tokens": 2001,
+        "accepted_appends": 128,
+        "net_new_native_tokens": 768,
+        "actual_forward_tokens": 768,
+        "replay_tokens": 0,
+        "rollback_events": 0,
+        "seconds": 3.4276201259344816,
+        "itps_net_native_input": 224.0621690219006,
+        "classifications_per_second": 37.34369483698343,
+        "input_utf8_bytes_per_second": 1307.02931929442,
+        "p50_ms": 24.743348360061646,
+        "p95_ms": 45.38947716355324,
+        "scope": "L20 warmed text append API; includes tokenization, clones, replay and CPU-visible probabilities; no HTTP or input-arrival waiting; denominator counts accepted net tokens, not replay tokens"
+      },
+      "generated_tokens": 0
+    }
+  },
+  "generated_tokens": 0
+}

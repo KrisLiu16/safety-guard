@@ -1,0 +1,72 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-risk-round4-r2-20260923
+  namespace: default
+  labels:
+    app: safety-guard-base-compare
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 21600
+  template:
+    metadata:
+      labels:
+        app: safety-guard-base-compare
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: experiment
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              mkdir -p /work/round4 /work/output/round4 /work/hf
+              nvidia-smi --query-gpu=name,uuid,memory.used,memory.total,utilization.gpu --format=csv,noheader
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(); print({"physical_cuda_devices":1,"torch":torch.__version__},flush=True)'
+              touch /work/output/worker_ready
+              for i in $(seq 1 7200); do
+                if test -f /work/round4/start_r2.sh; then exec bash /work/round4/start_r2.sh; fi
+                sleep 1
+              done
+              echo 'Experiment upload timeout' >&2
+              exit 1
+          env:
+            - name: HF_HOME
+              value: /work/hf
+            - name: HF_HUB_DISABLE_XET
+              value: "1"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: OMP_NUM_THREADS
+              value: "4"
+            - name: TORCHINDUCTOR_COMPILE_THREADS
+              value: "4"
+            - name: TRITON_CACHE_DIR
+              value: /work/triton-cache
+          resources:
+            requests:
+              cpu: "4"
+              memory: 20Gi
+              nvidia.com/gpu: "8"
+            limits:
+              cpu: "8"
+              memory: 40Gi
+              nvidia.com/gpu: "8"
+          volumeMounts:
+            - name: work
+              mountPath: /work
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+        - name: work
+          persistentVolumeClaim:
+            claimName: safety-guard-base-compare-data
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 4Gi

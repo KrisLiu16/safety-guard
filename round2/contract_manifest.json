@@ -1,0 +1,13 @@
+{
+  "prompt_version": "guard-luna-bilingual-v8",
+  "record_version": "guard-record-v1",
+  "prompt_sha256": "dc6f28ea61820f70199b5130f75ebc9478035810950949c706aed2b550625eee",
+  "pipeline_sha256": "2adb71ff4f24785c42e319785bee709d9cf86dfe9e036becae217743cb3d6ba4",
+  "flow_sha256": "bf9895ac66eda844b01a2859abf80bab30197098bbebce35fa5e126aab7322d4",
+  "sha256": {
+    "model_output_schema": "ed01fbcb26046fba6bc5eacfe4cf1165f35dcf1ee4e47228852a440bd55ce603",
+    "training_record_schema": "b2d8c254d5ae906188194b4e268176dde60d30016b4b74c9016e64a8dd96fe2d",
+    "example_item": "fda20b245839132b440ca55824603f7eec8d7266ca70371f409da2af8c1e2f76"
+  },
+  "frozen": true
+}

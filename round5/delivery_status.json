@@ -1,0 +1,34 @@
+{
+  "status": "bundle_delivered",
+  "started_at": "2026-09-23T20:02:50.176556+00:00",
+  "training_pod": "safety-guard-prefix-round5-20260924-r1-t9m2k",
+  "training_job": "safety-guard-prefix-round5-20260924-r1",
+  "local_neural_calls": 0,
+  "quality_approval_implied": false,
+  "training_collector_returncode": 0,
+  "gpu_job_completed": true,
+  "training_final_checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "validation_pod": "safety-guard-prefix-validation-20260924-r1-snts7",
+  "validation_job": "safety-guard-prefix-validation-20260924-r1",
+  "validation_collector_returncode": 0,
+  "validation_gpu_job_completed": true,
+  "validation_pipeline_integrity_pass": true,
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "canonical_quality_gate_pass": false,
+  "selection_status": "research_unvalidated_runtime",
+  "artifact_pod": "safety-guard-prefix-artifacts-20260924-r1-nf6fz",
+  "download_attempts": [
+    {
+      "attempt": 1,
+      "returncode": 1
+    },
+    {
+      "attempt": 2,
+      "returncode": 0
+    }
+  ],
+  "bundle": "/Users/liuzhihao/Work/safety-guard/round5/release",
+  "artifact_job_completed": true,
+  "delivery_is_quality_approval": false,
+  "updated_at": "2026-09-23T22:13:58.871568+00:00"
+}

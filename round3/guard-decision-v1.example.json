@@ -1,0 +1,25 @@
+{
+  "schema_version": "guard-decision-v1",
+  "model_version": "research-c1-placeholder",
+  "policy_version": "research-policy-v1",
+  "target_role": "assistant",
+  "risk_probabilities": {
+    "safe": 0.94,
+    "controversial": 0.04,
+    "unsafe": 0.02
+  },
+  "category_probabilities": {
+    "violence": 0.01,
+    "nonviolent_illegal": 0.01,
+    "sexual_harm": 0.01,
+    "privacy": 0.01,
+    "self_harm": 0.01,
+    "targeted_harassment": 0.01,
+    "deception_fraud": 0.01,
+    "prompt_injection": 0.01,
+    "other_defined_harm": 0.01
+  },
+  "evidence_sufficient_probability": 0.05,
+  "refusal_probability": 0.97,
+  "action": "allow"
+}

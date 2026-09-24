@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "gpu": "NVIDIA L20",
+  "cuda": "12.8",
+  "torch": "2.7.1+cu128",
+  "model_version": "c1-even14-init-v1",
+  "model_sha256": "ccac89f5952187e506f743582e9b896e6c609895692afd98a48254b4153923f7",
+  "parameters": 376878080,
+  "has_lm_head": false,
+  "cache_probability_max_error": 0.008942842483520508,
+  "cache_probability_errors": {
+    "1": 0.0028305500745773315,
+    "8": 0.0054406821727752686,
+    "16": 0.008942842483520508
+  },
+  "single_stream_speed": {
+    "1": {
+      "prefill_ms": {
+        "n": 3,
+        "p50": 9.840739890933037,
+        "p95": 9.854968637228012
+      },
+      "chunk_ms": {
+        "n": 96,
+        "p50": 9.108366444706917,
+        "p95": 9.210523217916489
+      },
+      "continuation_token_per_second": 109.73082024734192,
+      "scope": "single ready stream, no queue or network time"
+    },
+    "16": {
+      "prefill_ms": {
+        "n": 3,
+        "p50": 9.773161262273788,
+        "p95": 9.848730638623238
+      },
+      "chunk_ms": {
+        "n": 6,
+        "p50": 10.96411794424057,
+        "p95": 11.3375224173069
+      },
+      "continuation_token_per_second": 1453.3612308625216,
+      "scope": "single ready stream, no queue or network time"
+    }
+  },
+  "synthetic_backward_gradient_finite": true,
+  "synthetic_backward_only": true,
+  "saved_training_weights": false,
+  "peak_cuda_allocated_gib": 0.791
+}

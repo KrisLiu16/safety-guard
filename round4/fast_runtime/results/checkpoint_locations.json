@@ -1,0 +1,6 @@
+{
+  "pvc": "safety-guard-base-compare-data",
+  "checkpoints": [
+    "/work/output/fast_runtime/bundle/classifier.safetensors"
+  ]
+}

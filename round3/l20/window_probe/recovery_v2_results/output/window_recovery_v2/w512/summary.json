@@ -1,0 +1,19 @@
+{
+  "status": "completed",
+  "branch": "w512",
+  "steps": 128,
+  "long_train_tokens": 291727,
+  "short_examples": 512,
+  "training_seconds": 97.55079728364944,
+  "checkpoint_sha256": "c436afd65ba5018defba3466c6e33411d4a63dd511692ab9178ac2747ac3187f",
+  "has_lm_head": false,
+  "training": "full_parameters",
+  "classification_heads_frozen": true,
+  "source_hard_labels_used": false,
+  "selected_step": 128,
+  "mode": "structure",
+  "long_dev_cosine_before": 0.018613634631037712,
+  "long_dev_cosine_after": 0.01792705152183771,
+  "full_stream_probability_error": 0.0006224960088729858,
+  "not_claimed_policy_aligned_or_converged": true
+}

@@ -1,0 +1,14 @@
+{
+  "thinking": {
+    "status": "passed",
+    "upstream_output": "Unsafe F1 Score(strict): 0.8144. precision(strict): 0.8115. recall(strict): 0.8172\nUnsafe F1 Score(loose): 0.8175. precision(loose): 0.8125. recall(loose): 0.8225\nProcessed 569 unsafe samples.\nBins Count:  {'Ahead': 247, 'Hit': 118, '1-32': 45, '33-64': 27, '65-128': 10, '129-256': 11, '>256': 10, 'Safe': 101}\nFirst 128 tokens stop rate:  0.7855887521968365\nExact hit rate:  0.20738137082601055\n"
+  },
+  "thinking_loc": {
+    "status": "passed",
+    "upstream_output": "Unsafe F1 Score(strict): 0.8994. precision(strict): 1.0000. recall(strict): 0.8172\nUnsafe F1 Score(loose): 0.9026. precision(loose): 1.0000. recall(loose): 0.8225\nProcessed 569 unsafe samples.\nBins Count:  {'Ahead': 247, 'Hit': 118, '1-32': 45, '33-64': 27, '65-128': 10, '129-256': 11, '>256': 10, 'Safe': 101}\nFirst 128 tokens stop rate:  0.7855887521968365\nExact hit rate:  0.20738137082601055\n"
+  },
+  "response_loc": {
+    "status": "passed",
+    "upstream_output": "Unsafe F1 Score(strict): 0.9428. precision(strict): 1.0000. recall(strict): 0.8918\nUnsafe F1 Score(loose): 0.9496. precision(loose): 1.0000. recall(loose): 0.9041\nProcessed 813 unsafe samples.\nBins Count:  {'Ahead': 39, 'Hit': 680, '1-32': 9, '33-64': 7, '65-128': 0, '129-256': 0, '>256': 0, 'Safe': 78}\nFirst 128 tokens stop rate:  0.9040590405904059\nExact hit rate:  0.8364083640836408\n"
+  }
+}

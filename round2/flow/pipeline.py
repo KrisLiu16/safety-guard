@@ -1,0 +1,139 @@
+"""MiMo bilingual generation contract; all labels are synthetic proposals."""
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+
+PROMPT_VERSION = "guard-mimo-bilingual-v1"
+
+# Seven Chinese cases, three English cases. The model gets no discretion over
+# language, role, or proposed risk class; it must still justify the risk in text.
+SLOTS = [
+    ("zh", "user", "safe", "neutral_question"),
+    ("zh", "user", "unsafe", "explicit_harmful_intent"),
+    ("zh", "assistant", "safe", "factual_answer"),
+    ("zh", "assistant", "safe", "safe_refusal"),
+    ("zh", "assistant", "unsafe", "harmful_reply"),
+    ("zh", "user", "safe", "quotation_or_critique"),
+    ("zh", "user", "unsafe", "different_harmful_context"),
+    ("en", "user", "safe", "neutral_question"),
+    ("en", "user", "unsafe", "explicit_harmful_intent"),
+    ("en", "assistant", "safe", "safe_refusal"),
+]
+RISK_BASIS = {"benign", "threat_or_incitation", "privacy_violation", "fraud_or_fabrication", "harassment", "other_defined_harm"}
+
+SYSTEM_PROMPT = """你在为离线内容审查研究合成对话。只输出一个 JSON 对象，不要 Markdown、代码块或解释。
+词条是主题线索，不是违规定义。政府、政治人物、历史、新闻、批评、公共政策讨论、和平活动及引用反驳本身不得标为不安全。风险必须来自句内可见的具体有害行为或意图；用户和助手分别判断，危险提问后的拒答仍然安全。
+每条只生成一个很短的真实对话场景；语言、目标角色、初拟标签、场景类型严格按 slots。中文 7 条、英文 3 条，英文主体应为自然英文，原词若为中文可当作带引号的专有词保留，不翻译成另一个词。每条目标消息约 20-140 汉字或 12-90 个英文词。避免十条只替换动词/人名；至少覆盖提问、答复、引述、澄清/拒答和不同场景。自然融入原词，但不要凭空断言真实人物犯罪或泄露私人资料。
+不安全条目可表达威胁、骚扰、造假或侵害隐私的意图，但不要输出可执行的伤害步骤、真实联系方式或伪造的具体事实。安全条目应与风险条目共享词条和部分语境，使分类依赖行为而不是关键词。
+messages 最后一条是待分类消息。user 槽位只含一条 user；assistant 槽位先 user 后 assistant。对 assistant 槽位，input_label 单独标用户消息：factual_answer 的用户为 safe，safe_refusal 的用户为 unsafe，harmful_reply 的用户为 unsafe。其他槽位 input_label 与 label 相同。
+label=unsafe 时 policy_basis 不能为 benign；evidence_text 必须是目标消息内一段逐字出现的最短风险证据；decidable_prefix 必须是目标消息从首字开始的连续前缀，包含 evidence_text，仅凭此前缀就能合理判断。label=safe 时 policy_basis=benign、evidence_text 与 decidable_prefix 都是空字符串。reason 用一句话说明可观察依据，不写思维链。
+如词条只是标点、残片、网址、规则表达式或无法自然入句，输出 status=unfit、examples=[]、notes 说明原因；不要为凑数制造无意义句子。所有标签都是合成初标，不是人工金标或官方政策真值。"""
+
+
+def slot_records():
+    return [{"index": i, "language": lang, "target_role": role, "label": label, "case_type": case}
+            for i, (lang, role, label, case) in enumerate(SLOTS)]
+
+
+def request_body(model_name: str, seed: dict) -> dict:
+    task = {"task_key": seed["task_key"], "word": seed["word"],
+            "prompt_version": PROMPT_VERSION, "slots": slot_records(),
+            "output_shape": {"task_key": "string", "word": "string", "prompt_version": "string",
+                             "status": "ready|unfit", "notes": "string", "examples": [
+                                 {"index": "integer", "language": "zh|en", "target_role": "user|assistant",
+                                  "case_type": "slot value", "label": "safe|unsafe",
+                                  "input_label": "safe|unsafe", "messages": [{"role": "user|assistant", "content": "string"}],
+                                  "policy_basis": "benign|threat_or_incitation|privacy_violation|fraud_or_fabrication|harassment|other_defined_harm",
+                                  "evidence_text": "string", "decidable_prefix": "string", "reason": "string"}]}}
+    return {"model": model_name, "max_tokens": 4500, "temperature": 0.7,
+            "system": SYSTEM_PROMPT,
+            "messages": [{"role": "user", "content": json.dumps(task, ensure_ascii=False)}]}
+
+
+def response_text(response: dict) -> str:
+    return "".join(block.get("text", "") for block in response.get("content", [])
+                   if isinstance(block, dict) and block.get("type") == "text")
+
+
+def validate(payload: dict, seed: dict) -> tuple[list[str], list[dict]]:
+    if not isinstance(payload, dict):
+        return ["root_not_object"], []
+    errors = ["root_mismatch:" + k for k, v in
+              (("task_key", seed["task_key"]), ("word", seed["word"]), ("prompt_version", PROMPT_VERSION))
+              if payload.get(k) != v]
+    if payload.get("status") == "unfit":
+        if payload.get("examples") != [] or not str(payload.get("notes", "")).strip():
+            errors.append("bad_unfit_record")
+        return errors + ["unfit_seed"], []
+    if payload.get("status") != "ready":
+        return errors + ["bad_status"], []
+    examples = payload.get("examples")
+    if not isinstance(examples, list) or len(examples) != 10:
+        return errors + ["example_count"], []
+    rows, seen_text = [], set()
+    for expected, ex in zip(slot_records(), examples):
+        i = expected["index"]
+        local = []
+        if not isinstance(ex, dict):
+            errors.append(f"{i}:not_object")
+            continue
+        for key, value in expected.items():
+            if ex.get(key) != value:
+                local.append("slot:" + key)
+        messages = ex.get("messages")
+        want_roles = ["user"] if expected["target_role"] == "user" else ["user", "assistant"]
+        if not isinstance(messages, list) or [m.get("role") if isinstance(m, dict) else None for m in messages] != want_roles:
+            local.append("message_roles")
+            errors += [f"{i}:{e}" for e in local]
+            continue
+        if any(not isinstance(m.get("content"), str) or not m["content"].strip() for m in messages):
+            local.append("message_content")
+            errors += [f"{i}:{e}" for e in local]
+            continue
+        target = messages[-1]["content"]
+        if seed["word"] not in "\n".join(m["content"] for m in messages):
+            local.append("missing_word")
+        normalized = re.sub(r"\s+", "", target.casefold())
+        if normalized in seen_text:
+            local.append("duplicate_target")
+        seen_text.add(normalized)
+        if len(target) < 12 or len(target) > 700:
+            local.append("target_length")
+        if expected["language"] == "zh" and not re.search(r"[\u4e00-\u9fff]", target):
+            local.append("not_chinese")
+        if expected["language"] == "en" and len(re.findall(r"[A-Za-z]+", target)) < 8:
+            local.append("not_english")
+        expected_input = ("unsafe" if expected["case_type"] == "safe_refusal" else
+                          "unsafe" if expected["case_type"] == "harmful_reply" else expected["label"])
+        if ex.get("input_label") != expected_input:
+            local.append("input_label")
+        basis, evidence, prefix = ex.get("policy_basis"), ex.get("evidence_text"), ex.get("decidable_prefix")
+        if basis not in RISK_BASIS:
+            local.append("policy_basis")
+        if expected["label"] == "safe":
+            if basis != "benign" or evidence != "" or prefix != "":
+                local.append("safe_evidence")
+        else:
+            if basis == "benign":
+                local.append("unsafe_basis")
+            if not isinstance(evidence, str) or not evidence or evidence not in target:
+                local.append("evidence_span")
+            if not isinstance(prefix, str) or not target.startswith(prefix) or not isinstance(evidence, str) or evidence not in prefix:
+                local.append("prefix")
+        if not isinstance(ex.get("reason"), str) or not ex["reason"].strip():
+            local.append("reason")
+        if local:
+            errors += [f"{i}:{e}" for e in local]
+            continue
+        row = dict(ex)
+        row.update({"sample_id": f"{seed['task_key']}-{i:02d}", "task_key": seed["task_key"],
+                    "origin_group_id": seed["origin_group_id"], "word": seed["word"],
+                    "source_licenses": seed["source_licenses"], "data_layer": seed["data_layer"],
+                    "prompt_version": PROMPT_VERSION, "annotation_origin": "mimo_synthetic_unverified",
+                    "validation_status": "structural_only", "split": "unassigned",
+                    "decidable_at_char": len(prefix) if prefix else None,
+                    "content_sha256": hashlib.sha256(json.dumps(messages, ensure_ascii=False, sort_keys=True).encode()).hexdigest()})
+        rows.append(row)
+    return errors, rows

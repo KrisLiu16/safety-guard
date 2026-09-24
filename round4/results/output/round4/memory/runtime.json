@@ -1,0 +1,75 @@
+{
+  "risk_example_stream_probability_error": 0.0023957490921020508,
+  "stream_parity_pass": true,
+  "risk_examples_checked": 16,
+  "generated_tokens": 0,
+  "records": [
+    {
+      "context_tokens": 512,
+      "chunk_tokens": 1,
+      "new_input_tokens": 24,
+      "itps": 47.19328738372846,
+      "classifications_per_second": 47.19328738372846,
+      "state_bytes_at_prefill": 29208576,
+      "p50_ms": 21.151342429220676,
+      "p95_ms": 21.537743508815765,
+      "p99_ms": 21.5840395539999
+    },
+    {
+      "context_tokens": 512,
+      "chunk_tokens": 8,
+      "new_input_tokens": 192,
+      "itps": 353.4832182084227,
+      "classifications_per_second": 44.18540227605284,
+      "state_bytes_at_prefill": 29208576,
+      "p50_ms": 22.61151187121868,
+      "p95_ms": 22.808071225881577,
+      "p99_ms": 22.810231894254684
+    },
+    {
+      "context_tokens": 512,
+      "chunk_tokens": 32,
+      "new_input_tokens": 768,
+      "itps": 1390.3364809718196,
+      "classifications_per_second": 43.44801503036936,
+      "state_bytes_at_prefill": 29208576,
+      "p50_ms": 22.983073256909847,
+      "p95_ms": 23.155003786087036,
+      "p99_ms": 23.28025922179222
+    },
+    {
+      "context_tokens": 8192,
+      "chunk_tokens": 1,
+      "new_input_tokens": 24,
+      "itps": 46.97218349179953,
+      "classifications_per_second": 46.97218349179953,
+      "state_bytes_at_prefill": 29208576,
+      "p50_ms": 21.14866767078638,
+      "p95_ms": 22.047890350222588,
+      "p99_ms": 22.3544854670763
+    },
+    {
+      "context_tokens": 8192,
+      "chunk_tokens": 8,
+      "new_input_tokens": 192,
+      "itps": 354.3986537039387,
+      "classifications_per_second": 44.29983171299234,
+      "state_bytes_at_prefill": 29208576,
+      "p50_ms": 22.514554671943188,
+      "p95_ms": 22.767191752791405,
+      "p99_ms": 23.31957034766674
+    },
+    {
+      "context_tokens": 8192,
+      "chunk_tokens": 32,
+      "new_input_tokens": 768,
+      "itps": 1390.9872020376256,
+      "classifications_per_second": 43.4683500636758,
+      "state_bytes_at_prefill": 29208576,
+      "p50_ms": 22.98377826809883,
+      "p95_ms": 23.11687357723713,
+      "p99_ms": 23.812728002667427
+    }
+  ],
+  "scope": "L20 warmed single-session token-ID model calls; CPU-visible risk result; no text tokenization, HTTP or batching"
+}

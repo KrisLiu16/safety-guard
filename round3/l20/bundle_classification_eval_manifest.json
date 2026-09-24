@@ -1,0 +1,13 @@
+{
+  "bundle_sha256": "28fdb5bfcb3d2ce01825e0a5a9a7834b18a93987142b107f5d49a9c2584b76e0",
+  "bundle_bytes": 1998755840,
+  "a0_model_sha256": "e0a2eac6cc79cca5bf35bf8fb356f94c333dd9715f4f0dd58883b01f2fe33419",
+  "c1_model_sha256": "ccac89f5952187e506f743582e9b896e6c609895692afd98a48254b4153923f7",
+  "stage0_adapter_sha256": "a0150b08ca515a8449e32ee29c3598e815d07fd900b5d8182bca2facde50f682",
+  "benchmark_selection_sha256": "dc1853fd5e3197fed08674f510cbab8a349c33c7446fa5cf33f72419e7bf5bc4",
+  "classifier_runtime_sha256": "3905e6f8e15c629a9972b87b53468ad52ed8525cf67fb95d6329963a44a538fb",
+  "http_adapter_sha256": "4e61031fb1f3be61d23cf25b23c03af511147478c2cd3084a187d5cd6f03e396",
+  "benchmark_script_sha256": "70e016ff0c25089192ba67cdaf335e8c85d30edd0085de3b6aa726da6072d32f",
+  "metric": "input_tokens_per_second; no generated tokens",
+  "not_policy_safety_aligned": true
+}

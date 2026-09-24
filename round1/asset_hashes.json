@@ -1,0 +1,77 @@
+[
+  {
+    "path": "model/LICENSE",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/LICENSE",
+    "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+  },
+  {
+    "path": "model/README.md",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/README.md",
+    "sha256": "2ca500382dcdbba770cfb4c98ff4ae09f7c671a561b572a83b68e54e26bde9ce"
+  },
+  {
+    "path": "model/config.json",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/config.json",
+    "sha256": "b3bcfee86ed04c86e3c92000a2768d3c879564ac45e7e97909bce2e5767503cd"
+  },
+  {
+    "path": "model/configuration_qwen3.py",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/configuration_qwen3.py",
+    "sha256": "db0bc8f36ab1857247263250cd37d62a3be8dacb58c75f486ddfbc0510dbb83e"
+  },
+  {
+    "path": "model/generation_config.json",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/generation_config.json",
+    "sha256": "52a5a5dd9227794548c6de5e0a1c8bc795a662912bdae6a3a7e4226c542e835c"
+  },
+  {
+    "path": "model/merges.txt",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/merges.txt",
+    "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+  },
+  {
+    "path": "model/model.safetensors",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/model.safetensors",
+    "sha256": "e0a2eac6cc79cca5bf35bf8fb356f94c333dd9715f4f0dd58883b01f2fe33419"
+  },
+  {
+    "path": "model/modeling_qwen3_guard.py",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/modeling_qwen3_guard.py",
+    "sha256": "69cefff967313df5d8292afe3e7a9cec1f7bad5d52a15108bb52d4cff79f62ec"
+  },
+  {
+    "path": "model/tokenizer.json",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/tokenizer.json",
+    "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+  },
+  {
+    "path": "model/tokenizer_config.json",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/tokenizer_config.json",
+    "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+  },
+  {
+    "path": "model/vocab.json",
+    "url": "https://huggingface.co/Qwen/Qwen3Guard-Stream-0.6B/resolve/419364a715de9840d47b1457982f64ff37f90ed4/vocab.json",
+    "sha256": "87a257b04b17642a0688c98cd1df89c398bda4fee532d6f88b38a659ecb4ac8d"
+  },
+  {
+    "path": "benchmark/README.md",
+    "url": "https://huggingface.co/datasets/Qwen/Qwen3GuardTest/resolve/8a8391a583d65dc5f2be59e815404fe54289fa7c/README.md",
+    "sha256": "b6c5081cc68a92950737c81dc76054a23a5c0e5a5fedac0115d407fdaa33b052"
+  },
+  {
+    "path": "benchmark/response_loc.jsonl",
+    "url": "https://huggingface.co/datasets/Qwen/Qwen3GuardTest/resolve/8a8391a583d65dc5f2be59e815404fe54289fa7c/response_loc.jsonl",
+    "sha256": "8441a86e367a1794be232244509bd2ebdf9a66386e82dabef16859db3a34bc4f"
+  },
+  {
+    "path": "benchmark/thinking.jsonl",
+    "url": "https://huggingface.co/datasets/Qwen/Qwen3GuardTest/resolve/8a8391a583d65dc5f2be59e815404fe54289fa7c/thinking.jsonl",
+    "sha256": "5f8659d8ab8e679d121b7f2f30ded56b60fca77078393cb2db462f181bd3fc19"
+  },
+  {
+    "path": "benchmark/thinking_loc.jsonl",
+    "url": "https://huggingface.co/datasets/Qwen/Qwen3GuardTest/resolve/8a8391a583d65dc5f2be59e815404fe54289fa7c/thinking_loc.jsonl",
+    "sha256": "1738c54d9499e590e1ff21f35ee95dcc4a2ed2058eff5b7abe812af9668f9df2"
+  }
+]

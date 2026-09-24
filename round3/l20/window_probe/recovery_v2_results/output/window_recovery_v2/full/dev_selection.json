@@ -1,0 +1,26 @@
+{
+  "criterion": "minimum held-out long-document cosine distance; includes step 0",
+  "selected_step": 0,
+  "history": [
+    {
+      "step": 32,
+      "cosine_distance": 0.008946970105171204,
+      "risk_kl": 0.014830447966232896
+    },
+    {
+      "step": 64,
+      "cosine_distance": 0.022456099279224873,
+      "risk_kl": 0.016083434456959367
+    },
+    {
+      "step": 96,
+      "cosine_distance": 0.011685552075505257,
+      "risk_kl": 0.015455101092811674
+    },
+    {
+      "step": 128,
+      "cosine_distance": 0.009844114072620869,
+      "risk_kl": 0.008793607004918158
+    }
+  ]
+}

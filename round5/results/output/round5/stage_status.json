@@ -1,0 +1,68 @@
+{
+  "status": "completed",
+  "stages": [
+    {
+      "stage": "prefill_state_control",
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/test_prefill_stream_control_l20.py",
+        "--bundle",
+        "/work/output/fast_runtime/bundle",
+        "--original-audit",
+        "/work/output/fast_runtime/fast_text_audit.json",
+        "--helpers",
+        "/work/round4/fast_runtime/test_fast_text_l20.py",
+        "--dev",
+        "/work/round4/data/dev.jsonl",
+        "--output",
+        "/work/output/round5/fast_state_control/prefill_stream_control.json"
+      ],
+      "timeout_seconds": 360,
+      "required_for_training": false,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 38.22035595215857
+    },
+    {
+      "stage": "training_smoke",
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/train_prefix.py",
+        "--data-root",
+        "/work/round5/data/prefix_v2",
+        "--proof",
+        "/work/round5/native_tokenizer_proof.json",
+        "--smoke-only",
+        "--output",
+        "/work/output/round5/smoke_v1"
+      ],
+      "timeout_seconds": 600,
+      "required_for_training": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 38.31929437071085
+    },
+    {
+      "stage": "formal_training",
+      "command": [
+        "/work/modern/bin/python",
+        "-B",
+        "/work/round5/train_prefix.py",
+        "--data-root",
+        "/work/round5/data/prefix_v2",
+        "--proof",
+        "/work/round5/native_tokenizer_proof.json",
+        "--output",
+        "/work/output/round5/prefix_v2"
+      ],
+      "timeout_seconds": 21600,
+      "required_for_training": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 8336.103694511577
+    }
+  ],
+  "note": "Prefill state diagnostic is independent of risk training and cannot rewrite the original failed audit. Smoke failure stops formal training."
+}

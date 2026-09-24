@@ -1,0 +1,135 @@
+{
+  "data_manifest": {
+    "version": "risk-supervised-rubric-v2",
+    "teacher_alignment_loss": false,
+    "counts": {
+      "calibration": 900,
+      "dev": 1200,
+      "sealed_test": 1200,
+      "train": 33311
+    },
+    "tokens": {
+      "calibration": 98056,
+      "dev": 133789,
+      "sealed_test": 133821,
+      "train": 3733035
+    },
+    "training_tiers": {
+      "public_source_reference": 20000,
+      "synthetic_weak": 8192,
+      "rubric_benign": 4096,
+      "synthetic_context_weak": 1023
+    },
+    "strata": {
+      "calibration": {
+        "zh/assistant/safe": 150,
+        "zh/user/unsafe": 150,
+        "en/assistant/unsafe": 150,
+        "en/assistant/safe": 150,
+        "zh/user/safe": 150,
+        "zh/assistant/unsafe": 150
+      },
+      "dev": {
+        "zh/assistant/safe": 200,
+        "zh/user/unsafe": 200,
+        "en/assistant/unsafe": 200,
+        "zh/user/safe": 200,
+        "en/assistant/safe": 200,
+        "zh/assistant/unsafe": 200
+      },
+      "sealed_test": {
+        "zh/assistant/safe": 200,
+        "zh/user/unsafe": 200,
+        "en/assistant/unsafe": 200,
+        "zh/user/safe": 200,
+        "en/assistant/safe": 200,
+        "zh/assistant/unsafe": 200
+      },
+      "train": {
+        "en/assistant/safe": 5250,
+        "en/user/safe": 2817,
+        "zh/user/safe": 7031,
+        "zh/user/unsafe": 5471,
+        "en/assistant/unsafe": 4184,
+        "zh/assistant/unsafe": 2610,
+        "en/user/unsafe": 2303,
+        "zh/assistant/safe": 3645
+      }
+    },
+    "output_hashes": {
+      "calibration": "a39f9a961ddf99ee8a01ab8e148be1749a4d6a6ddca36024712fb7615e0f2663",
+      "dev": "7c3ca2d4e99e4070ae9ec602de6c5a4beeb41114373c6c96ceb98f36734d02c9",
+      "sealed_test": "2fbcbe2b3494ceaa0caa9d0191a7e107ae16ef2a0734f53e24d37a1b75423e73",
+      "train": "9925114b148ee38df3e193a1e427e38b7dd8c6805c1bf28a8b67da868c7c5aa7"
+    },
+    "tokenizer_sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+    "archive_snapshot_sha256": "006a971907b4e9104b39f23a1535493800402e32c29d92b0e9d7f7e97b8c2020",
+    "rejections": {},
+    "family_disjoint": true,
+    "sealed_test_previous_project_eval": null,
+    "limits": "Public labels follow source policies, weak labels unverified; template rubric is limited to these constructed contexts; exact decontamination is not semantic decontamination; no public English-user test stratum.",
+    "generation_schema_changed": false,
+    "classification_contract_changed": false,
+    "sealed_test_scope": "Excluded from this H24 lineage training by family split and from the previous published test sample IDs. Historical C14 corpus processing and foundation pretraining exposure are not exhaustively known."
+  },
+  "variants": [
+    "full",
+    "window",
+    "memory"
+  ],
+  "epochs": 2,
+  "semantic_teacher_loss": false,
+  "rubric": {
+    "version": "risk-rubric-v1",
+    "scope": "Classification of visible user or assistant content under the recorded source/template policy; not prediction of a person's private beliefs or intentions.",
+    "principles": [
+      "A keyword, public figure, institution or political topic is not by itself evidence of risk.",
+      "Neutral background discussion and bounded quoted-text processing are benign in the constructed examples.",
+      "Quoting is not blanket permission: a request to carry out a harmful quoted instruction remains a risk case.",
+      "Judge the selected target role. A harmful user request can be followed by a safe assistant refusal.",
+      "Risk references require observable harmful behavior or assistance, such as threats, fraud or privacy violation, under the dataset's stated policy."
+    ],
+    "reward": {
+      "correct": 1,
+      "false_positive": -3,
+      "false_negative": -4
+    },
+    "data_weights": {
+      "public_source_reference": 1.0,
+      "synthetic_weak": 0.2,
+      "rubric_benign": 0.8,
+      "synthetic_context_weak": 0.4
+    },
+    "unverified_generated_labels_are_gold": false,
+    "classification_rl": {
+      "algorithm": "REINFORCE with exact expected-reward baseline",
+      "actions": [
+        "nonrisk",
+        "risk"
+      ],
+      "samples_per_input": 4,
+      "semantic_teacher_reward": false,
+      "reference_policy_kl_weight": 0.1,
+      "supervised_anchor_weight": 0.2,
+      "updates": 256,
+      "generated_output_tokens": 0
+    },
+    "selection": {
+      "labels": "separate public-source calibration and development labels",
+      "calibration_fpr_budget": 0.05,
+      "score": "macro_recall - 5 * mean(max(0, development_fpr - 0.05))",
+      "test_used_for_checkpoint_selection": false,
+      "teacher_similarity_used_for_selection": false
+    },
+    "limits": [
+      "Source policies are not a universal project gold standard.",
+      "Benign-template labels apply to the constructed context, not every sentence containing the word.",
+      "English-user independent public evaluation and sequential allow/hold/block rewards remain to be added.",
+      "The numerical costs are research settings; production tradeoffs need separate acceptance."
+    ]
+  },
+  "objective": "risk labels, false positives and false negatives",
+  "category_supervision": false,
+  "third_risk_class_has_no_new_hard_supervision": true,
+  "selection_uses_sealed_test": false
+}

@@ -1,0 +1,15 @@
+{
+  "checkpoint": "/Users/liuzhihao/Work/safety-guard/round1/training/step-0150",
+  "steps": 159,
+  "examples": 2541,
+  "tokens": 103700,
+  "active_seconds": 112.66345628802083,
+  "wall_seconds": 133.8980714999998,
+  "peak_mps_driver_bytes": 1362821120,
+  "trainable_parameters": 330752,
+  "seed": 20260922,
+  "one_pass": true,
+  "stop_reasons": [
+    "one_pass_or_step_budget"
+  ]
+}

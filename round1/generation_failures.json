@@ -1,0 +1,27 @@
+[
+  {
+    "attempt_id": "att_wi_01M3555EG9XPCQKWN7FKEC3TEB",
+    "attempt_no": "aster-dev-254-9-a1",
+    "sample_id": "smp_01M3555EG94CESK76YDY0VZB12",
+    "attempt_number": 1,
+    "state": "completed",
+    "error_code": "FLOW_FAILED",
+    "parent_attempt_id": null,
+    "generation": 1,
+    "agent_started": true,
+    "cancel_requested": false,
+    "result_status": "failed",
+    "outcome": null,
+    "reward": null,
+    "resources": [],
+    "artifacts_storage_path": "artifacts/aster-dev-254/aster-dev-254-9/a1",
+    "archive": {
+      "sha256": "612902b2b0c221be09519950bdfc3d2188bbf255161ae8d12451e8402959dd36",
+      "size_bytes": 31808,
+      "files": 33,
+      "archived_at": "2026-09-22T18:21:48Z",
+      "local_removed_at": null
+    },
+    "created_at": "2026-09-22T18:13:34Z"
+  }
+]

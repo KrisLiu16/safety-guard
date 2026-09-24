@@ -1,0 +1,178 @@
+{
+  "updated_at": "2026-09-23T18:53:49.656979+00:00",
+  "job": "safety-guard-risk-round4-r3-20260923",
+  "pod": "safety-guard-risk-round4-r3-20260923-cgttg",
+  "node": "172.19.1.144",
+  "physical_gpu": "one NVIDIA L20",
+  "gpu_logical_shares": 8,
+  "pvc": "safety-guard-base-compare-data",
+  "pvc_size": "64Gi",
+  "run_stage": "primary training complete; final validation collected with two evaluation failures being repaired; fast text validation preparing",
+  "train_examples": 33311,
+  "train_tokens_per_epoch": 3733035,
+  "epochs_per_variant": 2,
+  "variants": [
+    "full",
+    "window",
+    "memory"
+  ],
+  "semantic_teacher_alignment": false,
+  "memory_smoke": {
+    "forward_max_abs_error": 0.005392193794250488,
+    "feature_map_backward_finite": true,
+    "model_stream_cases": [
+      {
+        "schedule": [
+          257,
+          1,
+          7,
+          127,
+          31
+        ],
+        "probability_error": 0.000142708420753479,
+        "state_bytes": 26062848,
+        "memory_bytes": 3158016,
+        "nonzero_gate": 0.3
+      },
+      {
+        "schedule": [
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "probability_error": 0.00018262118101119995,
+        "state_bytes": 26062848,
+        "memory_bytes": 3158016,
+        "nonzero_gate": 0.3
+      }
+    ],
+    "total_parameters": 753554823,
+    "added_parameters": 98352,
+    "future_suffix_earlier_hidden_error": 0.0,
+    "composed_backward_finite": true,
+    "memory_gradient_sum": 6.09599769487977,
+    "physical_gpu": "NVIDIA L20",
+    "has_lm_head": false
+  },
+  "artifact_collector_session": 13458,
+  "neural_work_on_m5": false,
+  "aster_concurrency_user_confirmed": 400,
+  "aster_snapshot_completed_shards": 912,
+  "aster_snapshot_valid_examples": 488560,
+  "aster_snapshot_complete_word_pairs": 221694,
+  "generation_schema_changed": false,
+  "last_observed_variant": "memory",
+  "last_observed_step": 3136,
+  "steps_per_variant": 4164,
+  "first_development_check_completed": true,
+  "first_development_score": 0.515,
+  "model_promoted": false,
+  "last_observed_epoch": 1,
+  "last_observed_input_tokens": 5380507,
+  "pod_phase": "Succeeded",
+  "post_training_long_stream_audit": "uploaded and checksummed; runs after frozen training; includes standalone classifier CLI smoke",
+  "post_training_audit_script": "/work/round4/postrun_validate_v2.py",
+  "post_training_audit_sha256": "f4dc2701cc0ea821579c6e3a853fdda2a32a158cac95cdfac7222052895bc678",
+  "long_stream_audit_completed": true,
+  "training_code_or_data_changed_this_turn": false,
+  "read_only_review": "no training blocker; short-only streaming gate supplemented by independent 8K exported-weight audit",
+  "final_validation_job": "safety-guard-round4-validation-20260923-r1",
+  "final_validation_job_submitted": true,
+  "final_validation_scope": [
+    "actual text streaming and rollback on all exported variants",
+    "full adapted Qwen3GuardTest versus A0",
+    "held-out controlled same-keyword different-intent diagnostic",
+    "matched candidate/A0 token-ID runtime on the same L20, 128 calls per configuration",
+    "standalone bundle and old-loader parity",
+    "optional fixed-window CUDA Graph experiment"
+  ],
+  "next_action": "Run fixed-window real text CUDA Graph validation plus matched benchmark v2 and keyword rechecks; prepare bounded prefix-specific post-training protocol.",
+  "local_full_bundle_delivery": "complete: release_download_status.json verifies 1,509,079,036-byte weights and all manifest files, no model calls",
+  "optional_inference_optimization": "window-only CUDA Graph prototype and independent CPU audit complete; L20 experiment pending",
+  "completed_sft_variants": [
+    "full",
+    "window",
+    "memory"
+  ],
+  "memory_parameter_update_confirmed_at_step": 1536,
+  "validation_timeout_process_group_cleanup": "CPU regression passed; pending validation package freeze",
+  "paired_runtime_preflight": {
+    "script": "benchmark_pair.py",
+    "sha256": "c4f601096d91ac3cd3cb8281851a69b86ad7df90bd814bf5e1e65960d6505528",
+    "cpu_logic_and_independent_review_passed": true,
+    "l20_results": "pending",
+    "stage_timeouts_sum_seconds": 11460,
+    "validation_job_deadline_seconds": 18000
+  },
+  "memory_completed_summary": {
+    "variant": "memory",
+    "status": "completed",
+    "steps": 4164,
+    "selected_step": 2560,
+    "dev_score": 0.6016666666666667,
+    "best_training_dev_score": 0.6016666666666667,
+    "input_tokens": 7466070,
+    "seconds": 4461.807538382709,
+    "checkpoint_sha256": "41f6143d0df5dee1e5107d9601257cc341f035fcb20235e4c2cf131b213cb283",
+    "has_lm_head": false,
+    "stream_parity_pass": true
+  },
+  "final_validation_pod": "safety-guard-round4-validation-20260923-r1-xj8lx",
+  "final_validation_collector_session": 26054,
+  "primary_gpu_job_completed": true,
+  "selected_candidate": "classification_rl",
+  "selected_variant": "full",
+  "selected_checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "validation_package_sha256": "2625a539908be823073826283a536d402bfaa091375e2652edd30cf2a6a6dfa3",
+  "final_validation_scope_status": "completed and collected; eight stages passed, benchmark_a0 and keyword_candidate require repaired reruns",
+  "long_stream_results": {
+    "full": true,
+    "window": true,
+    "memory": false,
+    "classification_rl": true
+  },
+  "memory_long_stream_failure": {
+    "maximum_probability_error": 0.03256136178970337,
+    "tolerance": 0.03,
+    "bounded_state_pass": true,
+    "not_promoted": true
+  },
+  "fast_text_integration": {
+    "status": "L20 fast_text audit failed whole_state checks; independent bundle audit passed; remaining fixed stages continuing",
+    "directory": "fast_runtime",
+    "candidate": "window",
+    "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+    "training_changed": false,
+    "primary_quality_candidate_changed": false,
+    "motivation": {
+      "verified_chunk8_graph_itps": 1424.5020606606859,
+      "matched_eager_itps": 339.7907239152979,
+      "graph_p95_ms": 5.63032366335392,
+      "matched_eager_p95_ms": 23.64986576139927
+    },
+    "scope": "Pre-capture exact lengths1..32 and integrate with the real text rollback/session API; separate full L20 and bundle validation required.",
+    "job": "safety-guard-fast-text-20260924-r1",
+    "pod": "safety-guard-fast-text-20260924-r1-6gcwk",
+    "archive_sha256": "1aeab0655c6e45e60a0dc6766dce7764904be2f9f79859ad85daabb7050c14df",
+    "collector_session": 63867,
+    "diagnostic_status": "graph/eager parity versus whole-prefill internal states under investigation; no tolerance changed"
+  },
+  "final_validation_job_completed": true,
+  "tokenizer_compatibility": {
+    "status": "passed",
+    "verified_rows": 1024,
+    "mismatched_rows": 0,
+    "scope": "exact_frozen_probe_rows_only",
+    "neural_forward_calls": 0,
+    "evidence_sha256": "bffaa24cc31237158b770b1a2781b007045353a09ab2d48dbd950eebc594e470"
+  },
+  "stream_quality_blocker": {
+    "benchmark": "adapted Qwen3GuardTest thinking",
+    "rule": "two consecutive Unsafe anywhere in sequence",
+    "note": "Exact values and source counts in VALIDATION_BASE_AUDIT.md; original training supervised endpoint only. Prefix quality is not approved."
+  },
+  "pvc_requested_size": "64Gi",
+  "storage_expansion_reason": "Retain Round4 states while writing Round5 model/Adam state atomically; no old checkpoints deleted."
+}

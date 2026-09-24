@@ -1,0 +1,32 @@
+{
+  "scope": "Frozen curriculum data coverage; potential memory learning steps, not measured gradients",
+  "total_steps": 4164,
+  "first_potential_memory_step": 1064,
+  "potential_memory_update_steps": 121,
+  "curriculum": {
+    "1024": {
+      "steps": 39,
+      "examples_beyond_window": 609
+    },
+    "512": {
+      "steps": 82,
+      "examples_beyond_window": 1254
+    }
+  },
+  "first512_token_total_matches_observed": 785344,
+  "gate_observation": {
+    "checkpoint_stage": "memory best at validation 512",
+    "gate_values": 48,
+    "nonzero": 0,
+    "interpretation": "Expected: no input in the first512 batches extends beyond the 2048-token training window"
+  },
+  "training_or_data_changed": false,
+  "measured_latest_training_state": {
+    "step": 1536,
+    "nonzero_gate_values": 48,
+    "memory_parameter_tensors_with_nonzero_optimizer_first_moment": 18,
+    "all_measured_values_finite": true,
+    "scope": "Active training state; not proof that the final development-selected memory export uses this step",
+    "audit_file": "memory_parameter_update_audit.json"
+  }
+}

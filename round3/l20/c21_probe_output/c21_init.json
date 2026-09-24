@@ -1,0 +1,69 @@
+{
+  "name": "c21_init",
+  "version": "c21_init",
+  "parameters": 486994688,
+  "has_lm_head": false,
+  "quality": {
+    "rows": 600,
+    "overlength_skipped": 0,
+    "label_scope": "Nemotron valid original labels, not project policy gold",
+    "roles": {
+      "user": {
+        "source_label_origin": "human",
+        "safe": 200,
+        "unsafe": 200,
+        "unsafe_auc": 0.617875,
+        "argmax_fpr": 0.015,
+        "argmax_unsafe_recall": 0.03,
+        "argmax_balanced_accuracy": 0.5075
+      },
+      "assistant": {
+        "source_label_origin": "llm_jury",
+        "safe": 100,
+        "unsafe": 100,
+        "unsafe_auc": 0.6643,
+        "argmax_fpr": 0.01,
+        "argmax_unsafe_recall": 0.01,
+        "argmax_balanced_accuracy": 0.5
+      }
+    }
+  },
+  "speed": {
+    "one_token_one_session": {
+      "new_input_tokens": 8,
+      "classifications": 8,
+      "wall_seconds": 0.10021140612661839,
+      "itps": 79.83123188484052,
+      "classifications_per_second": 79.83123188484052,
+      "decision_latency_ms": {
+        "p50": 12.50029169023037,
+        "p95": 12.921344488859177
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    },
+    "eight_tokens_eight_sessions": {
+      "new_input_tokens": 512,
+      "classifications": 64,
+      "wall_seconds": 0.9532636050134897,
+      "itps": 537.1022215756938,
+      "classifications_per_second": 67.13777769696172,
+      "decision_latency_ms": {
+        "p50": 14.807292260229588,
+        "p95": 15.410799533128738
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    },
+    "sixteen_tokens_32_sessions": {
+      "new_input_tokens": 4096,
+      "classifications": 256,
+      "wall_seconds": 3.797423228621483,
+      "itps": 1078.6261507877553,
+      "classifications_per_second": 67.4141344242347,
+      "decision_latency_ms": {
+        "p50": 14.742356725037098,
+        "p95": 15.196995809674263
+      },
+      "scope": "in-process exact same-tokenizer append; no HTTP/queue"
+    }
+  }
+}

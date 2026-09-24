@@ -1,0 +1,130 @@
+{
+  "version": "prefix-episode-metrics-v1",
+  "whole": {
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "tp": 137,
+        "fp": 12,
+        "fn": 63,
+        "tn": 188,
+        "recall": 0.685,
+        "fpr": 0.06,
+        "threshold": 0.9634901881217957,
+        "comparison": ">",
+        "f1": 0.7851002865329513,
+        "calibration_safe_n": 150,
+        "calibration_safe_fp": 7
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "tp": 159,
+        "fp": 14,
+        "fn": 41,
+        "tn": 186,
+        "recall": 0.795,
+        "fpr": 0.07,
+        "threshold": 0.9858123064041138,
+        "comparison": ">",
+        "f1": 0.8525469168900804,
+        "calibration_safe_n": 150,
+        "calibration_safe_fp": 7
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "tp": 126,
+        "fp": 18,
+        "fn": 74,
+        "tn": 182,
+        "recall": 0.63,
+        "fpr": 0.09,
+        "threshold": 0.9935467839241028,
+        "comparison": ">",
+        "f1": 0.7325581395348837,
+        "calibration_safe_n": 150,
+        "calibration_safe_fp": 7
+      }
+    },
+    "macro_recall": 0.7033333333333333,
+    "macro_fpr": 0.07333333333333333
+  },
+  "stream": {
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "tp": 109,
+        "fp": 10,
+        "fn": 91,
+        "tn": 190,
+        "recall": 0.545,
+        "fpr": 0.05,
+        "threshold": 0.9970447421073914,
+        "comparison": ">",
+        "f1": 0.6833855799373041,
+        "calibration_safe_n": 150,
+        "calibration_safe_fp": 7
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "tp": 162,
+        "fp": 13,
+        "fn": 38,
+        "tn": 187,
+        "recall": 0.81,
+        "fpr": 0.065,
+        "threshold": 0.9956138134002686,
+        "comparison": ">",
+        "f1": 0.864,
+        "calibration_safe_n": 150,
+        "calibration_safe_fp": 7
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "tp": 121,
+        "fp": 21,
+        "fn": 79,
+        "tn": 179,
+        "recall": 0.605,
+        "fpr": 0.105,
+        "threshold": 0.9973618388175964,
+        "comparison": ">",
+        "f1": 0.7076023391812866,
+        "calibration_safe_n": 150,
+        "calibration_safe_fp": 7
+      }
+    },
+    "macro_recall": 0.6533333333333333,
+    "macro_fpr": 0.07333333333333333
+  },
+  "baseline_whole_macro_recall": 0.7016666666666667,
+  "selection_gates": {
+    "each_stream_stratum_fpr_at_most_5pct": false,
+    "whole_macro_recall_drop_at_most_2pp": true
+  },
+  "eligible": false,
+  "selection_score": 0.6533333333333333,
+  "selection_rule": "Among eligible checkpoints maximize stream macro recall; exact ties retain earlier checkpoint. Eligibility: every stream stratum FPR<=0.05 and whole macro recall >= fixed initial-window baseline minus 0.02.",
+  "thresholds_fitted_on": "calibration only",
+  "episode_weighting": "one source record, not one prefix",
+  "source_family_counts": {
+    "calibration": 782,
+    "evaluated": 1002
+  },
+  "limits": "Empirical source-policy metrics on fixed native-token and text-cut trajectories. No arbitrary chunking FPR guarantee, natural risk-onset claim or missing-stratum fallback.",
+  "checkpoint_sha256": "db07c8ec9eda14f2d6c09680f97788df320dfcc687275f82ce9756f3e0d686ea",
+  "evaluation_weights": "exported_bfloat16_backbone",
+  "generated_tokens": 0,
+  "selection_read_test": false
+}

@@ -1,0 +1,15 @@
+{
+  "status": "completed",
+  "branch": "full",
+  "steps": 128,
+  "long_train_tokens": 291727,
+  "short_examples": 512,
+  "training_seconds": 107.10210466757417,
+  "checkpoint_sha256": "2e93e5f2cb89c277f84e19596dcb04e6dcbb4bacee4011c5e8ce2147bffd93fb",
+  "has_lm_head": false,
+  "training": "full_parameters",
+  "long_dev_cosine_before": -9.313225746154785e-10,
+  "long_dev_cosine_after": 0.03598630893975496,
+  "full_stream_probability_error": 0.00029927492141723633,
+  "not_claimed_policy_aligned_or_converged": true
+}

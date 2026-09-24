@@ -1,0 +1,7 @@
+{
+  "bundle_sha256": "11609c8ad09a3856d93e2461b78436c265e66c387256dd32381dfe73f01a126d",
+  "bundle_bytes": 770416640,
+  "model_sha256": "ccac89f5952187e506f743582e9b896e6c609895692afd98a48254b4153923f7",
+  "architecture_version": "c1-even14-init-v1",
+  "contains_credentials": false
+}

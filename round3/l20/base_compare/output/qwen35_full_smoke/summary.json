@@ -1,0 +1,16 @@
+{
+  "model": "qwen35",
+  "backward_finite": true,
+  "loss": 1.4117560386657715,
+  "gradient_norm": 57.25962829589844,
+  "full_stream_probability_error": 0.0013307631015777588,
+  "training_mode": "full",
+  "backbone_gradients_verified": true,
+  "kernels": {
+    "attention": "torch sdpa",
+    "gdn_chunk": "fla-0.5.2",
+    "gdn_recurrent": "fla-0.5.2",
+    "short_convolution": "Transformers torch implementation"
+  },
+  "physical_gpu": "NVIDIA L20"
+}

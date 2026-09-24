@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-09-23T20:16:24.524658+00:00",
+  "id": "run_01M36NWG2G4NF17NYJAX95HPN5",
+  "run_no": "aster-dev-272",
+  "status": "succeeded",
+  "total_samples": 1517,
+  "processed_count": 1517,
+  "succeeded_count": 1517,
+  "timed_out_count": 0,
+  "failed_count": 0,
+  "canceled_count": 0,
+  "concurrency": 400,
+  "max_attempts": 1,
+  "reward_count": 1517,
+  "reward_total": 1242.04,
+  "warnings": [],
+  "notice": null
+}

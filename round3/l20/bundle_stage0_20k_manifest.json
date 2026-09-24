@@ -1,0 +1,12 @@
+{
+  "bundle_sha256": "3a95edd43b19beb73a596ea2175d2b4dffcdeb74d4731d950a9f9462765eecef",
+  "bundle_bytes": 2001930240,
+  "teacher_sha256": "e0a2eac6cc79cca5bf35bf8fb356f94c333dd9715f4f0dd58883b01f2fe33419",
+  "student_sha256": "ccac89f5952187e506f743582e9b896e6c609895692afd98a48254b4153923f7",
+  "data_manifest_sha256": "4f9e812720d75200fa981238f546969adaf4f7988198d5b7afbf90adf85473cc",
+  "train_examples": 20000,
+  "dev_examples": 2000,
+  "initial_adapter_sha256": "459fa427d9da9ab3527be4507862835a275eff2f6725ba90584034b1dd677857",
+  "uses_project_safety_labels": false,
+  "contains_credentials": false
+}

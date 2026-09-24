@@ -1,0 +1,13 @@
+{
+  "pod": "safety-guard-fast-text-20260924-r1-6gcwk",
+  "remote_path": "/work/output/fast_runtime/fast_text_audit.json",
+  "local_path": "/Users/liuzhihao/Work/safety-guard/round4/fast_runtime/diagnostics/fast_text_audit.original.json",
+  "retrieved_at": "2026-09-23T18:54:15.958125+00:00",
+  "bytes": 940606,
+  "sha256": "11635ba5abc48a466363aa75ef98b146e65f8dae0cf9fad19d07b98eb833234c",
+  "status": "completed",
+  "pass": false,
+  "checks": 164,
+  "remote_mutations": 0,
+  "model_calls": 0
+}

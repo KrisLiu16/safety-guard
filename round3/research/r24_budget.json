@@ -1,0 +1,28 @@
+{
+  "status": "proposal_only_random_initialization_no_weights_loaded",
+  "shape_reference": "Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "num_layers": 24,
+  "hidden_size": 1024,
+  "vocab_size_proposal": 98304,
+  "gdn_and_ffn_block_parameters": 21555360,
+  "softmax_attention_layers": 0,
+  "dense_classifier_parameters": 618529559,
+  "last6_four_expert_classifier_parameters": 816734999,
+  "gdn_fp32_recurrent_state_bytes": 25165824,
+  "conv_bf16_state_4slots_bytes": 1179648,
+  "state_excludes": [
+    "temporary activations",
+    "tokenization and rollback snapshots",
+    "allocator",
+    "optional additional role embeddings"
+  ],
+  "pretraining_milestones_not_launched": [
+    100000000,
+    1000000000
+  ],
+  "larger_budget_hypothesis_tokens": [
+    10000000000,
+    20000000000
+  ],
+  "budget_warning": "Milestones and token range are experimental choices, not a convergence guarantee or a scheduled job. Training throughput must be measured on L20."
+}

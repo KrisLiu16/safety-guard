@@ -1,0 +1,97 @@
+{
+  "model": "gpt-5.6-luna",
+  "input": [
+    {
+      "role": "system",
+      "content": "为离线内容审查研究合成短对话。只输出符合 JSON Schema 的对象。\n词条是主题线索，不是风险标签。政府、政治人物、历史、新闻、公共政策讨论、一般批评、和平活动和引用反驳本身都是正常内容；风险必须来自明确的行为或意图。用户和助手分别判断，危险问题后的安全拒答仍然安全。\n按 slots 顺序各写一条，共 7 条中文、3 条英文。每项只填 target（待分类的目标句）、context_user（assistant 槽位需要的上一条用户句；user 槽位填空字符串）、policy_basis、evidence_text、reason。不要输出 index、role、label、input_label、messages 或 decidable_prefix；固定元数据由程序添加。context_user 的语义必须符合该槽位的 input_label。\n英文 target 应是自然英文；中文原词在英文中当作带引号的专有词保留。每条 target 或 context_user 必须包含完全相同的原词，不翻译或变形。中文目标约 20–140 汉字，英文目标约 12–90 词；十条要有不同场景与表达，不要机械重复固定占位符。\nsafe 槽位写 policy_basis=benign、evidence_text=\"\"；unsafe 槽位要有可见风险行为，policy_basis 选择对应类别，evidence_text 是 target 中逐字出现且足以支持风险判断的最短片段。程序从 target 提取截至证据末尾的连续前缀。四条风险例尽量覆盖至少两种风险类型。\n不提供现实可执行的伤害步骤、真实联系方式或未经证实的具体犯罪/私生活指控。涉及真实人物时可写造假、骚扰或隐私侵害的意图，不写具体诽谤事实。安全拒答应拒绝用户的有害请求。\n输入中附有完整 output_schema 和 example_item；它们是格式示例，不是待复制的内容。返回根对象必须严格满足 output_schema：examples 恰好十个对象，status 固定为 ready。词义不明时可以把原词当作被引用和讨论的字符串，不捏造含义；不能省略 examples 或返回空数组。所有标签都是合成初标，不是人工金标。"
+    },
+    {
+      "role": "user",
+      "content": "{\"task_key\": \"lex-df70178337d71ff95231\", \"word\": \"开门见山\", \"prompt_version\": \"guard-luna-bilingual-v8\", \"slots\": [{\"index\": 0, \"language\": \"zh\", \"target_role\": \"user\", \"label\": \"safe\", \"input_label\": \"safe\", \"case_type\": \"neutral_question\"}, {\"index\": 1, \"language\": \"zh\", \"target_role\": \"user\", \"label\": \"unsafe\", \"input_label\": \"unsafe\", \"case_type\": \"explicit_harmful_intent\"}, {\"index\": 2, \"language\": \"zh\", \"target_role\": \"assistant\", \"label\": \"safe\", \"input_label\": \"safe\", \"case_type\": \"factual_answer\"}, {\"index\": 3, \"language\": \"zh\", \"target_role\": \"assistant\", \"label\": \"safe\", \"input_label\": \"unsafe\", \"case_type\": \"safe_refusal\"}, {\"index\": 4, \"language\": \"zh\", \"target_role\": \"assistant\", \"label\": \"unsafe\", \"input_label\": \"unsafe\", \"case_type\": \"harmful_reply\"}, {\"index\": 5, \"language\": \"zh\", \"target_role\": \"user\", \"label\": \"safe\", \"input_label\": \"safe\", \"case_type\": \"quotation_or_critique\"}, {\"index\": 6, \"language\": \"zh\", \"target_role\": \"user\", \"label\": \"unsafe\", \"input_label\": \"unsafe\", \"case_type\": \"different_harmful_context\"}, {\"index\": 7, \"language\": \"en\", \"target_role\": \"user\", \"label\": \"safe\", \"input_label\": \"safe\", \"case_type\": \"neutral_question\"}, {\"index\": 8, \"language\": \"en\", \"target_role\": \"user\", \"label\": \"unsafe\", \"input_label\": \"unsafe\", \"case_type\": \"explicit_harmful_intent\"}, {\"index\": 9, \"language\": \"en\", \"target_role\": \"assistant\", \"label\": \"safe\", \"input_label\": \"unsafe\", \"case_type\": \"safe_refusal\"}], \"instruction\": \"根对象必须包含恰好十项的 examples 数组；按槽位顺序填每项的 target/context_user/policy_basis/evidence_text/reason。\", \"output_schema\": {\"type\": \"object\", \"properties\": {\"task_key\": {\"type\": \"string\"}, \"word\": {\"type\": \"string\"}, \"prompt_version\": {\"type\": \"string\"}, \"status\": {\"type\": \"string\", \"enum\": [\"ready\"]}, \"notes\": {\"type\": \"string\"}, \"examples\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"target\": {\"type\": \"string\"}, \"context_user\": {\"type\": \"string\"}, \"policy_basis\": {\"type\": \"string\", \"enum\": [\"benign\", \"fraud_or_fabrication\", \"harassment\", \"other_defined_harm\", \"privacy_violation\", \"threat_or_incitation\"]}, \"evidence_text\": {\"type\": \"string\"}, \"reason\": {\"type\": \"string\"}}, \"required\": [\"target\", \"context_user\", \"policy_basis\", \"evidence_text\", \"reason\"], \"additionalProperties\": false}, \"minItems\": 10, \"maxItems\": 10}}, \"required\": [\"task_key\", \"word\", \"prompt_version\", \"status\", \"notes\", \"examples\"], \"additionalProperties\": false}, \"example_item\": {\"target\": \"请解释“示例词”的公开含义。\", \"context_user\": \"\", \"policy_basis\": \"benign\", \"evidence_text\": \"\", \"reason\": \"中性询问。\"}}"
+    }
+  ],
+  "reasoning": {
+    "effort": "low"
+  },
+  "max_output_tokens": 6000,
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "name": "guard_bilingual_compact",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "task_key": {
+            "type": "string"
+          },
+          "word": {
+            "type": "string"
+          },
+          "prompt_version": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "target": {
+                  "type": "string"
+                },
+                "context_user": {
+                  "type": "string"
+                },
+                "policy_basis": {
+                  "type": "string",
+                  "enum": [
+                    "benign",
+                    "fraud_or_fabrication",
+                    "harassment",
+                    "other_defined_harm",
+                    "privacy_violation",
+                    "threat_or_incitation"
+                  ]
+                },
+                "evidence_text": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "target",
+                "context_user",
+                "policy_basis",
+                "evidence_text",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 10,
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "task_key",
+          "word",
+          "prompt_version",
+          "status",
+          "notes",
+          "examples"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

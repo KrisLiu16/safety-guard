@@ -1,0 +1,20 @@
+{
+  "pod": "safety-guard-prefix-round5-20260924-r1-t9m2k",
+  "retrieved_at": "2026-09-23T19:12:05.319612+00:00",
+  "files": [
+    {
+      "remote": "/work/output/round5/fast_state_control/prefill_stream_control.json",
+      "local": "/Users/liuzhihao/Work/safety-guard/round4/fast_runtime/diagnostics/prefill_stream_control.original.json",
+      "bytes": 594953,
+      "sha256": "879a7a224e4680babd4779c533728a955cd5ec7f68cfff22c70ab1a03ceb1228"
+    },
+    {
+      "remote": "/work/output/round5/fast_state_control/prefill_stream_control.log",
+      "local": "/Users/liuzhihao/Work/safety-guard/round4/fast_runtime/diagnostics/prefill_stream_control.log",
+      "bytes": 434,
+      "sha256": "2a0cf2146f574289d7b1783fb7d7c435c8f948b73c73ac80509364d9ddb92bdd"
+    }
+  ],
+  "remote_mutations": 0,
+  "new_model_calls": 0
+}

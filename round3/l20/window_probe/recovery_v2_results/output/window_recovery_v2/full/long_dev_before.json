@@ -1,0 +1,231 @@
+{
+  "rows": [
+    {
+      "sample_id": "en-1096cf0e5a40b38eb7c1e659",
+      "tokens": 3072,
+      "loss": 2.60770320892334e-08,
+      "cosine_distance": 2.9802322387695312e-08,
+      "risk_kl": 0.0
+    },
+    {
+      "sample_id": "zh-45e1412731cd722cb6002654",
+      "tokens": 2071,
+      "loss": 8.195638834251895e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": 2.9802322387695312e-08
+    },
+    {
+      "sample_id": "en-c340ffe15f4991dab2f44661",
+      "tokens": 2609,
+      "loss": 5.06639494801675e-08,
+      "cosine_distance": 5.960464477539063e-08,
+      "risk_kl": -3.725290298461914e-08
+    },
+    {
+      "sample_id": "en-62a938c9e54370dad745ed10",
+      "tokens": 1930,
+      "loss": -5.550682402599705e-08,
+      "cosine_distance": -5.960464477539063e-08,
+      "risk_kl": 1.862645149230957e-08
+    },
+    {
+      "sample_id": "en-46ca523635b778d4fcb50b0a",
+      "tokens": 2177,
+      "loss": -1.214444580455165e-07,
+      "cosine_distance": -1.1920928955078125e-07,
+      "risk_kl": -7.450580596923828e-09
+    },
+    {
+      "sample_id": "zh-b8642447d68e97f4346ef128",
+      "tokens": 3072,
+      "loss": -2.9802322831784522e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": -3.725290298461914e-09
+    },
+    {
+      "sample_id": "en-bcd5d45457c2d718d5650717",
+      "tokens": 1886,
+      "loss": 1.2665987370041876e-08,
+      "cosine_distance": 0.0,
+      "risk_kl": 4.470348358154297e-08
+    },
+    {
+      "sample_id": "zh-c222b53110a7cafa17efd69d",
+      "tokens": 1812,
+      "loss": 6.705522803684971e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": 1.4901161193847656e-08
+    },
+    {
+      "sample_id": "en-cb748d5fae872fc82bb385f5",
+      "tokens": 2248,
+      "loss": -5.587935447692871e-08,
+      "cosine_distance": -5.960464477539063e-08,
+      "risk_kl": 2.2351741790771484e-08
+    },
+    {
+      "sample_id": "zh-3fffbea13e3ad11566d6f20d",
+      "tokens": 2473,
+      "loss": -6.407499597571586e-08,
+      "cosine_distance": -5.960464477539063e-08,
+      "risk_kl": 0.0
+    },
+    {
+      "sample_id": "zh-35e20607b4342043512595bc",
+      "tokens": 1753,
+      "loss": 8.568168397005138e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": 2.60770320892334e-08
+    },
+    {
+      "sample_id": "en-5190f211494750227e61a121",
+      "tokens": 1759,
+      "loss": 5.2154067731180476e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": 1.4901161193847656e-08
+    },
+    {
+      "sample_id": "en-15a51e5dbab83f2fb8aaf4bf",
+      "tokens": 1565,
+      "loss": 0.0,
+      "cosine_distance": 0.0,
+      "risk_kl": -7.450580596923828e-09
+    },
+    {
+      "sample_id": "en-9c79f8b5506fc55c5a4e5cc2",
+      "tokens": 1586,
+      "loss": 2.4586917390934104e-08,
+      "cosine_distance": 2.9802322387695312e-08,
+      "risk_kl": -1.4901161193847656e-08
+    },
+    {
+      "sample_id": "en-036000a15060885b0887052d",
+      "tokens": 1722,
+      "loss": 1.0058283983482852e-08,
+      "cosine_distance": 0.0,
+      "risk_kl": 1.1175870895385742e-08
+    },
+    {
+      "sample_id": "zh-660dadce26592fe93f9b07e1",
+      "tokens": 1742,
+      "loss": 6.780028627417778e-08,
+      "cosine_distance": 5.960464477539063e-08,
+      "risk_kl": 1.4901161193847656e-08
+    },
+    {
+      "sample_id": "zh-2ed6cc3b6d7408a8369cda2e",
+      "tokens": 2835,
+      "loss": 0.0,
+      "cosine_distance": 0.0,
+      "risk_kl": -7.450580596923828e-09
+    },
+    {
+      "sample_id": "zh-a3bc0ccdd1c2853bedfede45",
+      "tokens": 3072,
+      "loss": 5.885958742624098e-08,
+      "cosine_distance": 5.960464477539063e-08,
+      "risk_kl": -1.4901161193847656e-08
+    },
+    {
+      "sample_id": "en-3fd817543a641493481f670b",
+      "tokens": 3072,
+      "loss": -4.470348535789981e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": -1.4901161193847656e-08
+    },
+    {
+      "sample_id": "en-7131f66e629f0d6c135da837",
+      "tokens": 3072,
+      "loss": -5.811453007709133e-08,
+      "cosine_distance": -5.960464477539063e-08,
+      "risk_kl": 0.0
+    },
+    {
+      "sample_id": "zh-2fdcbb1efaf3a65744f30deb",
+      "tokens": 2141,
+      "loss": 1.0356306745507027e-07,
+      "cosine_distance": 1.1920928955078125e-07,
+      "risk_kl": -4.470348358154297e-08
+    },
+    {
+      "sample_id": "zh-503a28ad048bee933dbaedab",
+      "tokens": 1823,
+      "loss": -1.1920928955078125e-07,
+      "cosine_distance": -1.1920928955078125e-07,
+      "risk_kl": 0.0
+    },
+    {
+      "sample_id": "en-0d23cbe3b6113c17cf3f1d6e",
+      "tokens": 2040,
+      "loss": -6.332993685020938e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": -1.1175870895385742e-08
+    },
+    {
+      "sample_id": "zh-359cb23586720442e5964283",
+      "tokens": 1768,
+      "loss": -2.2351742678949904e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": -1.4901161193847656e-08
+    },
+    {
+      "sample_id": "zh-82b569260df312288574de63",
+      "tokens": 2385,
+      "loss": 2.6822089438383045e-08,
+      "cosine_distance": 2.9802322387695312e-08,
+      "risk_kl": -2.9802322387695312e-08
+    },
+    {
+      "sample_id": "en-bd5a23b444c276ba3763ddb2",
+      "tokens": 1795,
+      "loss": -2.2351742678949904e-09,
+      "cosine_distance": 0.0,
+      "risk_kl": -7.450580596923828e-09
+    },
+    {
+      "sample_id": "en-353da6aff5023505fb66b30a",
+      "tokens": 1608,
+      "loss": 1.0058283805847168e-07,
+      "cosine_distance": 8.940696716308594e-08,
+      "risk_kl": 2.9802322387695312e-08
+    },
+    {
+      "sample_id": "zh-2d667df3bef41f33ce799559",
+      "tokens": 2604,
+      "loss": 2.533197474008375e-08,
+      "cosine_distance": 2.9802322387695312e-08,
+      "risk_kl": 0.0
+    },
+    {
+      "sample_id": "zh-fbc469b69d8c649fb7ad7348",
+      "tokens": 1594,
+      "loss": 0.0,
+      "cosine_distance": 0.0,
+      "risk_kl": -7.450580596923828e-09
+    },
+    {
+      "sample_id": "en-19bbf8a94e303b209d62f5e3",
+      "tokens": 2519,
+      "loss": 1.1920929132713809e-08,
+      "cosine_distance": 0.0,
+      "risk_kl": 2.9802322387695312e-08
+    },
+    {
+      "sample_id": "zh-6f8e525533ba868049dbfd6a",
+      "tokens": 2768,
+      "loss": -6.034970567725395e-08,
+      "cosine_distance": -5.960464477539063e-08,
+      "risk_kl": 1.4901161193847656e-08
+    },
+    {
+      "sample_id": "zh-f64f781f6741588689f706ce",
+      "tokens": 1538,
+      "loss": -1.1548400458138985e-08,
+      "cosine_distance": 0.0,
+      "risk_kl": -3.3527612686157227e-08
+    }
+  ],
+  "mean_cosine_distance": -9.313225746154785e-10,
+  "mean_risk_kl": 4.656612873077393e-10,
+  "scope": "held-out document domains; teacher agreement, not safety ground truth"
+}

@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "source_checkpoint_sha256": "8e01e428cc9f2455df75fe48cf556b85ad3a69bb3fc3593b06280077ac344d1c",
+  "parameters": 753456471,
+  "layers_removed": 0,
+  "attention_layers_changed": 6,
+  "recovery_training_steps": 0,
+  "has_lm_head": false,
+  "scope": "architecture and token-ID runtime probe, not arbitrary text streaming or deployment approval",
+  "kernel_sources": [
+    "https://docs.pytorch.org/docs/2.7/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "https://github.com/fla-org/flash-linear-attention/blob/v0.5.2/fla/ops/gated_delta_rule/fused_recurrent.py"
+  ]
+}

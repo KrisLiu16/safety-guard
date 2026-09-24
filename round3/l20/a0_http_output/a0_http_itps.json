@@ -1,0 +1,77 @@
+{
+  "hardware": "NVIDIA L20",
+  "model_version": "a0-original-e0a2eac6cc79",
+  "training_status": "pretrained_baseline_unaligned",
+  "has_lm_head": false,
+  "classification_on_first_append": true,
+  "full_vs_stream_risk_max_abs_error": 0.007772430777549744,
+  "metric": "client-visible accepted input tokens/s; no generated tokens",
+  "scope": "localhost HTTP with tokenizer, JSON and serialized GPU; no external network",
+  "complete": {
+    "1": {
+      "requests": 32,
+      "logical_input_tokens": 3584,
+      "wall_seconds": 0.7414042390882969,
+      "itps": 4834.070013421068,
+      "classifications_per_second": 43.16133940554525,
+      "client_p50_ms": 23.098325356841087,
+      "client_p95_ms": 23.809919133782387
+    },
+    "8": {
+      "requests": 32,
+      "logical_input_tokens": 3584,
+      "wall_seconds": 0.8158132676035166,
+      "itps": 4393.162188362222,
+      "classifications_per_second": 39.22466239609127,
+      "client_p50_ms": 182.02116806060076,
+      "client_p95_ms": 269.7203103452921
+    },
+    "32": {
+      "requests": 32,
+      "logical_input_tokens": 3584,
+      "wall_seconds": 0.7287873718887568,
+      "itps": 4917.758098238655,
+      "classifications_per_second": 43.90855444855942,
+      "client_p50_ms": 371.9155602157116,
+      "client_p95_ms": 694.4907587021589
+    }
+  },
+  "streaming": {
+    "1": {
+      "sessions": 1,
+      "classifications": 8,
+      "logical_new_input_tokens": 49,
+      "model_forward_input_tokens": 49,
+      "retokenization_forward_ratio": 1.0,
+      "wall_seconds": 0.169783353805542,
+      "itps": 288.60308682629267,
+      "classifications_per_second": 47.11887131857839,
+      "client_p50_ms": 21.110132336616516,
+      "client_p95_ms": 21.98970317840576
+    },
+    "8": {
+      "sessions": 8,
+      "classifications": 64,
+      "logical_new_input_tokens": 392,
+      "model_forward_input_tokens": 392,
+      "retokenization_forward_ratio": 1.0,
+      "wall_seconds": 1.3392769992351532,
+      "itps": 292.69523797083576,
+      "classifications_per_second": 47.78697762789155,
+      "client_p50_ms": 166.43195692449808,
+      "client_p95_ms": 168.29477064311504
+    },
+    "32": {
+      "sessions": 32,
+      "classifications": 256,
+      "logical_new_input_tokens": 1568,
+      "model_forward_input_tokens": 1568,
+      "retokenization_forward_ratio": 1.0,
+      "wall_seconds": 5.320955673232675,
+      "itps": 294.6839057291719,
+      "classifications_per_second": 48.11165807823215,
+      "client_p50_ms": 664.6375544369221,
+      "client_p95_ms": 670.7504466176033
+    }
+  }
+}

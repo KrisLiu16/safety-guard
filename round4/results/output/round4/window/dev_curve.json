@@ -1,0 +1,470 @@
+[
+  {
+    "step": 512,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.907415807247162,
+        "calibration_safe_n": 150,
+        "recall": 0.665,
+        "fpr": 0.095,
+        "tp": 133,
+        "fp": 19,
+        "roc_auc": 0.88,
+        "pr_auc": 0.8839697989410336,
+        "brier": 0.15819262445761822
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9321834444999696,
+        "calibration_safe_n": 150,
+        "recall": 0.775,
+        "fpr": 0.05,
+        "tp": 155,
+        "fp": 10,
+        "roc_auc": 0.949825,
+        "pr_auc": 0.9340600803359373,
+        "brier": 0.09806232858702005
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9921175837516786,
+        "calibration_safe_n": 150,
+        "recall": 0.49,
+        "fpr": 0.05,
+        "tp": 98,
+        "fp": 10,
+        "roc_auc": 0.867625,
+        "pr_auc": 0.8656680541410711,
+        "brier": 0.1654031127035758
+      }
+    },
+    "selection_score": 0.5683333333333334,
+    "macro_recall": 0.6433333333333333,
+    "macro_pr_auc": 0.894565977806014,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 1024,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.8755328655242921,
+        "calibration_safe_n": 150,
+        "recall": 0.575,
+        "fpr": 0.07,
+        "tp": 115,
+        "fp": 14,
+        "roc_auc": 0.8637499999999999,
+        "pr_auc": 0.8799107575673628,
+        "brier": 0.15354710412914485
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9172909259796144,
+        "calibration_safe_n": 150,
+        "recall": 0.55,
+        "fpr": 0.04,
+        "tp": 110,
+        "fp": 8,
+        "roc_auc": 0.933975,
+        "pr_auc": 0.9251696560813358,
+        "brier": 0.09927116691470353
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9206583499908448,
+        "calibration_safe_n": 150,
+        "recall": 0.57,
+        "fpr": 0.055,
+        "tp": 114,
+        "fp": 11,
+        "roc_auc": 0.8759250000000001,
+        "pr_auc": 0.8719151169310217,
+        "brier": 0.1478792042235174
+      }
+    },
+    "selection_score": 0.5233333333333333,
+    "macro_recall": 0.565,
+    "macro_pr_auc": 0.8923318435265735,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 1536,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.8225647807121278,
+        "calibration_safe_n": 150,
+        "recall": 0.685,
+        "fpr": 0.095,
+        "tp": 137,
+        "fp": 19,
+        "roc_auc": 0.8844500000000001,
+        "pr_auc": 0.8957470413274098,
+        "brier": 0.14802650476009988
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9215996265411378,
+        "calibration_safe_n": 150,
+        "recall": 0.65,
+        "fpr": 0.05,
+        "tp": 130,
+        "fp": 10,
+        "roc_auc": 0.936975,
+        "pr_auc": 0.932703442028511,
+        "brier": 0.1138293999584962
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9872868657112123,
+        "calibration_safe_n": 150,
+        "recall": 0.51,
+        "fpr": 0.05,
+        "tp": 102,
+        "fp": 10,
+        "roc_auc": 0.8766250000000001,
+        "pr_auc": 0.8749171798588032,
+        "brier": 0.16259727919941958
+      }
+    },
+    "selection_score": 0.54,
+    "macro_recall": 0.615,
+    "macro_pr_auc": 0.9011225544049081,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 2048,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.932412624359131,
+        "calibration_safe_n": 150,
+        "recall": 0.635,
+        "fpr": 0.055,
+        "tp": 127,
+        "fp": 11,
+        "roc_auc": 0.8987,
+        "pr_auc": 0.9123998461455329,
+        "brier": 0.1429561354539759
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9470965266227723,
+        "calibration_safe_n": 150,
+        "recall": 0.71,
+        "fpr": 0.05,
+        "tp": 142,
+        "fp": 10,
+        "roc_auc": 0.947325,
+        "pr_auc": 0.9426453691291146,
+        "brier": 0.09390308196094066
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.763946294784546,
+        "calibration_safe_n": 150,
+        "recall": 0.685,
+        "fpr": 0.1,
+        "tp": 137,
+        "fp": 20,
+        "roc_auc": 0.882575,
+        "pr_auc": 0.87907903176998,
+        "brier": 0.15091402842303453
+      }
+    },
+    "selection_score": 0.5850000000000001,
+    "macro_recall": 0.6766666666666667,
+    "macro_pr_auc": 0.9113747490148758,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 2560,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9830437302589418,
+        "calibration_safe_n": 150,
+        "recall": 0.58,
+        "fpr": 0.05,
+        "tp": 116,
+        "fp": 10,
+        "roc_auc": 0.8809250000000001,
+        "pr_auc": 0.9000913571547416,
+        "brier": 0.17147520995518384
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.944397807121277,
+        "calibration_safe_n": 150,
+        "recall": 0.83,
+        "fpr": 0.075,
+        "tp": 166,
+        "fp": 15,
+        "roc_auc": 0.9562499999999999,
+        "pr_auc": 0.9466259859808525,
+        "brier": 0.09096347066600619
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9952980875968934,
+        "calibration_safe_n": 150,
+        "recall": 0.57,
+        "fpr": 0.075,
+        "tp": 114,
+        "fp": 15,
+        "roc_auc": 0.8773000000000001,
+        "pr_auc": 0.8772066185180687,
+        "brier": 0.17376781414042028
+      }
+    },
+    "selection_score": 0.5766666666666667,
+    "macro_recall": 0.66,
+    "macro_pr_auc": 0.9079746538845542,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 3072,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9741789102554322,
+        "calibration_safe_n": 150,
+        "recall": 0.67,
+        "fpr": 0.07,
+        "tp": 134,
+        "fp": 14,
+        "roc_auc": 0.8975,
+        "pr_auc": 0.9091287442252021,
+        "brier": 0.1550397925643536
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9873856306076051,
+        "calibration_safe_n": 150,
+        "recall": 0.825,
+        "fpr": 0.065,
+        "tp": 165,
+        "fp": 13,
+        "roc_auc": 0.95505,
+        "pr_auc": 0.949604500601044,
+        "brier": 0.09322717682100173
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9955837130546571,
+        "calibration_safe_n": 150,
+        "recall": 0.63,
+        "fpr": 0.095,
+        "tp": 126,
+        "fp": 19,
+        "roc_auc": 0.8674999999999999,
+        "pr_auc": 0.8709207584350944,
+        "brier": 0.18263493401451306
+      }
+    },
+    "selection_score": 0.5750000000000001,
+    "macro_recall": 0.7083333333333334,
+    "macro_pr_auc": 0.9098846677537802,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 3584,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9820728302001954,
+        "calibration_safe_n": 150,
+        "recall": 0.665,
+        "fpr": 0.065,
+        "tp": 133,
+        "fp": 13,
+        "roc_auc": 0.8937999999999999,
+        "pr_auc": 0.9095653770561667,
+        "brier": 0.16978390961951914
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9922596812248231,
+        "calibration_safe_n": 150,
+        "recall": 0.815,
+        "fpr": 0.07,
+        "tp": 163,
+        "fp": 14,
+        "roc_auc": 0.9515999999999999,
+        "pr_auc": 0.9396411958298632,
+        "brier": 0.09905798380956846
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9970807433128358,
+        "calibration_safe_n": 150,
+        "recall": 0.61,
+        "fpr": 0.09,
+        "tp": 122,
+        "fp": 18,
+        "roc_auc": 0.87625,
+        "pr_auc": 0.8765734883637369,
+        "brier": 0.18888095425429982
+      }
+    },
+    "selection_score": 0.5716666666666667,
+    "macro_recall": 0.6966666666666667,
+    "macro_pr_auc": 0.9085933537499223,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 4096,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9486658573150636,
+        "calibration_safe_n": 150,
+        "recall": 0.675,
+        "fpr": 0.05,
+        "tp": 135,
+        "fp": 10,
+        "roc_auc": 0.896725,
+        "pr_auc": 0.9150637869311299,
+        "brier": 0.16155745771298974
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9753834605216981,
+        "calibration_safe_n": 150,
+        "recall": 0.79,
+        "fpr": 0.07,
+        "tp": 158,
+        "fp": 14,
+        "roc_auc": 0.9516749999999999,
+        "pr_auc": 0.942309626386588,
+        "brier": 0.09958689881278718
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9906764030456544,
+        "calibration_safe_n": 150,
+        "recall": 0.64,
+        "fpr": 0.085,
+        "tp": 128,
+        "fp": 17,
+        "roc_auc": 0.8690749999999999,
+        "pr_auc": 0.8727341435460745,
+        "brier": 0.18006137295047478
+      }
+    },
+    "selection_score": 0.61,
+    "macro_recall": 0.7016666666666667,
+    "macro_pr_auc": 0.9100358522879307,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  },
+  {
+    "step": 4164,
+    "strata": {
+      "en/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9448735117912294,
+        "calibration_safe_n": 150,
+        "recall": 0.69,
+        "fpr": 0.06,
+        "tp": 138,
+        "fp": 12,
+        "roc_auc": 0.89505,
+        "pr_auc": 0.9128549170819356,
+        "brier": 0.16315539006064209
+      },
+      "zh/assistant": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.974652647972107,
+        "calibration_safe_n": 150,
+        "recall": 0.8,
+        "fpr": 0.075,
+        "tp": 160,
+        "fp": 15,
+        "roc_auc": 0.953525,
+        "pr_auc": 0.9440766811981636,
+        "brier": 0.0943178374922678
+      },
+      "zh/user": {
+        "n": 400,
+        "safe": 200,
+        "unsafe": 200,
+        "threshold_from_calibration": 0.9915735125541688,
+        "calibration_safe_n": 150,
+        "recall": 0.615,
+        "fpr": 0.09,
+        "tp": 123,
+        "fp": 18,
+        "roc_auc": 0.869025,
+        "pr_auc": 0.8727530007431226,
+        "brier": 0.18110469955793396
+      }
+    },
+    "selection_score": 0.5766666666666667,
+    "macro_recall": 0.7016666666666667,
+    "macro_pr_auc": 0.909894866341074,
+    "selection_rule": "macro recall at separate-calibration 5% FPR threshold minus 5*mean development FPR excess",
+    "scope": "public source risk labels; research criterion, not production SLA"
+  }
+]

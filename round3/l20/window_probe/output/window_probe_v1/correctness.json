@@ -1,0 +1,198 @@
+{
+  "unchanged_inside_window_probability_error": 0.00018100440502166748,
+  "cases": [
+    {
+      "window": 512,
+      "chunk_schedule": [
+        257,
+        1,
+        7,
+        31,
+        128
+      ],
+      "probability_error": 0.0001983046531677246,
+      "cache": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2305
+      },
+      "storage_after_512_more_tokens": 26038272
+    },
+    {
+      "window": 512,
+      "chunk_schedule": [
+        512,
+        512,
+        512,
+        512,
+        257
+      ],
+      "probability_error": 0.0006557703018188477,
+      "cache": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2305
+      },
+      "storage_after_512_more_tokens": 26038272
+    },
+    {
+      "window": 1024,
+      "chunk_schedule": [
+        257,
+        1,
+        7,
+        31,
+        128
+      ],
+      "probability_error": 0.0004160478711128235,
+      "cache": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2305
+      },
+      "storage_after_512_more_tokens": 32329728
+    },
+    {
+      "window": 1024,
+      "chunk_schedule": [
+        512,
+        512,
+        512,
+        512,
+        257
+      ],
+      "probability_error": 0.0007184147834777832,
+      "cache": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2305
+      },
+      "storage_after_512_more_tokens": 32329728
+    }
+  ],
+  "future_suffix_earlier_hidden_error": 0.0
+}

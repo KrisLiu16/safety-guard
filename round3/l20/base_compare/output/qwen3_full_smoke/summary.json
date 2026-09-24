@@ -1,0 +1,13 @@
+{
+  "model": "qwen3",
+  "backward_finite": true,
+  "loss": 1.4556132555007935,
+  "gradient_norm": 35.864585876464844,
+  "full_stream_probability_error": 0.0024467408657073975,
+  "training_mode": "full",
+  "backbone_gradients_verified": true,
+  "kernels": {
+    "attention": "torch sdpa"
+  },
+  "physical_gpu": "NVIDIA L20"
+}

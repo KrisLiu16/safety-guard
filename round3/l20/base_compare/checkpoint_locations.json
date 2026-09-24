@@ -1,0 +1,7 @@
+{
+  "pvc": "safety-guard-base-compare-data",
+  "checkpoints": [
+    "/work/output/qwen3_full/classifier.safetensors",
+    "/work/output/qwen35_full/classifier.safetensors"
+  ]
+}

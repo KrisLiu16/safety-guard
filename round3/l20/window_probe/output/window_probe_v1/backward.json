@@ -1,0 +1,7 @@
+{
+  "loss": 0.11154009401798248,
+  "gradient_norm": 5.50120735168457,
+  "attention_gradient_l1": 749.4040652786498,
+  "optimizer_steps": 0,
+  "window": 32
+}

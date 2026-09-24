@@ -1,0 +1,23 @@
+{
+  "run_id": "run_01M369P62WKNNRZ8J8A0WF5GQT",
+  "run_no": "aster-dev-261",
+  "run_status": "succeeded",
+  "word_artifacts": 1,
+  "valid_examples": 9,
+  "complete_words": 0,
+  "raw_complete_words": 0,
+  "repaired_examples": 0,
+  "repair_flags": {},
+  "languages": {
+    "zh": 6,
+    "en": 3
+  },
+  "labels": {
+    "safe": 5,
+    "unsafe": 4
+  },
+  "error_types": {
+    "2": 1
+  },
+  "synthetic_labels_are_gold": false
+}

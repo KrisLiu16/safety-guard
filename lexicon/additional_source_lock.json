@@ -1,0 +1,186 @@
+[
+  {
+    "source_id": "houbb/sensitive-word-data",
+    "url": "https://github.com/houbb/sensitive-word-data",
+    "revision": "fe6fc2921836217b8c90619db81b24af8b22d80f",
+    "declared_license": "Apache-2.0",
+    "role": "candidate_lexicon",
+    "local_path": "sources/houbb-sensitive-word-data",
+    "files": {
+      "CHANGE_LOG.md": {
+        "sha256": "9d3ee2a5fb3e1978abbb34175aa4fc3957562d3d4d4e3ce12778b0002cba5add",
+        "bytes": 297
+      },
+      "LICENSE.txt": {
+        "sha256": "68f716036e0a24f3b23f6fc0c6342db0ef936fb397ad077cc1b6e9e9ba31da26",
+        "bytes": 20966
+      },
+      "README.md": {
+        "sha256": "19e39492f69431ad62c03e4696e1a67854d13a1f2bb42e353479b73658893b23",
+        "bytes": 8732
+      },
+      "src/main/resources/sensitive_word_allow.txt": {
+        "sha256": "0703014a854939cae98008baaea8aeb0bc0b3eaecc835863b01968d1ec401682",
+        "bytes": 98
+      },
+      "src/main/resources/sensitive_word_deny.txt": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "src/main/resources/sensitive_word_dict.txt": {
+        "sha256": "78ae99be25f542d0bd1e950a32ca1dec620b2ac91046c9c785f46244d29db85f",
+        "bytes": 1174879
+      },
+      "src/main/resources/sensitive_word_dict_en.txt": {
+        "sha256": "34e73629f053ee248842dd5063c11c8d1dc2b0465ac3a356a0ced69c3c1105ec",
+        "bytes": 74
+      },
+      "src/main/resources/sensitive_word_tags.txt": {
+        "sha256": "37cea2687a1525a436aaa080e918f6c263310bd21b4bce8b05ba5185ee3e5ae8",
+        "bytes": 963924
+      }
+    }
+  },
+  {
+    "source_id": "fwwdn/sensitive-stop-words",
+    "url": "https://github.com/fwwdn/sensitive-stop-words",
+    "revision": "a7d06bb1c321e669943b6841570d9da6dad8ce2b",
+    "declared_license": "Apache-2.0",
+    "role": "duplicate_wordlist_and_control_terms",
+    "local_path": "sources/fwwdn-sensitive-stop-words",
+    "files": {
+      "LICENSE": {
+        "sha256": "552e63d5bb2e8a2fcf52b57caa146429a63215d3590121fb2cac0345a4c1ea7a",
+        "bytes": 11310
+      },
+      "README.md": {
+        "sha256": "6198621f6e07aabea486e42e79fbacaadc9673e750fd70645d97dc294f01f20f",
+        "bytes": 7997
+      },
+      "stopword.dic": {
+        "sha256": "1ff7c67eff79048230370e963898038fa48f7ee77ad2ad11513b8f9835538741",
+        "bytes": 13288
+      },
+      "广告.txt": {
+        "sha256": "5978fb1c0f47e8849215c586682a3447a22990db0dc5ae17c1a5d07302ad4eb1",
+        "bytes": 1327
+      },
+      "政治类.txt": {
+        "sha256": "bb4079468345a5ed1e630c82a43ab947828ae2c263e8702a6432bfe253d70f90",
+        "bytes": 3330
+      },
+      "涉枪涉爆违法信息关键词.txt": {
+        "sha256": "82a319f9d2c03e6033ce51b15e03d0a18396c09d24998212c578d3056bba0dd4",
+        "bytes": 8823
+      },
+      "网址.txt": {
+        "sha256": "d9fca013c8b2bf3d833703303b8fe83a329622729f79d54d46730e59b87f4a9f",
+        "bytes": 233741
+      },
+      "色情类.txt": {
+        "sha256": "2f846d586eb3f0099b1fbb53b0afee0148f09e4394912162b31eb02aee7db1d2",
+        "bytes": 2651
+      }
+    }
+  },
+  {
+    "source_id": "thu-coai/COLDataset",
+    "url": "https://github.com/thu-coai/COLDataset",
+    "revision": "a0c55a945497ab58e94aef491180e1cf88ffb864",
+    "declared_license": "Apache-2.0",
+    "role": "heldout_context_benchmark",
+    "local_path": "corpora/COLDataset",
+    "files": {
+      "COLDataset/dev.csv": {
+        "sha256": "28e67a26815aa1852449ba06919e51c07060d146e2bd23101cc0137a0ff94b7c",
+        "bytes": 1016319
+      },
+      "COLDataset/test.csv": {
+        "sha256": "b06d31481f0d558b6dc8140408938abe8dba8083cd9976b4ba8f5c837fbe78ed",
+        "bytes": 866973
+      },
+      "COLDataset/train.csv": {
+        "sha256": "16ca7955bdcaf90f5d8ac39e51eb3eda15320caa1e730ed45cb5e8ca8cd0d5e8",
+        "bytes": 4131002
+      },
+      "LICENSE": {
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "bytes": 11357
+      },
+      "README.md": {
+        "sha256": "c51c606a7181c81cad56d6083481cc6257b9d3848f6b870b38ebc008ab5017d4",
+        "bytes": 1560
+      }
+    }
+  },
+  {
+    "source_id": "SpaceGather/worldwide-sensitive-word-collection",
+    "url": "https://github.com/SpaceGather/worldwide-sensitive-word-collection",
+    "revision": "8904ae182806adc5f26a47fafae1a752745e6cc1",
+    "declared_license": "MIT",
+    "role": "candidate_low_incremental",
+    "local_path": "sources/spacegather-worldwide-sensitive",
+    "files": {
+      "LICENSE": {
+        "sha256": "6720dd35d78160a26b02ac674e9e76f3fc24fb4cd9e7e31ef2601d727e9885b3",
+        "bytes": 1069
+      },
+      "README.md": {
+        "sha256": "23ebcada8de440ca7364cea9b5346a8b82af49153adde79ec5805c52a2dec39b",
+        "bytes": 2179
+      },
+      "emoticon.csv": {
+        "sha256": "ab90cd8b5032e87e45b0feacc75335fe181250969f59fe2e62aaebe6211d2194",
+        "bytes": 45
+      },
+      "en/pornography.csv": {
+        "sha256": "e16be0fc7323541aa773f4cbdb9b4f2b69c0f4afcb26810db41bad38f12c3755",
+        "bytes": 692
+      },
+      "en/violence.csv": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "en/vulgar.csv": {
+        "sha256": "522d30a5a467a0b7698f76122b6e7f73218ebf7cfc90d1311686ef32bcdc6a60",
+        "bytes": 609
+      },
+      "ja/pornography.csv": {
+        "sha256": "9f479bb868669eb9f30739d4fe127293347ee7b95aaa0535b99a70dd2a7133bd",
+        "bytes": 2943
+      },
+      "ja/violence.csv": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "ja/vulgar.csv": {
+        "sha256": "f6758cdb4796e1cd3e9633d75fed1f0371b828bc33bcd1a27c2fe692299da3f1",
+        "bytes": 7
+      },
+      "zh-CN/pornography.csv": {
+        "sha256": "69ff00548f65452e02bb71332a4a97d018b04854ac00ef56a6dc5062c6254f69",
+        "bytes": 2486
+      },
+      "zh-CN/violence.csv": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "zh-CN/vulgar.csv": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "zh-TW/pornography.csv": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "zh-TW/violence.csv": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "zh-TW/vulgar.csv": {
+        "sha256": "117992cff7cf15c8220efe7a1c6a0859d825012e32b858c8673a3e231ab6086c",
+        "bytes": 125
+      }
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "examples_per_word": 100,
+  "examples_per_request": 10,
+  "application_retries": 0,
+  "pilot_words": 50,
+  "run_repetition_count": 1,
+  "run_concurrency": 50,
+  "run_max_attempts": 1,
+  "profile_status": "prepared_not_submitted",
+  "concurrency_authorized_by_user": "2026-09-22"
+}

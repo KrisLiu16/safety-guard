@@ -1,0 +1,7 @@
+{
+  "pvc": "safety-guard-base-compare-data",
+  "checkpoints": [
+    "/work/output/round5/prefix_v2/classification_rl/best.safetensors",
+    "/work/output/round5/validation/bundle/classifier.safetensors"
+  ]
+}

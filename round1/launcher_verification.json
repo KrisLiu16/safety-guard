@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "recommended_variant": "unmerged",
+  "batch_actions": [
+    "release",
+    "block"
+  ],
+  "stream_actions": [
+    "block",
+    "hold",
+    "hold",
+    "release"
+  ],
+  "optional_merged_actions": [
+    "release",
+    "block"
+  ],
+  "invalid_json": "hold",
+  "empty_messages": "hold",
+  "capacity_and_close": "passed",
+  "soft_deadline": "hold_without_releasing_text"
+}

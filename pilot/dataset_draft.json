@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "schema_version": "aster.response.v1",
+  "data": {
+    "id": "dsv_01M353J6QC0M0Z2BCEXDX57EMK",
+    "dataset_id": "ds_01M353HXW8F10YF3FG8SBE8H1N",
+    "owner_id": "usr_01M275W11DVSD02AS9Q9878T5N",
+    "version_no": 1,
+    "status": "draft",
+    "base_version_id": null,
+    "base_version_no": null,
+    "changes": {
+      "added": 0,
+      "replaced": 0,
+      "unchanged": 0,
+      "removed_task_keys": []
+    },
+    "tree_path": "",
+    "storage_path": null,
+    "tree_sha256": "",
+    "exportable": false,
+    "task_count": 0,
+    "images_ready_count": 0,
+    "created_at": "2026-09-22T17:45:35.213829+00:00",
+    "published_at": null
+  },
+  "meta": {
+    "request_id": "fcad08ff41da681685fd82b92deb0478",
+    "trace_id": "trace_72a859a54e6e445aafd258860db85197",
+    "warnings": []
+  },
+  "_notice": {
+    "update": {
+      "current": "998d2c26d76c",
+      "latest": "6f46d38e8ce5",
+      "command": "aster update"
+    }
+  }
+}

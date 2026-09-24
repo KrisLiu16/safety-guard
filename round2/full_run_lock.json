@@ -1,0 +1,31 @@
+{
+  "run_id": "run_01M36CKFYVVT9S1RERNKK9XMN9",
+  "run_no": "aster-dev-267",
+  "status_at_lock": "running",
+  "config_digest": "6d623f67978ba5d0270a6fee1aa6528864ff64f9cd5ccb7fd069d80526de9ae1",
+  "flow_digest": "487d703d159b6809e7d5934ff87ec3f3b64334fb53738500bcc5da75a360ea00",
+  "model_profile_id": "mdl_01M2W0QMTH0KFNJQFTBYY2QTVG",
+  "model_name": "gpt-5.6-luna",
+  "model_secret_revision": 3,
+  "dataset_version_id": "dsv_01M369QVZ6A0V98RY6YY6DRT4Z",
+  "dataset_tree_sha256": "766fb8e1974ac269c10cc5f37bdfd439e157efee69845efeba99f16a27e1e70e",
+  "concurrency": 40,
+  "max_attempts": 1,
+  "physical_tasks": 1517,
+  "logical_categories": 33,
+  "total_terms": 449575,
+  "source_index_sha256": "6accf83fa822342214c6eea24ba43010ad113e06f88b1f55d8d6490a2d3b5f15",
+  "contract": {
+    "prompt_version": "guard-luna-bilingual-v8",
+    "record_version": "guard-record-v1",
+    "prompt_sha256": "dc6f28ea61820f70199b5130f75ebc9478035810950949c706aed2b550625eee",
+    "pipeline_sha256": "2adb71ff4f24785c42e319785bee709d9cf86dfe9e036becae217743cb3d6ba4",
+    "flow_sha256": "bf9895ac66eda844b01a2859abf80bab30197098bbebce35fa5e126aab7322d4",
+    "sha256": {
+      "model_output_schema": "ed01fbcb26046fba6bc5eacfe4cf1165f35dcf1ee4e47228852a440bd55ce603",
+      "training_record_schema": "b2d8c254d5ae906188194b4e268176dde60d30016b4b74c9016e64a8dd96fe2d",
+      "example_item": "fda20b245839132b440ca55824603f7eec8d7266ca70371f409da2af8c1e2f76"
+    },
+    "frozen": true
+  }
+}

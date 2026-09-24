@@ -1,0 +1,39 @@
+{
+  "forward_max_abs_error": 0.005392193794250488,
+  "feature_map_backward_finite": true,
+  "model_stream_cases": [
+    {
+      "schedule": [
+        257,
+        1,
+        7,
+        127,
+        31
+      ],
+      "probability_error": 0.000142708420753479,
+      "state_bytes": 26062848,
+      "memory_bytes": 3158016,
+      "nonzero_gate": 0.3
+    },
+    {
+      "schedule": [
+        128,
+        128,
+        128,
+        128,
+        128
+      ],
+      "probability_error": 0.00018262118101119995,
+      "state_bytes": 26062848,
+      "memory_bytes": 3158016,
+      "nonzero_gate": 0.3
+    }
+  ],
+  "total_parameters": 753554823,
+  "added_parameters": 98352,
+  "future_suffix_earlier_hidden_error": 0.0,
+  "composed_backward_finite": true,
+  "memory_gradient_sum": 6.09599769487977,
+  "physical_gpu": "NVIDIA L20",
+  "has_lm_head": false
+}

@@ -1,0 +1,494 @@
+{
+  "status": "completed",
+  "pass": true,
+  "phase": "finished",
+  "generated_tokens": 0,
+  "started_at": "2026-09-23T17:51:23.671348+00:00",
+  "reference_path": "/work/output/round4_validation/bundle_audit.reference.json",
+  "reference_sha256": "d7464e7d731c3b310f6b975c743aba0abe2919d4a1682c2b9500963f775639dc",
+  "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "candidate": "classification_rl",
+  "variant": "full",
+  "gpu_bytes_allocated_after_old_model_release": 8519680,
+  "child_returncode": 0,
+  "child_log": "/work/output/round4_validation/bundle_audit.child.log",
+  "portable_child": {
+    "status": "completed",
+    "pass": true,
+    "phase": "finished",
+    "generated_tokens": 0,
+    "dependency_audit": {
+      "forbidden_roots": [
+        "/work/models",
+        "/work/input",
+        "/work/window",
+        "/work/output/qwen35_full"
+      ],
+      "denied_probes": [
+        {
+          "event": "open",
+          "path": "/work/models/.bundle_audit_probe"
+        },
+        {
+          "event": "open",
+          "path": "/work/input/.bundle_audit_probe"
+        },
+        {
+          "event": "open",
+          "path": "/work/window/.bundle_audit_probe"
+        },
+        {
+          "event": "open",
+          "path": "/work/output/qwen35_full/.bundle_audit_probe"
+        }
+      ],
+      "unexpected_denials": [],
+      "file_access_events_checked": 15081,
+      "network_connections_blocked": 0,
+      "scope": "Python audit events; not an OS sandbox for arbitrary native-code syscalls"
+    },
+    "structure": {
+      "total_parameters": 753456471,
+      "parameter_tensors": 336,
+      "parameter_dtype_summary": {
+        "backbone/torch.bfloat16": {
+          "tensors": 320,
+          "elements": 752393024
+        },
+        "heads/torch.float32": {
+          "tensors": 16,
+          "elements": 1063447
+        }
+      },
+      "parameter_names_shapes_dtypes_sha256": "eaafbbdc57ec10f7b79599c9c643d080921ea7c1fc21135ca6c7b0c93c67da0a",
+      "rope_buffers": {
+        "backbone.rotary_emb.inv_freq": {
+          "dtype": "torch.float32",
+          "shape": [
+            32
+          ],
+          "sha256": "ec4437c15ead01576c3e6c7412c11daba363d17cee8bfce5c5d1c54e2e09d2d0"
+        },
+        "backbone.rotary_emb.original_inv_freq": {
+          "dtype": "torch.float32",
+          "shape": [
+            32
+          ],
+          "sha256": "ec4437c15ead01576c3e6c7412c11daba363d17cee8bfce5c5d1c54e2e09d2d0"
+        }
+      },
+      "backbone_layers": 24,
+      "layer_types": [
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention",
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention",
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention",
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention",
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention",
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention"
+      ],
+      "has_lm_head": false
+    },
+    "loader_cases": [
+      {
+        "name": "zh_user",
+        "native_tokens": 19,
+        "risk_probabilities_by_role": {
+          "user": {
+            "safe": 0.9996848106384277,
+            "unsafe": 0.00024752202443778515,
+            "controversial": 6.773925997549668e-05
+          },
+          "assistant": {
+            "safe": 0.9614246487617493,
+            "unsafe": 0.03256097808480263,
+            "controversial": 0.006014278624206781
+          }
+        },
+        "max_probability_error": 0.00011295080184936523
+      },
+      {
+        "name": "en_user",
+        "native_tokens": 16,
+        "risk_probabilities_by_role": {
+          "user": {
+            "safe": 0.0008514271466992795,
+            "unsafe": 0.9990422129631042,
+            "controversial": 0.00010631523036863655
+          },
+          "assistant": {
+            "safe": 0.008229874074459076,
+            "unsafe": 0.9913670420646667,
+            "controversial": 0.00040306351729668677
+          }
+        },
+        "max_probability_error": 6.545335054397583e-06
+      },
+      {
+        "name": "zh_assistant",
+        "native_tokens": 33,
+        "risk_probabilities_by_role": {
+          "user": {
+            "safe": 0.8831707239151001,
+            "unsafe": 0.09025471657514572,
+            "controversial": 0.026574619114398956
+          },
+          "assistant": {
+            "safe": 0.9993560910224915,
+            "unsafe": 0.0004509993304964155,
+            "controversial": 0.0001928432029671967
+          }
+        },
+        "max_probability_error": 0.00015628710389137268
+      },
+      {
+        "name": "en_assistant",
+        "native_tokens": 40,
+        "risk_probabilities_by_role": {
+          "user": {
+            "safe": 0.9722421169281006,
+            "unsafe": 0.027562040835618973,
+            "controversial": 0.0001958489592652768
+          },
+          "assistant": {
+            "safe": 0.9688748717308044,
+            "unsafe": 0.030981890857219696,
+            "controversial": 0.00014323083451017737
+          }
+        },
+        "max_probability_error": 0.00012099742889404297
+      },
+      {
+        "name": "long_zh_user",
+        "native_tokens": 1108,
+        "risk_probabilities_by_role": {
+          "user": {
+            "safe": 0.9511317014694214,
+            "unsafe": 0.0485035702586174,
+            "controversial": 0.00036471642670221627
+          },
+          "assistant": {
+            "safe": 0.978752613067627,
+            "unsafe": 0.02107539027929306,
+            "controversial": 0.00017201429000124335
+          }
+        },
+        "max_probability_error": 7.778406143188477e-05
+      },
+      {
+        "name": "long_en_assistant",
+        "native_tokens": 1111,
+        "risk_probabilities_by_role": {
+          "user": {
+            "safe": 0.9477972984313965,
+            "unsafe": 0.05195110663771629,
+            "controversial": 0.00025160814402624965
+          },
+          "assistant": {
+            "safe": 0.9440716505050659,
+            "unsafe": 0.05576829984784126,
+            "controversial": 0.00016001211770344526
+          }
+        },
+        "max_probability_error": 0.0003705024719238281
+      }
+    ],
+    "jsonl": {
+      "pass": true,
+      "whole_cases": [
+        {
+          "case": "zh_user",
+          "whole_vs_old_probability_error": 1.6480335034430027e-06,
+          "native_tokens": 19,
+          "threshold": {
+            "kind": "selected_checkpoint_calibration",
+            "value": 0.9069603681564332,
+            "stratum": "zh/user"
+          }
+        },
+        {
+          "case": "en_user",
+          "whole_vs_old_probability_error": 2.1633459255099297e-06,
+          "native_tokens": 16,
+          "threshold": {
+            "kind": "stratum_not_calibrated",
+            "value": null,
+            "stratum": "en/user"
+          }
+        },
+        {
+          "case": "zh_assistant",
+          "whole_vs_old_probability_error": 3.337860107421875e-06,
+          "native_tokens": 33,
+          "threshold": {
+            "kind": "selected_checkpoint_calibration",
+            "value": 0.9570242166519166,
+            "stratum": "zh/assistant"
+          }
+        },
+        {
+          "case": "en_assistant",
+          "whole_vs_old_probability_error": 0.0001024007797241211,
+          "native_tokens": 40,
+          "threshold": {
+            "kind": "selected_checkpoint_calibration",
+            "value": 0.9539467692375184,
+            "stratum": "en/assistant"
+          }
+        },
+        {
+          "case": "long_zh_user",
+          "whole_vs_old_probability_error": 7.778406143188477e-05,
+          "native_tokens": 1108,
+          "threshold": {
+            "kind": "selected_checkpoint_calibration",
+            "value": 0.9069603681564332,
+            "stratum": "zh/user"
+          }
+        },
+        {
+          "case": "long_en_assistant",
+          "whole_vs_old_probability_error": 0.0003705024719238281,
+          "native_tokens": 1111,
+          "threshold": {
+            "kind": "selected_checkpoint_calibration",
+            "value": 0.9539467692375184,
+            "stratum": "en/assistant"
+          }
+        }
+      ],
+      "stream_cases": [
+        {
+          "case": "bpe_before",
+          "whole_stream_probability_error": 6.556510925292969e-06,
+          "target_role": "user",
+          "native_tokens": 192,
+          "previous_native_tokens": 0,
+          "net_new_tokens": 192,
+          "forward_tokens": 192,
+          "replay_tokens": 0,
+          "rollback": false,
+          "restore_position": 0,
+          "threshold": {
+            "kind": "stratum_not_calibrated",
+            "value": null,
+            "stratum": "en/user"
+          },
+          "target_binary_decision": null,
+          "generated_tokens": 0
+        },
+        {
+          "case": "bpe_contraction",
+          "whole_stream_probability_error": 0.00019042566418647766,
+          "target_role": "user",
+          "native_tokens": 191,
+          "previous_native_tokens": 192,
+          "net_new_tokens": -1,
+          "forward_tokens": 191,
+          "replay_tokens": 191,
+          "rollback": true,
+          "restore_position": 0,
+          "threshold": {
+            "kind": "stratum_not_calibrated",
+            "value": null,
+            "stratum": "en/user"
+          },
+          "target_binary_decision": null,
+          "generated_tokens": 0
+        },
+        {
+          "case": "bpe_growth",
+          "whole_stream_probability_error": 1.711025834083557e-05,
+          "target_role": "user",
+          "native_tokens": 192,
+          "previous_native_tokens": 191,
+          "net_new_tokens": 1,
+          "forward_tokens": 1,
+          "replay_tokens": 0,
+          "rollback": false,
+          "restore_position": 191,
+          "threshold": {
+            "kind": "stratum_not_calibrated",
+            "value": null,
+            "stratum": "en/user"
+          },
+          "target_binary_decision": null,
+          "generated_tokens": 0
+        },
+        {
+          "case": "switch_to_assistant",
+          "whole_stream_probability_error": 2.531427890062332e-05,
+          "target_role": "assistant",
+          "native_tokens": 216,
+          "previous_native_tokens": 192,
+          "net_new_tokens": 24,
+          "forward_tokens": 24,
+          "replay_tokens": 0,
+          "rollback": false,
+          "restore_position": 192,
+          "threshold": {
+            "kind": "whole_input_calibration_applied_to_prefix_unvalidated",
+            "value": 0.9570242166519166,
+            "stratum": "zh/assistant"
+          },
+          "target_binary_decision": "safe",
+          "generated_tokens": 0
+        },
+        {
+          "case": "switch_back_to_user",
+          "whole_stream_probability_error": 4.458427429199219e-05,
+          "target_role": "user",
+          "native_tokens": 228,
+          "previous_native_tokens": 216,
+          "net_new_tokens": 12,
+          "forward_tokens": 12,
+          "replay_tokens": 0,
+          "rollback": false,
+          "restore_position": 216,
+          "threshold": {
+            "kind": "whole_input_calibration_applied_to_prefix_unvalidated",
+            "value": 0.9069603681564332,
+            "stratum": "zh/user"
+          },
+          "target_binary_decision": "safe",
+          "generated_tokens": 0
+        },
+        {
+          "case": "empty_append",
+          "whole_stream_probability_error": 4.458427429199219e-05,
+          "target_role": "user",
+          "native_tokens": 228,
+          "previous_native_tokens": 228,
+          "net_new_tokens": 0,
+          "forward_tokens": 0,
+          "replay_tokens": 0,
+          "rollback": false,
+          "restore_position": 228,
+          "threshold": {
+            "kind": "whole_input_calibration_applied_to_prefix_unvalidated",
+            "value": 0.9069603681564332,
+            "stratum": "zh/user"
+          },
+          "target_binary_decision": "safe",
+          "generated_tokens": 0
+        },
+        {
+          "case": "long_text_prefill",
+          "whole_stream_probability_error": 1.7285346984863281e-06,
+          "target_role": "user",
+          "native_tokens": 1108,
+          "previous_native_tokens": 0,
+          "net_new_tokens": 1108,
+          "forward_tokens": 1108,
+          "replay_tokens": 0,
+          "rollback": false,
+          "restore_position": 0,
+          "threshold": {
+            "kind": "whole_input_calibration_applied_to_prefix_unvalidated",
+            "value": 0.9069603681564332,
+            "stratum": "zh/user"
+          },
+          "target_binary_decision": "safe",
+          "generated_tokens": 0
+        },
+        {
+          "case": "long_suffix_before",
+          "whole_stream_probability_error": 0.00016780570149421692,
+          "target_role": "user",
+          "native_tokens": 1112,
+          "previous_native_tokens": 1108,
+          "net_new_tokens": 4,
+          "forward_tokens": 4,
+          "replay_tokens": 0,
+          "rollback": false,
+          "restore_position": 1108,
+          "threshold": {
+            "kind": "whole_input_calibration_applied_to_prefix_unvalidated",
+            "value": 0.9069603681564332,
+            "stratum": "zh/user"
+          },
+          "target_binary_decision": "safe",
+          "generated_tokens": 0
+        },
+        {
+          "case": "long_suffix_after",
+          "whole_stream_probability_error": 3.045797348022461e-05,
+          "target_role": "user",
+          "native_tokens": 1112,
+          "previous_native_tokens": 1112,
+          "net_new_tokens": 0,
+          "forward_tokens": 24,
+          "replay_tokens": 24,
+          "rollback": true,
+          "restore_position": 1088,
+          "threshold": {
+            "kind": "whole_input_calibration_applied_to_prefix_unvalidated",
+            "value": 0.9069603681564332,
+            "stratum": "zh/user"
+          },
+          "target_binary_decision": "safe",
+          "generated_tokens": 0
+        }
+      ],
+      "real_bpe_rollbacks": 2,
+      "max_stream_probability_error": 0.00019042566418647766,
+      "stream_probability_tolerance": 0.03,
+      "english_user_threshold_absent": true,
+      "english_user_missing_threshold_not_fabricated": true,
+      "cross_role_pass": true,
+      "session_release_pass": true,
+      "generated_tokens": 0
+    },
+    "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+    "candidate": "classification_rl",
+    "variant": "full",
+    "device": "NVIDIA L20",
+    "dependency_versions": {
+      "torch": "2.7.1+cu128",
+      "transformers": "5.17.0",
+      "flash-linear-attention": "0.5.2",
+      "fla-core": "0.5.2",
+      "safetensors": "0.8.0",
+      "tokenizers": "0.23.2",
+      "triton": "3.3.1",
+      "huggingface-hub": "1.32.0"
+    },
+    "runtime_module_sources": {
+      "standalone_model": "/work/output/round4_validation/bundle/standalone_model.py",
+      "run_guard": "/work/output/round4_validation/bundle/run_guard.py",
+      "text_stream_runtime": "/work/output/round4_validation/bundle/text_stream_runtime.py"
+    },
+    "max_old_loader_probability_error": 0.0003705024719238281,
+    "whole_probability_tolerance": 0.005,
+    "tolerance_rationale": "0.005 maximum absolute probability error for identical BF16 whole-input weights; 0.03 for cached versus whole numerical paths; no metric/label relaxation",
+    "parameter_structure_exact_match": true,
+    "rope_buffer_dtype_and_sha_exact_match": true,
+    "isolated_python_process": true,
+    "hf_offline": true
+  },
+  "finished_at": "2026-09-23T17:52:00.169870+00:00",
+  "whole_probability_tolerance": 0.005,
+  "stream_probability_tolerance": 0.03,
+  "old_base_weights_unneeded_by_bundle": true,
+  "initial_h24_checkpoint_unneeded_by_bundle": true,
+  "production_approval": false,
+  "third_risk_class_validated": false,
+  "category_validated": false
+}

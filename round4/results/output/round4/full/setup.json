@@ -1,0 +1,13 @@
+{
+  "variant": "full",
+  "parameters": 753456471,
+  "total_steps": 4164,
+  "epochs": 2,
+  "effective_batch": 16,
+  "microbatch": 4,
+  "loss": "weighted risk cross entropy only",
+  "teacher_alignment": false,
+  "category_supervision": false,
+  "window_curriculum": null,
+  "selection_window": null
+}

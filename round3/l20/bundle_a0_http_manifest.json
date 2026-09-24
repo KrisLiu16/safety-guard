@@ -1,0 +1,10 @@
+{
+  "bundle_sha256": "82a3bcec4a9c8c5f2bac6a2d66e1b58c6c7e065b90cccf19dedbe5e41c3c532d",
+  "bundle_bytes": 1210880000,
+  "a0_model_sha256": "e0a2eac6cc79cca5bf35bf8fb356f94c333dd9715f4f0dd58883b01f2fe33419",
+  "runtime_sha256": "1b0f109d5a3422e8128ac375933b5c584e058f0875ccf9d4d0cd140c3d0d078c",
+  "service_sha256": "83cd5bbcbe41ec3ca9506e431c81ed25cf42cdf7f58328bbfc66df322be9823c",
+  "smoke_sha256": "7a5efa3c083b72f097b07e8f9c01991b98d85e50645847727b0926e76e92cc30",
+  "metric": "client-visible input tokens/s; no generation TPS",
+  "not_policy_safety_aligned": true
+}

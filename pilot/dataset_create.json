@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "schema_version": "aster.response.v1",
+  "data": {
+    "id": "ds_01M353HXW8F10YF3FG8SBE8H1N",
+    "name": "guard-lexicon-luna-pilot-20260922",
+    "description": "50 fixed keyword tasks; Luna generates paired safety examples as schema-validated synthetic candidates. 10 examples/word, 1 repetition, concurrency 5, max attempts 1.",
+    "owner_id": "usr_01M275W11DVSD02AS9Q9878T5N",
+    "owner_display_name": "刘志豪",
+    "version_count": 0,
+    "latest_version_no": null,
+    "latest_published_version_id": null,
+    "latest_published_version_no": null,
+    "published_task_count": 0,
+    "created_at": "2026-09-22T17:45:26.154138+00:00"
+  },
+  "meta": {
+    "request_id": "415674aa06f5924cc620788c4ab9c127",
+    "trace_id": "trace_d0542254f5bb487b8a57b4c51068d420",
+    "warnings": []
+  },
+  "_notice": {
+    "update": {
+      "current": "998d2c26d76c",
+      "latest": "6f46d38e8ce5",
+      "command": "aster update"
+    }
+  }
+}

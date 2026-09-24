@@ -1,0 +1,19 @@
+{
+  "remote_script": "/work/round4/postrun_validate_v2.py",
+  "sha256": "f4dc2701cc0ea821579c6e3a853fdda2a32a158cac95cdfac7222052895bc678",
+  "device": "L20",
+  "after": "frozen training pipeline and reference evaluation complete",
+  "before": "artifact collection acknowledgement and GPU release",
+  "training_files_changed": false,
+  "prefix_lengths": [
+    513,
+    1025,
+    4097,
+    8192
+  ],
+  "status": "uploaded_verified_and_running_collector",
+  "failure_blocks_promotion": true,
+  "collector_session": 13458,
+  "validation_manifest_sha256": "bc716e2ef0a287b3aee2cf7369ad4acf133da67d5636665db313151fa486fd57",
+  "includes_inference_cli_smoke": true
+}

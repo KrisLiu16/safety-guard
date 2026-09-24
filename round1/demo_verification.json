@@ -1,0 +1,288 @@
+{
+  "status": "passed",
+  "cli_batch_cases": 2,
+  "cli_stream_updates": 4,
+  "controller_contract": "unsafe interior of chunk blocks even when final token is safe",
+  "all_token_cache_cases": [
+    {
+      "sample_id": "word-f6beef430efa-0082",
+      "chunk": 1,
+      "probability_max_error": 0.012489557266235352,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 34
+    },
+    {
+      "sample_id": "word-f6beef430efa-0082",
+      "chunk": 8,
+      "probability_max_error": 0.012489557266235352,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 34
+    },
+    {
+      "sample_id": "word-f6beef430efa-0082",
+      "chunk": 16,
+      "probability_max_error": 0.016790807247161865,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 34
+    },
+    {
+      "sample_id": "word-f6beef430efa-0082",
+      "chunk": 32,
+      "probability_max_error": 0.016790807247161865,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 34
+    },
+    {
+      "sample_id": "word-f6beef430efa-0030",
+      "chunk": 1,
+      "probability_max_error": 0.011610329151153564,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 35
+    },
+    {
+      "sample_id": "word-f6beef430efa-0030",
+      "chunk": 8,
+      "probability_max_error": 0.011610329151153564,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 35
+    },
+    {
+      "sample_id": "word-f6beef430efa-0030",
+      "chunk": 16,
+      "probability_max_error": 0.00987553596496582,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 35
+    },
+    {
+      "sample_id": "word-f6beef430efa-0030",
+      "chunk": 32,
+      "probability_max_error": 0.011320531368255615,
+      "decision_matches_full": true,
+      "block": false,
+      "processed_tokens": 35
+    },
+    {
+      "sample_id": "word-f6beef430efa-0073",
+      "chunk": 1,
+      "probability_max_error": 0.004366368055343628,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 23
+    },
+    {
+      "sample_id": "word-f6beef430efa-0073",
+      "chunk": 8,
+      "probability_max_error": 0.004366368055343628,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 23
+    },
+    {
+      "sample_id": "word-f6beef430efa-0073",
+      "chunk": 16,
+      "probability_max_error": 0.006551265716552734,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 23
+    },
+    {
+      "sample_id": "word-f6beef430efa-0073",
+      "chunk": 32,
+      "probability_max_error": 0.006551265716552734,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 23
+    },
+    {
+      "sample_id": "word-e540426218df-0097",
+      "chunk": 1,
+      "probability_max_error": 0.0076805949211120605,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 24
+    },
+    {
+      "sample_id": "word-e540426218df-0097",
+      "chunk": 8,
+      "probability_max_error": 0.0076805949211120605,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 24
+    },
+    {
+      "sample_id": "word-e540426218df-0097",
+      "chunk": 16,
+      "probability_max_error": 0.011426389217376709,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 24
+    },
+    {
+      "sample_id": "word-e540426218df-0097",
+      "chunk": 32,
+      "probability_max_error": 0.011426389217376709,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 24
+    },
+    {
+      "sample_id": "word-f6beef430efa-0088",
+      "chunk": 1,
+      "probability_max_error": 0.00430452823638916,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 54
+    },
+    {
+      "sample_id": "word-f6beef430efa-0088",
+      "chunk": 8,
+      "probability_max_error": 0.004522919654846191,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 54
+    },
+    {
+      "sample_id": "word-f6beef430efa-0088",
+      "chunk": 16,
+      "probability_max_error": 0.004894435405731201,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 54
+    },
+    {
+      "sample_id": "word-f6beef430efa-0088",
+      "chunk": 32,
+      "probability_max_error": 0.006280004978179932,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 54
+    },
+    {
+      "sample_id": "word-f6beef430efa-0028",
+      "chunk": 1,
+      "probability_max_error": 0.003889322280883789,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 53
+    },
+    {
+      "sample_id": "word-f6beef430efa-0028",
+      "chunk": 8,
+      "probability_max_error": 0.003889322280883789,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 53
+    },
+    {
+      "sample_id": "word-f6beef430efa-0028",
+      "chunk": 16,
+      "probability_max_error": 0.0009615272283554077,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 53
+    },
+    {
+      "sample_id": "word-f6beef430efa-0028",
+      "chunk": 32,
+      "probability_max_error": 0.0009615272283554077,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 53
+    },
+    {
+      "sample_id": "word-38b6f6a7e6cb-0055",
+      "chunk": 1,
+      "probability_max_error": 0.016861140727996826,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 36
+    },
+    {
+      "sample_id": "word-38b6f6a7e6cb-0055",
+      "chunk": 8,
+      "probability_max_error": 0.02702668309211731,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 36
+    },
+    {
+      "sample_id": "word-38b6f6a7e6cb-0055",
+      "chunk": 16,
+      "probability_max_error": 0.010347425937652588,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 36
+    },
+    {
+      "sample_id": "word-38b6f6a7e6cb-0055",
+      "chunk": 32,
+      "probability_max_error": 0.010347425937652588,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 36
+    },
+    {
+      "sample_id": "word-e540426218df-0075",
+      "chunk": 1,
+      "probability_max_error": 0.005042672157287598,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 43
+    },
+    {
+      "sample_id": "word-e540426218df-0075",
+      "chunk": 8,
+      "probability_max_error": 0.005042672157287598,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 43
+    },
+    {
+      "sample_id": "word-e540426218df-0075",
+      "chunk": 16,
+      "probability_max_error": 0.0040853023529052734,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 43
+    },
+    {
+      "sample_id": "word-e540426218df-0075",
+      "chunk": 32,
+      "probability_max_error": 0.0040853023529052734,
+      "decision_matches_full": true,
+      "block": true,
+      "processed_tokens": 43
+    }
+  ],
+  "bucketed_batch_max_probability_error": 0.002124011516571045,
+  "production_all_token_chunk_latency": {
+    "1": {
+      "n": 201,
+      "p50_ms": 14.164666001306614,
+      "p95_ms": 14.96354099799646
+    },
+    "8": {
+      "n": 27,
+      "p50_ms": 18.55187500041211,
+      "p95_ms": 263.70397499995306
+    },
+    "16": {
+      "n": 15,
+      "p50_ms": 21.703250000427943,
+      "p95_ms": 141.13506250141631
+    },
+    "32": {
+      "n": 8,
+      "p50_ms": 23.496396001064568,
+      "p95_ms": 24.315581249902603
+    }
+  },
+  "timing_note": "Exported model, every new token head evaluated, GPU synchronized; development-case lengths, no arrival waiting included."
+}

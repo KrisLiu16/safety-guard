@@ -1,0 +1,20 @@
+{
+  "base_parameters": 596049920,
+  "trainable_parameters": 597113367,
+  "adapted_linear_modules": 0,
+  "kernels": {
+    "attention": "torch sdpa"
+  },
+  "max_training_tokens": 789,
+  "data_counts": {
+    "train": 5120,
+    "dev": 512,
+    "test": 1112,
+    "official_test": 250
+  },
+  "has_lm_head": false,
+  "training_mode": "full",
+  "head_warmup_steps": 64,
+  "architecture_change": "direct classification heads only; original token-mixing layers retained",
+  "training_status": "source_label_and_teacher_probe_not_project_aligned"
+}

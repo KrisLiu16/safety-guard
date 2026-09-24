@@ -1,0 +1,22 @@
+{
+  "run_id": "run_01M368MCTVJ6KV2PRSED6HEZES",
+  "run_no": "aster-dev-259",
+  "run_status": "canceled",
+  "word_artifacts": 21,
+  "valid_examples": 149,
+  "complete_words": 14,
+  "languages": {
+    "zh": 105,
+    "en": 44
+  },
+  "labels": {
+    "safe": 89,
+    "unsafe": 60
+  },
+  "error_types": {
+    "extract_parse": 6,
+    "stop_reason": 4,
+    "7": 2
+  },
+  "synthetic_labels_are_gold": false
+}

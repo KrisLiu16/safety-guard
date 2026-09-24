@@ -1,0 +1,71 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-prefix-round5-20260924-r1
+  namespace: default
+  labels:
+    app: safety-guard-prefix-round5
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 28800
+  template:
+    metadata:
+      labels:
+        app: safety-guard-prefix-round5
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: validation
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              mkdir -p /work/round5 /work/output/round5
+              nvidia-smi --query-gpu=name,uuid,memory.total --format=csv,noheader
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              for i in $(seq 1 1800); do
+                if test -f /work/round5/training_ready; then exec bash /work/round5/start_training_v1.sh; fi
+                sleep 1
+              done
+              echo 'Training inputs were not ready' >&2
+              exit 1
+          env:
+            - name: HF_HOME
+              value: /work/hf
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: OMP_NUM_THREADS
+              value: "4"
+            - name: TORCHINDUCTOR_COMPILE_THREADS
+              value: "4"
+            - name: TRITON_CACHE_DIR
+              value: /work/triton-cache
+          resources:
+            requests:
+              cpu: "4"
+              memory: 16Gi
+              nvidia.com/gpu: "8"
+            limits:
+              cpu: "8"
+              memory: 40Gi
+              nvidia.com/gpu: "8"
+          volumeMounts:
+            - name: work
+              mountPath: /work
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+        - name: work
+          persistentVolumeClaim:
+            claimName: safety-guard-base-compare-data
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 4Gi

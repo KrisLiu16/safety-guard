@@ -1,0 +1,19 @@
+{
+  "teacher": "Qwen3Guard-Stream-0.6B",
+  "has_lm_head": false,
+  "same_visible_prefix_targets": true,
+  "counts": {
+    "train": 5120,
+    "dev": 512,
+    "test": 1112,
+    "official_test": 250
+  },
+  "hashes": {
+    "train": "ef90d736c0cdaa33ad1558ef40394f7508bfa99be399ab4146676b45e4f82fee",
+    "dev": "c431d812bcfbdaa1229e42aaa7452c1f28f2faf9d817cc01e2de5dd4d4cac161",
+    "test": "0d858f1cb5123f9ab044666cddc3b95f3eb8a21380316c58fc92a9dec8e1082c",
+    "official_test": "6cbe0c72390f16b69e87a15de4f6c915ca47570596ad1f757cab677cec81aa39"
+  },
+  "categories": "source Qwen single-choice head, not project harm ontology",
+  "official_scope": "same frozen 250 examples, complete-input readout; not published debounced streaming protocol"
+}

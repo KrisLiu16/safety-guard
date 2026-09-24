@@ -1,0 +1,155 @@
+{
+  "whole": {
+    "strata": {
+      "en/assistant": {
+        "n": 130,
+        "safe": 65,
+        "unsafe": 65,
+        "tp": 37,
+        "fp": 3,
+        "fn": 28,
+        "tn": 62,
+        "recall": 0.5692307692307692,
+        "fpr": 0.046153846153846156,
+        "threshold": 0.9503546953201294,
+        "comparison": ">",
+        "f1": 0.7047619047619048
+      },
+      "zh/assistant": {
+        "n": 130,
+        "safe": 65,
+        "unsafe": 65,
+        "tp": 51,
+        "fp": 4,
+        "fn": 14,
+        "tn": 61,
+        "recall": 0.7846153846153846,
+        "fpr": 0.06153846153846154,
+        "threshold": 0.9756902456283569,
+        "comparison": ">",
+        "f1": 0.85
+      },
+      "zh/user": {
+        "n": 130,
+        "safe": 65,
+        "unsafe": 65,
+        "tp": 53,
+        "fp": 6,
+        "fn": 12,
+        "tn": 59,
+        "recall": 0.8153846153846154,
+        "fpr": 0.09230769230769231,
+        "threshold": 0.990611732006073,
+        "comparison": ">",
+        "f1": 0.8548387096774194
+      }
+    },
+    "macro_recall": 0.7230769230769232,
+    "macro_fpr": 0.06666666666666667,
+    "macro_f1": 0.803200204813108
+  },
+  "stream": {
+    "strata": {
+      "en/assistant": {
+        "n": 130,
+        "safe": 65,
+        "unsafe": 65,
+        "tp": 29,
+        "fp": 5,
+        "fn": 36,
+        "tn": 60,
+        "recall": 0.4461538461538462,
+        "fpr": 0.07692307692307693,
+        "threshold": 0.9955399632453918,
+        "comparison": ">",
+        "f1": 0.5858585858585859
+      },
+      "zh/assistant": {
+        "n": 130,
+        "safe": 65,
+        "unsafe": 65,
+        "tp": 51,
+        "fp": 9,
+        "fn": 14,
+        "tn": 56,
+        "recall": 0.7846153846153846,
+        "fpr": 0.13846153846153847,
+        "threshold": 0.9931943416595459,
+        "comparison": ">",
+        "f1": 0.816
+      },
+      "zh/user": {
+        "n": 130,
+        "safe": 65,
+        "unsafe": 65,
+        "tp": 52,
+        "fp": 5,
+        "fn": 13,
+        "tn": 60,
+        "recall": 0.8,
+        "fpr": 0.07692307692307693,
+        "threshold": 0.9961501359939575,
+        "comparison": ">",
+        "f1": 0.8524590163934426
+      }
+    },
+    "macro_recall": 0.6769230769230768,
+    "macro_fpr": 0.09743589743589744,
+    "macro_f1": 0.7514392007506762
+  },
+  "n": 390,
+  "unique_families": 390,
+  "thresholds": {
+    "whole": {
+      "en/assistant": 0.9503546953201294,
+      "zh/assistant": 0.9756902456283569,
+      "zh/user": 0.990611732006073
+    },
+    "stream": {
+      "en/assistant": 0.9955399632453918,
+      "zh/assistant": 0.9931943416595459,
+      "zh/user": 0.9961501359939575
+    }
+  },
+  "comparison": ">",
+  "thresholds_fitted_on_fresh": false,
+  "selection_uses_fresh": false,
+  "metric_scope": "One source record per event; max over its native target and frozen text-cut scores. No arbitrary BPE-arrival FPR guarantee or natural earliest-onset annotation.",
+  "generated_tokens": 0,
+  "status": "completed",
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "calibration_receipt": {
+    "evaluation_directory": "/work/output/round5/prefix_v2/sft/evaluation_0",
+    "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+    "metrics_sha256": "d9d0513e481ea76d84784e1df78ea1e2bb8ffb77abfc5d9220ac0d0ef13b8738",
+    "calibration_predictions_sha256": "1f2860f9a6141872e97da123d67f533bb845ba3c3f843b5a4520e1b13a041175",
+    "development_predictions_sha256": "bdbd01509c59d4a6f46ba43d834bdcdeeb331c3d39e75fe2bd37da087f54ddc6",
+    "calibration_records": 900,
+    "development_records": 1200,
+    "calibration_unique_families": 782,
+    "development_unique_families": 1002,
+    "thresholds": {
+      "whole": {
+        "en/assistant": 0.9503546953201294,
+        "zh/assistant": 0.9756902456283569,
+        "zh/user": 0.990611732006073
+      },
+      "stream": {
+        "en/assistant": 0.9955399632453918,
+        "zh/assistant": 0.9931943416595459,
+        "zh/user": 0.9961501359939575
+      }
+    },
+    "comparison": ">",
+    "metrics_independently_recomputed": true,
+    "thresholds_refitted_on_fresh": false
+  },
+  "predictions_sha256": "2f213a1ec27199db92234bb848f98d877be5c21e4e3de89b1baf9a3645a6fb50",
+  "coverage": {
+    "requested": 390,
+    "evaluated": 390,
+    "excluded": {},
+    "unique_families": 390
+  },
+  "observations_reused_from": "initial_window"
+}

@@ -1,0 +1,9 @@
+{
+  "examples_per_word": 10,
+  "examples_per_request": 10,
+  "application_retries": 0,
+  "pilot_words": 50,
+  "run_repetition_count": 1,
+  "run_concurrency": 5,
+  "run_max_attempts": 1
+}

@@ -1,0 +1,37 @@
+{
+  "status": "research_candidate",
+  "candidate": "classification_rl",
+  "variant": "full",
+  "checkpoint": "/work/output/round4/classification_rl/best.safetensors",
+  "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "pvc": "safety-guard-base-compare-data",
+  "base_root": "/work",
+  "window": null,
+  "exported_development_score": 0.6283333333333333,
+  "selection_rule": "Recorded RL base architecture; higher exported development score between its SFT and RL checkpoints that pass the completed 8K audit; SFT on ties",
+  "selection_read_sealed_test": false,
+  "thresholds": {
+    "en/assistant": 0.9539467692375184,
+    "zh/assistant": 0.9570242166519166,
+    "zh/user": 0.9069603681564332
+  },
+  "calibrated_strata": [
+    "en/assistant",
+    "zh/assistant",
+    "zh/user"
+  ],
+  "risk_class_order": [
+    "safe",
+    "unsafe",
+    "controversial"
+  ],
+  "hard_supervised_classes_this_round": [
+    "safe",
+    "unsafe"
+  ],
+  "category_validated": false,
+  "generated_tokens": 0,
+  "streaming_scope": "Exact token-ID incremental input validated by the 8K audit; arbitrary text rollback is implemented and awaits the separate final L20 audit",
+  "long_stream_audit": "/Users/liuzhihao/Work/safety-guard/round4/results/output/round4/long_stream_audit.json",
+  "production_approval": false
+}

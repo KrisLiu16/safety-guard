@@ -1,0 +1,249 @@
+{
+  "status": "cpu_analysis_complete",
+  "control_status": "completed",
+  "control_diagnostic_completed": true,
+  "source_sha256": "879a7a224e4680babd4779c533728a955cd5ec7f68cfff22c70ab1a03ceb1228",
+  "control_script_sha256": "09fac65fb3c9c9f48b8628598d3405c12d0689ace496f8d9a573095024f3a798",
+  "control_elapsed_seconds": 36.70319773070514,
+  "model_checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "original_failed_audit_sha256": "11635ba5abc48a466363aa75ef98b146e65f8dae0cf9fad19d07b98eb833234c",
+  "original_failed_audit_pass": false,
+  "promotion_approved": false,
+  "baseline_cases": 9,
+  "ordinary_eager_vs_whole_state_failures": 9,
+  "repeated_whole_bitwise_equal": {
+    "whole_repeat_512": true,
+    "whole_repeat_4096": true,
+    "whole_repeat_7680": true
+  },
+  "continuation_cases": 18,
+  "continuation_steps": 57,
+  "prefix_seed_lengths": [
+    512,
+    4096,
+    7680
+  ],
+  "findings_as_recorded": {
+    "ordinary_eager_whole_state_failure_reproduced": true,
+    "graph_eager_all_original_state_and_probability_gates_pass": true,
+    "graph_eager_max_probability_error": 0.0,
+    "graph_eager_max_state_absolute_error": 0.0,
+    "graph_eager_observed_numerically_exact": true,
+    "max_state_origin_continuation_probability_error": 0.040308237075805664,
+    "continuation_state_origin_probability_gate_failures": 2,
+    "continuation_fixed_threshold_changes": 0,
+    "non_saturated_continuation_steps": 39,
+    "non_saturated_target_continuation_steps": 33,
+    "non_saturation_coverage_missing": false,
+    "scope": "Observed selected development continuations only; cannot prove every future suffix is insensitive to state differences"
+  },
+  "continuation_probability_failures": [
+    {
+      "prefix_tokens": 520,
+      "sample_id": "a0e28d5cf85a14b977aa7427c9d38cd822a37f8d3a737f3052768cdebb3c5c14",
+      "language": "zh",
+      "target_role": "user",
+      "step": 3,
+      "native_prefix_tokens": 648,
+      "probability_comparison": {
+        "pass": false,
+        "max_absolute_error_by_role": {
+          "user": 0.03769439458847046,
+          "assistant": 0.028026700019836426
+        },
+        "atol": 0.03,
+        "comparison": "<"
+      },
+      "eager": {
+        "user": {
+          "safe": 0.5979077219963074,
+          "unsafe": 0.401988685131073,
+          "controversial": 0.00010365190973971039
+        },
+        "assistant": {
+          "safe": 0.750461757183075,
+          "unsafe": 0.24944815039634705,
+          "controversial": 9.008804045151919e-05
+        }
+      },
+      "whole_origin": {
+        "user": {
+          "safe": 0.6356021165847778,
+          "unsafe": 0.36429449915885925,
+          "controversial": 0.00010343112808186561
+        },
+        "assistant": {
+          "safe": 0.7784884572029114,
+          "unsafe": 0.2214222252368927,
+          "controversial": 8.930360490921885e-05
+        }
+      },
+      "threshold_comparison": {
+        "user": {
+          "threshold": 0.9907044768333436,
+          "left_unsafe": false,
+          "right_unsafe": false,
+          "decision_changed": false
+        },
+        "assistant": {
+          "threshold": 0.9755336642265321,
+          "left_unsafe": false,
+          "right_unsafe": false,
+          "decision_changed": false
+        }
+      }
+    },
+    {
+      "prefix_tokens": 4104,
+      "sample_id": "beaver-6980",
+      "language": "en",
+      "target_role": "assistant",
+      "step": 1,
+      "native_prefix_tokens": 4168,
+      "probability_comparison": {
+        "pass": false,
+        "max_absolute_error_by_role": {
+          "user": 0.040308237075805664,
+          "assistant": 0.019141018390655518
+        },
+        "atol": 0.03,
+        "comparison": "<"
+      },
+      "eager": {
+        "user": {
+          "safe": 0.6957048177719116,
+          "unsafe": 0.30372437834739685,
+          "controversial": 0.000570849806535989
+        },
+        "assistant": {
+          "safe": 0.8391687870025635,
+          "unsafe": 0.1606687605381012,
+          "controversial": 0.00016244036669377238
+        }
+      },
+      "whole_origin": {
+        "user": {
+          "safe": 0.6554107069969177,
+          "unsafe": 0.3440326154232025,
+          "controversial": 0.000556651852093637
+        },
+        "assistant": {
+          "safe": 0.820027768611908,
+          "unsafe": 0.17980767786502838,
+          "controversial": 0.00016456196317449212
+        }
+      },
+      "threshold_comparison": {
+        "user": {
+          "threshold": null,
+          "left_unsafe": null,
+          "right_unsafe": null,
+          "decision_changed": null
+        },
+        "assistant": {
+          "threshold": 0.95198792219162,
+          "left_unsafe": false,
+          "right_unsafe": false,
+          "decision_changed": false
+        }
+      }
+    }
+  ],
+  "continuation_argmax_changes": [
+    {
+      "prefix_tokens": 4104,
+      "sample_id": "beaver-6980",
+      "language": "en",
+      "target_role": "assistant",
+      "step": 2,
+      "native_prefix_tokens": 4200,
+      "probability_comparison": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.025218546390533447,
+          "assistant": 0.026633501052856445
+        },
+        "atol": 0.03,
+        "comparison": "<"
+      },
+      "head": "assistant",
+      "is_target_head": true,
+      "eager_argmax": "safe",
+      "whole_origin_argmax": "unsafe",
+      "eager_probabilities": {
+        "safe": 0.5191119909286499,
+        "unsafe": 0.4806731343269348,
+        "controversial": 0.0002148660278180614
+      },
+      "whole_origin_probabilities": {
+        "safe": 0.49248313903808594,
+        "unsafe": 0.5073066353797913,
+        "controversial": 0.00021027370530646294
+      },
+      "fixed_threshold_comparison": {
+        "threshold": 0.95198792219162,
+        "left_unsafe": false,
+        "right_unsafe": false,
+        "decision_changed": false
+      }
+    },
+    {
+      "prefix_tokens": 7688,
+      "sample_id": "beaver-23677",
+      "language": "en",
+      "target_role": "assistant",
+      "step": 2,
+      "native_prefix_tokens": 7769,
+      "probability_comparison": {
+        "pass": true,
+        "max_absolute_error_by_role": {
+          "user": 0.00433349609375,
+          "assistant": 0.009022444486618042
+        },
+        "atol": 0.03,
+        "comparison": "<"
+      },
+      "head": "assistant",
+      "is_target_head": true,
+      "eager_argmax": "unsafe",
+      "whole_origin_argmax": "safe",
+      "eager_probabilities": {
+        "safe": 0.4986075460910797,
+        "unsafe": 0.5012596845626831,
+        "controversial": 0.00013279443373903632
+      },
+      "whole_origin_probabilities": {
+        "safe": 0.5076299905776978,
+        "unsafe": 0.49223750829696655,
+        "controversial": 0.0001324881741311401
+      },
+      "fixed_threshold_comparison": {
+        "threshold": 0.95198792219162,
+        "left_unsafe": false,
+        "right_unsafe": false,
+        "decision_changed": false
+      }
+    }
+  ],
+  "target_head_argmax_changes": 2,
+  "fixed_calibrated_threshold_changes": [],
+  "final_eager_vs_fresh_whole_probability_failures": [
+    {
+      "sample_id": "a0e28d5cf85a14b977aa7427c9d38cd822a37f8d3a737f3052768cdebb3c5c14",
+      "prefix_tokens": 4104,
+      "target_role": "user",
+      "comparison": {
+        "pass": false,
+        "max_absolute_error_by_role": {
+          "user": 0.03515422344207764,
+          "assistant": 0.02908569574356079
+        },
+        "atol": 0.03,
+        "comparison": "<"
+      }
+    }
+  ],
+  "final_eager_vs_fresh_whole_max_probability_error": 0.03515422344207764,
+  "no_new_model_calls": true,
+  "no_original_gate_or_threshold_changed": true
+}

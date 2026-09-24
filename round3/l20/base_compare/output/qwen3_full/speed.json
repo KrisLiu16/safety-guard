@@ -1,0 +1,74 @@
+{
+  "scope": "L20 in-process, pre-tokenized, synchronized CPU-visible risk/category probabilities; no HTTP or batching",
+  "generated_tokens": 0,
+  "complete_same_text": {
+    "16": {
+      "characters_per_request": 422,
+      "native_tokens_per_request": 98,
+      "reference_tokens_per_request": 98,
+      "requests": 10,
+      "native_itps": 5698.337969188348,
+      "reference_itps": 5698.337969188348,
+      "classifications_per_second": 58.14630580804437,
+      "p50_ms": 17.196450382471085,
+      "p95_ms": 17.266493290662766,
+      "p99_ms": 17.266493290662766
+    },
+    "128": {
+      "characters_per_request": 3334,
+      "native_tokens_per_request": 770,
+      "reference_tokens_per_request": 770,
+      "requests": 10,
+      "native_itps": 45755.7552994759,
+      "reference_itps": 45755.7552994759,
+      "classifications_per_second": 59.42305883048819,
+      "p50_ms": 16.832998022437096,
+      "p95_ms": 16.92461222410202,
+      "p99_ms": 16.92461222410202
+    }
+  },
+  "stream_same_text": {
+    "1": {
+      "sessions": 1,
+      "classification_results": 8,
+      "logical_new_native_tokens": 48,
+      "logical_new_reference_tokens": 48,
+      "native_itps": 314.874779211777,
+      "reference_itps": 314.874779211777,
+      "classifications_per_second": 52.4791298686295,
+      "prefilled_cache_allocation_bytes": 22249984,
+      "full_vs_stream_risk_max_abs_error": 0.0017962455749511719,
+      "p50_ms": 19.051818177103996,
+      "p95_ms": 19.26226355135441,
+      "p99_ms": 19.26226355135441
+    },
+    "8": {
+      "sessions": 8,
+      "classification_results": 64,
+      "logical_new_native_tokens": 384,
+      "logical_new_reference_tokens": 384,
+      "native_itps": 311.95062593832733,
+      "reference_itps": 311.95062593832733,
+      "classifications_per_second": 51.991770989721225,
+      "prefilled_cache_allocation_bytes": 177996288,
+      "full_vs_stream_risk_max_abs_error": 0.0017962455749511719,
+      "p50_ms": 19.216353073716164,
+      "p95_ms": 19.537445157766342,
+      "p99_ms": 19.604234024882317
+    },
+    "32": {
+      "sessions": 32,
+      "classification_results": 256,
+      "logical_new_native_tokens": 1536,
+      "logical_new_reference_tokens": 1536,
+      "native_itps": 307.84177346188835,
+      "reference_itps": 307.84177346188835,
+      "classifications_per_second": 51.30696224364806,
+      "prefilled_cache_allocation_bytes": 711983616,
+      "full_vs_stream_risk_max_abs_error": 0.0017962455749511719,
+      "p50_ms": 19.493558444082737,
+      "p95_ms": 19.786691293120384,
+      "p99_ms": 20.23695968091488
+    }
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "type": "object",
+  "properties": {
+    "index": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "zh",
+        "en"
+      ]
+    },
+    "target_role": {
+      "type": "string",
+      "enum": [
+        "user",
+        "assistant"
+      ]
+    },
+    "label": {
+      "type": "string",
+      "enum": [
+        "safe",
+        "unsafe"
+      ]
+    },
+    "input_label": {
+      "type": "string",
+      "enum": [
+        "safe",
+        "unsafe"
+      ]
+    },
+    "case_type": {
+      "type": "string",
+      "enum": [
+        "different_harmful_context",
+        "explicit_harmful_intent",
+        "factual_answer",
+        "harmful_reply",
+        "neutral_question",
+        "quotation_or_critique",
+        "safe_refusal"
+      ]
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "assistant"
+            ]
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "role",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 2
+    },
+    "policy_basis": {
+      "type": "string",
+      "enum": [
+        "benign",
+        "threat_or_incitation",
+        "privacy_violation",
+        "fraud_or_fabrication",
+        "harassment",
+        "other_defined_harm"
+      ]
+    },
+    "evidence_text": {
+      "type": "string"
+    },
+    "decidable_prefix": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "sample_id": {
+      "type": "string"
+    },
+    "task_key": {
+      "type": "string"
+    },
+    "origin_group_id": {
+      "type": "string"
+    },
+    "word": {
+      "type": "string"
+    },
+    "source_licenses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "data_layer": {
+      "type": "string",
+      "enum": [
+        "permissive",
+        "noncommercial"
+      ]
+    },
+    "source_group": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "record_version": {
+      "type": "string",
+      "const": "guard-record-v1"
+    },
+    "annotation_origin": {
+      "type": "string",
+      "const": "luna_synthetic_unverified"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "structural_derived",
+        "structural_repaired"
+      ]
+    },
+    "repair_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "split": {
+      "type": "string"
+    },
+    "decidable_at_char": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "generation": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "run_no": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "attempt_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_profile_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "response_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "run_id",
+        "run_no",
+        "attempt_id",
+        "model_profile_id",
+        "response_id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "index",
+    "language",
+    "target_role",
+    "label",
+    "input_label",
+    "case_type",
+    "messages",
+    "policy_basis",
+    "evidence_text",
+    "decidable_prefix",
+    "reason",
+    "sample_id",
+    "task_key",
+    "origin_group_id",
+    "word",
+    "source_licenses",
+    "data_layer",
+    "source_group",
+    "prompt_version",
+    "record_version",
+    "annotation_origin",
+    "validation_status",
+    "repair_flags",
+    "split",
+    "decidable_at_char",
+    "content_sha256",
+    "generation"
+  ],
+  "additionalProperties": false
+}

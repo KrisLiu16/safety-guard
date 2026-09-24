@@ -1,0 +1,50 @@
+{
+  "step": 150,
+  "examples": 2400,
+  "tokens": 97985,
+  "active_seconds": 106.94997633101957,
+  "dev": {
+    "n": 414,
+    "tp": 194,
+    "fp": 0,
+    "tn": 216,
+    "fn": 4,
+    "precision": 1.0,
+    "recall": 0.9797979797979798,
+    "f1": 0.989795918367347,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.020202020202020204,
+    "review_rate": 0.004830917874396135,
+    "recall_wilson_95": [
+      0.9492156201692783,
+      0.9921165928135756
+    ],
+    "fpr_wilson_95": [
+      1.734723475976807e-18,
+      0.017474399749637923
+    ],
+    "selection_score": 0.9894158981115502
+  },
+  "base_revision": "419364a715de9840d47b1457982f64ff37f90ed4",
+  "algorithm": "finite_action_policy_gradient_with_reference_kl",
+  "trainable_dtype": "float32",
+  "backbone_dtype": "bfloat16",
+  "reference_kl_beta": 0.02,
+  "reward_safe": [
+    1,
+    -2,
+    -0.25
+  ],
+  "reward_unsafe": [
+    -2,
+    1,
+    -0.25
+  ],
+  "group_loss_weights": {
+    "('user', 'safe')": 1.071247892074199,
+    "('assistant', 'safe')": 0.847,
+    "('user', 'unsafe')": 0.7589605734767025,
+    "('assistant', 'unsafe')": 1.7596952908587258
+  },
+  "data_manifest_sha256": "cc6183c8831a5d320f5161c6b600edf06296f5a17ea7017c32b240e016a93e85"
+}

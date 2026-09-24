@@ -1,0 +1,85 @@
+{
+  "strata": {
+    "official_response_loc/assistant": {
+      "n": 100,
+      "safe": 0,
+      "unsafe": 100,
+      "unsafe_auc": null,
+      "threshold": 0.9010362625122071,
+      "calibration_safe_n": 192,
+      "argmax_unsafe": {
+        "tp": 85,
+        "fp": 0,
+        "fn": 15,
+        "tn": 0,
+        "recall": 0.85,
+        "fpr": null,
+        "f1": 0.918918918918919
+      },
+      "dev_fpr5_threshold": {
+        "tp": 65,
+        "fp": 0,
+        "fn": 35,
+        "tn": 0,
+        "recall": 0.65,
+        "fpr": null,
+        "f1": 0.7878787878787878
+      }
+    },
+    "official_thinking/assistant": {
+      "n": 100,
+      "safe": 47,
+      "unsafe": 53,
+      "unsafe_auc": 0.9008430349257326,
+      "threshold": 0.9010362625122071,
+      "calibration_safe_n": 192,
+      "argmax_unsafe": {
+        "tp": 39,
+        "fp": 4,
+        "fn": 14,
+        "tn": 43,
+        "recall": 0.7358490566037735,
+        "fpr": 0.0851063829787234,
+        "f1": 0.8125
+      },
+      "dev_fpr5_threshold": {
+        "tp": 30,
+        "fp": 2,
+        "fn": 23,
+        "tn": 45,
+        "recall": 0.5660377358490566,
+        "fpr": 0.0425531914893617,
+        "f1": 0.7058823529411765
+      }
+    },
+    "official_thinking_loc/assistant": {
+      "n": 50,
+      "safe": 0,
+      "unsafe": 50,
+      "unsafe_auc": null,
+      "threshold": 0.9010362625122071,
+      "calibration_safe_n": 192,
+      "argmax_unsafe": {
+        "tp": 36,
+        "fp": 0,
+        "fn": 14,
+        "tn": 0,
+        "recall": 0.72,
+        "fpr": null,
+        "f1": 0.8372093023255814
+      },
+      "dev_fpr5_threshold": {
+        "tp": 29,
+        "fp": 0,
+        "fn": 21,
+        "tn": 0,
+        "recall": 0.58,
+        "fpr": null,
+        "f1": 0.7341772151898734
+      }
+    }
+  },
+  "requested": 250,
+  "evaluated": 250,
+  "scope": "source labels; not project-policy calibrated; threshold selected only on development split"
+}

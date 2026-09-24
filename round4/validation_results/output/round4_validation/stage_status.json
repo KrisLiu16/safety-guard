@@ -1,0 +1,191 @@
+{
+  "status": "completed",
+  "stages": [
+    {
+      "stage": "text_stream",
+      "command": [
+        "/work/modern/bin/python",
+        "/work/validation/test_text_stream_l20.py"
+      ],
+      "required": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 106.36189673282206
+    },
+    {
+      "stage": "graph_stream",
+      "command": [
+        "/work/modern/bin/python",
+        "/work/validation/test_graph_stream_l20.py",
+        "--replays",
+        "128"
+      ],
+      "required": false,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 24.497138556092978
+    },
+    {
+      "stage": "official_student",
+      "command": [
+        "/work/modern/bin/python",
+        "/work/validation/evaluate_official_adapted.py",
+        "--kind",
+        "student",
+        "--data-dir",
+        "/work/validation/official_adapted_v1",
+        "--source-dir",
+        "/work/validation/qwen3guardtest",
+        "--candidate-manifest",
+        "/work/validation/MODEL_MANIFEST.json",
+        "--output",
+        "/work/output/round4_validation/official_student"
+      ],
+      "required": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 75.11418907903135
+    },
+    {
+      "stage": "official_a0",
+      "command": [
+        "/work/legacy/bin/python",
+        "/work/validation/evaluate_official_adapted.py",
+        "--kind",
+        "a0",
+        "--data-dir",
+        "/work/validation/official_adapted_v1",
+        "--source-dir",
+        "/work/validation/qwen3guardtest",
+        "--candidate-manifest",
+        "/work/validation/MODEL_MANIFEST.json",
+        "--output",
+        "/work/output/round4_validation/official_a0"
+      ],
+      "required": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 66.70761872269213
+    },
+    {
+      "stage": "benchmark_candidate",
+      "command": [
+        "/work/modern/bin/python",
+        "/work/validation/benchmark_pair.py",
+        "--kind",
+        "candidate",
+        "--candidate-manifest",
+        "/work/validation/MODEL_MANIFEST.json",
+        "--output",
+        "/work/output/round4_validation/benchmark_candidate.json"
+      ],
+      "required": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 51.68550486676395
+    },
+    {
+      "stage": "benchmark_a0",
+      "command": [
+        "/work/legacy/bin/python",
+        "/work/validation/benchmark_pair.py",
+        "--kind",
+        "a0",
+        "--candidate-manifest",
+        "/work/validation/MODEL_MANIFEST.json",
+        "--output",
+        "/work/output/round4_validation/benchmark_a0.json"
+      ],
+      "required": true,
+      "returncode": 1,
+      "process_completed": false,
+      "seconds": 4.870507430285215
+    },
+    {
+      "stage": "keyword_candidate",
+      "command": [
+        "/work/modern/bin/python",
+        "/work/validation/eval_keyword_probe.py",
+        "--kind",
+        "candidate",
+        "--data-root",
+        "/work/validation/keyword_probe_v1",
+        "--variant",
+        "classification_rl",
+        "--checkpoint",
+        "/work/output/round4/classification_rl/best.safetensors",
+        "--calibration-metrics",
+        "/work/output/round4/classification_rl/exported_dev_metrics.json",
+        "--output-prefix",
+        "/work/output/round4_validation/keyword_candidate"
+      ],
+      "required": true,
+      "returncode": 1,
+      "process_completed": false,
+      "seconds": 8.675528947263956
+    },
+    {
+      "stage": "keyword_a0",
+      "command": [
+        "/work/legacy/bin/python",
+        "/work/validation/eval_keyword_probe.py",
+        "--kind",
+        "a0",
+        "--data-root",
+        "/work/validation/keyword_probe_v1",
+        "--calibration-metrics",
+        "/work/output/round4/a0_reference_metrics.json",
+        "--output-prefix",
+        "/work/output/round4_validation/keyword_a0"
+      ],
+      "required": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 9.827495763078332
+    },
+    {
+      "stage": "package",
+      "command": [
+        "/work/modern/bin/python",
+        "/work/validation/package_model.py",
+        "--manifest",
+        "/work/validation/MODEL_MANIFEST.json",
+        "--output",
+        "/work/output/round4_validation/bundle",
+        "--model-assets",
+        "/work/models/qwen35",
+        "--code-dir",
+        "/work/validation",
+        "--window-code-dir",
+        "/work/window"
+      ],
+      "required": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 3.2682490926235914
+    },
+    {
+      "stage": "bundle_audit",
+      "command": [
+        "/work/modern/bin/python",
+        "/work/validation/test_bundle_l20.py",
+        "--bundle",
+        "/work/output/round4_validation/bundle",
+        "--manifest",
+        "/work/validation/MODEL_MANIFEST.json",
+        "--output",
+        "/work/output/round4_validation/bundle_audit.json"
+      ],
+      "required": true,
+      "returncode": 0,
+      "process_completed": true,
+      "seconds": 37.86525787971914
+    }
+  ],
+  "all_processes_completed": false,
+  "all_required_processes_completed": false,
+  "candidate": "classification_rl",
+  "variant": "full",
+  "checkpoint_sha256": "29fc3e5663eaa333235b1c2ba84d4c0a964f6ece4fd146c9fc6ec01761eaf222",
+  "note": "Process completion is not an audit pass. Check each numerical and behavioral artifact."
+}

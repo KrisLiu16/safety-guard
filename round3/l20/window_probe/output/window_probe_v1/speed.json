@@ -1,0 +1,3137 @@
+{
+  "scope": "warmed L20 token-ID model calls, CPU-visible risk probabilities; 24 appends/case; no HTTP",
+  "records": [
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 51.24082170574395,
+      "classifications_per_second": 51.24082170574395,
+      "p50_ms": 19.457809627056122,
+      "p95_ms": 19.860969856381416,
+      "p99_ms": 19.899029284715652,
+      "warmup_seconds_excluded": 0.11241208016872406,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 26345472,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          }
+        ],
+        "logical_tokens_seen": 536
+      },
+      "full_stream_probability_error": 0.0003470480442047119
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 261.10124178953447,
+      "classifications_per_second": 32.63765522369181,
+      "p50_ms": 30.620827339589596,
+      "p95_ms": 30.8191180229187,
+      "p99_ms": 30.976055189967155,
+      "warmup_seconds_excluded": 0.15724008344113827,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 28409856,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          }
+        ],
+        "logical_tokens_seen": 704
+      },
+      "full_stream_probability_error": 0.0005844235420227051
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1031.500456616047,
+      "classifications_per_second": 32.234389269251466,
+      "p50_ms": 31.014232896268368,
+      "p95_ms": 31.38512372970581,
+      "p99_ms": 31.53497911989689,
+      "warmup_seconds_excluded": 0.15870353765785694,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 35487744,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          }
+        ],
+        "logical_tokens_seen": 1280
+      },
+      "full_stream_probability_error": 0.00017132237553596497
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 51.3258215446431,
+      "classifications_per_second": 51.3258215446431,
+      "p50_ms": 19.427773542702198,
+      "p95_ms": 19.955888390541077,
+      "p99_ms": 20.265450701117516,
+      "warmup_seconds_excluded": 0.11094510741531849,
+      "state_before": {
+        "unique_storage_bytes": 44924928,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 45219840,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          }
+        ],
+        "logical_tokens_seen": 2072
+      },
+      "full_stream_probability_error": 0.00016032904386520386
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 262.72143715286825,
+      "classifications_per_second": 32.84017964410853,
+      "p50_ms": 30.426946468651295,
+      "p95_ms": 30.635923147201538,
+      "p99_ms": 30.731819570064545,
+      "warmup_seconds_excluded": 0.15521391667425632,
+      "state_before": {
+        "unique_storage_bytes": 44924928,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 47284224,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          }
+        ],
+        "logical_tokens_seen": 2240
+      },
+      "full_stream_probability_error": 3.847479820251465e-05
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1016.4556564207188,
+      "classifications_per_second": 31.764239263147463,
+      "p50_ms": 31.11646417528391,
+      "p95_ms": 33.13441202044487,
+      "p99_ms": 34.60286557674408,
+      "warmup_seconds_excluded": 0.1565779596567154,
+      "state_before": {
+        "unique_storage_bytes": 44924928,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 54362112,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          }
+        ],
+        "logical_tokens_seen": 2816
+      },
+      "full_stream_probability_error": 0.0007673501968383789
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 50.79148233639728,
+      "classifications_per_second": 50.79148233639728,
+      "p50_ms": 19.451438449323177,
+      "p95_ms": 21.186588332057,
+      "p99_ms": 21.37657068669796,
+      "warmup_seconds_excluded": 0.27156935818493366,
+      "state_before": {
+        "unique_storage_bytes": 120422400,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 120717312,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          }
+        ],
+        "logical_tokens_seen": 8216
+      },
+      "full_stream_probability_error": 0.0013920068740844727
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 262.78573313766407,
+      "classifications_per_second": 32.84821664220801,
+      "p50_ms": 30.374410562217236,
+      "p95_ms": 30.559835955500603,
+      "p99_ms": 32.178543508052826,
+      "warmup_seconds_excluded": 0.3107338584959507,
+      "state_before": {
+        "unique_storage_bytes": 120422400,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 122781696,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          }
+        ],
+        "logical_tokens_seen": 8384
+      },
+      "full_stream_probability_error": 0.0006842613220214844
+    },
+    {
+      "window": null,
+      "short_recurrent": false,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1037.3948633135058,
+      "classifications_per_second": 32.418589478547055,
+      "p50_ms": 30.77978827059269,
+      "p95_ms": 30.997034162282944,
+      "p99_ms": 32.365888357162476,
+      "warmup_seconds_excluded": 0.3119638692587614,
+      "state_before": {
+        "unique_storage_bytes": 120422400,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 129859584,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          }
+        ],
+        "logical_tokens_seen": 8960
+      },
+      "full_stream_probability_error": 0.00019699335098266602
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 51.85629748698123,
+      "classifications_per_second": 51.85629748698123,
+      "p50_ms": 19.270997494459152,
+      "p95_ms": 19.378291442990303,
+      "p99_ms": 19.856397062540054,
+      "warmup_seconds_excluded": 0.11100910604000092,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 26345472,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          }
+        ],
+        "logical_tokens_seen": 536
+      },
+      "full_stream_probability_error": 0.0003470480442047119
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 379.1780502175565,
+      "classifications_per_second": 47.397256277194565,
+      "p50_ms": 21.07908483594656,
+      "p95_ms": 21.321553736925125,
+      "p99_ms": 21.486029028892517,
+      "warmup_seconds_excluded": 0.11886370182037354,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 28409856,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          }
+        ],
+        "logical_tokens_seen": 704
+      },
+      "full_stream_probability_error": 0.0005668401718139648
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1495.2222202680002,
+      "classifications_per_second": 46.72569438337501,
+      "p50_ms": 21.38053998351097,
+      "p95_ms": 21.750610321760178,
+      "p99_ms": 21.869970485568047,
+      "warmup_seconds_excluded": 0.12083789147436619,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 35487744,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1280,
+            "key_storage_bytes": 1310720
+          }
+        ],
+        "logical_tokens_seen": 1280
+      },
+      "full_stream_probability_error": 0.00035876035690307617
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 52.01538289658615,
+      "classifications_per_second": 52.01538289658615,
+      "p50_ms": 19.210045225918293,
+      "p95_ms": 19.33129131793976,
+      "p99_ms": 19.717661663889885,
+      "warmup_seconds_excluded": 0.10988538339734077,
+      "state_before": {
+        "unique_storage_bytes": 44924928,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 45219840,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2072,
+            "key_storage_bytes": 2121728
+          }
+        ],
+        "logical_tokens_seen": 2072
+      },
+      "full_stream_probability_error": 0.00016032904386520386
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 380.0191681240385,
+      "classifications_per_second": 47.502396015504814,
+      "p50_ms": 21.014990285038948,
+      "p95_ms": 21.17268554866314,
+      "p99_ms": 21.50578796863556,
+      "warmup_seconds_excluded": 0.11738610826432705,
+      "state_before": {
+        "unique_storage_bytes": 44924928,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 47284224,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2240,
+            "key_storage_bytes": 2293760
+          }
+        ],
+        "logical_tokens_seen": 2240
+      },
+      "full_stream_probability_error": 0.00014629215002059937
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1497.341386848501,
+      "classifications_per_second": 46.79191833901566,
+      "p50_ms": 21.34428173303604,
+      "p95_ms": 21.613383665680885,
+      "p99_ms": 21.880358457565308,
+      "warmup_seconds_excluded": 0.11870803497731686,
+      "state_before": {
+        "unique_storage_bytes": 44924928,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2048,
+            "key_storage_bytes": 2097152
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 54362112,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 2816,
+            "key_storage_bytes": 2883584
+          }
+        ],
+        "logical_tokens_seen": 2816
+      },
+      "full_stream_probability_error": 0.0012969970703125
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 51.64963511690121,
+      "classifications_per_second": 51.64963511690121,
+      "p50_ms": 19.2779628559947,
+      "p95_ms": 19.58106830716133,
+      "p99_ms": 20.931102335453033,
+      "warmup_seconds_excluded": 0.27038790844380856,
+      "state_before": {
+        "unique_storage_bytes": 120422400,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 120717312,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8216,
+            "key_storage_bytes": 8413184
+          }
+        ],
+        "logical_tokens_seen": 8216
+      },
+      "full_stream_probability_error": 0.0013920068740844727
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 377.26635339120236,
+      "classifications_per_second": 47.158294173900295,
+      "p50_ms": 21.133173257112503,
+      "p95_ms": 21.380990743637085,
+      "p99_ms": 22.853637114167213,
+      "warmup_seconds_excluded": 0.2778995521366596,
+      "state_before": {
+        "unique_storage_bytes": 120422400,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 122781696,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8384,
+            "key_storage_bytes": 8585216
+          }
+        ],
+        "logical_tokens_seen": 8384
+      },
+      "full_stream_probability_error": 0.000470578670501709
+    },
+    {
+      "window": null,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1485.8923423591793,
+      "classifications_per_second": 46.434135698724354,
+      "p50_ms": 21.461389027535915,
+      "p95_ms": 21.67966403067112,
+      "p99_ms": 23.112637922167778,
+      "warmup_seconds_excluded": 0.278931088745594,
+      "state_before": {
+        "unique_storage_bytes": 120422400,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8192,
+            "key_storage_bytes": 8388608
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 129859584,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 8960,
+            "key_storage_bytes": 9175040
+          }
+        ],
+        "logical_tokens_seen": 8960
+      },
+      "full_stream_probability_error": 0.0005050301551818848
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 49.47758069077265,
+      "classifications_per_second": 49.47758069077265,
+      "p50_ms": 20.190301351249218,
+      "p95_ms": 20.37271484732628,
+      "p99_ms": 20.46426385641098,
+      "warmup_seconds_excluded": 0.1182599775493145,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 536
+      },
+      "full_stream_probability_error": 0.0020302534103393555
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 369.3861212958945,
+      "classifications_per_second": 46.17326516198681,
+      "p50_ms": 21.638033911585808,
+      "p95_ms": 21.89214713871479,
+      "p99_ms": 21.958088502287865,
+      "warmup_seconds_excluded": 0.12445656396448612,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 704
+      },
+      "full_stream_probability_error": 0.0003802776336669922
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1460.3893310861565,
+      "classifications_per_second": 45.63716659644239,
+      "p50_ms": 21.89719956368208,
+      "p95_ms": 22.02080562710762,
+      "p99_ms": 22.335628047585487,
+      "warmup_seconds_excluded": 0.12566274404525757,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 1280
+      },
+      "full_stream_probability_error": 0.00023361295461654663
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 49.613785173308166,
+      "classifications_per_second": 49.613785173308166,
+      "p50_ms": 20.14839556068182,
+      "p95_ms": 20.284799858927727,
+      "p99_ms": 20.529592409729958,
+      "warmup_seconds_excluded": 0.12675532698631287,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2072
+      },
+      "full_stream_probability_error": 0.00016117095947265625
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 368.0502339122011,
+      "classifications_per_second": 46.00627923902514,
+      "p50_ms": 21.709916181862354,
+      "p95_ms": 21.914180368185043,
+      "p99_ms": 22.22648076713085,
+      "warmup_seconds_excluded": 0.13296418450772762,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2240
+      },
+      "full_stream_probability_error": 0.0002567768096923828
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1451.3930834911534,
+      "classifications_per_second": 45.356033859098545,
+      "p50_ms": 22.02235721051693,
+      "p95_ms": 22.188251838088036,
+      "p99_ms": 22.38422818481922,
+      "warmup_seconds_excluded": 0.13442678935825825,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 2816
+      },
+      "full_stream_probability_error": 0.0005179047584533691
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 49.33601125447032,
+      "classifications_per_second": 49.33601125447032,
+      "p50_ms": 20.22617030888796,
+      "p95_ms": 20.388556644320488,
+      "p99_ms": 21.14116959273815,
+      "warmup_seconds_excluded": 0.2879657242447138,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 8216
+      },
+      "full_stream_probability_error": 0.0008817315101623535
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 368.773005392942,
+      "classifications_per_second": 46.09662567411775,
+      "p50_ms": 21.643634885549545,
+      "p95_ms": 21.75712212920189,
+      "p99_ms": 22.6519126445055,
+      "warmup_seconds_excluded": 0.2936266027390957,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 8384
+      },
+      "full_stream_probability_error": 0.00023794174194335938
+    },
+    {
+      "window": 512,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1451.7754780860653,
+      "classifications_per_second": 45.36798369018954,
+      "p50_ms": 21.99316117912531,
+      "p95_ms": 22.161900997161865,
+      "p99_ms": 23.20212684571743,
+      "warmup_seconds_excluded": 0.2954217679798603,
+      "state_before": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 26038272,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 511,
+            "key_storage_bytes": 523264
+          }
+        ],
+        "logical_tokens_seen": 8960
+      },
+      "full_stream_probability_error": 9.466707706451416e-05
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 49.24284841928049,
+      "classifications_per_second": 49.24284841928049,
+      "p50_ms": 20.30625008046627,
+      "p95_ms": 20.484697073698044,
+      "p99_ms": 20.587822422385216,
+      "warmup_seconds_excluded": 0.11897544004023075,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 26345472,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 536,
+            "key_storage_bytes": 548864
+          }
+        ],
+        "logical_tokens_seen": 536
+      },
+      "full_stream_probability_error": 0.000755995512008667
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 370.5680075878296,
+      "classifications_per_second": 46.3210009484787,
+      "p50_ms": 21.568743512034416,
+      "p95_ms": 21.684616804122925,
+      "p99_ms": 21.964168176054955,
+      "warmup_seconds_excluded": 0.12416795082390308,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 28409856,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 704,
+            "key_storage_bytes": 720896
+          }
+        ],
+        "logical_tokens_seen": 704
+      },
+      "full_stream_probability_error": 0.0009191036224365234
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 512,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1459.1829011679636,
+      "classifications_per_second": 45.59946566149886,
+      "p50_ms": 21.91759366542101,
+      "p95_ms": 22.154951468110085,
+      "p99_ms": 22.27010950446129,
+      "warmup_seconds_excluded": 0.12575138173997402,
+      "state_before": {
+        "unique_storage_bytes": 26050560,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 512,
+            "key_storage_bytes": 524288
+          }
+        ],
+        "logical_tokens_seen": 512
+      },
+      "state_after": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 1280
+      },
+      "full_stream_probability_error": 0.00011867284774780273
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 49.57274408911509,
+      "classifications_per_second": 49.57274408911509,
+      "p50_ms": 20.15306707471609,
+      "p95_ms": 20.311608910560608,
+      "p99_ms": 20.517483353614807,
+      "warmup_seconds_excluded": 0.12672394886612892,
+      "state_before": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2072
+      },
+      "full_stream_probability_error": 0.00045412778854370117
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 370.3310448259719,
+      "classifications_per_second": 46.29138060324649,
+      "p50_ms": 21.583220921456814,
+      "p95_ms": 21.66072465479374,
+      "p99_ms": 22.00777642428875,
+      "warmup_seconds_excluded": 0.1328913364559412,
+      "state_before": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2240
+      },
+      "full_stream_probability_error": 0.0003896169364452362
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 2048,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1455.683304280523,
+      "classifications_per_second": 45.49010325876635,
+      "p50_ms": 21.95991575717926,
+      "p95_ms": 22.341828793287277,
+      "p99_ms": 22.458814084529877,
+      "warmup_seconds_excluded": 0.1348905060440302,
+      "state_before": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2048
+      },
+      "state_after": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 2816
+      },
+      "full_stream_probability_error": 0.0006609559059143066
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 1,
+      "classified_new_tokens": 24,
+      "results": 24,
+      "native_itps": 49.2383257858895,
+      "classifications_per_second": 49.2383257858895,
+      "p50_ms": 20.247199572622776,
+      "p95_ms": 20.440395921468735,
+      "p99_ms": 21.1062990128994,
+      "warmup_seconds_excluded": 0.29850849509239197,
+      "state_before": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 8216
+      },
+      "full_stream_probability_error": 0.0004316568374633789
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 8,
+      "classified_new_tokens": 192,
+      "results": 24,
+      "native_itps": 368.29479168424473,
+      "classifications_per_second": 46.03684896053059,
+      "p50_ms": 21.688733249902725,
+      "p95_ms": 21.852239966392517,
+      "p99_ms": 22.513842210173607,
+      "warmup_seconds_excluded": 0.30412523448467255,
+      "state_before": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 8384
+      },
+      "full_stream_probability_error": 0.0001697540283203125
+    },
+    {
+      "window": 1024,
+      "short_recurrent": true,
+      "initial_context_tokens": 8192,
+      "chunk_tokens": 32,
+      "classified_new_tokens": 768,
+      "results": 24,
+      "native_itps": 1454.6637731084027,
+      "classifications_per_second": 45.45824290963758,
+      "p50_ms": 21.94021176546812,
+      "p95_ms": 22.114994004368782,
+      "p99_ms": 23.115547373890877,
+      "warmup_seconds_excluded": 0.30505654215812683,
+      "state_before": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 8192
+      },
+      "state_after": {
+        "unique_storage_bytes": 32329728,
+        "attention_layers": [
+          {
+            "layer": 3,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 7,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 11,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 15,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 19,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          },
+          {
+            "layer": 23,
+            "retained_tokens": 1023,
+            "key_storage_bytes": 1047552
+          }
+        ],
+        "logical_tokens_seen": 8960
+      },
+      "full_stream_probability_error": 0.0006476044654846191
+    }
+  ]
+}

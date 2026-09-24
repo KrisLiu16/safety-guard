@@ -1,0 +1,13 @@
+{
+  "variant": "memory",
+  "status": "completed",
+  "steps": 4164,
+  "selected_step": 2560,
+  "dev_score": 0.6016666666666667,
+  "best_training_dev_score": 0.6016666666666667,
+  "input_tokens": 7466070,
+  "seconds": 4461.807538382709,
+  "checkpoint_sha256": "41f6143d0df5dee1e5107d9601257cc341f035fcb20235e4c2cf131b213cb283",
+  "has_lm_head": false,
+  "stream_parity_pass": true
+}

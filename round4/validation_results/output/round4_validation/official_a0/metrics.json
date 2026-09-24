@@ -1,0 +1,140 @@
+{
+  "status": "completed",
+  "kind": "a0",
+  "checkpoint_sha256": null,
+  "splits": {
+    "thinking": {
+      "coverage": {
+        "requested": 1059,
+        "evaluated": 1059,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 1059,
+        "tp": 464,
+        "fp": 109,
+        "tn": 381,
+        "fn": 105,
+        "recall": 0.8154657293497364,
+        "fpr": 0.22244897959183674,
+        "precision": 0.8097731239092496,
+        "f1": 0.8126094570928196
+      },
+      "native_two_consecutive_loose": {
+        "n": 1059,
+        "tp": 467,
+        "fp": 109,
+        "tn": 381,
+        "fn": 102,
+        "recall": 0.820738137082601,
+        "fpr": 0.22244897959183674,
+        "precision": 0.8107638888888888,
+        "f1": 0.8157205240174672
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 1059,
+        "tp": 343,
+        "fp": 5,
+        "tn": 485,
+        "fn": 226,
+        "recall": 0.6028119507908611,
+        "fpr": 0.01020408163265306,
+        "precision": 0.985632183908046,
+        "f1": 0.7480916030534351
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    },
+    "thinking_loc": {
+      "coverage": {
+        "requested": 569,
+        "evaluated": 569,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 569,
+        "tp": 464,
+        "fp": 0,
+        "tn": 0,
+        "fn": 105,
+        "recall": 0.8154657293497364,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.8983543078412392
+      },
+      "native_two_consecutive_loose": {
+        "n": 569,
+        "tp": 467,
+        "fp": 0,
+        "tn": 0,
+        "fn": 102,
+        "recall": 0.820738137082601,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9015444015444015
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 569,
+        "tp": 343,
+        "fp": 0,
+        "tn": 0,
+        "fn": 226,
+        "recall": 0.6028119507908611,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.7521929824561403
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    },
+    "response_loc": {
+      "coverage": {
+        "requested": 813,
+        "evaluated": 813,
+        "excluded": {}
+      },
+      "native_two_consecutive_strict": {
+        "n": 813,
+        "tp": 725,
+        "fp": 0,
+        "tn": 0,
+        "fn": 88,
+        "recall": 0.8917589175891759,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9427828348504551
+      },
+      "native_two_consecutive_loose": {
+        "n": 813,
+        "tp": 736,
+        "fp": 0,
+        "tn": 0,
+        "fn": 77,
+        "recall": 0.9052890528905289,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9502905100064558
+      },
+      "endpoint_argmax_unsafe": {
+        "n": 813,
+        "tp": 713,
+        "fp": 0,
+        "tn": 0,
+        "fn": 100,
+        "recall": 0.8769987699876999,
+        "fpr": null,
+        "precision": 1.0,
+        "f1": 0.9344692005242464
+      },
+      "location_metrics": null,
+      "location_note": "Original Qwen3 annotation token indices are not applied to native student tokens."
+    }
+  },
+  "selection_uses_this_benchmark": false,
+  "protocol": "Student: canonical training serialization and native two-consecutive decisions. A0: original chat template/tokenizer and published two-consecutive decisions. Template/token granularity differ, so this is an adapted quality comparison.",
+  "overlap_note": "thinking and thinking_loc overlap; no pooled total score. Location splits contain no safe examples, so FPR is undefined.",
+  "neural_forward_calls": 1872,
+  "reuse_rule": "Exact full input token IDs and evaluation start, within the same checkpoint only",
+  "generated_tokens": 0,
+  "seconds": 56.97840209491551
+}

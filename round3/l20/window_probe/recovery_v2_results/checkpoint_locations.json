@@ -1,0 +1,7 @@
+{
+  "pvc": "safety-guard-base-compare-data",
+  "checkpoints": [
+    "/work/output/window_recovery_v2/full/classifier.safetensors",
+    "/work/output/window_recovery_v2/w512/classifier.safetensors"
+  ]
+}

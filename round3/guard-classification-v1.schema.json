@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GuardClassificationV1",
+  "description": "Direct A0/C1 classifier output. Scores are uncalibrated and are not a policy action.",
+  "type": "object",
+  "properties": {
+    "schema_version": {"const": "guard-classification-v1"},
+    "model_version": {"type": "string", "minLength": 1},
+    "training_status": {"enum": ["pretrained_baseline_unaligned", "stage0_teacher_distilled_unaligned"]},
+    "target_role": {"enum": ["user", "assistant"]},
+    "risk_level": {"enum": ["safe", "controversial", "unsafe"]},
+    "risk_probabilities": {
+      "type": "object",
+      "properties": {
+        "safe": {"type": "number", "minimum": 0, "maximum": 1},
+        "controversial": {"type": "number", "minimum": 0, "maximum": 1},
+        "unsafe": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "required": ["safe", "controversial", "unsafe"],
+      "additionalProperties": false
+    },
+    "category": {"type": "string", "minLength": 1},
+    "category_distribution": {
+      "type": "object",
+      "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1},
+      "minProperties": 1
+    },
+    "category_semantics": {"const": "single_choice_source_head; topic is not an unsafe decision"},
+    "calibrated": {"const": false},
+    "input_tokens_total": {"type": "integer", "minimum": 1},
+    "input_tokens_forwarded": {"type": "integer", "minimum": 0},
+    "cache_reused_tokens": {"type": "integer", "minimum": 0}
+  },
+  "required": ["schema_version", "model_version", "training_status", "target_role",
+    "risk_level", "risk_probabilities", "category", "category_distribution",
+    "category_semantics", "calibrated", "input_tokens_total", "input_tokens_forwarded",
+    "cache_reused_tokens"],
+  "additionalProperties": false
+}

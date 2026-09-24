@@ -1,0 +1,32 @@
+[
+  {
+    "path": "LICENSE",
+    "sha256": "0ba4738a228fe09c4fa60a5c8cfb0ccacb436e72602ea43786d3f5ee4838c458",
+    "bytes": 1070,
+    "revision": "d967c30b053fa40b06c5a0dddf0be493f2dfae46"
+  },
+  {
+    "path": "Vocabulary/政治类型.txt",
+    "sha256": "0aa2ea38cb8164705068cab8f0ef060bc65b2bb8053bc07ff2b5bd96f928743e",
+    "bytes": 3006,
+    "revision": "d967c30b053fa40b06c5a0dddf0be493f2dfae46"
+  },
+  {
+    "path": "Vocabulary/民生词库.txt",
+    "sha256": "d61b97b789daf977ee78e6fccc5e143d22bc7f2a829a1f150b682dbf102ec97a",
+    "bytes": 5954,
+    "revision": "d967c30b053fa40b06c5a0dddf0be493f2dfae46"
+  },
+  {
+    "path": "Vocabulary/贪腐词库.txt",
+    "sha256": "2b76b487081d81817c9097a04267435abf5fdb4b87ce25ceecb27d6d70cc78d3",
+    "bytes": 2747,
+    "revision": "d967c30b053fa40b06c5a0dddf0be493f2dfae46"
+  },
+  {
+    "path": "Vocabulary/补充词库.txt",
+    "sha256": "4fa11b6a2f5e33f3227613a92c4579c37f12bd533090db0720f15025ae19ce65",
+    "bytes": 11459,
+    "revision": "d967c30b053fa40b06c5a0dddf0be493f2dfae46"
+  }
+]

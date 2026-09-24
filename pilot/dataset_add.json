@@ -1,0 +1,3798 @@
+{
+  "ok": true,
+  "schema_version": "aster.response.v1",
+  "data": {
+    "version": {
+      "id": "dsv_01M353J6QC0M0Z2BCEXDX57EMK",
+      "dataset_id": "ds_01M353HXW8F10YF3FG8SBE8H1N",
+      "owner_id": "usr_01M275W11DVSD02AS9Q9878T5N",
+      "version_no": 1,
+      "status": "draft",
+      "base_version_id": null,
+      "base_version_no": null,
+      "changes": {
+        "added": 50,
+        "replaced": 0,
+        "unchanged": 0,
+        "removed_task_keys": []
+      },
+      "tree_path": "datasets/ds_01M353HXW8F10YF3FG8SBE8H1N/v1",
+      "storage_path": "datasets/users/usr_01M275W11DVSD02AS9Q9878T5N/ds_01M353HXW8F10YF3FG8SBE8H1N/v1",
+      "tree_sha256": "eddbcb5d4221e566466859fa50d483a671c5445aa2609fbcc1ea2436795fc4e9",
+      "exportable": true,
+      "task_count": 50,
+      "images_ready_count": 0,
+      "created_at": "2026-09-22T17:45:35",
+      "published_at": null
+    },
+    "added": [],
+    "replaced": [
+      "word-0132df432821",
+      "word-01f0b64bd951",
+      "word-1bff35f2a135",
+      "word-2489016f7967",
+      "word-3858f9bae00f",
+      "word-38b6f6a7e6cb",
+      "word-3c22898b4f99",
+      "word-3e49e140016d",
+      "word-3e82fbe89fe2",
+      "word-3e9400b93986",
+      "word-4617ad6142c8",
+      "word-49fe431756b9",
+      "word-4c18288e1943",
+      "word-61a40d8f1296",
+      "word-62431bd96550",
+      "word-6255a85bdbb7",
+      "word-62e6c7d15711",
+      "word-6433ee9fcda9",
+      "word-6b07bc11ef8d",
+      "word-6ef7ecad415c",
+      "word-705e3c296a8f",
+      "word-7746c5040631",
+      "word-782f3223e5be",
+      "word-78a021c18a65",
+      "word-7b283c066c54",
+      "word-7b8b8f9da490",
+      "word-7fca053f9a8e",
+      "word-7fde949681bb",
+      "word-82d484dbd532",
+      "word-88aa4ac8071c",
+      "word-89d9d76378df",
+      "word-92a054e84d6e",
+      "word-97339da250f1",
+      "word-a067d6e36dba",
+      "word-a16c7d515750",
+      "word-ab78351346a1",
+      "word-ac2e5da71c01",
+      "word-c492716d7fe4",
+      "word-c837b1efc197",
+      "word-cde71c2f4a65",
+      "word-db2dc0cd6fd8",
+      "word-dc13e8e9ab51",
+      "word-e10a333ca069",
+      "word-e2acfffc52a9",
+      "word-e540426218df",
+      "word-ec9f46c71914",
+      "word-f0e94c142d87",
+      "word-f57195c736be",
+      "word-f59d4bba3a98",
+      "word-f6beef430efa"
+    ],
+    "unchanged": [],
+    "removed": [],
+    "tasks": [
+      {
+        "id": "dst_01M353JSX5WW3ZG1D09NF8HF0E",
+        "task_key": "word-0132df432821",
+        "source_path": "word-0132df432821",
+        "content_sha256": "3681517a2f62de6c9e9ac25cab5557989e01bd6f8efab0d2b97ba9cb8bba5a96",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-0132df432821\", \"word\": \"来源不明罪\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-0132df432821\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-0132df432821"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSX8E5H5NMGDAACD5RPC",
+        "task_key": "word-01f0b64bd951",
+        "source_path": "word-01f0b64bd951",
+        "content_sha256": "bfe65a050a3a7fecbea9372854e99aaf8bc743f36e8daced7eb6fe4bab7df636",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-01f0b64bd951\", \"word\": \"有期徒刑\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-01f0b64bd951\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-01f0b64bd951"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSXBTQHRVV4NS0YG8VR7",
+        "task_key": "word-1bff35f2a135",
+        "source_path": "word-1bff35f2a135",
+        "content_sha256": "671f0a99be210e2f11ebe1a1c9558d530f8e8b1c7036fe9a45997021e800a4e8",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-1bff35f2a135\", \"word\": \"纠纷\", \"source_category\": \"民生词库\", \"origin_group_id\": \"word-1bff35f2a135\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/民生词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-1bff35f2a135"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSXE4WR697P72SXGCX7F",
+        "task_key": "word-2489016f7967",
+        "source_path": "word-2489016f7967",
+        "content_sha256": "dc48ab5f17d1934e54b59271383299a1ea14051c4c84e7d726f6721fc2a676dd",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-2489016f7967\", \"word\": \"拆迁\", \"source_category\": \"民生词库\", \"origin_group_id\": \"word-2489016f7967\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/民生词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-2489016f7967"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSXHA0AFR9DG5F60TCDR",
+        "task_key": "word-3858f9bae00f",
+        "source_path": "word-3858f9bae00f",
+        "content_sha256": "ad78e627bdecaf25aa2d0e3d26da5312f9950d41038407913134dd79a88183a8",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-3858f9bae00f\", \"word\": \"中南海\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-3858f9bae00f\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-3858f9bae00f"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSXMSG4S8JYAG1B4EQS3",
+        "task_key": "word-38b6f6a7e6cb",
+        "source_path": "word-38b6f6a7e6cb",
+        "content_sha256": "bd586e8aa8de13fa48fd0b70c6cbe111ddce8f13c59358db1228d9b5d4c9ea6c",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-38b6f6a7e6cb\", \"word\": \"打人\", \"source_category\": \"民生词库\", \"origin_group_id\": \"word-38b6f6a7e6cb\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/民生词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-38b6f6a7e6cb"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSXQ7PCY7FXVHTJ500GN",
+        "task_key": "word-3c22898b4f99",
+        "source_path": "word-3c22898b4f99",
+        "content_sha256": "2e52e6834fc4c14b11e35204f0a87ebb6c877a98007ea89a6c1da6ae477fc673",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-3c22898b4f99\", \"word\": \"新疆骚乱\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-3c22898b4f99\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-3c22898b4f99"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSXTRJV9G8KMWKM80KXK",
+        "task_key": "word-3e49e140016d",
+        "source_path": "word-3e49e140016d",
+        "content_sha256": "98a1748c856bcd45825042105e60c5e7cde22a6038a18146010227ca7143a9dd",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-3e49e140016d\", \"word\": \"开除党籍\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-3e49e140016d\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-3e49e140016d"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSXX5WHKKKQDA9T1VQEN",
+        "task_key": "word-3e82fbe89fe2",
+        "source_path": "word-3e82fbe89fe2",
+        "content_sha256": "10e099ac5128128e1fbe62863d6ad267b583f007bd13e86d7550f42978e2f255",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-3e82fbe89fe2\", \"word\": \"经济犯罪\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-3e82fbe89fe2\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-3e82fbe89fe2"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSY0X61NG1WK6PDB6VRZ",
+        "task_key": "word-3e9400b93986",
+        "source_path": "word-3e9400b93986",
+        "content_sha256": "2c4fa1e747efa979f94f7fe9b297b1687d049fd9fa5ce48eb480ebaa73bde36e",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-3e9400b93986\", \"word\": \"受贿罪\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-3e9400b93986\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-3e9400b93986"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSY20MHZ8HK0RYMBYBC3",
+        "task_key": "word-4617ad6142c8",
+        "source_path": "word-4617ad6142c8",
+        "content_sha256": "705718d61c01775c7d19f3b9ac490d1b12e624ee655d8470cda19380983a40f3",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-4617ad6142c8\", \"word\": \"法轮功\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-4617ad6142c8\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-4617ad6142c8"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSY5H2TJ1G07D25KR8TA",
+        "task_key": "word-49fe431756b9",
+        "source_path": "word-49fe431756b9",
+        "content_sha256": "bd52178f9a4801674dd73141c96f8f6512be3a5fb45d5c4e2aa326df5e546909",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-49fe431756b9\", \"word\": \"邓小平\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-49fe431756b9\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-49fe431756b9"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSY8PGFNF53WFJG9TYJE",
+        "task_key": "word-4c18288e1943",
+        "source_path": "word-4c18288e1943",
+        "content_sha256": "9d5bc9b9aa945d1dc249213a08b82771df131a0acc11cca7ab5f07dfda36c75f",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-4c18288e1943\", \"word\": \"巨额财产\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-4c18288e1943\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-4c18288e1943"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSYB633KZP2W8EXESFQM",
+        "task_key": "word-61a40d8f1296",
+        "source_path": "word-61a40d8f1296",
+        "content_sha256": "edbfff41b85e3a601b73f0d9765e8c01c63893575a8a0dc3b83b05bc1c027e47",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-61a40d8f1296\", \"word\": \"江泽民\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-61a40d8f1296\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-61a40d8f1296"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSYEPV9BV2C03WH655JS",
+        "task_key": "word-62431bd96550",
+        "source_path": "word-62431bd96550",
+        "content_sha256": "65229987fea30e501a668680304ec57dbba50a3499738671094e951bb6f59639",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-62431bd96550\", \"word\": \"王岐山\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-62431bd96550\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-62431bd96550"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSYH6GS6WZ3TX5M261WW",
+        "task_key": "word-6255a85bdbb7",
+        "source_path": "word-6255a85bdbb7",
+        "content_sha256": "6f0e408950dc0597b7fefa4a95aead492eb3b137f4b9435b89119c03283ccd39",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-6255a85bdbb7\", \"word\": \"滥用职权\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-6255a85bdbb7\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-6255a85bdbb7"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSYMC3QZ6YVD6MXEVWKC",
+        "task_key": "word-62e6c7d15711",
+        "source_path": "word-62e6c7d15711",
+        "content_sha256": "23746100fa3f75819d5631e08ae3b247c153bd0df009900793fc8ce14bfd7c1b",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-62e6c7d15711\", \"word\": \"起诉\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-62e6c7d15711\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-62e6c7d15711"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSYQ96FDGH8C34AG3Q5K",
+        "task_key": "word-6433ee9fcda9",
+        "source_path": "word-6433ee9fcda9",
+        "content_sha256": "76e931218f3b789b3517f8b8de12ed9903569203594ca7e7d8e12fcdbd2503a6",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-6433ee9fcda9\", \"word\": \"王沪宁\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-6433ee9fcda9\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-6433ee9fcda9"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSYTWDKBV1DS2JNKWC74",
+        "task_key": "word-6b07bc11ef8d",
+        "source_path": "word-6b07bc11ef8d",
+        "content_sha256": "72c1a3d5070c93f5791a47676e9da83dca7ac4a2a2ac8a22aed7845af10a9c6b",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-6b07bc11ef8d\", \"word\": \"收受股票\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-6b07bc11ef8d\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-6b07bc11ef8d"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSYXET94ADWVBF3A5BC3",
+        "task_key": "word-6ef7ecad415c",
+        "source_path": "word-6ef7ecad415c",
+        "content_sha256": "076a08bd43b0c35be1e67cc5eae8dd1a4c406d2a85d3a2317266ff67069a98bd",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-6ef7ecad415c\", \"word\": \"严重违纪\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-6ef7ecad415c\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-6ef7ecad415c"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZ0K11G7FJFNRP2P30P",
+        "task_key": "word-705e3c296a8f",
+        "source_path": "word-705e3c296a8f",
+        "content_sha256": "033b7fd84d9d854ad4234af448dbcc955da6032b0c6a377adbda486a58670c8d",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-705e3c296a8f\", \"word\": \"玩忽职守\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-705e3c296a8f\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-705e3c296a8f"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZ31RZGFCNAFWK1HTZ0",
+        "task_key": "word-7746c5040631",
+        "source_path": "word-7746c5040631",
+        "content_sha256": "97a944f17225a7ab3c019bbbb01aa450f077365f7525987b6db350a4317943e1",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-7746c5040631\", \"word\": \"贪污\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-7746c5040631\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-7746c5040631"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZ6Z956HE4EXFH1R3VH",
+        "task_key": "word-782f3223e5be",
+        "source_path": "word-782f3223e5be",
+        "content_sha256": "563dd3bcfca8e31290f7c4b1a600f55612cc3f32a69a51efe1ea0bac7b324958",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-782f3223e5be\", \"word\": \"中国当局\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-782f3223e5be\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-782f3223e5be"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZ8DAAZAYXHWHSK39RX",
+        "task_key": "word-78a021c18a65",
+        "source_path": "word-78a021c18a65",
+        "content_sha256": "a94015831512d61d2549e73f3fdb70fb13c3be9b50a1db9ffeccb4e70de1ff6b",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-78a021c18a65\", \"word\": \"大陆官方\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-78a021c18a65\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-78a021c18a65"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZBV5STCVQY5Y7KNB3N",
+        "task_key": "word-7b283c066c54",
+        "source_path": "word-7b283c066c54",
+        "content_sha256": "8a6ec5ea0d4a5608f064b63f20d930ae327d5a97749d8f77be89f04d6aa79edc",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-7b283c066c54\", \"word\": \"中共\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-7b283c066c54\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-7b283c066c54"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZEZGAXK2A1B6CAQJTC",
+        "task_key": "word-7b8b8f9da490",
+        "source_path": "word-7b8b8f9da490",
+        "content_sha256": "dbcdd72974d886c10ed5a201f77615b9d4c75bc4b9f4573310abc833e887b2a3",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-7b8b8f9da490\", \"word\": \"无期徒刑\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-7b8b8f9da490\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-7b8b8f9da490"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZHE88FDJHEDDZE21CP",
+        "task_key": "word-7fca053f9a8e",
+        "source_path": "word-7fca053f9a8e",
+        "content_sha256": "666a2128574605962e34ccb57bb27d1a6a79b7312409d78c022a410ac482b32c",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-7fca053f9a8e\", \"word\": \"大陆当局\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-7fca053f9a8e\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-7fca053f9a8e"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZMKY7HCKS9P1285XDR",
+        "task_key": "word-7fde949681bb",
+        "source_path": "word-7fde949681bb",
+        "content_sha256": "8c1c274868ee8f97e3ae91adb01e5e814327fc62f1c30af8c5f035ce96955723",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-7fde949681bb\", \"word\": \"徇私舞弊\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-7fde949681bb\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-7fde949681bb"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZQEAT2H9M5GK78AZCK",
+        "task_key": "word-82d484dbd532",
+        "source_path": "word-82d484dbd532",
+        "content_sha256": "db929b290343c531963a418dd83bacc400879044c4533094f3c3745fb8b6e3b3",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-82d484dbd532\", \"word\": \"撤销职务\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-82d484dbd532\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-82d484dbd532"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZV5NTTDC0JD4N4PCGA",
+        "task_key": "word-88aa4ac8071c",
+        "source_path": "word-88aa4ac8071c",
+        "content_sha256": "5cda59f4a9290702757648b7f5cb9f0f4e7eaca175faf50f1d0393989e39d805",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-88aa4ac8071c\", \"word\": \"周永康\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-88aa4ac8071c\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-88aa4ac8071c"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JSZY8HNC24HF507Q8WMZ",
+        "task_key": "word-89d9d76378df",
+        "source_path": "word-89d9d76378df",
+        "content_sha256": "d93a3b10e5eb6f22e9ac41a2aee884e645ab00d57176be7ebd022a8d5ca581ba",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-89d9d76378df\", \"word\": \"以权谋私\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-89d9d76378df\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-89d9d76378df"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT00TCHDAH9CE20SS277",
+        "task_key": "word-92a054e84d6e",
+        "source_path": "word-92a054e84d6e",
+        "content_sha256": "3deb3bdae65aa77767c7939413217170ca105f8c4878a7cdc0359bdb5ff58feb",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-92a054e84d6e\", \"word\": \"习近平\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-92a054e84d6e\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-92a054e84d6e"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT03BGFTPNDAQAJEYDBB",
+        "task_key": "word-97339da250f1",
+        "source_path": "word-97339da250f1",
+        "content_sha256": "379b3bef1062a01c54f8356af790cc24ade5f24c7d5cc3aed2199275dd117252",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-97339da250f1\", \"word\": \"官僚主义\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-97339da250f1\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-97339da250f1"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT06C9YCTNMCSMX46BVA",
+        "task_key": "word-a067d6e36dba",
+        "source_path": "word-a067d6e36dba",
+        "content_sha256": "91ab1d215ba6d0ff30c886bc9d1a104581a2ceddb3229b0318a62c3d21bf0ca0",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-a067d6e36dba\", \"word\": \"朱镕基\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-a067d6e36dba\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-a067d6e36dba"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT09K132QVSQ6RPHPYHX",
+        "task_key": "word-a16c7d515750",
+        "source_path": "word-a16c7d515750",
+        "content_sha256": "7b170f3a58e436bdde2c9913fef5bb539269a481c5e21b889b8c0ae14e2452ef",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-a16c7d515750\", \"word\": \"胡锦涛\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-a16c7d515750\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-a16c7d515750"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0CXBMA4MRXWWM37E6V",
+        "task_key": "word-ab78351346a1",
+        "source_path": "word-ab78351346a1",
+        "content_sha256": "4881c4d10d26cdc9310fc0f27b1c3c744b805329723c3c25e0494af6ad1cc6e4",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-ab78351346a1\", \"word\": \"薄熙来\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-ab78351346a1\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-ab78351346a1"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0E0TKBZB8BNGWRCBNE",
+        "task_key": "word-ac2e5da71c01",
+        "source_path": "word-ac2e5da71c01",
+        "content_sha256": "5d2ead48f7ff3b4716e44db6b2f2c02e4dd8d0c7a1c3bd5bd3be17ff2ea8c1c5",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-ac2e5da71c01\", \"word\": \"李鹏\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-ac2e5da71c01\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-ac2e5da71c01"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0J4MD311XW172TZ1MF",
+        "task_key": "word-c492716d7fe4",
+        "source_path": "word-c492716d7fe4",
+        "content_sha256": "ba008294c7b8ad0539d44bb9bf0170747b32f52b7e4c5546c17b0ec90db9864d",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-c492716d7fe4\", \"word\": \"政府\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-c492716d7fe4\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-c492716d7fe4"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0M1QCN25GJR4P4192V",
+        "task_key": "word-c837b1efc197",
+        "source_path": "word-c837b1efc197",
+        "content_sha256": "e5c5205bc87fbc30adec0c1ec3bb4543deef3f292d9823ff9847b6f5ad770d0b",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-c837b1efc197\", \"word\": \"温家宝\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-c837b1efc197\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-c837b1efc197"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0QBB60C2B4NAFQYTGM",
+        "task_key": "word-cde71c2f4a65",
+        "source_path": "word-cde71c2f4a65",
+        "content_sha256": "2acd99a818ac035d864d0c6f8a0c2fc00d72c4c93f6a53d0a86eb1535953c3c7",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-cde71c2f4a65\", \"word\": \"中央领导\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-cde71c2f4a65\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-cde71c2f4a65"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0TFD2TA3MVGEE36XAT",
+        "task_key": "word-db2dc0cd6fd8",
+        "source_path": "word-db2dc0cd6fd8",
+        "content_sha256": "ae637724a0389cc5091c08a376928fb7d82b2ccdb17efb804d5f3836fc767d29",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-db2dc0cd6fd8\", \"word\": \"共产党\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-db2dc0cd6fd8\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-db2dc0cd6fd8"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0X6RB3Z957H7SHBXWT",
+        "task_key": "word-dc13e8e9ab51",
+        "source_path": "word-dc13e8e9ab51",
+        "content_sha256": "c28edcf67926480f1130943e0a28cb9e3d01ef1906da628e4f34379386b1a1ab",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-dc13e8e9ab51\", \"word\": \"北京当局\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-dc13e8e9ab51\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-dc13e8e9ab51"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT0Z6Y4KMH01GGT2WHHK",
+        "task_key": "word-e10a333ca069",
+        "source_path": "word-e10a333ca069",
+        "content_sha256": "df47bbbb3c320d6aad0dcf8ec89736b3930b94ae4da2eff3bd1262f2d541bb8e",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-e10a333ca069\", \"word\": \"刘少奇\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-e10a333ca069\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-e10a333ca069"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT12HX2568WJ271TC2Y6",
+        "task_key": "word-e2acfffc52a9",
+        "source_path": "word-e2acfffc52a9",
+        "content_sha256": "6ea868d1ff1a2aad976943a337a63cd4371edd9e248e7fb1e46da4ae2b09757f",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-e2acfffc52a9\", \"word\": \"没收个人财产\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-e2acfffc52a9\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-e2acfffc52a9"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT15SG3ZQKMGVPB92H15",
+        "task_key": "word-e540426218df",
+        "source_path": "word-e540426218df",
+        "content_sha256": "64ced49aa398e1c5f5def9f2c749e29ea7ab86914daeb6abad181c15828935e4",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-e540426218df\", \"word\": \"毛泽东\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-e540426218df\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-e540426218df"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT18D48F4J49HJWAP1GP",
+        "task_key": "word-ec9f46c71914",
+        "source_path": "word-ec9f46c71914",
+        "content_sha256": "f15e58c3930595963699f704d01e41fb8651ceea802e36469bb85e9524b94fcf",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-ec9f46c71914\", \"word\": \"罢工\", \"source_category\": \"民生词库\", \"origin_group_id\": \"word-ec9f46c71914\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/民生词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-ec9f46c71914"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT1BDMDMK42N7AWM4E5N",
+        "task_key": "word-f0e94c142d87",
+        "source_path": "word-f0e94c142d87",
+        "content_sha256": "120d1732071645893da1b069cc11d7636ccdad0304d55f34cfff024f1d43dd9f",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-f0e94c142d87\", \"word\": \"腐败\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-f0e94c142d87\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-f0e94c142d87"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT1EC91PB3NMENYV3JXR",
+        "task_key": "word-f57195c736be",
+        "source_path": "word-f57195c736be",
+        "content_sha256": "f37a2e429af4a474e12b4be086cf6047e3a9139bc20a1653db3c114e08905072",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-f57195c736be\", \"word\": \"李克强\", \"source_category\": \"政治类型\", \"origin_group_id\": \"word-f57195c736be\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/政治类型.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-f57195c736be"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT1H9BXJH8JSNXAYFPQJ",
+        "task_key": "word-f59d4bba3a98",
+        "source_path": "word-f59d4bba3a98",
+        "content_sha256": "231fc51c4e97ee2ccad94e183ca7012ded01e66476e23faf376bb6585b367ee9",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-f59d4bba3a98\", \"word\": \"违纪\", \"source_category\": \"贪腐词库\", \"origin_group_id\": \"word-f59d4bba3a98\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/贪腐词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-f59d4bba3a98"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      },
+      {
+        "id": "dst_01M353JT1MDG1H2RDH22267ZH6",
+        "task_key": "word-f6beef430efa",
+        "source_path": "word-f6beef430efa",
+        "content_sha256": "c620bea70ff1fbf9b934455aa2740681a0b72058bed4edc7b626df6aeda28d6f",
+        "change": "added",
+        "harbor_validation": "valid",
+        "diagnostics": [
+          {
+            "file": "task.toml",
+            "field": "environment.cpus",
+            "message": "没有声明 cpus；提交时用兜底值 resource_defaults.cpu。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.memory_mb",
+            "message": "没有声明 memory_mb；提交时用兜底值 resource_defaults.memory_gib。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "agent.timeout_sec",
+            "message": "没有声明 Agent 超时；提交时用兜底值 resource_defaults.timeout_seconds。",
+            "blocking": false
+          },
+          {
+            "file": "task.toml",
+            "field": "environment.storage_mb",
+            "message": "没有声明 storage_mb；提交时用兜底值 resource_defaults.storage_gib（不给是 20）。",
+            "blocking": false
+          }
+        ],
+        "images": [
+          {
+            "role": "agent",
+            "declared": null,
+            "bound": null,
+            "source": null,
+            "status": "missing",
+            "reference": null,
+            "location": null,
+            "platform_digest": null,
+            "workdir": null,
+            "error": ""
+          }
+        ],
+        "spec": {
+          "cpu": null,
+          "instruction": "{\"seed_id\": \"word-f6beef430efa\", \"word\": \"盗窃\", \"source_category\": \"民生词库\", \"origin_group_id\": \"word-f6beef430efa\", \"source\": {\"repository\": \"konsheng/Sensitive-lexicon\", \"revision\": \"d967c30b053fa40b06c5a0dddf0be493f2dfae46\", \"path\": \"Vocabulary/民生词库.txt\"}}",
+          "memory_gib": null,
+          "metadata": {
+            "category": "guard-data-generation",
+            "name": "word-f6beef430efa"
+          },
+          "network": {
+            "agent": "public",
+            "agent_allowlist": [],
+            "verifier": "public",
+            "verifier_allowlist": []
+          },
+          "steps": [],
+          "storage_gib": null,
+          "timeout_seconds": null,
+          "verifier": {
+            "artifacts": [],
+            "collect": [],
+            "env": {},
+            "environment": "shared",
+            "timeout_seconds": 600
+          },
+          "workdir": null
+        }
+      }
+    ]
+  },
+  "meta": {
+    "request_id": "adf31ced8c6f8297f5fb454e635710b6",
+    "trace_id": "trace_f9980cd11d374a7c9ae4a4366efb7b57",
+    "warnings": []
+  },
+  "_notice": {
+    "update": {
+      "current": "998d2c26d76c",
+      "latest": "6f46d38e8ce5",
+      "command": "aster update"
+    }
+  }
+}
