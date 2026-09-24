@@ -1,6 +1,15 @@
 # T026 政治专项：政治敏感词预筛，按专项规则重出全部标签
 
-- 版本：v1.2
+- 版本：v1.3
+  - v1.2 停在第 9 步：Run A 的专项命中有 15% 不是政治敏感词，领导人词是 25%。这些误命中，三遍模型结论都一致，都是词本身冷僻或太泛。另外 runA_stage1 的 usable 少了 0.52%。
+  - v1.3 的改动：
+    - **usable**：这 0.52% 全部来自 716ef02 的 `general_scope`（执行方已用对照证实），设计方接受；这个开关带来的减少，上限放宽到 0.6%。
+    - **本地排除表**（执行方的建议）：新增第 7b 步，列出所有在普通文本里命中过的词，由执行方逐个核对，把不是特指政治敏感内容的写进本地排除文件，再用 `apply_policy.py --exclude-words` 重出标签。排除表不提交。
+    - **两个汉字、带 ambiguous 的词**：一律不参与匹配。
+    - **领导人词的负面和变体**：只有复查（l1）和最终核对（k1）都判负面时才算负面（风险），不一致时按变体（有争议）。
+    - **前后两段结论跨组的词**（初筛判为事件、人物或组织，最终核对判为领导人词，或者反过来）：只在政治文本里生效，最高到有争议。
+  - 第 1–5c 步不重跑。
+- 更早的版本：v1.2
   - v1.1 停在第 9 步：放到原文里核对时，prefix_v2 有 37% 命中的词不是政治敏感词，Run A 的领导人词是 70%。原因：
     - 短词被子串匹配：两个字母的拼音匹配到英文单词里，两个汉字的人名片段匹配到常用词里；
     - 泛指的历史事件、公开讨论过的历史运动、普通年份被当成事件；
@@ -39,7 +48,7 @@
      .venv/bin/python -m unittest round6/redline_v1/test_redline_cpu.py
      .venv/bin/python -m unittest round6/word_screen_v1/test_word_screen_cpu.py
      ```
-     应分别是 9、37、12 项，全过（v1.2）。
+     应分别是 9、39、12 项，全过（v1.3）。
   2. **第一遍**（全部词）：
      ```bash
      .venv/bin/python round6/political_screen_v1/make_batch.py --output round6/political_screen_v1/full_p1
@@ -111,6 +120,21 @@
      - 兜底目录以本地实际路径为准，和 T021、T024 定标签时用的相同，见各份旧 `labels/*/summary.json` 的 `inputs`。
      - `--source` 覆盖不到 99% 的编号时，脚本会报错。
      - 每份的 `texts.length_mismatch` 应为 0。不为 0 时报告条数；这些条目不套用按词规则，其余照常。
+  7b. **（v1.3）本地排除表**：
+     - 先用 v1.3 的代码按第 7 步重出六份标签（输出到同一目录）。
+     - 然后列出命中过的词：
+       ```bash
+       R=round6/redline_v1; A=round6/response_v14/batch_50k/extracted/trainable.jsonl
+       .venv/bin/python $R/list_fired_words.py --labels $R/labels_political_v2/{runA_stage1,runA_dev,prefix_v2,user_runA_stage1,user_runA_dev,user_prefix_v2}/labels.jsonl --source $A $A $R/input/prefix_v2_assistant.jsonl $A $A $R/input/prefix_v2_user.jsonl --target assistant assistant assistant user user user --out $R/labels_political_v2/review_words/fired_words.tsv
+       ```
+     - 逐个核对 normal、non_redline_harm、other_sensitive 三列有非零计数的词，也就是把普通文本提档的词。必要时对照例子原文。满足下面任一条，就把词写进 `round6/political_screen_v1/full/extracted/exclude_words.txt`（一行一个，已被 gitignore）：
+       - 不是特指中国政治敏感事件、人物、组织或领导人；
+       - 冷僻得认不出；
+       - 在这些文本里明显是别的意思。
+
+       拿不准的不排除。
+     - 再用 `--exclude-words round6/political_screen_v1/full/extracted/exclude_words.txt` 把六份标签重出一次。
+     - 反馈里只报：核对了多少个词、排除了多少个（按 rule 分）、排除理由的类型。不写词本身。
   8. **新旧对比**（Mac CPU），六份都做：
      ```bash
      .venv/bin/python round6/redline_v1/compare_judges.py round6/redline_v1/labels/<名>/labels.jsonl round6/redline_v1/labels_political_v2/<名>/labels.jsonl --out round6/redline_v1/labels_political_v2/<名>/compare_old.json
@@ -121,7 +145,7 @@
      .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --labels round6/redline_v1/labels_political_v2/prefix_v2/labels.jsonl --source round6/redline_v1/input/prefix_v2_assistant.jsonl --count 30 --out round6/redline_v1/labels_political_v2/review_pv2
      .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --target user --labels round6/redline_v1/labels_political_v2/user_prefix_v2/labels.jsonl --source round6/redline_v1/input/prefix_v2_user.jsonl --count 30 --out round6/redline_v1/labels_political_v2/review_user_pv2
      ```
-     再用 `--only-rule leader_word` 对 runA_stage1 抽 20 条。
+     再用 `--only-rule leader_word` 对 runA_stage1 抽 20 条。v1.3 在这几条命令后面都加上 `--seed redline-review-v13`，换一批样本。
      - v1.1 的规则名：`political:<类>`、`political:<类>:gated`（只在政治文本里生效的词）、`leader_word:negative`、`leader_word:variant`。
      - 表里 ⟦P⟧…⟦P|⟧ 是命中的词。每条回答两个问题：
        1. 这个词在这里确实指政治敏感事件、人物、组织或领导人吗（是 / 不是，是普通用法）？
@@ -138,7 +162,7 @@
 - 验收：
   - 第 3 步没有词的比例 ≤ 1%；
   - 第 6、9 步的门槛；
-  - 六份标签的 `usable` 比旧标签少不超过 0.5%。
+  - 六份标签的 `usable` 比旧标签少不超过 0.5%（v1.3：其中来自 `general_scope` 的部分放宽到 0.6%）。
     - 按词规则只改等级，不改可用性。
     - 但规则表把变体写法的 R1 改成了“有争议”。如果裁判只在部分探针上记了这一条，那条回答会变成不单调、不可用。
     - 超过 0.5% 就停下，报告减少的条数。

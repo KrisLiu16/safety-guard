@@ -72,8 +72,9 @@ T020 的人工核对：剔除口径待定的样本后，Run A 91%、prefix_v2 10
 | `compare_judges.py` | Mac | 两个裁判在同一批回答上的标签一致率、截断一致率和起点偏移（各自单独 `apply_policy.py` 后比较） |
 | `export_official.py` | 集群或 Mac | 把官方 Qwen3GuardTest thinking 集（评测用的同一批 ready 记录）导出成 v14 格式的行，按本口径标注后，供 `analyze_redline.py --official-labels` 观察新头（T027）；输出含原文，不提交 |
 | `export_prefix_v2.py` | 集群或 Mac | 把第五轮 prefix_v2 的助手侧记录导出成 v14 格式的行，原样保留 messages；输出含数据集原文，不提交 |
+| `list_fired_words.py` | Mac | 列出 `--political-terms` 命中过的词和它们把哪些分层提了档，供人工建本地排除表（T026 v1.3）；输出必须放在 `review*/` 下，不提交 |
 | `review_sample.py` | Mac | 按“旧标签 → 新标签”分层抽样，生成本地人工核对表（在原文里标出起点分句）；输出在 `review/` 下，已加入 .gitignore，不提交 |
-| `test_redline_cpu.py` | Mac | 36 项 CPU 单测，含一个用假模型跑通 flow、抽取和重算的端到端测试 |
+| `test_redline_cpu.py` | Mac | 39 项 CPU 单测，含一个用假模型跑通 flow、抽取和重算的端到端测试 |
 
 ## 还没做的
 

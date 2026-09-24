@@ -24,6 +24,7 @@ from export_prefix_v2 import export  # noqa: E402
 import export_official  # noqa: E402
 from make_tasks import build, context, pick, prompt_rows  # noqa: E402
 import review_sample  # noqa: E402
+import list_fired_words  # noqa: E402
 
 
 def hit(code="R7", act="writes", detail="specific", spelling="plain"):
@@ -350,6 +351,37 @@ class PolicyTests(unittest.TestCase):
         out, _ = apply([[row("t", texts["t"], terror), row("p", texts["p"], subversion)]],
                        texts={k: (v, None) for k, v in texts.items()}, terms=table)
         self.assertEqual({r["sample_id"]: r["label"] for r in out}, {"t": "safe", "p": "controversial"})
+
+    def test_political_terms_v13_rules(self):
+        rows = [{"word": "两字", "verdict": "event", "ambiguous": True, "check": "event"},              # never
+                {"word": "排除词", "verdict": "event", "ambiguous": False, "check": "event"},            # excluded
+                {"word": "变或负", "verdict": "leader", "ambiguous": False, "leader_screen": "evasion",
+                 "leader_form": "variant", "check": "leader_negative"},                                 # passes disagree
+                {"word": "跨组词", "verdict": "org", "ambiguous": False, "check": "leader_negative"},    # org vs leader
+                {"word": "人转领", "verdict": "leader", "ambiguous": False, "leader_screen": "rumor",
+                 "leader_form": "negative", "check": "figure"}]                                          # leader vs figure
+        table = term_table(rows, exclude={"排除词"})
+        self.assertEqual(table, {"变或负": ("leader_word:variant", "controversial", False),
+                                 "跨组词": ("leader_word:negative", "unsafe", True),
+                                 "人转领": ("political:figure", "controversial", True)})
+
+    def test_list_fired_words(self):
+        text = "占位，事件甲在这里，还有组织丁。"
+        a, b = text.index("事件甲"), text.index("组织丁")
+        labels = [{"sample_id": "s1", "political": {"label_before": "safe", "label_after": "controversial", "stratum_before": "normal",
+                                                    "fired": [{"rule": "political:event", "start": a, "end": a + 3},
+                                                              {"rule": "political:org", "start": b, "end": b + 3}]}},
+                  {"sample_id": "s2", "political": {"label_before": "unsafe", "label_after": "unsafe", "stratum_before": "redline",
+                                                    "fired": [{"rule": "political:event", "start": a, "end": a + 3}]}},
+                  {"sample_id": "s3"}]
+        table = list_fired_words.tally(list_fired_words.fired_words(labels, {"s1": text, "s2": text, "s3": text}))
+        self.assertEqual([(k, v["rows"], v["normal"]) for k, v in table],
+                         [(("事件甲", "political:event"), 2, 1), (("组织丁", "political:org"), 1, 1)])
+        with tempfile.TemporaryDirectory() as tmp:
+            done = subprocess.run([sys.executable, str(HERE / "list_fired_words.py"), "--labels", "x", "--source", "y",
+                                   "--target", "assistant", "--out", str(Path(tmp) / "sheet.tsv")], capture_output=True, text=True)
+            self.assertNotEqual(done.returncode, 0)
+            self.assertIn("review", done.stderr)
 
     def test_political_terms_cli_checks_the_source(self):
         with tempfile.TemporaryDirectory() as tmp:

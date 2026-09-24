@@ -29,6 +29,10 @@ the judged levels, prefixes ending inside it get no target.
   the check's category (event / figure / org / leader_negative / leader_variant). Latin-letter terms need at least
   3 letters and match whole words only; two-character Chinese terms and pure digits are gated; the gate counts
   only the Chinese political red lines (R1, R3-R6, R9), not terrorism or ethnic / racial hatred.
+  v1.3 (T026 step 9 again): two-character Chinese terms that are ambiguous never fire; a leader word is negative
+  (unsafe) only when the leader-form pass and the check agree, otherwise variant; a word whose screen and check
+  disagree between a leader word and an event / figure / org is gated and at most controversial; --exclude-words
+  (a local, hand-checked list, never committed) drops words that fire on ordinary text.
 """
 from __future__ import annotations
 
@@ -128,30 +132,45 @@ def latin(word):
     return word.isascii()
 
 
-def term_table(rows, switches=None):
+def candidate_group(r):
+    """Screen-stage group of a word: "leader", "political" (event / figure / org) or None."""
+    if r["verdict"] in POLITICAL:
+        return "political"
+    if r["verdict"] == "leader" and r.get("leader_screen") in LEADER_FLAGGED and r.get("leader_form") in LEADER_MATCHED:
+        return "leader"
+    return None
+
+
+def term_table(rows, switches=None, exclude=()):
     """political_terms.jsonl rows (T026, merged over passes) -> {word: (rule, level, gated)} for the words that are
     matched verbatim in every text. Rows with a final check (v1.2) fire only on its fire verdicts; when any row has
-    one, rows without it never fire. Words at a switch level of safe, single characters and Latin-letter words
-    shorter than MIN_LATIN are left out; two-character Chinese words and pure digits are gated."""
+    one, rows without it never fire. Left out: words at a switch level of safe, single characters, Latin-letter
+    words shorter than MIN_LATIN, ambiguous two-character Chinese words and the excluded words. Gated: ambiguous
+    words, figures (figure_scope), two-character Chinese words, pure digits, and words whose screen and check
+    disagree between leader and event / figure / org."""
     s = resolve(switches)
     checked = any("check" in r for r in rows)
     table = {}
     for r in rows:
         word, verdict = r["word"], r["verdict"]
-        if len(word) < 2 or (latin(word) and len(word) < MIN_LATIN):
+        two_chinese = len(word) == 2 and not latin(word)
+        if (len(word) < 2 or (latin(word) and len(word) < MIN_LATIN) or word in exclude
+                or (two_chinese and r["ambiguous"])):
             continue
+        group = candidate_group(r)
         if checked:
-            kind = CHECK_KINDS.get(r.get("check"))
-            if kind is None:
+            if CHECK_KINDS.get(r.get("check")) is None:
                 continue
             verdict = r["check"]
-        elif verdict in POLITICAL:
-            kind = f"political:{verdict}"
-        elif verdict == "leader" and r.get("leader_screen") in LEADER_FLAGGED and r.get("leader_form") in LEADER_MATCHED:
+        elif group == "political":
+            pass
+        elif group == "leader":
             verdict = "leader_" + r["leader_form"]
-            kind = CHECK_KINDS[verdict]
         else:
             continue
+        crossed = group is not None and group != ("leader" if verdict.startswith("leader_") else "political")
+        if verdict == "leader_negative" and r.get("leader_form", "negative") != "negative":
+            verdict = "leader_variant"                   # the two leader passes disagree: the milder reading
         if verdict == "leader_negative":
             level = "unsafe"
         elif verdict == "leader_variant":
@@ -159,9 +178,9 @@ def term_table(rows, switches=None):
         else:
             level = s[f"political_{verdict}"]
         gated = (bool(r["ambiguous"]) or (verdict == "figure" and s["figure_scope"] == "political_text")
-                 or word.isdigit() or (len(word) == 2 and not latin(word)))
+                 or word.isdigit() or two_chinese or crossed)
         if level != "safe":
-            table[word] = (kind, level, gated)
+            table[word] = (CHECK_KINDS[verdict], level, gated)
     return table
 
 
@@ -382,6 +401,8 @@ def main():
     parser.add_argument("--screen", type=Path, help="word screen screen.jsonl (T012), seed-word rule; needs --source")
     parser.add_argument("--political-terms", type=Path,
                         help="political screen political_terms.jsonl (T026), matched in every text; needs --source")
+    parser.add_argument("--exclude-words", type=Path,
+                        help="local hand-checked list (one word per line) of political terms that must not fire; never commit it")
     parser.add_argument("--source", type=Path, help="the v14-format rows the Tasks were built from (the texts)")
     parser.add_argument("--target", choices=("assistant", "user"), default="assistant",
                         help="user: the probes label prompts (make_tasks.py --target user)")
@@ -411,7 +432,8 @@ def main():
     lowered = None
     if args.political_terms:
         term_rows = read_jsonl(args.political_terms)
-        terms = term_table(term_rows, switches)
+        exclude = set(args.exclude_words.read_text(encoding="utf-8").split("\n")) - {""} if args.exclude_words else set()
+        terms = term_table(term_rows, switches, exclude)
         if not terms:
             parser.error("--political-terms gave no matchable word")
         if screen:
@@ -419,6 +441,8 @@ def main():
     rows, summary = apply(sources, switches, screen, texts, terms)
     summary["inputs"] = [str(p) for p in args.probes] + [str(p) for p in (args.screen, args.political_terms, args.source) if p]
     summary["screen_words_formal_by_leader_form"] = lowered
+    if args.political_terms:
+        summary["excluded_words"] = {"listed": len(exclude), "in_candidates": len(exclude & {r["word"] for r in term_rows})}
     args.out.mkdir(parents=True, exist_ok=True)
     with (args.out / "labels.jsonl").open("w", encoding="utf-8") as handle:
         for row in rows:
