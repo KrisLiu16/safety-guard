@@ -1,0 +1,1613 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_probe_dump_v1",
+  "script_sha256": "e01d03da2f4dd5adad07df83af55c4062adc452c0dff645570f08fdf57e8e4cc",
+  "common_sha256": "17b0db9d63a141900418f8224d70e6581705c6911538487b231c75ecd001d3e7",
+  "input_sha256": "616b2c6e45f7acc9f68c5bcc827f8afe3590b5255c8f863b4f74c41eeb68bf6d",
+  "training_performed": false,
+  "thresholds_fitted": false,
+  "generated_tokens": 0,
+  "limit": 0,
+  "elapsed_seconds": 1627.2803173009306,
+  "checkpoint_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "inference_engine": "eager",
+  "execution_contract": {
+    "name": "canonical32-v1",
+    "block_tokens": 32,
+    "pad_token_id": 248044,
+    "window": 512,
+    "backbone_layers": 24,
+    "partial_cache": "not_committed",
+    "readout": "all_32_positions_both_roles",
+    "max_input_tokens": 8192,
+    "risk_labels": [
+      "safe",
+      "unsafe",
+      "controversial"
+    ]
+  },
+  "tokenizer_json_sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+  "phase": "finished",
+  "device": {
+    "device": "NVIDIA L20",
+    "kernels": {
+      "attention": "torch sdpa",
+      "gdn_chunk": "fla-0.5.2",
+      "gdn_recurrent": "fla-0.5.2",
+      "short_convolution": "Transformers torch implementation",
+      "short_gdn_recurrent": true
+    },
+    "runtime_versions": {
+      "torch": "2.7.1+cu128",
+      "transformers": "5.17.0",
+      "tokenizers": "0.23.2",
+      "flash-linear-attention": "0.5.2",
+      "fla-core": "0.5.2",
+      "safetensors": "0.8.0",
+      "triton": "3.3.1"
+    }
+  },
+  "sources_before": {
+    "runtime_source_sha256": {
+      "text_stream_runtime.py": "5259bcb6400ad4f61e0d5cc6a2950d7493e2f104bee7757f324950a03968c707",
+      "graph_stream.py": "6cab997727f2072ce2bf077a50f5c4f11f68fc48ad7ecdf1fb6030ed91a39524",
+      "canonical_block_engine.py": "4b3214c20d263d147850356f1751014ec326ed85f8b9dd2510f40c6be4cfa9b5",
+      "canonical_text_runtime.py": "bae9a7f228506e3c372891adc9d5af1c4fdab94f20a8b0affefcee8757b975f7",
+      "window_attention.py": "65613e26e6db49ed6f8190ba9ad8e101f222595a18588638db99a15fa9ed5227"
+    },
+    "model_loader_source_sha256": {
+      "infer_classifier.py": "57a3b147c8ebf28a39fbbd20d4f3f0960335abf33e3f3d5784d98afbb372ff1e",
+      "train_base.py": "19ebfd8ec2bd0253aff822e34524dc01bd8dad9dba6bd88a6c8316e1154f0018",
+      "experiment_common.py": "498454eef081454d1b2c334f85a4b2f3dda8d82190a8fd4a81512116cac20d2e",
+      "speed_probe.py": "036c52f96dbf0cb9214f40c8f4060c69f2df47818f801271720521b533323cca",
+      "run_probe.py": "7320f017c19d47699bdb3e9e96cdb4d905fec96cf08f9a3125e85dd54bbabf34"
+    },
+    "source_paths": {
+      "text_stream_runtime.py": "/work/round5/runtime/text_stream_runtime.py",
+      "graph_stream.py": "/work/round5/runtime/graph_stream.py",
+      "canonical_block_engine.py": "/work/round5/runtime/canonical_block_engine.py",
+      "canonical_text_runtime.py": "/work/round5/runtime/canonical_text_runtime.py",
+      "window_attention.py": "/work/window/window_attention.py",
+      "infer_classifier.py": "/work/round4/infer_classifier.py",
+      "train_base.py": "/work/input/train_base.py",
+      "experiment_common.py": "/work/input/experiment_common.py",
+      "speed_probe.py": "/work/input/speed_probe.py",
+      "run_probe.py": "/work/window/run_probe.py"
+    },
+    "third_party_source_sha256": {
+      "fla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/__init__.py",
+        "sha256": "b7e0d26abd3162884ce94f37d0210a25344025055383d377937f300a3bf5f45d"
+      },
+      "fla.layers": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/__init__.py",
+        "sha256": "ff454c2a260ffdd23e0c3e8c413a1a90f791302539dd16357ad906c2176ced66"
+      },
+      "fla.layers.abc": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/abc.py",
+        "sha256": "8f87970c65bfef7e6c6ed1e63053728bae8b799cb45f6a942fe8c4bd80cefa13"
+      },
+      "fla.layers.attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/attn.py",
+        "sha256": "38653540252f87b99722d7e93bb0745297d868a34756c93f007ac3a33965fa53"
+      },
+      "fla.layers.based": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/based.py",
+        "sha256": "dc43f1e004547f1d79c79a2efb2058752becd14b6357afa4c888808b1fc619e3"
+      },
+      "fla.layers.bitattn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/bitattn.py",
+        "sha256": "2e5273d227f6dd8b93cc74c403cab22359c3e4133680e241ac3f10de1ff20bef"
+      },
+      "fla.layers.comba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/comba.py",
+        "sha256": "daf7a1533d4043aebf2dc9f09ab14f7bad52f2229ee936a661b65372942734a5"
+      },
+      "fla.layers.delta_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/delta_net.py",
+        "sha256": "b8bc3cdc241061bc2402aff14652854d246fac225895e67300ad17c760e526d1"
+      },
+      "fla.layers.deltaformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/deltaformer.py",
+        "sha256": "702c881955dde2db5cde4d772d74d79f42173b7a4e8dcdffea420bda7c956232"
+      },
+      "fla.layers.forgetting_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/forgetting_attn.py",
+        "sha256": "0684c86fd73457a4038aa2807dac3b3ba7ecdc7949b088bb4b42fde47b9dfcf7"
+      },
+      "fla.layers.gated_deltanet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/gated_deltanet.py",
+        "sha256": "d9c8dbfbcded554a1a1bfe58efe7c8181f32957d7565beea5625836f6371e00b"
+      },
+      "fla.layers.gated_deltaproduct": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/gated_deltaproduct.py",
+        "sha256": "5bfc10f4a8b51d5fe12236e00080ba5a1340dcd5488c6dc06b03a91d47a52199"
+      },
+      "fla.layers.gdn2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/gdn2.py",
+        "sha256": "4d001b6a8903cc7acb42b908ab3ade0f1edca0a17275630fc9c080c0232bf910"
+      },
+      "fla.layers.gla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/gla.py",
+        "sha256": "812a81a28c28275d27ca2e52455096bce5ef0c93314d16015f31c16b634ff8fc"
+      },
+      "fla.layers.gsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/gsa.py",
+        "sha256": "ba1e8ba82e9aaa743b27d2b57cae803541e2f7908cb1d888a191eeb2f27f5da7"
+      },
+      "fla.layers.hgrn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/hgrn.py",
+        "sha256": "1aa56d1e5d217887c0ce3b528c1b90cc5cfe8db72351c683cb33285bf556f595"
+      },
+      "fla.layers.hgrn2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/hgrn2.py",
+        "sha256": "1c0b49ce371921a3ac37c31b29b73db1bd9c935c641ad907926c375b7f305dae"
+      },
+      "fla.layers.kda": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/kda.py",
+        "sha256": "ab31cbdc41cfa74481fc19e0fa32ef59c6f6a4ee779d5f10824509e8af4bc24a"
+      },
+      "fla.layers.lightnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/lightnet.py",
+        "sha256": "dc8573e2b2a5445ee46802a91a3e4d6cbb7d00088593671ada0f90e30303f2c3"
+      },
+      "fla.layers.linear_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/linear_attn.py",
+        "sha256": "fdfed308dd3c7d4642c1fe3a307eabe0900d46390bc45b4a194a609cf8fd5bec"
+      },
+      "fla.layers.log_linear_mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/log_linear_mamba2.py",
+        "sha256": "a7ca111b9190e00b4c97b0c3bcb5ab3fbab5a1691000e56fdaffbcdda5a347c7"
+      },
+      "fla.layers.mamba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/mamba.py",
+        "sha256": "0a1463d649763dd411e9de6dce7043d42a88b1a5ca9327163a4631679d4b2917"
+      },
+      "fla.layers.mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/mamba2.py",
+        "sha256": "107ad53341cca72d9c09c95524e69da049afb8039fcc6e54b98651bc01a01f5c"
+      },
+      "fla.layers.mamba3": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/mamba3.py",
+        "sha256": "4f172051a45cba05a33f03cd3eb9cc26bc746775cdb2889a726291dcbd2f1ff2"
+      },
+      "fla.layers.mesa_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/mesa_net.py",
+        "sha256": "19db3cd2c15e25a3350d312b298877ccc91a3c45fe8f79ba44cf5e8b5dace3db"
+      },
+      "fla.layers.mla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/mla.py",
+        "sha256": "02fd3be23befdc0eb94186ffd60569d853f721e5c613a0acc8fef1c5bb423056"
+      },
+      "fla.layers.moba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/moba.py",
+        "sha256": "bbe9c930e6c0f36f8e4fd6f9309a9f4739300175194a682f77d8925ecbf7ca50"
+      },
+      "fla.layers.mom": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/mom.py",
+        "sha256": "3f520c8702c8dfbf71cf63050a0f62a74d19cb13aa0c0eeb12d6cc595787ddd8"
+      },
+      "fla.layers.multiscale_retention": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/multiscale_retention.py",
+        "sha256": "aa169d625144d3da755dc32a11140dd9b7265c0c34d036ef94596c0d63ddffdd"
+      },
+      "fla.layers.nsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/nsa.py",
+        "sha256": "d7bd8c5293926a8304af52587bff3e01646ae578dc236e1c1c1be2dfa4e54f5c"
+      },
+      "fla.layers.parallax": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/parallax.py",
+        "sha256": "fdedb32873b35d51d366733b31baef47980bc8f7a235f257db7c05aa7e249810"
+      },
+      "fla.layers.path_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/path_attn.py",
+        "sha256": "2f50737d96e320a911a499daf52ecf415d419ccbda0b77618036e6ba18f21189"
+      },
+      "fla.layers.raven": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/raven.py",
+        "sha256": "0a6b2e64a5397e54303e55918d51f359e2951c410a6ffab8bf0892de1bc495a8"
+      },
+      "fla.layers.rebased": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/rebased.py",
+        "sha256": "5ddf04f854b19f6acf1e85548fd5f358ade8a994bd495d45d317ea4c5d6a453c"
+      },
+      "fla.layers.rodimus": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/rodimus.py",
+        "sha256": "e59976de702d532498462e18f90074e313344fae86d86187b20ac1e64b75d024"
+      },
+      "fla.layers.rwkv6": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/rwkv6.py",
+        "sha256": "a63d10b43f36a1c03b5e0c6340d64b22072a592bb3319f1465eb27165a45ea90"
+      },
+      "fla.layers.rwkv7": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/rwkv7.py",
+        "sha256": "de4109b25df8162810f8b45abfc48cc8149b93a02a06cfb51ea3b36717404ffa"
+      },
+      "fla.layers.utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/utils.py",
+        "sha256": "3e05dc8ee595c273681380257c56528f37cb6a713e079ce4f2ace79f9d5ce17e"
+      },
+      "fla.layers.wall_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/wall_attn.py",
+        "sha256": "fa7eef10c9bb3e31771e786b5554d0829ec0d050ec5beb8d3d9152df348f48f7"
+      },
+      "fla.layers.yoco": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/layers/yoco.py",
+        "sha256": "37396599e57f65931549113336bc3170389834632739a5094af8249f38a4ecf5"
+      },
+      "fla.models": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/__init__.py",
+        "sha256": "bf024ce95f8cd20be864cdff237c0d8e34cb2cceeb72c1919a4101e984bf6aa3"
+      },
+      "fla.models.abc": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/abc/__init__.py",
+        "sha256": "a953662532fbde31bd5ee8c16f62c6f31923d36c0c16eca181eec4b58efd541d"
+      },
+      "fla.models.abc.configuration_abc": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/abc/configuration_abc.py",
+        "sha256": "bf42106311ba78cc4cb26ec83df7391334b263f69ca25eb6079e467661f92b71"
+      },
+      "fla.models.abc.modeling_abc": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/abc/modeling_abc.py",
+        "sha256": "3c759c509fbc46ea149be116a08b3d155ee6b53c0f050f26a66df08da8df723b"
+      },
+      "fla.models.bitnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/bitnet/__init__.py",
+        "sha256": "6e6eabbc7bc19b4b75f4e3f9a60c595b1c93c473062b23684ca311fda6dcac08"
+      },
+      "fla.models.bitnet.configuration_bitnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/bitnet/configuration_bitnet.py",
+        "sha256": "0efd9f34c3e4da74e5b4a9d26f4b1c2e229aff2baf6bce864e7fe654b7c96f12"
+      },
+      "fla.models.bitnet.modeling_bitnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/bitnet/modeling_bitnet.py",
+        "sha256": "24121d92c4be2a3f008a897ab30c6939b4cb9a99cf39dd97417ec356269686d9"
+      },
+      "fla.models.comba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/comba/__init__.py",
+        "sha256": "65c1a553ca441a770c8e2bca4f2730c98438a3384826d73b92d177ca699c2afc"
+      },
+      "fla.models.comba.configuration_comba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/comba/configuration_comba.py",
+        "sha256": "7d2e277dd90cec31d30e3f030603535a25ba048296dc8154162d5b1350e54625"
+      },
+      "fla.models.comba.modeling_comba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/comba/modeling_comba.py",
+        "sha256": "0fcd992075cba4b0d1aaba45cfacb8acbdcb86ce8664df06cab8c356c6070c44"
+      },
+      "fla.models.delta_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/delta_net/__init__.py",
+        "sha256": "ee9d0eeddef6e4d727a5abce1f874b1cd941ed3574e4b69114c6d13f82bf4da5"
+      },
+      "fla.models.delta_net.configuration_delta_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/delta_net/configuration_delta_net.py",
+        "sha256": "21d8c87ab1931bea6d9269046695e321ed40e35afb3a0170214449db0b32ce65"
+      },
+      "fla.models.delta_net.modeling_delta_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/delta_net/modeling_delta_net.py",
+        "sha256": "4a3fb314242faeae6d7c4b10dd38a25a21f5125691d7199e07168dc21e12d63f"
+      },
+      "fla.models.deltaformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/deltaformer/__init__.py",
+        "sha256": "05440f65ba2d81bf897b5cf83a396b475236ea052e02affcd910e2ab4202d77a"
+      },
+      "fla.models.deltaformer.configuration_deltaformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/deltaformer/configuration_deltaformer.py",
+        "sha256": "638debd48798395fa862ccf1d972e93aa73ac1bd79824c42e82e9fdc8e267cd6"
+      },
+      "fla.models.deltaformer.modeling_deltaformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/deltaformer/modeling_deltaformer.py",
+        "sha256": "1e58d8d32797c09774579bde7a52b9f1c6a3b7593c440d8a6c7727773e4ad4bb"
+      },
+      "fla.models.forgetting_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/forgetting_transformer/__init__.py",
+        "sha256": "ec0892b967b4e100f49841f1f267f1e71467e02050d4d8585c2067470e780173"
+      },
+      "fla.models.forgetting_transformer.configuration_forgetting_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/forgetting_transformer/configuration_forgetting_transformer.py",
+        "sha256": "685408ea77a2071df614d039583a718ea4ccf829eb595748527817d1f4d3441b"
+      },
+      "fla.models.forgetting_transformer.modeling_forgetting_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/forgetting_transformer/modeling_forgetting_transformer.py",
+        "sha256": "eba2bd23999515da612e8a81dbaf143218a2daa094f09d6e624798c6cfeb6a1e"
+      },
+      "fla.models.gated_deltanet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gated_deltanet/__init__.py",
+        "sha256": "13a86e758c245727dc3e6977f734ac155a98ce5390056b133d7cb92538251bec"
+      },
+      "fla.models.gated_deltanet.configuration_gated_deltanet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gated_deltanet/configuration_gated_deltanet.py",
+        "sha256": "b13cd777c807086ab96d218219a4bc4c7ddda9b910f8ea5fd6610739e986317f"
+      },
+      "fla.models.gated_deltanet.modeling_gated_deltanet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gated_deltanet/modeling_gated_deltanet.py",
+        "sha256": "6952a9bdb19f772eb8454bae1a1ad4824493df0a11575fcf132dc28a361cfba8"
+      },
+      "fla.models.gated_deltaproduct": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gated_deltaproduct/__init__.py",
+        "sha256": "368c3007ba0cb8e59ccc4fc3e5e7098bd3def4e0b5a76fb3cec90e9d35b4d153"
+      },
+      "fla.models.gated_deltaproduct.configuration_gated_deltaproduct": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gated_deltaproduct/configuration_gated_deltaproduct.py",
+        "sha256": "b49a4f76b249597c44ec6f43c601971967a516f607b51bc518508ce36f275a35"
+      },
+      "fla.models.gated_deltaproduct.modeling_gated_deltaproduct": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gated_deltaproduct/modeling_gated_deltaproduct.py",
+        "sha256": "aa6330e862c6a6eb62f4480993f74e4906e06047206a81d2dbce61a383b6effd"
+      },
+      "fla.models.gla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gla/__init__.py",
+        "sha256": "99dacc5d8697b8beb5fd3179182a21fa4461bde1642eb0c361e0505b54e83bd5"
+      },
+      "fla.models.gla.configuration_gla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gla/configuration_gla.py",
+        "sha256": "5a490fab733f4d69a2e8572a7b74eca8576b66dced9a8c9ce108be539211c8e2"
+      },
+      "fla.models.gla.modeling_gla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gla/modeling_gla.py",
+        "sha256": "51ec365e5f6a7eed20b309a06425a8613bf0ca04a8ecc72071a174a998fdd480"
+      },
+      "fla.models.gsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gsa/__init__.py",
+        "sha256": "f4c039c2008a7dba97e6558ceb79e746f5a3c0910daa161e448b5e929830a6fd"
+      },
+      "fla.models.gsa.configuration_gsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gsa/configuration_gsa.py",
+        "sha256": "a880ecc07e5b6f01527a4ca64fc823416d432aca7fe6ff134ac0da9ba8c56e76"
+      },
+      "fla.models.gsa.modeling_gsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/gsa/modeling_gsa.py",
+        "sha256": "ef32bf0a2d23ba60556e24741067d095ea0c9fe61ceda4d4f43ee7f36e18ce2f"
+      },
+      "fla.models.hgrn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/hgrn/__init__.py",
+        "sha256": "cfd93879a0c7642ccf3643f8501ede6f2ce22f6ec2f847d208a8a2a49e927343"
+      },
+      "fla.models.hgrn.configuration_hgrn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/hgrn/configuration_hgrn.py",
+        "sha256": "be14f55068e54f8fea44397c54c61caefda3d17961812dc35ecf56c07f4421f8"
+      },
+      "fla.models.hgrn.modeling_hgrn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/hgrn/modeling_hgrn.py",
+        "sha256": "5cc1c33a5bb2dcaec35aa2307c9fbd45b090bcd360f000196c00a3c0e8857ac0"
+      },
+      "fla.models.hgrn2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/hgrn2/__init__.py",
+        "sha256": "9a150a2a9a39d7f9b40e099915f92153f81d408ff5a228b3643eeb91ac1b8491"
+      },
+      "fla.models.hgrn2.configuration_hgrn2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/hgrn2/configuration_hgrn2.py",
+        "sha256": "52fba13f1eb734f0e88436268f911ba4f93fd24ddcab1046b1d3c7640d3365e9"
+      },
+      "fla.models.hgrn2.modeling_hgrn2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/hgrn2/modeling_hgrn2.py",
+        "sha256": "209244305160931bf91c88ef19cc85b46fa1f4b3756e91fbe95f78ee73e75a97"
+      },
+      "fla.models.hybrid": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/hybrid.py",
+        "sha256": "373fbb7777c9138955e756e4214443550d361cd67f8f8a8fa58db4be7608fc4a"
+      },
+      "fla.models.kda": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/kda/__init__.py",
+        "sha256": "b4f2c1a097fc6cc0c21ac99828468a72e2019a5aca20a7a66f26922e6b7bef01"
+      },
+      "fla.models.kda.configuration_kda": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/kda/configuration_kda.py",
+        "sha256": "d0100155a9f9d4b7bdaba54c6c776de429561327ecc6f42c4e22a7defbf49c48"
+      },
+      "fla.models.kda.modeling_kda": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/kda/modeling_kda.py",
+        "sha256": "603fbc874872a98b21aa12ec7427d90d8d0a377f85edc7c2ac0350457a6ec184"
+      },
+      "fla.models.lightnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/lightnet/__init__.py",
+        "sha256": "9c0b12c5ae4f84ad133b8d410ce0db7e4b72c24f05569495aed23aab06138216"
+      },
+      "fla.models.lightnet.configuration_lightnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/lightnet/configuration_lightnet.py",
+        "sha256": "19b9816cbb09a64b1b534f76db64571573508699abb63011820154a73ddde20c"
+      },
+      "fla.models.lightnet.modeling_lightnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/lightnet/modeling_lightnet.py",
+        "sha256": "36c3f43c0a821f2239c065ba2e7b9d70b5b708dac7b94dbb56b8c3e3f05fa991"
+      },
+      "fla.models.linear_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/linear_attn/__init__.py",
+        "sha256": "6c906aa69a0e6626438c8d297abd5980ab6940c70fdb9f524e717b75eac97eda"
+      },
+      "fla.models.linear_attn.configuration_linear_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/linear_attn/configuration_linear_attn.py",
+        "sha256": "d982f5cf65160ae896c5533badaab7138b4c163bfd81118b5312425af33f619a"
+      },
+      "fla.models.linear_attn.modeling_linear_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/linear_attn/modeling_linear_attn.py",
+        "sha256": "1dd91b51b54fff393e94afd70ccb8805dde209978dc2718870f39ba59d26a687"
+      },
+      "fla.models.log_linear_mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/log_linear_mamba2/__init__.py",
+        "sha256": "6b93e2e07568cc9776ec7adc6622ac71adcc664a9fb06c458980574d63076e73"
+      },
+      "fla.models.log_linear_mamba2.configuration_log_linear_mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/log_linear_mamba2/configuration_log_linear_mamba2.py",
+        "sha256": "fb96378fa90146a7a45dea349f668a16ccc7e6928bf5d476807dea0792ad288b"
+      },
+      "fla.models.log_linear_mamba2.modeling_log_linear_mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/log_linear_mamba2/modeling_log_linear_mamba2.py",
+        "sha256": "d93c90a51a62b57c7ed195a381860e60bfb2a94d70b8f6c6489aa0b7bd7de2fa"
+      },
+      "fla.models.mamba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba/__init__.py",
+        "sha256": "eaba61f032fb06c6c9275ecf1fcb0fe69d5968ddebbfff537f9b040fd0378a3f"
+      },
+      "fla.models.mamba.configuration_mamba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba/configuration_mamba.py",
+        "sha256": "183825705c2162671a134e620b2eee436f88746eb565f8a98621496154d52fee"
+      },
+      "fla.models.mamba.modeling_mamba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba/modeling_mamba.py",
+        "sha256": "8d07733ad5511366f792e7547328a0445e58b558c29d182f60194ba46a64c0a1"
+      },
+      "fla.models.mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba2/__init__.py",
+        "sha256": "b837ce9aa664b97bc988251f02d79fddc43851b1f5f9fe183895493efbc39c19"
+      },
+      "fla.models.mamba2.configuration_mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba2/configuration_mamba2.py",
+        "sha256": "c6605f84558f2968a350050f6d8c1e164e76b4521949f5abcf279907b59726d4"
+      },
+      "fla.models.mamba2.modeling_mamba2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba2/modeling_mamba2.py",
+        "sha256": "f9a12e9d0ca78ca37552250ba15b97b92f92f7364800c284a6f3881fd3664804"
+      },
+      "fla.models.mamba3": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba3/__init__.py",
+        "sha256": "007293f9081434e802fccb0f0e27e8087d3dcd3c96c15dd515f1b558ad5ff61e"
+      },
+      "fla.models.mamba3.configuration_mamba3": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba3/configuration_mamba3.py",
+        "sha256": "26d7c61c131ab8d42f0fa8e4178ac4d24b9e6f0eb44cb85bc9d0e9e65fb98641"
+      },
+      "fla.models.mamba3.modeling_mamba3": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mamba3/modeling_mamba3.py",
+        "sha256": "2e5edd4d9419e09026eded410511b2e3aeaca04712c0d94ab1de2ba874c3308b"
+      },
+      "fla.models.mesa_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mesa_net/__init__.py",
+        "sha256": "23c6361f53bc57e836f14dc62993ab878c7666437131e24ab27457d7504275fb"
+      },
+      "fla.models.mesa_net.configuration_mesa_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mesa_net/configuration_mesa_net.py",
+        "sha256": "86282de65b89e431491d41710694294a84292ad8b675b641ee146a4dfd9a0c3f"
+      },
+      "fla.models.mesa_net.modeling_mesa_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mesa_net/modeling_mesa_net.py",
+        "sha256": "a667a4d23a552e78b97a52e978a8c765158e3420a6840e7a6ee637c91795dec3"
+      },
+      "fla.models.mla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mla/__init__.py",
+        "sha256": "8738c5d44fc087f39998632a5fb19998e42c90485b241bb91d0633f5ed356ca9"
+      },
+      "fla.models.mla.configuration_mla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mla/configuration_mla.py",
+        "sha256": "e6204a4986502497c6592df6208790d09957ea74302f0d952cb94b16d3f92a81"
+      },
+      "fla.models.mla.modeling_mla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mla/modeling_mla.py",
+        "sha256": "e773e7a75dff13129f282ef92141152fb4addfb1dd1cfd42190d7d22c99e9580"
+      },
+      "fla.models.moba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/moba/__init__.py",
+        "sha256": "1fb84dfe8e655ff706a2313c06561cfb2e43f875d812259cdfe41def021cc239"
+      },
+      "fla.models.moba.configuration_moba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/moba/configuration_moba.py",
+        "sha256": "fb70abf1394b903e62f1220c069e01a78a82a29dcc1399109ab66395fb7f1cea"
+      },
+      "fla.models.moba.modeling_moba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/moba/modeling_moba.py",
+        "sha256": "d8f0c9b61130be7d37bf1709b22ff5478344d9242464e9a9413d9f8b17222f50"
+      },
+      "fla.models.mom": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mom/__init__.py",
+        "sha256": "3449d564af8bc4c4352acf32f7e76929070d838a5fdca5ad952f38cd87d79127"
+      },
+      "fla.models.mom.configuration_mom": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mom/configuration_mom.py",
+        "sha256": "c535d1d39963ac4ed130af1b6799f83548b869a2483135c166cf44bce28bd884"
+      },
+      "fla.models.mom.modeling_mom": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/mom/modeling_mom.py",
+        "sha256": "a49d3a88d04f7e0bf06edcf46b2bf3ea5e743cc5f521ce89b04d651b5ed6dcb8"
+      },
+      "fla.models.nsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/nsa/__init__.py",
+        "sha256": "bf680cbf7f98a7e478d78b68f7a017a0bc41d1b8fab41db5f23c39d49ed4efd3"
+      },
+      "fla.models.nsa.configuration_nsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/nsa/configuration_nsa.py",
+        "sha256": "1ea51631aae0ef718d192b52b86999c98c0ceeac3fee921f95b193a776c1b205"
+      },
+      "fla.models.nsa.modeling_nsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/nsa/modeling_nsa.py",
+        "sha256": "9b97fda4c85342c71ea4f3700e5aacbdf80ba0c34f2f754915b8fd21877a9a74"
+      },
+      "fla.models.parallax": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/parallax/__init__.py",
+        "sha256": "63fe9fbca71b8a9f097644f3aca8d94844445242a1ed8f421f1623dbb503acce"
+      },
+      "fla.models.parallax.configuration_parallax": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/parallax/configuration_parallax.py",
+        "sha256": "bc5d31793270f02fa58a804be0ee3f12496edc8f0402beacb22e47e4032361d4"
+      },
+      "fla.models.parallax.modeling_parallax": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/parallax/modeling_parallax.py",
+        "sha256": "0f8156411358da94db3199f32697257c9c4edbf767069e57cd7a31c1c257da05"
+      },
+      "fla.models.path_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/path_attn/__init__.py",
+        "sha256": "749690ab099817b18614d53d76638c7f5a2ad8441aae6f98c01ce2d132a257b3"
+      },
+      "fla.models.path_attn.configuration_path_attention": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/path_attn/configuration_path_attention.py",
+        "sha256": "2e47ff54582507b82bb8558709259e2e301d0c56b1092788d7ec34b10e6b8629"
+      },
+      "fla.models.path_attn.modeling_path_attention": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/path_attn/modeling_path_attention.py",
+        "sha256": "f1ff1b2777ec0a06f2f3cb7377363b29f17b392cfd5e5e85631d7aed0d15c4ce"
+      },
+      "fla.models.raven": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/raven/__init__.py",
+        "sha256": "ba2ab8261e4dfd9ee89aaed2fa7ae01db8b394f952fda888f771dda3f819b1cb"
+      },
+      "fla.models.raven.configuration_raven": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/raven/configuration_raven.py",
+        "sha256": "8c5c7e8438149814c0079813ba5ae7310fab5f77445c11737776370a216d267d"
+      },
+      "fla.models.raven.modeling_raven": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/raven/modeling_raven.py",
+        "sha256": "7542614f2d179711c57b66c4f062aaae04837e2d13f7971d3c37eb1019c5042b"
+      },
+      "fla.models.retnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/retnet/__init__.py",
+        "sha256": "7b3714c323d6ed6ccb2deb52d7ab585f55db98818a7a89fa7c3eeb82f08093bb"
+      },
+      "fla.models.retnet.configuration_retnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/retnet/configuration_retnet.py",
+        "sha256": "5cf507286bf19b84c62070857af9b3adfd2ee51b7a9417f3347ab19634167b66"
+      },
+      "fla.models.retnet.modeling_retnet": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/retnet/modeling_retnet.py",
+        "sha256": "1a3a4c1f0903dc91d9e1cf8ca1a63e6b88489353effa6cb06aec6809def7bd1c"
+      },
+      "fla.models.rodimus": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rodimus/__init__.py",
+        "sha256": "af803cbef45f87a5aedaec2becefa28ea96c2e5f2d3e0fab1c78c41cf02667f1"
+      },
+      "fla.models.rodimus.configuration_rodimus": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rodimus/configuration_rodimus.py",
+        "sha256": "742e235119ab41e7cc0cbafeefe5da7239cfc9e89de2e0e0d133390ad79aa4fe"
+      },
+      "fla.models.rodimus.modeling_rodimus": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rodimus/modeling_rodimus.py",
+        "sha256": "59c9d6cd3e4b580f5dab60ca1d6b723f46ed73311fb18bf2a791f239b13c4397"
+      },
+      "fla.models.rwkv6": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rwkv6/__init__.py",
+        "sha256": "ae1efc0441f087144827cfb0d784ac473acf1946e9907138af477f8950513814"
+      },
+      "fla.models.rwkv6.configuration_rwkv6": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rwkv6/configuration_rwkv6.py",
+        "sha256": "f7037f490a429f99dbffc72af858a920b1b2935cc25501350152d6c4633832c5"
+      },
+      "fla.models.rwkv6.modeling_rwkv6": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rwkv6/modeling_rwkv6.py",
+        "sha256": "51c9553bc546b21210c6301c8a6ff896767b1eeb3d7a3dca7a85c3daa88c66a1"
+      },
+      "fla.models.rwkv7": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rwkv7/__init__.py",
+        "sha256": "6fac41e3ed35798117b7cf39b0f3215d1570db9924491b2b75ef227f3b73930e"
+      },
+      "fla.models.rwkv7.configuration_rwkv7": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rwkv7/configuration_rwkv7.py",
+        "sha256": "b00361ed87ebf07be6963550b59bbc93fe830ef6f58ace8813ab8a236cb415b7"
+      },
+      "fla.models.rwkv7.modeling_rwkv7": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/rwkv7/modeling_rwkv7.py",
+        "sha256": "9475cb196b820fbd8ad9ab6f8cf31e53976feda17c2c48fb7cce1cbd78cdc537"
+      },
+      "fla.models.samba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/samba/__init__.py",
+        "sha256": "d251ece60c2792f7afb1fecd8d18b029970637fc90cc3e1083c1b94ed01e4428"
+      },
+      "fla.models.samba.configuration_samba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/samba/configuration_samba.py",
+        "sha256": "24da2f3038aa11a7d0b0e0bfe1769099f5d40ed0301ef13b7f74531b57436c69"
+      },
+      "fla.models.samba.modeling_samba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/samba/modeling_samba.py",
+        "sha256": "99bb9fca6efd216fb9799ace8efa681af696221880bd5e577dd8a6b1c6328d46"
+      },
+      "fla.models.transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/transformer/__init__.py",
+        "sha256": "8e7ee6ce2eb1b33dabc09cb98e945e05e24c4e01bd4613929bc666403fa770d7"
+      },
+      "fla.models.transformer.configuration_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/transformer/configuration_transformer.py",
+        "sha256": "4b0e7a735aaede28b28afb8148b86cb81b99826bedbd23e2a65960e95f9cb219"
+      },
+      "fla.models.transformer.modeling_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/transformer/modeling_transformer.py",
+        "sha256": "797ddd49a76f690bd274134b01ff114f0735cf668792a4f2d7e361a667780c9a"
+      },
+      "fla.models.utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/utils.py",
+        "sha256": "884a0287b48447889e5b7ccd027083a99d5acec5b5b9b02df2453cb8eccc3635"
+      },
+      "fla.models.wall_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/wall_transformer/__init__.py",
+        "sha256": "684036059eb02e0e4cea1a9f614bbf6ba44dcb6ca1205f7fd9b7484bd95dea36"
+      },
+      "fla.models.wall_transformer.configuration_wall_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/wall_transformer/configuration_wall_transformer.py",
+        "sha256": "18e3237dc4c0dca433d8b55ddfc3f6b2dc923e5691b621ae062603d6212bfc6d"
+      },
+      "fla.models.wall_transformer.modeling_wall_transformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/wall_transformer/modeling_wall_transformer.py",
+        "sha256": "5cda38e42bffffd07e092492a2fbc51c947223a93a2914348946c954f3cc0b58"
+      },
+      "fla.models.yoco": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/yoco/__init__.py",
+        "sha256": "0a51abfe962cb236c394718486b6138a477a08447824cb3fd2262ce35bf15f94"
+      },
+      "fla.models.yoco.configuration_yoco": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/yoco/configuration_yoco.py",
+        "sha256": "a124f8563f9d8443386cc51beae44dcd4c02320ad33e73be2a28deff9c4759fb"
+      },
+      "fla.models.yoco.modeling_yoco": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/models/yoco/modeling_yoco.py",
+        "sha256": "bba407983690b77a165ce2ddee6241e4ecf1571ab2c77f948cbf5fa4023102b7"
+      },
+      "fla.modules": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/__init__.py",
+        "sha256": "a96bf4293dfd41e9cc19f435dfb870a4c4986864840c0613db0e0fe7343b934d"
+      },
+      "fla.modules.activations": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/activations.py",
+        "sha256": "42cf7299e9b54e4dcf37b7b2f146ac925b1d8fc35606bfd14bea241bad58062e"
+      },
+      "fla.modules.backends": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/backends/__init__.py",
+        "sha256": "ff557ca0f9c5d0c0b20204259c78dd34e63181db6d14b295c6ff660dd499b2e8"
+      },
+      "fla.modules.backends.triton_ascend": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/backends/triton_ascend/__init__.py",
+        "sha256": "de438ab25b3b077807bb45a0a2e2d5179a98d81822c745fc6aa576b294af7cac"
+      },
+      "fla.modules.conv": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/__init__.py",
+        "sha256": "599280e0e2561c43746e0d989768b676f7e44a9f4664a683eb969b63ca5229bc"
+      },
+      "fla.modules.conv.causal_conv1d": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/causal_conv1d.py",
+        "sha256": "492039398362a9f7352005e76454774e75f6aabe7cea0e857650ff263db3b33e"
+      },
+      "fla.modules.conv.cp": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/cp/__init__.py",
+        "sha256": "04a29f1234e3c32100c03bbae9abc216896a9e6aeff6a1c736fc637ce1e2ddf6"
+      },
+      "fla.modules.conv.cp.ops": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/cp/ops.py",
+        "sha256": "768728d526ff7f0b49fac153c5d54ac1e89107bb7d28aacddd223362da0f10ea"
+      },
+      "fla.modules.conv.cuda": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/cuda/__init__.py",
+        "sha256": "ab7e4a775d884d8b47a7926d68085027afd808463de51596bde2a814f27f5425"
+      },
+      "fla.modules.conv.cuda.ops": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/cuda/ops.py",
+        "sha256": "3e1c89e7236ce825361d6d5ceb8db370b16eed2fc6d1486868a4fbe9bb525c0e"
+      },
+      "fla.modules.conv.long_conv": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/long_conv.py",
+        "sha256": "87ec08d83765052408642df7e66c2006c8f119b07219a9256fa36fe1671030c8"
+      },
+      "fla.modules.conv.short_conv": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/short_conv.py",
+        "sha256": "c4712f1086df222a54fa65a9a69a798a8c6fbaf782f8ec4dd67800573497179e"
+      },
+      "fla.modules.conv.triton": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/triton/__init__.py",
+        "sha256": "7c32c6d8574febc8eaaac07135d2a27c02048e6bc6cd736b2e6ff10ccadf6ef8"
+      },
+      "fla.modules.conv.triton.kernels": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/triton/kernels.py",
+        "sha256": "4af651735406daecf6978109d03e1293ca9f45337cb306bd6bf37a675a3dda81"
+      },
+      "fla.modules.conv.triton.ops": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/conv/triton/ops.py",
+        "sha256": "dda5c62164e46757d3dc8fb183bed40a3702d57f1b60d6be9849ef6b9b0d2eb0"
+      },
+      "fla.modules.convolution": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/convolution.py",
+        "sha256": "2ab60fc508097457a2ad01dd1f6602ed7e1b47d8a2468949944402b7d5451b8a"
+      },
+      "fla.modules.feature_map": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/feature_map.py",
+        "sha256": "a1efb228a05a59633c4774f83b2666fbef7fb550d9ffa3c87678d288059700e8"
+      },
+      "fla.modules.fused_bitlinear": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/fused_bitlinear.py",
+        "sha256": "14cdbbc161d21ddc8121a7a6cacddd2cebad7e8d8f259fa68748ebfb4307636b"
+      },
+      "fla.modules.fused_cross_entropy": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/fused_cross_entropy.py",
+        "sha256": "e419fc6adbfd4081e76f37a1840e2096306fc54153e59a7289ed3f15a5e93a7c"
+      },
+      "fla.modules.fused_kl_div": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/fused_kl_div.py",
+        "sha256": "92f149a2f6a83e7043fd0e32de413668591971ed463b1dec0465869e56c9c27b"
+      },
+      "fla.modules.fused_linear_cross_entropy": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/fused_linear_cross_entropy.py",
+        "sha256": "75fa652bf35850a89e53065ba2a647f0b2700eb60b18501b2e3003e335f08d7c"
+      },
+      "fla.modules.fused_norm_gate": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/fused_norm_gate.py",
+        "sha256": "d8654c43cbea15799a9863ba0758f46b86c411285adf34c3c96735ef984d88d5"
+      },
+      "fla.modules.l2norm": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/l2norm.py",
+        "sha256": "30f7feebdbfa87b8e90c143ec62a7fa0781bfd736c856c0ec69452f0c778be3f"
+      },
+      "fla.modules.l2warp": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/l2warp.py",
+        "sha256": "e682658fa2515c119ee5900d367500f062c88e5cd70a775db73da5c202a7e960"
+      },
+      "fla.modules.layernorm": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/layernorm.py",
+        "sha256": "e78b729bcba29b30d8d6ddb6ce17d465261a6462be1363a04a6b3dc51c6d5c6f"
+      },
+      "fla.modules.layernorm_gated": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/layernorm_gated.py",
+        "sha256": "1d166ff9531d391c01d3746299d2443bd1b5f72d0b60338e170382f03a30fc14"
+      },
+      "fla.modules.mlp": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/mlp.py",
+        "sha256": "a05ce896f867605c5864c636b536002cd86ae6715fcdf5125ed24ed1b2986422"
+      },
+      "fla.modules.rotary": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/rotary.py",
+        "sha256": "567ebdf61f526ff1827e9e5c4a2fdeba3f95149e9bc4317f28cba338138c5b71"
+      },
+      "fla.modules.token_shift": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/modules/token_shift.py",
+        "sha256": "6828a1479a048634fd1fcc4f91ef711326b3af43dedfcb299cc54e743364ff4c"
+      },
+      "fla.ops": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/__init__.py",
+        "sha256": "3ec2b31d81e88ded350dfad5765b5f7e2645752e424d5a6ce7197d757af6447a"
+      },
+      "fla.ops.abc": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/abc/__init__.py",
+        "sha256": "5b02e2224622df12794621bf6ce08d35169e7aa98cb883d3ea7d60db7a9fa438"
+      },
+      "fla.ops.abc.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/abc/chunk.py",
+        "sha256": "77d18b58d109edc44315f6203045811f08445d45dedd45c100bc44be3dbca439"
+      },
+      "fla.ops.attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/attn/__init__.py",
+        "sha256": "814ffaee62689db797a737f1822f0aec7206d9af17a6377480eb8293f3eef442"
+      },
+      "fla.ops.attn.decoding": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/attn/decoding.py",
+        "sha256": "7e2c52e6890dccd149cdeded0f0ca26e959cf0cb2437f77c8bc8523d6044b97f"
+      },
+      "fla.ops.attn.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/attn/naive.py",
+        "sha256": "9c1b16aa605638c41d69062f7457a30cba17d0f7a2f56f2830fac76680828a7d"
+      },
+      "fla.ops.attn.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/attn/parallel.py",
+        "sha256": "2e9e39b8026ba0ea540530edb7750c1adf5d0803189172e02cf94bc03ab1f760"
+      },
+      "fla.ops.attnres": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/attnres/__init__.py",
+        "sha256": "849d7505b5d251cd1dd7b65ca04a341b92d4af628e3bdb07a307fffaf8ac956a"
+      },
+      "fla.ops.attnres.fused": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/attnres/fused.py",
+        "sha256": "0e4683ab291086a9c3919d7352e2a998112973c94f5363e58f76ea7efea114f3"
+      },
+      "fla.ops.attnres.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/attnres/naive.py",
+        "sha256": "9d5e163f3fef7d1c1f46c23317ba4a57de5f131d9d40fe01aeb3e84028746b43"
+      },
+      "fla.ops.backends": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/backends/__init__.py",
+        "sha256": "a6934ff1ae38c412bf7cbc7cc5009522c103931c55ea06db51088c50a6e6e635"
+      },
+      "fla.ops.based": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/based/__init__.py",
+        "sha256": "a9d04b52282982341a20ddc74edab9eeec68a806819d09196c588421fd7c46f9"
+      },
+      "fla.ops.based.fused_chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/based/fused_chunk.py",
+        "sha256": "b2704d730ad5849b4da77f710ce5c55c8e613177de3147150874b1cb76d62cc9"
+      },
+      "fla.ops.based.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/based/parallel.py",
+        "sha256": "cc0728a808aad619c2eda551545d4618f8311c6430c81ee446e56b155ecea888"
+      },
+      "fla.ops.comba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/comba/__init__.py",
+        "sha256": "1412a89dbbcf3c51d8eda9f602e875b175492db720c17f1a003e5fc62da879c6"
+      },
+      "fla.ops.comba.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/comba/chunk.py",
+        "sha256": "cbf0fbaa76e550674209bbcaa32863c1566d023fce45ada06bd199f9dd687df8"
+      },
+      "fla.ops.comba.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/comba/fused_recurrent.py",
+        "sha256": "bea0773be89a270e946340980b09420da78499b9793afc867cb936201397ffb9"
+      },
+      "fla.ops.comba.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/comba/naive.py",
+        "sha256": "407f7aedce6bc654920ece89ea346d2e367788b8b080062063dfb49bdae00f5f"
+      },
+      "fla.ops.comba.utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/comba/utils.py",
+        "sha256": "6161694647a28256c06b1c25923eb9ea24c91e5e199bd5ee795832eb05bed0e8"
+      },
+      "fla.ops.comba.wy_fast": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/comba/wy_fast.py",
+        "sha256": "ea91cb3cddd8fe3ba784ae190498de821c931b6adde5921b73d9a92736d37314"
+      },
+      "fla.ops.common": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fla.ops.common.backends": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/backends/__init__.py",
+        "sha256": "24efc9c6faa1b97aa0e39905834ec1e07350d97cab5d8ab619ddb4ae167d34b1"
+      },
+      "fla.ops.common.backends.intracard": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/backends/intracard.py",
+        "sha256": "b19033ef93fee8c2a99e2197c2995248681f134c3c66247329a5292ccd4ad1a1"
+      },
+      "fla.ops.common.backends.tilelang": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/backends/tilelang/__init__.py",
+        "sha256": "7e9f0df1287ade7f4457e8bb11c562bff9cd1f39ac450906a213622c48329c9a"
+      },
+      "fla.ops.common.backends.triton_ascend": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/backends/triton_ascend/__init__.py",
+        "sha256": "a1a1f9f445d5d3c66ecaae7d88bb3ef055fac5ceb602c650ba05430b63739722"
+      },
+      "fla.ops.common.chunk_delta_h": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/chunk_delta_h.py",
+        "sha256": "ff461bcc40e9cd0b2ca24af9ae9c3c6d99b2deae047c3737687c93b3fcd6ea57"
+      },
+      "fla.ops.common.chunk_h": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/chunk_h.py",
+        "sha256": "c990dafa6248bdc4efa1a3df7f397ecc6a44d01a6b9dc69d083134e98ec43b74"
+      },
+      "fla.ops.common.chunk_o": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/chunk_o.py",
+        "sha256": "f174d431ce67139204a0916f638b5af158dd5917e2cb37c0ca03f5ce735466a0"
+      },
+      "fla.ops.common.chunk_scaled_dot_kkt": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/chunk_scaled_dot_kkt.py",
+        "sha256": "3711f607d06cfd8fb1613e8f0d0d423fcb3d35a687bc574343092c16832a5b34"
+      },
+      "fla.ops.common.fused_chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/fused_chunk.py",
+        "sha256": "333d1b7f6043c85bbb0bc94be168844e2c9b512abca483a843dcb821cea64ebf"
+      },
+      "fla.ops.common.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/fused_recurrent.py",
+        "sha256": "48faf0f6e81457f465e4efce3e0a211b2a2caf5c1aa5ae3f9e0634ff326e0e78"
+      },
+      "fla.ops.common.gate": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/common/gate.py",
+        "sha256": "86f30f7afe7e87d2e02302d8978e7a63ae61917ee988a64dad71ce4d860deb81"
+      },
+      "fla.ops.cp": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/cp/__init__.py",
+        "sha256": "bae7765a4a1d26f1f95390e305ae6848b26d6751bc3b80f85c4baca57c82f650"
+      },
+      "fla.ops.cp.chunk_delta_h": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/cp/chunk_delta_h.py",
+        "sha256": "2cf48929a3c18e3e6a532f481939bd231d22df9b7de07f1a93cf9ce6fd134572"
+      },
+      "fla.ops.cp.comm": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/cp/comm.py",
+        "sha256": "96ac900f098ad7dbe8c13b462463bee92127fe7785144d06f3116f9712ce99bd"
+      },
+      "fla.ops.cp.context": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/cp/context.py",
+        "sha256": "e43d67a72d704ec20c3a0ef2abd80fc4d602599308f9fc0121f414ded8b4357b"
+      },
+      "fla.ops.delta_rule": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/delta_rule/__init__.py",
+        "sha256": "d6022405a8e1b5b570b893a03d0f8561876ae2d62036089bfaf78e9e89edf8de"
+      },
+      "fla.ops.delta_rule.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/delta_rule/chunk.py",
+        "sha256": "ea19dd5685425eceab7d8608eeea205d614505fdc4fbb5fe5ce7a97cf305d015"
+      },
+      "fla.ops.delta_rule.fused_chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/delta_rule/fused_chunk.py",
+        "sha256": "d8d894051025f7c6204551abdaecd8255db6a505b758d39ee9eb935f531dab2c"
+      },
+      "fla.ops.delta_rule.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/delta_rule/fused_recurrent.py",
+        "sha256": "880ea6fc65c24b55f074604ab56d0d945dd200e0ab011800d59f3a3f00609f90"
+      },
+      "fla.ops.delta_rule.wy_fast": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/delta_rule/wy_fast.py",
+        "sha256": "69ff29b4cf804e4d2e5691eb5643dbfb1f1bbd1d51acbbcf4b49390b1a99c9d0"
+      },
+      "fla.ops.deltaformer": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/deltaformer/__init__.py",
+        "sha256": "e75666345a07cb73f49559ffd841cabb5412d81302ea1fa19c0c1222bf6ccd88"
+      },
+      "fla.ops.deltaformer.invcum": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/deltaformer/invcum.py",
+        "sha256": "ade9f5f3503194706fd8ca1920799218c989d2c5ba1c36f7b7c7ea1bb80310b5"
+      },
+      "fla.ops.deltaformer.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/deltaformer/naive.py",
+        "sha256": "f1bf3caef88a9036695be17d1b0804915930b928a8102c204495fffc2564b272"
+      },
+      "fla.ops.deltaformer.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/deltaformer/parallel.py",
+        "sha256": "0d52bd10d3905d47e52567a54dca30854e399b0f4f57431462ef0ed580718279"
+      },
+      "fla.ops.forgetting_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/forgetting_attn/__init__.py",
+        "sha256": "03aa3383dcdd12ccf89605005ea108518f0278da7ee4866a60a3a90a1a63fc0e"
+      },
+      "fla.ops.forgetting_attn.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/forgetting_attn/naive.py",
+        "sha256": "4433d7c34d599e14cc575db9385bc455e0c3321b770588f9810238a1a4fe4f53"
+      },
+      "fla.ops.forgetting_attn.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/forgetting_attn/parallel.py",
+        "sha256": "0e95fe8eb6afa3f4f77a6b837481b9fba01329d3fdfdf375c2acd4c6e5755859"
+      },
+      "fla.ops.gated_delta_product": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_product/__init__.py",
+        "sha256": "d0c03361dc4fd0e0d98cde16350fb71cbc228289327ccbf5e6b5d4a535feaa7c"
+      },
+      "fla.ops.gated_delta_product.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_product/chunk.py",
+        "sha256": "2f01e53c68c83d43def22845950fdd86b39d5cb8e2559df6db3fa4958fe9f032"
+      },
+      "fla.ops.gated_delta_product.chunk_deltaproduct_h": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_product/chunk_deltaproduct_h.py",
+        "sha256": "1b25c197c62a2b116939bc79a4ee2b8a2c0ec8a360eef8f07984392761e4ce63"
+      },
+      "fla.ops.gated_delta_product.chunk_deltaproduct_o": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_product/chunk_deltaproduct_o.py",
+        "sha256": "b848a07461803e21dbe59f5dafd50785d82158b9a37d8755a22850e002b2b54f"
+      },
+      "fla.ops.gated_delta_rule": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_rule/__init__.py",
+        "sha256": "5edd21847af70840b26439812196a476e7e4ddbbef21afd5fe2066a64630a67c"
+      },
+      "fla.ops.gated_delta_rule.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_rule/chunk.py",
+        "sha256": "fd4e01dc22a8c139c2a6eb61e47ae472a50322e4b4fff006cc5039a4602b310e"
+      },
+      "fla.ops.gated_delta_rule.chunk_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_rule/chunk_fwd.py",
+        "sha256": "1760a7dd26db2118bb1af7b9b7c115a27c97372e6a4d2e913d1542c9fedcda9e"
+      },
+      "fla.ops.gated_delta_rule.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_rule/fused_recurrent.py",
+        "sha256": "9c15dc68d37a150da5317431a51fe7def362264ac92770e32261c8557cd5889b"
+      },
+      "fla.ops.gated_delta_rule.gate": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_rule/gate.py",
+        "sha256": "edd7c409213ea7bccd05dc6dfa4ead615c9fdcce28008cb8325f5f9be9aab0a7"
+      },
+      "fla.ops.gated_delta_rule.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_rule/naive.py",
+        "sha256": "d1cf17992349fd3e94af999b22e3d3a81be4a2d1881ce5b70a3457257166e0cb"
+      },
+      "fla.ops.gated_delta_rule.wy_fast": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gated_delta_rule/wy_fast.py",
+        "sha256": "bf24a66524ea56383fe6c9a97ae6b060ebe9490589c8499fba06d6172dc4510f"
+      },
+      "fla.ops.gdn2": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/__init__.py",
+        "sha256": "c6212c82f5447c784a72ead0a8bed92861b31015b606d180ca513dbf1a0d9809"
+      },
+      "fla.ops.gdn2.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/chunk.py",
+        "sha256": "d006903b9dff07cdc9b0467f6265a93bc6135cac71860554b4f24cf86b8e6ef0"
+      },
+      "fla.ops.gdn2.chunk_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/chunk_bwd.py",
+        "sha256": "d46ccb74901b6816ab2424298de7a2483c475d18018a42ed13f121dac3624cc9"
+      },
+      "fla.ops.gdn2.chunk_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/chunk_fwd.py",
+        "sha256": "ccc88c0a5271465f59993f870c578c192ea696e874b34138bf8d205ac9eb503c"
+      },
+      "fla.ops.gdn2.chunk_intra": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/chunk_intra.py",
+        "sha256": "d417ba950c35745c10a47ba03d0fa9f02215a471651ac4a7563a285e283023d0"
+      },
+      "fla.ops.gdn2.chunk_intra_token_parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/chunk_intra_token_parallel.py",
+        "sha256": "e0e12e85eb79d99c0d6808d457bef854f918b081eea2dc52c7b623c9a6e6b349"
+      },
+      "fla.ops.gdn2.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/fused_recurrent.py",
+        "sha256": "cdb3171095030cf7fcbd5f15de83a7582f7a5635069d5e3f3203ea73dd0172e2"
+      },
+      "fla.ops.gdn2.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/naive.py",
+        "sha256": "6a65805401eb300df85b6297611a0dd158dd183423cf2bcd5e0f0ecdde3e9e7a"
+      },
+      "fla.ops.gdn2.wy_fast": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gdn2/wy_fast.py",
+        "sha256": "18eb36c77c8c18645bde285d102fb8ea067286081438a64657676065ad0380fe"
+      },
+      "fla.ops.generalized_delta_rule": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/__init__.py",
+        "sha256": "727eab296103af15b0e36f0393a104cb863b9f2587a5cf2bb51f846d13bd9dd0"
+      },
+      "fla.ops.generalized_delta_rule.dplr": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/__init__.py",
+        "sha256": "17c4db6a265e44a8db2a1948e17628a4d7786dfcd5d747de34ed3a8b7da1d95a"
+      },
+      "fla.ops.generalized_delta_rule.dplr.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/chunk.py",
+        "sha256": "b83e959cca80a0a71d1712c33f5aa59520f2d1789015cc1523c65d8f2792a9fe"
+      },
+      "fla.ops.generalized_delta_rule.dplr.chunk_A_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/chunk_A_bwd.py",
+        "sha256": "c125f65658edfc1572b28c34232954aab8b536b1455b5fb862a24592a41a2e72"
+      },
+      "fla.ops.generalized_delta_rule.dplr.chunk_A_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/chunk_A_fwd.py",
+        "sha256": "223bb24f5147d1d531f3b84bddc5f762fb60cdf5342131298ca6608ee16d75ff"
+      },
+      "fla.ops.generalized_delta_rule.dplr.chunk_h_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/chunk_h_bwd.py",
+        "sha256": "6c7e2844ce95bb16171be7a7131dbe5adecbb9dfd614ec8ec0fdfc3e4f51c0a1"
+      },
+      "fla.ops.generalized_delta_rule.dplr.chunk_h_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/chunk_h_fwd.py",
+        "sha256": "e2c901f75fec51bd89e6731c36b310d903b97fd0d78c3dce00e7ec7827b96750"
+      },
+      "fla.ops.generalized_delta_rule.dplr.chunk_o_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/chunk_o_bwd.py",
+        "sha256": "1b069674cb8c190026824fbfdb3874a3455ed76348608e8655a9823f6850bcbe"
+      },
+      "fla.ops.generalized_delta_rule.dplr.chunk_o_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/chunk_o_fwd.py",
+        "sha256": "ff93f9c676ea3fd384a0418665fe1092eaf95abacc924c836e157e4315bbf3ec"
+      },
+      "fla.ops.generalized_delta_rule.dplr.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/fused_recurrent.py",
+        "sha256": "129e9f77156f905cf956bcfde74c399feaf2d6f48eab1f99ba29c8dfeea9f85e"
+      },
+      "fla.ops.generalized_delta_rule.dplr.wy_fast_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/wy_fast_bwd.py",
+        "sha256": "9c4ca36111919fdcb9c43254e8c7c5c989e6fb1805e54ac995a554c8a6974ec9"
+      },
+      "fla.ops.generalized_delta_rule.dplr.wy_fast_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/dplr/wy_fast_fwd.py",
+        "sha256": "1bc313b8a6ef266a3eb92734b46d9b0c8bccae988753f124a602f14a83317616"
+      },
+      "fla.ops.generalized_delta_rule.iplr": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/iplr/__init__.py",
+        "sha256": "e9583c31373e072ae79b1dc7273db2c928bd9e4da4c8a09283b68be02309f860"
+      },
+      "fla.ops.generalized_delta_rule.iplr.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/iplr/chunk.py",
+        "sha256": "52b83f91e9f48679a7ab3d599faafd86662b515a9cfeb8d89dd253f6f6194166"
+      },
+      "fla.ops.generalized_delta_rule.iplr.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/iplr/fused_recurrent.py",
+        "sha256": "0444c25c108c09e4f9d82aa0198726bf012cae73448c4ee19fd5920c891b4650"
+      },
+      "fla.ops.generalized_delta_rule.iplr.wy_fast": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/generalized_delta_rule/iplr/wy_fast.py",
+        "sha256": "2f37a585c9eaf11ad5e1eb0f50c6a9c862c39b8fc5a33227a800f96d50eaa42d"
+      },
+      "fla.ops.gla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gla/__init__.py",
+        "sha256": "3d352aa90942e1c5eb851846fca471fbb5f79bd5892b11b2ceb201fd62445d2a"
+      },
+      "fla.ops.gla.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gla/chunk.py",
+        "sha256": "6599d538fae503860e45bb60785ae1d2cff0493f8e99d7a125192c62616c855f"
+      },
+      "fla.ops.gla.fused_chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gla/fused_chunk.py",
+        "sha256": "3a3cca723490ba3550f90f9dd4b9a0e2db13cd968aeb15acf001aea65467e73a"
+      },
+      "fla.ops.gla.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gla/fused_recurrent.py",
+        "sha256": "14eb5ffcd334f039ec663eca227f19fe3cfd46058ae9d034bc43c1b76a9dde61"
+      },
+      "fla.ops.gsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gsa/__init__.py",
+        "sha256": "f6eca06d5ea8acdb5a4e4665f47cfe680a7b12f4fa46e7df6b07de16db943441"
+      },
+      "fla.ops.gsa.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gsa/chunk.py",
+        "sha256": "095f990c187f64925ea9f04107e862f520203d6bccfdc2f62a186f72691a4e82"
+      },
+      "fla.ops.gsa.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/gsa/fused_recurrent.py",
+        "sha256": "ef930bdc7819112a863944e4232345e0c10fcb036ed76ad12db5f37f5d58b203"
+      },
+      "fla.ops.hgrn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/hgrn/__init__.py",
+        "sha256": "ebd0ccbfb15062fa1b4135ea385b6eee6b80b7593593d9efb055dc3009a34268"
+      },
+      "fla.ops.hgrn.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/hgrn/chunk.py",
+        "sha256": "0822af8ce466065daa16bf9c89b82d1a96e227a36fe5cebb73e5ec3c2e8213cc"
+      },
+      "fla.ops.hgrn.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/hgrn/fused_recurrent.py",
+        "sha256": "4396480ae20b5ecabf21a29026a5e224154beee3772a49f5887e9ea73d358006"
+      },
+      "fla.ops.kda": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/__init__.py",
+        "sha256": "24564f0101f87a26056e9061ed771caf0d8f6d9a00b4dbded701ea7525b45acb"
+      },
+      "fla.ops.kda.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/chunk.py",
+        "sha256": "a15aa6ac257af5c8f7a1d6afc21a417391568e90a8898d4e228ddeb48cb0e9b8"
+      },
+      "fla.ops.kda.chunk_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/chunk_bwd.py",
+        "sha256": "069395c9232647f5a4b82fa2dfe7ca077423016d4b641f2696f9d6328dc2e9be"
+      },
+      "fla.ops.kda.chunk_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/chunk_fwd.py",
+        "sha256": "74a888a0b51fd94a8c950f91befaa3a2af3decf898fc178440ac143f8ab555f6"
+      },
+      "fla.ops.kda.chunk_intra": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/chunk_intra.py",
+        "sha256": "b59a1f2987d4577b139c774da698c934a7f72720c266d5fe48d8b331fd5eb750"
+      },
+      "fla.ops.kda.chunk_intra_token_parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/chunk_intra_token_parallel.py",
+        "sha256": "89bff263e2b0ecc1c2acdbc5895083050748a3306632da0b78d9668de03b7fe4"
+      },
+      "fla.ops.kda.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/fused_recurrent.py",
+        "sha256": "d2d44359655433bf80cd5068191359ae8be85952c01b47d76097d254cd3bf151"
+      },
+      "fla.ops.kda.gate": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/gate.py",
+        "sha256": "04fc6aa1857eb216ddecc354480285014c25dded74fa646491e9c17e7e11ef35"
+      },
+      "fla.ops.kda.wy_fast": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/kda/wy_fast.py",
+        "sha256": "3f018335b808b9957aba5ca4615e8f6ca0c0ca60c24701d38a2d3350972bc4f5"
+      },
+      "fla.ops.lightning_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/lightning_attn/__init__.py",
+        "sha256": "14f55560d2e37cedc6250608a7ee07090e0c749b45f14671e7292d58321ab450"
+      },
+      "fla.ops.lightning_attn.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/lightning_attn/chunk.py",
+        "sha256": "a6d7ea50ecbd745d43423b9decf24d4ced41c33e2606852203986a342cb7a983"
+      },
+      "fla.ops.lightning_attn.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/lightning_attn/fused_recurrent.py",
+        "sha256": "c4f322dc12b0281b54dce040e205deb35a20c8d3a6206a3cc0e9564957a01b41"
+      },
+      "fla.ops.linear_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/linear_attn/__init__.py",
+        "sha256": "dce7b276e2e6ca2d666a7ca8ec5433d592d2a0b8045c029b1ca9f5baa0dc2bdd"
+      },
+      "fla.ops.linear_attn.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/linear_attn/chunk.py",
+        "sha256": "9b43d81164b5794369fab138f07b16b1167107b72d8026450657fc3aa819a6c7"
+      },
+      "fla.ops.linear_attn.fused_chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/linear_attn/fused_chunk.py",
+        "sha256": "fde1824ab465041c05c035cfc43e03542965ec7af6bf503cc950c0b83710e5bb"
+      },
+      "fla.ops.linear_attn.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/linear_attn/fused_recurrent.py",
+        "sha256": "90d67e97fef18c67bad2a8aeff4ab5820d109be0030df0fd98bfe62d53d4623e"
+      },
+      "fla.ops.linear_attn.utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/linear_attn/utils.py",
+        "sha256": "1c19a575d638ff6edde6da8175bacecc86a3b8b997f390a2fa4e45aeb7bce45c"
+      },
+      "fla.ops.log_linear_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/log_linear_attn/__init__.py",
+        "sha256": "aac0217d749fa1004398fe8b8baf828cd77dcac3031a371b60ba27bdc65cae35"
+      },
+      "fla.ops.log_linear_attn.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/log_linear_attn/chunk.py",
+        "sha256": "8dbc65e521e40a9b9bd2a0ceeb569eadfc030efd3a12ebabaa2ae08d49e342f7"
+      },
+      "fla.ops.mesa_net": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/__init__.py",
+        "sha256": "df6c354438f18205c9f49a1b011d357439cdd946521b616e8bba9e3f2413d89e"
+      },
+      "fla.ops.mesa_net.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/chunk.py",
+        "sha256": "27b5ee4058ac8a12bc1c819fb6ffc87c09fc763df3a0b6050e7c84318aadfcb3"
+      },
+      "fla.ops.mesa_net.chunk_cg_solver_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/chunk_cg_solver_bwd.py",
+        "sha256": "8099c1c39ff732c3a2f19ee86265c56723f558444a8245ffafd14697d3f43f23"
+      },
+      "fla.ops.mesa_net.chunk_cg_solver_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/chunk_cg_solver_fwd.py",
+        "sha256": "eeb8c44eef35bb2d7cfb48058ebd8cec79513c8df0695422ecca66f66210bfc8"
+      },
+      "fla.ops.mesa_net.chunk_h_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/chunk_h_fwd.py",
+        "sha256": "8edaa0b49f04a43ab4b5cad83daadfa1ef0b12b6e3f564422c0dcb23c00c0094"
+      },
+      "fla.ops.mesa_net.chunk_h_kk_intra_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/chunk_h_kk_intra_bwd.py",
+        "sha256": "8b643b2098e53715f42819b57d37efe394524dea92faa1a6a6b03a00bf296138"
+      },
+      "fla.ops.mesa_net.chunk_h_kv_intra_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/chunk_h_kv_intra_bwd.py",
+        "sha256": "b5c04ef476e690cefd2bd466eab4fd2bd505ad7e65c20df3043f3ee73c498a16"
+      },
+      "fla.ops.mesa_net.chunk_h_kv_intra_bwd_separate": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/chunk_h_kv_intra_bwd_separate.py",
+        "sha256": "4059bb517216a85440350d21e6e53bcc4e87909652d09cc4e799fdf6b3268a1e"
+      },
+      "fla.ops.mesa_net.decoding_one_step": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/decoding_one_step.py",
+        "sha256": "bffc8383b09e3a5b25885f178732c40b96ade5576660ae162d97a29e03e4962a"
+      },
+      "fla.ops.mesa_net.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/mesa_net/naive.py",
+        "sha256": "cefde34feef551e80d6f427220a9cfbfc39d772cc7bb8c1e1044edb749c9bf30"
+      },
+      "fla.ops.moba": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/moba/__init__.py",
+        "sha256": "3fb01135b2cb32c993b717313e4d3d34f9a372f1c6c160a6a285cf62f4fa00d9"
+      },
+      "fla.ops.moba.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/moba/parallel.py",
+        "sha256": "cf63d116ae0dce2c8a0eb91a95af3ac7504aff6fdacff47ad7709740d121486e"
+      },
+      "fla.ops.nsa": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/nsa/__init__.py",
+        "sha256": "e8cc36cc397867be105d58cc13577cf0f31229348efc06146b4d255bf20af9e2"
+      },
+      "fla.ops.nsa.compression": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/nsa/compression.py",
+        "sha256": "ccf5cd701bd5fea02892587610a02cdfbf34ddf190908eebe030b8f506a2c94d"
+      },
+      "fla.ops.nsa.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/nsa/naive.py",
+        "sha256": "d19091f990a863bd50179b15a8ab689a788e7f8ba875e910939bd18c33f8f736"
+      },
+      "fla.ops.nsa.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/nsa/parallel.py",
+        "sha256": "ffae250eab17f2884c72ea4b9d5784a380ad7899a710c40e29d8093d74843f58"
+      },
+      "fla.ops.nsa.utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/nsa/utils.py",
+        "sha256": "3a6590ed28e119e21308581d5a04e9782b534d3ef070f99f9dbf5834eb6f1948"
+      },
+      "fla.ops.parallax": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/parallax/__init__.py",
+        "sha256": "836a533b26c5edcca8c9a30092ed60a6357930163ab3f2e5d57d8d4faff0fd83"
+      },
+      "fla.ops.parallax.decode": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/parallax/decode.py",
+        "sha256": "5ac96555339fbea3c4b7c79ccafad81825924e5c67db94dbf3bd8ad05faac2af"
+      },
+      "fla.ops.parallax.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/parallax/naive.py",
+        "sha256": "5c4bc053471226dba70371254b2e0616cea275aae32bb55bfb192b0ca4a9d8e4"
+      },
+      "fla.ops.parallax.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/parallax/parallel.py",
+        "sha256": "d760b2bfb0131426842d8fdb0f8a1ef87169c4585a31f95bde73e815fb1e7307"
+      },
+      "fla.ops.path_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/__init__.py",
+        "sha256": "7b2bdd5792e4931cedcc34c360097ceb6be15c84d439c32d17a0fc9fa9f43bf1"
+      },
+      "fla.ops.path_attn.cumprod_householder_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/cumprod_householder_bwd.py",
+        "sha256": "c8726f3cd86088feda9c3413d5c3d7fbdc83b870c948db1ac13fb30e49083af4"
+      },
+      "fla.ops.path_attn.cumprod_householder_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/cumprod_householder_fwd.py",
+        "sha256": "89d76902cad98ffb31039a567b9fe2d074dec7dfae6ef23e526f330e4b2ac21b"
+      },
+      "fla.ops.path_attn.intra_chunk_preprocess_bwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/intra_chunk_preprocess_bwd.py",
+        "sha256": "719c066c4a9f98eda359883699d2b7c4afe493a3d3b5280520fdb3cdaf307384"
+      },
+      "fla.ops.path_attn.intra_chunk_preprocess_bwd_prepare": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/intra_chunk_preprocess_bwd_prepare.py",
+        "sha256": "750363c0ba2f7319469a898a3aee3d6fef087cd504d4e8896627018e83ed7dca"
+      },
+      "fla.ops.path_attn.intra_chunk_preprocess_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/intra_chunk_preprocess_fwd.py",
+        "sha256": "6fa9e86fef23212acd3cf2c548f88f633b019ccabf1b7a1d65f41d562f52760a"
+      },
+      "fla.ops.path_attn.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/naive.py",
+        "sha256": "e10b0a89951c174ab82096eb92ee17bbf211dd8060fa7e84a62a3b140396f659"
+      },
+      "fla.ops.path_attn.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/parallel.py",
+        "sha256": "9ba3318a236e040fa6593114b27a7483fc758a6849e1ed2b0cc0954308a76c3f"
+      },
+      "fla.ops.path_attn.parallel_path_bwd_inter_dkv": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/parallel_path_bwd_inter_dkv.py",
+        "sha256": "12850525429c47eadc9fdac90aa27c073dac60cccbfd5b1f42d4e1516829b133"
+      },
+      "fla.ops.path_attn.parallel_path_bwd_inter_dqh": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/parallel_path_bwd_inter_dqh.py",
+        "sha256": "84222641c015c7b429645232ab692dc5f9067422b0f231a652f48627c7131e1b"
+      },
+      "fla.ops.path_attn.parallel_path_bwd_intra": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/parallel_path_bwd_intra.py",
+        "sha256": "b596960d8bdf9b213504391140154c313acb84c334f9068377072d21f8fb288c"
+      },
+      "fla.ops.path_attn.parallel_path_fwd": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/parallel_path_fwd.py",
+        "sha256": "aa2aa3fb8c200cf310463a754f0b677341ea2e232b3d0e5072d8711e15fdd98d"
+      },
+      "fla.ops.path_attn.prepare_k_cache": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/prepare_k_cache.py",
+        "sha256": "1625db8cb979e584519509cfc132a5da83d56473412f909873dbf6134edf6d01"
+      },
+      "fla.ops.path_attn.transform_q": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/path_attn/transform_q.py",
+        "sha256": "e90dd77bb8463bf5989c1a9b7b6aee9ef07de2509ee362433362dbeb1fc0805f"
+      },
+      "fla.ops.rebased": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rebased/__init__.py",
+        "sha256": "a5ac18933389fe6418e508f421bbaaf353f728d80ef4bbfab303b10a3943946b"
+      },
+      "fla.ops.rebased.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rebased/parallel.py",
+        "sha256": "467291843a16a0e9639608305d9ec7ead4ea19810b7e6aaa52e0bb6953376525"
+      },
+      "fla.ops.retention": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/retention/__init__.py",
+        "sha256": "8bab870359dd4d1e93fdf55fa2871e2a8d76c320451982ded44026d0ca3fb20d"
+      },
+      "fla.ops.retention.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/retention/chunk.py",
+        "sha256": "7039de74932e1c01e1295d6c9e57188c319dd1604837496b11104febfcc1856e"
+      },
+      "fla.ops.retention.fused_chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/retention/fused_chunk.py",
+        "sha256": "8701e1f901290a54149263fd916657638c591119611811673eba54c4395280a1"
+      },
+      "fla.ops.retention.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/retention/fused_recurrent.py",
+        "sha256": "2966d4ffa9acbfa62a6605635af00f7e5b2a5a821569062f5462d7bc450797c0"
+      },
+      "fla.ops.retention.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/retention/parallel.py",
+        "sha256": "356cf7f6e30b756f9b007f7d53611ee467a96978d720c28c9905a9f43bfbb2d1"
+      },
+      "fla.ops.rwkv6": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv6/__init__.py",
+        "sha256": "c0f6200bac06fb1738236bdeb2c1a1bf511a678b4be72b954154b08b5ac41149"
+      },
+      "fla.ops.rwkv6.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv6/chunk.py",
+        "sha256": "c93b6b7353ee5bee7ed329226311da61e69615427a651fba09cdcca1c847cf8d"
+      },
+      "fla.ops.rwkv6.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv6/fused_recurrent.py",
+        "sha256": "4c79f93321a9041790177a253c0f886ee900e503dde17448e7d3b6f04bb49e4d"
+      },
+      "fla.ops.rwkv7": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv7/__init__.py",
+        "sha256": "74f2812122cd9f094a6fec69ffc7a3b1cda9782f60290dcd79db4c4f9c10d6c1"
+      },
+      "fla.ops.rwkv7.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv7/chunk.py",
+        "sha256": "5965098d6f78e8ec0c517760a08aaef784032ce30de80b30a7add2b2499affe8"
+      },
+      "fla.ops.rwkv7.fused_addcmul": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv7/fused_addcmul.py",
+        "sha256": "074522748d28846bdf7b84177a36041143f6ef4fef65ac29248bcd0ccae81992"
+      },
+      "fla.ops.rwkv7.fused_k_update": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv7/fused_k_update.py",
+        "sha256": "b5753346a3d0fd48a8fb8037db66d00094dc81dcef4af868c86cd84bfcbb20a8"
+      },
+      "fla.ops.rwkv7.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv7/fused_recurrent.py",
+        "sha256": "0a2e76abc14e35aa2a479757d1a1f7549f2876c3980709bb4be0a1fcb4dfddff"
+      },
+      "fla.ops.rwkv7.gate_output_correction": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/rwkv7/gate_output_correction.py",
+        "sha256": "4bff30e3badcad185ea32900cac7abbd17e7f08f1d9ec0e8737f55ed7ea7a982"
+      },
+      "fla.ops.simple_gla": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/simple_gla/__init__.py",
+        "sha256": "b12c8887ca127e1c9923e56761433fba1229f872fe80371005178b9ff9c9e4e4"
+      },
+      "fla.ops.simple_gla.chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/simple_gla/chunk.py",
+        "sha256": "ea3e3542786ba695dbe5f84221cf255d0c1fa874475168544efa222134f70879"
+      },
+      "fla.ops.simple_gla.fused_chunk": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/simple_gla/fused_chunk.py",
+        "sha256": "b69bde85781e2f6192731227a0cef072be99a28a3fbc3c6d177daf535a2795e9"
+      },
+      "fla.ops.simple_gla.fused_recurrent": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/simple_gla/fused_recurrent.py",
+        "sha256": "14b16d5351d1345c361847ab8c07c81e2406d0eeae5b071efde9f5dfe9ea39bc"
+      },
+      "fla.ops.simple_gla.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/simple_gla/parallel.py",
+        "sha256": "87766ae83d4f4cc430cfbad092992968cf357795734c72f4a5b71a44c9a887ed"
+      },
+      "fla.ops.utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/__init__.py",
+        "sha256": "794895ece005633183c88fd6b6b48d96d56b7d4ddcac04c67ca156a3d53cec77"
+      },
+      "fla.ops.utils.cache": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/cache.py",
+        "sha256": "a64b09ffd3f51aed547ad72559dee94cb9aeafd2a5f02c6c8e60a6e020147a9c"
+      },
+      "fla.ops.utils.constant": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/constant.py",
+        "sha256": "b952bdcf039dee433f0cf49093c725971e6791878ad0afca655c82bb464574f8"
+      },
+      "fla.ops.utils.csr": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/csr.py",
+        "sha256": "fa94b3382a94591249fcb8dcf14426a8ddd11dacff78d2c1beadad2e9e0f3556"
+      },
+      "fla.ops.utils.cumsum": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/cumsum.py",
+        "sha256": "0405701c46cee331088bfee395b3bf37f8384829dace0aa3a55a509844bcf4cb"
+      },
+      "fla.ops.utils.index": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/index.py",
+        "sha256": "b679166f8259224f1e7c42c7c238086544f1da1385863b57251bd663bfe47507"
+      },
+      "fla.ops.utils.logcumsumexp": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/logcumsumexp.py",
+        "sha256": "ed5113ebf1a4ef127dac98faede46f37793746b1d631b0bae4a238b809c2e002"
+      },
+      "fla.ops.utils.logsumexp": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/logsumexp.py",
+        "sha256": "1153d18d5133600539cb464c6a71c30763316e1f6d58e40263220a7206ee3542"
+      },
+      "fla.ops.utils.matmul": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/matmul.py",
+        "sha256": "3d5e0baca469357c19f29aea321f9c1f463fadb16ad11a2bbfee192f2d939e2c"
+      },
+      "fla.ops.utils.op": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/op.py",
+        "sha256": "99a0d6d10c506e104b57be49719cf5cc48bfcacdf2746f0a3b4dc19459dd319b"
+      },
+      "fla.ops.utils.pack": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/pack.py",
+        "sha256": "f38278eb60558a64f73aa268dfcae0cfbe137fad609f72ed77c7b66a29aa187b"
+      },
+      "fla.ops.utils.pooling": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/pooling.py",
+        "sha256": "d8289c60e7b0789ad7453501a4996572884e49eb074c6ddc7287f87711805bcd"
+      },
+      "fla.ops.utils.softmax": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/softmax.py",
+        "sha256": "8cddf00343ad55899308a95882846956bd07b93d2dbf67e8e6712c6e1ef87527"
+      },
+      "fla.ops.utils.softplus": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/softplus.py",
+        "sha256": "f826ee89eaed66bdc83aeaeee931dc6523593bef078167cb1d9babc5b40d4c4f"
+      },
+      "fla.ops.utils.solve_tril": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/utils/solve_tril.py",
+        "sha256": "75bec200b08aa288584be1c7c0e8db25c390a466c8880cfd2648ca2222225845"
+      },
+      "fla.ops.wall_attn": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/wall_attn/__init__.py",
+        "sha256": "aff15b0c68c63bc58ad4368c6e5f5ac561e910d51ade9cd2734bfdaaf88727a2"
+      },
+      "fla.ops.wall_attn.decode": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/wall_attn/decode.py",
+        "sha256": "2d13d447c4e06c815445d1b8442f51c90cce86c080deb0ba25bfaa9a7ea7fb6b"
+      },
+      "fla.ops.wall_attn.naive": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/wall_attn/naive.py",
+        "sha256": "a8cf4c122e95ac7b2ecd3b8b69519519a0acd1c72906ae70505138b9d3df33a5"
+      },
+      "fla.ops.wall_attn.parallel": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/ops/wall_attn/parallel.py",
+        "sha256": "879b82f1ffabac6139ba273738aa268e73204669ada682ddbe9b2bb4ca900c79"
+      },
+      "fla.utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/utils/__init__.py",
+        "sha256": "25ea758e169e547f4650eb8ceb37602ed5f8262f8134c2787c94edb5909a3adb"
+      },
+      "fla.utils._compat": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/utils/_compat.py",
+        "sha256": "87bb9a1162e2f024e8acdd4e1bea3e6431ec5beba97d3249a9ac915b50473400"
+      },
+      "fla.utils._config": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/utils/_config.py",
+        "sha256": "9753c19dfd82e9200196d38086cf46074193af4a254357c0eddfdb8734dbe880"
+      },
+      "fla.utils._decorators": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/utils/_decorators.py",
+        "sha256": "3bab3f12662ec7804f69dc990450ac8d61dadb170ec0f7316a155f9bde248e18"
+      },
+      "fla.utils._device": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/utils/_device.py",
+        "sha256": "c844bc8056e462384219d5f186dd12e6e2732b83019b6cc2678556c36a28b29f"
+      },
+      "fla.utils._testing": {
+        "path": "/work/modern/lib/python3.11/site-packages/fla/utils/_testing.py",
+        "sha256": "78572173fef84090d75afe53d58988645cd146915687ede0698a50d5da33b73b"
+      },
+      "transformers.cache_utils": {
+        "path": "/work/modern/lib/python3.11/site-packages/transformers/cache_utils.py",
+        "sha256": "702144bb44553f6339ea1bf23c8205a708bb5f8c7c09cb3a2db484182646743c"
+      },
+      "transformers.models.qwen3_5": {
+        "path": "/work/modern/lib/python3.11/site-packages/transformers/models/qwen3_5/__init__.py",
+        "sha256": "e1d6bd33c0bfce7f782e2d186f84bcc0e42f8260eac85c10d16bb7808665a1b5"
+      },
+      "transformers.models.qwen3_5.configuration_qwen3_5": {
+        "path": "/work/modern/lib/python3.11/site-packages/transformers/models/qwen3_5/configuration_qwen3_5.py",
+        "sha256": "19966c3200cee92cc4bccaef5f94550c56d731dbf03858a9bd2ed6aebcc3f7da"
+      },
+      "transformers.models.qwen3_5.modeling_qwen3_5": {
+        "path": "/work/modern/lib/python3.11/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py",
+        "sha256": "762feb6c7426a7f15b5bf830df54c07438bf9e7c27b8cdb23179045920412c3b"
+      }
+    },
+    "standalone_model_loader_byte_equivalence_claimed": false
+  },
+  "hf_tokenizer_cross_check": true,
+  "smoke_passed": true,
+  "max_prob_diff": 5.662441253662109e-07,
+  "records": {
+    "calibration": 5052,
+    "dev": 5188,
+    "train": 5999
+  },
+  "feature_positions": {
+    "calibration": 119808,
+    "dev": 123029,
+    "train": 142297
+  },
+  "totals": {
+    "projection_calls": 58588,
+    "records": 16239,
+    "native_tokens": 1626447,
+    "forward_tokens": 1874816,
+    "skipped_tokenizer_mismatch": 5
+  },
+  "files": {
+    "features_calibration.npz": "79bc18cf34914239452e6f4afaf31d7730ec3626d4944f35a9ac0a688561ab59",
+    "features_calibration_records.json": "d85fe6c3e967d66f899f8df2e5789492dbdf7256e95c63a40e2a4835feff6487",
+    "features_dev.npz": "0ffc221ed22acf8706e67bd08e8174778ba5e3ef0e826dde7a291beb7710c05f",
+    "features_dev_records.json": "d3a86ae78055b6729ba552573d4a5da2c809fbb6f2e45ca847092b87db120cb9",
+    "features_train.npz": "a4a0173e8ea9283eece13f04d1499ca4ce8942f037341c033f77d41da952e06e",
+    "features_train_records.json": "f33409935a1b2ea590278a3f942beaa2595f026f8fea8fb84f169c816c3f78c1",
+    "runA_calibration.jsonl.gz": "2fbb1c4d0e212af1e0d7ec0dc18cc59e5da36e435d3267f4441de1004e9a805a",
+    "runA_dev.jsonl.gz": "4167a473cdc272d2eae9b1267696510744095939fbcca1f0f825472447d3629a",
+    "runA_train.jsonl.gz": "cb51139b741ffcc81ba356d4c7ed74d2478aee9a4947d9402be09716e4729693"
+  }
+}

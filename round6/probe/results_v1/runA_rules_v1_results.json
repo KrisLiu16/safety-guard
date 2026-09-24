@@ -1,0 +1,893 @@
+{
+  "version": "round6-runA-rules-v1",
+  "model_calls": 0,
+  "fitted_on": "Run A calibration (zh/assistant, en/assistant)",
+  "official_used_for_fitting": false,
+  "target_stream_fpr": 0.05,
+  "temperature": 1.7,
+  "temperature_endpoint_nll": 0.19990978718984248,
+  "streams": {
+    "calibration": {
+      "safe": 2526,
+      "unsafe": 2526
+    },
+    "dev": {
+      "safe": 2594,
+      "unsafe": 2594
+    }
+  },
+  "reference_official_argmax2": {
+    "runA_dev": {
+      "n_safe": 2594,
+      "n_unsafe": 2594,
+      "fpr": 0.4533538936006168,
+      "recall": 0.8858905165767155
+    }
+  },
+  "rules": {
+    "threshold@T=1.0": {
+      "tau": 0.997182,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.02929532858273951,
+        "recall": 0.5819477434679335
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.03585196607555898,
+        "recall": 0.5740169622205089,
+        "fpr_ci95": [
+          0.028912875867386275,
+          0.04317656129529684
+        ],
+        "recall_ci95": [
+          0.5578257517347726,
+          0.5909791827293754
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0517,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.2403,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1489,
+        "unsafe_first_fire_before_onset": 38,
+        "unsafe_first_fire_before_onset_share": 0.0255
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0275,
+        "recall": 0.55
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.3469387755102041,
+        "recall": 0.6889279437609842
+      }
+    },
+    "threshold@T=1.7": {
+      "tau": 0.968377,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.014647664291369754,
+        "recall": 0.5415676959619953
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.02235929067077872,
+        "recall": 0.5343099460292984,
+        "fpr_ci95": [
+          0.016962220508866616,
+          0.028141865844255976
+        ],
+        "recall_ci95": [
+          0.518118735543562,
+          0.5508866615265998
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0304,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.1494,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1386,
+        "unsafe_first_fire_before_onset": 20,
+        "unsafe_first_fire_before_onset_share": 0.0144
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.025,
+        "recall": 0.5275
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.2714285714285714,
+        "recall": 0.6590509666080844
+      }
+    },
+    "threshold@T=2.2": {
+      "tau": 0.929205,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.010688836104513063,
+        "recall": 0.5067300079176563
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.016191210485736313,
+        "recall": 0.4976869699306091,
+        "fpr_ci95": [
+          0.01156515034695451,
+          0.02158828064764842
+        ],
+        "recall_ci95": [
+          0.4814957594448728,
+          0.5131071703932151
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0213,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.1071,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1291,
+        "unsafe_first_fire_before_onset": 14,
+        "unsafe_first_fire_before_onset_share": 0.0108
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0175,
+        "recall": 0.52
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.21224489795918366,
+        "recall": 0.6467486818980668
+      }
+    },
+    "consecutive_2@T=1.0": {
+      "tau": 0.996452,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.030482977038796516,
+        "recall": 0.5740300870942201
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.03585196607555898,
+        "recall": 0.5724749421742482,
+        "fpr_ci95": [
+          0.029298380878951428,
+          0.04317656129529684
+        ],
+        "recall_ci95": [
+          0.5551272166538165,
+          0.5886661526599846
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0486,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.2435,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1485,
+        "unsafe_first_fire_before_onset": 31,
+        "unsafe_first_fire_before_onset_share": 0.0209
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.03,
+        "recall": 0.5675
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.31020408163265306,
+        "recall": 0.6924428822495606
+      }
+    },
+    "consecutive_2@T=1.7": {
+      "tau": 0.964519,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.02058590657165479,
+        "recall": 0.5340459224069676
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.025828835774865073,
+        "recall": 0.5354664610639939,
+        "fpr_ci95": [
+          0.020046260601387818,
+          0.03199691595990748
+        ],
+        "recall_ci95": [
+          0.5192752505782575,
+          0.5516576715497301
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0395,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.1688,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1389,
+        "unsafe_first_fire_before_onset": 16,
+        "unsafe_first_fire_before_onset_share": 0.0115
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0275,
+        "recall": 0.555
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.24489795918367346,
+        "recall": 0.6748681898066784
+      }
+    },
+    "consecutive_2@T=2.2": {
+      "tau": 0.920567,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.022565320665083134,
+        "recall": 0.5522565320665083
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.029298380878951428,
+        "recall": 0.551272166538165,
+        "fpr_ci95": [
+          0.02313030069390902,
+          0.03585196607555898
+        ],
+        "recall_ci95": [
+          0.5350809560524287,
+          0.5674633770239013
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0426,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.1948,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1430,
+        "unsafe_first_fire_before_onset": 18,
+        "unsafe_first_fire_before_onset_share": 0.0126
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.03,
+        "recall": 0.5575
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.27755102040816326,
+        "recall": 0.6818980667838312
+      }
+    },
+    "consecutive_4@T=1.0": {
+      "tau": 0.995533,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.027315914489311165,
+        "recall": 0.5399841646872525
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.03353893600616808,
+        "recall": 0.5362374710871242,
+        "fpr_ci95": [
+          0.026599845797995375,
+          0.040092521202775636
+        ],
+        "recall_ci95": [
+          0.5196607555898227,
+          0.5528141865844256
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0365,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.237,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1391,
+        "unsafe_first_fire_before_onset": 29,
+        "unsafe_first_fire_before_onset_share": 0.0208
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.03,
+        "recall": 0.5575
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.29591836734693877,
+        "recall": 0.6977152899824253
+      }
+    },
+    "consecutive_4@T=1.7": {
+      "tau": 0.955332,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.03681710213776722,
+        "recall": 0.5589865399841647
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.04356206630686199,
+        "recall": 0.5609097918272937,
+        "fpr_ci95": [
+          0.03585196607555898,
+          0.05088666152659985
+        ],
+        "recall_ci95": [
+          0.5447185813415575,
+          0.5782575173477256
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0547,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.2987,
+          "slot0:safe_redirect": 0.0032,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1455,
+        "unsafe_first_fire_before_onset": 38,
+        "unsafe_first_fire_before_onset_share": 0.0261
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0325,
+        "recall": 0.5775
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.3306122448979592,
+        "recall": 0.7135325131810193
+      }
+    },
+    "consecutive_4@T=2.2": {
+      "tau": 0.910875,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.027711797307996833,
+        "recall": 0.546714172604909
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.03238242097147263,
+        "recall": 0.5427910562837317,
+        "fpr_ci95": [
+          0.025443330763299923,
+          0.038936006168080184
+        ],
+        "recall_ci95": [
+          0.5265998457979953,
+          0.5597532767925983
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0365,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.2273,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1408,
+        "unsafe_first_fire_before_onset": 33,
+        "unsafe_first_fire_before_onset_share": 0.0234
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.03,
+        "recall": 0.5625
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.3020408163265306,
+        "recall": 0.7047451669595782
+      }
+    },
+    "consecutive_8@T=1.0": {
+      "tau": 0.992921,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.03721298495645289,
+        "recall": 0.5482977038796516
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.04163454124903624,
+        "recall": 0.5528141865844256,
+        "fpr_ci95": [
+          0.034309946029298384,
+          0.049730146491904395
+        ],
+        "recall_ci95": [
+          0.5362374710871242,
+          0.569390902081727
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0456,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.289,
+          "slot0:safe_redirect": 0.0032,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0031
+        },
+        "unsafe_detected": 1434,
+        "unsafe_first_fire_before_onset": 27,
+        "unsafe_first_fire_before_onset_share": 0.0188
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0325,
+        "recall": 0.58
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.3224489795918367,
+        "recall": 0.7381370826010545
+      }
+    },
+    "consecutive_8@T=1.7": {
+      "tau": 0.943766,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.039192399049881234,
+        "recall": 0.5570071258907363
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.04433307632999229,
+        "recall": 0.5643793369313801,
+        "fpr_ci95": [
+          0.03700848111025443,
+          0.052428681572860444
+        ],
+        "recall_ci95": [
+          0.5485736314572089,
+          0.5801850424055512
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0486,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.3084,
+          "slot0:safe_redirect": 0.0032,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0031
+        },
+        "unsafe_detected": 1464,
+        "unsafe_first_fire_before_onset": 31,
+        "unsafe_first_fire_before_onset_share": 0.0212
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0325,
+        "recall": 0.5875
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.3448979591836735,
+        "recall": 0.7521968365553603
+      }
+    },
+    "consecutive_8@T=2.2": {
+      "tau": 0.9,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.026128266033254157,
+        "recall": 0.5265241488519399
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.028527370855821126,
+        "recall": 0.5304548959136469,
+        "fpr_ci95": [
+          0.02197378565921357,
+          0.03508095605242868
+        ],
+        "recall_ci95": [
+          0.5146491904394758,
+          0.5478026214340787
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0274,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.2013,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0031
+        },
+        "unsafe_detected": 1376,
+        "unsafe_first_fire_before_onset": 18,
+        "unsafe_first_fire_before_onset_share": 0.0131
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0225,
+        "recall": 0.5675
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.29591836734693877,
+        "recall": 0.718804920913884
+      }
+    },
+    "ema_0.3@T=1.0": {
+      "tau": 0.995533,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.032066508313539195,
+        "recall": 0.5716547901821061
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.04163454124903624,
+        "recall": 0.569390902081727,
+        "fpr_ci95": [
+          0.03392444101773323,
+          0.048959136468774096
+        ],
+        "recall_ci95": [
+          0.5531996915959907,
+          0.5859676175790285
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0456,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.2955,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1477,
+        "unsafe_first_fire_before_onset": 35,
+        "unsafe_first_fire_before_onset_share": 0.0237
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0375,
+        "recall": 0.5775
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.32857142857142857,
+        "recall": 0.70298769771529
+      }
+    },
+    "ema_0.3@T=1.7": {
+      "tau": 0.960189,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.021377672209026127,
+        "recall": 0.5384006334125099
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.027756360832690823,
+        "recall": 0.5393215111796453,
+        "fpr_ci95": [
+          0.02197378565921357,
+          0.03392444101773323
+        ],
+        "recall_ci95": [
+          0.5227447956823439,
+          0.5566692367000771
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0334,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.1916,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1399,
+        "unsafe_first_fire_before_onset": 18,
+        "unsafe_first_fire_before_onset_share": 0.0129
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0275,
+        "recall": 0.565
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.25918367346938775,
+        "recall": 0.6818980667838312
+      }
+    },
+    "ema_0.3@T=2.2": {
+      "tau": 0.910875,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.030482977038796516,
+        "recall": 0.5748218527315915
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.03932151117964534,
+        "recall": 0.5751734772552043,
+        "fpr_ci95": [
+          0.03199691595990748,
+          0.04626060138781804
+        ],
+        "recall_ci95": [
+          0.5582112567463376,
+          0.5909791827293754
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0456,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.276,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1492,
+        "unsafe_first_fire_before_onset": 36,
+        "unsafe_first_fire_before_onset_share": 0.0241
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0425,
+        "recall": 0.585
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.33877551020408164,
+        "recall": 0.7082601054481547
+      }
+    },
+    "ema_0.1@T=1.0": {
+      "tau": 0.992057,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.039192399049881234,
+        "recall": 0.5051464766429137
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.03700848111025443,
+        "recall": 0.5015420200462606,
+        "fpr_ci95": [
+          0.029683885890516577,
+          0.04394757131842714
+        ],
+        "recall_ci95": [
+          0.48573631457208943,
+          0.5165767154973014
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.079,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.2175,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0031
+        },
+        "unsafe_detected": 1301,
+        "unsafe_first_fire_before_onset": 61,
+        "unsafe_first_fire_before_onset_share": 0.0469
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0475,
+        "recall": 0.6
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.30612244897959184,
+        "recall": 0.7539543057996485
+      }
+    },
+    "ema_0.1@T=1.7": {
+      "tau": 0.943766,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.032066508313539195,
+        "recall": 0.4916864608076009
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.03238242097147263,
+        "recall": 0.48766383962991516,
+        "fpr_ci95": [
+          0.025828835774865073,
+          0.038936006168080184
+        ],
+        "recall_ci95": [
+          0.4726291441788743,
+          0.5026985350809561
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0638,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.1948,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0031
+        },
+        "unsafe_detected": 1265,
+        "unsafe_first_fire_before_onset": 52,
+        "unsafe_first_fire_before_onset_share": 0.0411
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0475,
+        "recall": 0.595
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.2857142857142857,
+        "recall": 0.7486818980667839
+      }
+    },
+    "ema_0.1@T=2.2": {
+      "tau": 0.9,
+      "calibration": {
+        "n_safe": 2526,
+        "n_unsafe": 2526,
+        "fpr": 0.020190023752969122,
+        "recall": 0.4568487727632621
+      },
+      "runA_dev": {
+        "n_safe": 2594,
+        "n_unsafe": 2594,
+        "fpr": 0.02197378565921357,
+        "recall": 0.4502698535080956,
+        "fpr_ci95": [
+          0.016191210485736313,
+          0.028141865844255976
+        ],
+        "recall_ci95": [
+          0.4356206630686199,
+          0.46491904394757133
+        ]
+      },
+      "runA_dev_breakdown": {
+        "safe_fpr_by_slot_style": {
+          "slot0:neutral_information": 0.0365,
+          "slot0:refusal": 0.0029,
+          "slot0:risk_reasoning": 0.1396,
+          "slot0:safe_redirect": 0.0,
+          "slot2:helpful_answer": 0.0,
+          "slot2:helpful_reasoning": 0.0015
+        },
+        "unsafe_detected": 1168,
+        "unsafe_first_fire_before_onset": 25,
+        "unsafe_first_fire_before_onset_share": 0.0214
+      },
+      "prefix_v2_dev": {
+        "n_safe": 400,
+        "n_unsafe": 400,
+        "fpr": 0.0375,
+        "recall": 0.5725
+      },
+      "official_thinking": {
+        "n_safe": 490,
+        "n_unsafe": 569,
+        "fpr": 0.23265306122448978,
+        "recall": 0.7240773286467487
+      }
+    }
+  }
+}
