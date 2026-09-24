@@ -13,6 +13,9 @@ also proves the runtime is reading the newly loaded weights.
 --role user (T025): the heads are loaded into the user head and scored on each distinct Run A prompt
 (runA_prompts_<split>.jsonl.gz, ids "<task_key>:prompt:<label>", char_ends over the prompt) and the prefix_v2
 user-role records; the official thinking set is assistant-side and is skipped.
+--checkpoint (stage 2, round6/stage2): the variant "checkpoint" loads a whole trained model (backbone and heads,
+strict key match) into the live model in place of the fixed Round5 weights; it must come last, since the head
+variants before it are scored on the fixed backbone. The same integrity check then proves the runtime reads it.
 """
 from __future__ import annotations
 
@@ -161,7 +164,11 @@ def main(argv=None):
                         help="default: head_<role>_init.pt of the stage-1 cache (stage1_cache_v1 / stage1_cache_user_v1)")
     parser.add_argument("--runA", type=Path, default=Path("/work/round6/probe/input_v1/probe_input_v1.jsonl"))
     parser.add_argument("--output", type=Path, default=Path("/work/output/round6/stage1_eval_v1"))
+    parser.add_argument("--checkpoint", type=Path, help='stage-2 model (safetensors) for the variant "checkpoint"')
     options = parser.parse_args(argv)
+    variants = options.variants.split(",")
+    if "checkpoint" in variants and (options.checkpoint is None or variants[-1] != "checkpoint"):
+        parser.error('the variant "checkpoint" needs --checkpoint and must be the last variant')
     if options.init_head is None:
         options.init_head = Path("/work/output/round6/stage1_cache_v1/head_assistant_init.pt" if options.role == "assistant"
                                  else "/work/output/round6/stage1_cache_user_v1/head_user_init.pt")
@@ -205,10 +212,17 @@ def main(argv=None):
                 raise ValueError("runtime execution contract differs from the locked calibration")
             report["official_native_ids"] = official.verify_native_ids(hf_tokenizer, official_data, trainer.serialize)
             capture = ProbsCapture(torch, model, lambda ids: cal.validated_prefixes(runtime, ids, contract), role=options.role)
-            for variant in options.variants.split(","):
-                weights_path = options.init_head if variant == "init" else options.heads / f"head_{variant}.pt"
-                weights = torch.load(weights_path, map_location="cpu")
-                model.heads[options.role].load_state_dict(weights, strict=True)
+            for variant in variants:
+                if variant == "checkpoint":
+                    from safetensors.torch import load_file
+                    weights_path = options.checkpoint
+                    state = load_file(str(weights_path), device="cpu")
+                    model.load_state_dict(state, strict=True)          # backbone and both heads, in place
+                    del state
+                else:
+                    weights_path = options.init_head if variant == "init" else options.heads / f"head_{variant}.pt"
+                    weights = torch.load(weights_path, map_location="cpu")
+                    model.heads[options.role].load_state_dict(weights, strict=True)
                 output = options.output / f"eval_{variant}"
                 output.mkdir()
                 report.update(phase=variant)
