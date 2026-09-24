@@ -33,3 +33,22 @@ T002 已经发现 v14 起点位置不准，所以报告会把起点附近的 P/U
 | `test_probe_cpu.py` | Mac | 8 项单测；其中 2 项用假引擎把 dump 主循环整个跑一遍，需要 torch |
 
 结果只提交数字文件（`report.json`、`probe_v1_results.json`、`runA_rules_v1_results.json`）。`*.jsonl.gz` 和特征文件 `*.npz` 留在 PVC 或 Mac 上。
+
+## T004 结果与 T014（迁移检验）
+
+T004（[反馈](../../collab/feedback/T004-probe-and-rules.md)）：冻结特征上的线性探针区分“复述有害请求的安全推理”和“起点之后的真有害文本”，Run A dev 上 AUC 0.995 [0.994, 0.996]；现在的头只有 0.791 [0.777, 0.806]。中英两种语言都成立。T005：只换决策规则，复述类推理的流式误报仍有 11–31%。结论是区分信息已经在主干里，问题出在读出头。
+
+但探针只在 Run A 上拟合和检验过，而 Run A 全部是 luna 用 v14 模板写的，探针可能学的是生成风格，而不是危害本身。T014 用同一个探针（在作业里按 T004 的特征和 L2 重新拟合，必须复现 T004 的校准 AUC）给以下三组数据的每个位置打分，并与现在的头对比：
+
+- Run A calibration 和 dev；
+- prefix_v2 calibration 和 dev（只取 assistant 分层）；
+- 官方 1,872 条序列（只观察，不参与拟合）。
+
+温度和阈值只在 Run A 校准集上拟合。
+
+| 文件 | 在哪跑 | 作用 |
+|---|---|---|
+| `transfer_l20.py` | L20 | 重新拟合并核对探针；一次前向，逐位置输出头的 log 概率和探针 logit，自检方式与 T004 相同 |
+| `analyze_transfer.py` | Mac | 头和探针走同一套温度、规则和 bootstrap 代码（探针 logit 写成三元组 `[0, logit, -50]`，softmax 恰好等于 sigmoid）；输出三组数据上的流式误报和召回，以及不依赖阈值的流式 AUC |
+| `worker_transfer_v1.yaml` | 集群 | L20 作业 |
+| `test_transfer_cpu.py` | Mac | 3 项单测：重新拟合能否复现、三个数据源的主循环（假引擎，需要 torch）、分析脚本端到端 |
