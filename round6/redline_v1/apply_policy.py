@@ -154,6 +154,8 @@ def main():
     parser.add_argument("--switches", type=Path, help="JSON object overriding policy switches (default: final table)")
     parser.add_argument("--screen", type=Path, help="word screen screen.jsonl (T012); needs --source")
     parser.add_argument("--source", type=Path, help="the v14-format rows the Tasks were built from (for --screen)")
+    parser.add_argument("--target", choices=("assistant", "user"), default="assistant",
+                        help="user: the probes label prompts (make_tasks.py --target user)")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     switches = json.loads(args.switches.read_text(encoding="utf-8")) if args.switches else None
@@ -162,7 +164,11 @@ def main():
         if not args.source:
             parser.error("--screen needs --source")
         screen = {r["word"]: r["verdict"] for r in read_jsonl(args.screen)}
-        texts = {r["sample_id"]: (r["messages"][-1]["content"], r.get("word")) for r in read_jsonl(args.source)}
+        rows = read_jsonl(args.source)
+        if args.target == "user":
+            from make_tasks import prompt_rows
+            rows = prompt_rows(rows)
+        texts = {r["sample_id"]: (r["messages"][-1]["content"], r.get("word")) for r in rows}
     rows, summary = apply([read_jsonl(p) for p in args.probes], switches, screen, texts)
     summary["inputs"] = [str(p) for p in args.probes] + [str(p) for p in (args.screen, args.source) if p]
     args.out.mkdir(parents=True, exist_ok=True)

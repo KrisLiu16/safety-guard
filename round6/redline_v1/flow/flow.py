@@ -12,7 +12,7 @@ import time
 
 from aster_flow import Context, flow
 from levels import LEVEL_VERSION, clause_cuts, locate
-from pipeline import PROMPT_VERSION, WIRE_APIS, parse, request_body, response_text, stop_ok
+from pipeline import PROMPT_VERSION, USER_PROMPT_VERSION, WIRE_APIS, parse, request_body, response_text, stop_ok
 from policy import decide, digest
 
 
@@ -21,8 +21,10 @@ from policy import decide, digest
               "memory_gib": 1, "storage_gib": 1, "wall_seconds": 80000})
 def run(ctx: Context):
     group = json.loads(ctx.task.instruction)
+    target = group.get("target", "assistant")          # "user": label the prompt itself (judge user mode)
+    judge_version = {"assistant": PROMPT_VERSION, "user": USER_PROMPT_VERSION}.get(target)
     if (group.get("prompt_version"), group.get("judge_version"), group.get("policy_digest")) != (
-            LEVEL_VERSION, PROMPT_VERSION, digest()):
+            LEVEL_VERSION, judge_version, digest()):
         raise ValueError("Unexpected red-line labelling contract")
     model = ctx.models["main"]
     if model.wire_api not in WIRE_APIS:
@@ -31,16 +33,19 @@ def run(ctx: Context):
     for position, item in enumerate(group["terms"]):
         started, calls, errors = time.monotonic(), [], []
 
+        text = item["assistant_text"] if target == "assistant" else item["user_prompt"]
+
         def judge(cut):
-            body = request_body(model.name, {"user_prompt": item["user_prompt"],
-                                              "assistant_text": item["assistant_text"][:cut]}, model.wire_api)
+            shown = ({"user_prompt": item["user_prompt"], "assistant_text": text[:cut]} if target == "assistant"
+                     else {"context": item.get("context", ""), "user_prompt": text[:cut]})
+            body = request_body(model.name, shown, model.wire_api, target)
             try:
                 response = model.request(body, timeout=300)
                 ok, reason = stop_ok(response, model.wire_api)
                 if not ok:
                     errors.append(f"{cut}:stop_reason:{reason}")
                     return None
-                problems, facts = parse(response_text(response, model.wire_api))
+                problems, facts = parse(response_text(response, model.wire_api), target)
                 if facts is None:
                     errors.append(f"{cut}:parse:{','.join(problems)}")
                     return None
@@ -52,7 +57,7 @@ def run(ctx: Context):
                 errors.append(f"{cut}:request:{type(exc).__name__}:{str(exc)[:160]}")
                 return None
 
-        result = locate(clause_cuts(item["assistant_text"]), judge)
+        result = locate(clause_cuts(text), judge)
         counts["calls"] += len(result["probes"])
         counts["finished"] += result["status"] in ("safe", "excluded", "located")
         ctx.results.record(f"item_{position:05d}", {"group_key": group["group_key"], "item_id": item["task_key"],

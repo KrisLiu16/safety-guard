@@ -13,14 +13,14 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "flow"))
 sys.path.insert(0, str(HERE))
 from levels import LEVEL_VERSION, clause_cuts, locate, monotonic, position_level  # noqa: E402
-from pipeline import (ACTS, PROMPT_VERSION, REDLINES, SYSTEM_PROMPT, WIRE_APIS, output_schema, parse,  # noqa: E402
-                      request_body, response_text, stop_ok)
+from pipeline import (ACTS, PROMPT_VERSION, REDLINES, SYSTEM_PROMPT, USER_ACTS, USER_PROMPT_VERSION,  # noqa: E402
+                      USER_SYSTEM_PROMPT, WIRE_APIS, output_schema, parse, request_body, response_text, stop_ok)
 from policy import DEFAULT_SWITCHES, decide, digest, resolve  # noqa: E402
 from apply_policy import apply, label_response, screen_override, sensitivity  # noqa: E402
 from extract_probes import join  # noqa: E402
 from compare_judges import compare  # noqa: E402
 from export_prefix_v2 import export  # noqa: E402
-from make_tasks import build, context, pick  # noqa: E402
+from make_tasks import build, context, pick, prompt_rows  # noqa: E402
 import review_sample  # noqa: E402
 
 
@@ -94,6 +94,49 @@ class PromptTests(unittest.TestCase):
         self.assertEqual(request_body("m", item, "chat_completions")["max_tokens"], 8000)
         ok = {"status": "completed", "output": [{"type": "message", "content": [{"type": "output_text", "text": "{}"}]}]}
         self.assertEqual((response_text(ok, "responses"), stop_ok(ok, "responses")), ("{}", (True, "completed")))
+
+
+class UserModeTests(unittest.TestCase):
+    def test_assistant_mode_unchanged_and_user_mode_shares_the_lists(self):
+        import hashlib
+        self.assertEqual(hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest(),
+                         "c9f68a84ee1c88971fcf025f6cc6179c37f2daa6d321ddc309422b8f245ac9d8")   # T021 (v4.2) prompt
+        self.assertEqual(USER_PROMPT_VERSION, "guard-judge-redline-user-v1")
+        for code in list(REDLINES) + ["B1", "B4"]:
+            self.assertIn(f"\n{code} ", USER_SYSTEM_PROMPT)
+        for act in USER_ACTS:
+            self.assertIn(f"- {act}：", USER_SYSTEM_PROMPT)
+        self.assertNotIn("refusal_naming", USER_SYSTEM_PROMPT)
+        body = json.dumps(request_body("m", {"context": "", "user_prompt": "问"}, "chat_completions", "user"), ensure_ascii=False)
+        self.assertIn("用户提问", body)
+        self.assertNotIn("assistant_text", body)
+        schema = output_schema("user")["properties"]["hits"]["items"]["properties"]["act"]["enum"]
+        self.assertEqual(schema, list(USER_ACTS))
+
+    def test_parse_and_policy_for_prompts(self):
+        payload = json.dumps(facts([hit("R7", "requests", "general")]))
+        self.assertEqual(parse(payload)[0], ["hit"])                       # not an assistant act
+        errors, out = parse(payload, "user")
+        self.assertEqual(errors, [])
+        self.assertEqual(decide(out)["level"], "unsafe")                  # asking for red-line content: unsafe
+        self.assertEqual(decide(facts([hit("R10", "quotes")]))["level"], "controversial")
+        self.assertEqual(decide(facts([hit("R9", "term_explained")]))["level"], "controversial")
+        self.assertEqual(decide(facts([hit("R10", "debunk_request")]))["level"], "safe")
+        self.assertEqual(decide(facts([hit("R6", "topic_mention")]))["level"], "safe")
+
+    def test_prompt_rows_match_the_user_head_cache_ids(self):
+        rows = rows_v14(2)
+        for r in rows:
+            r["prompt_label"] = "unsafe" if r["index"] == 1 else "safe"
+        prompts = prompt_rows(rows)
+        self.assertEqual({p["sample_id"] for p in prompts}, {"k0:prompt:safe", "k0:prompt:unsafe", "k1:prompt:safe", "k1:prompt:unsafe"})
+        items, key = build(rows, target="user")
+        self.assertTrue(all(set(i) == {"task_key", "context", "user_prompt"} for i in items))
+        self.assertEqual({k["response_chars"] for k in key}, {4})         # "占位提问"
+        exported = {"sample_id": "u1", "split": "dev", "label": "unsafe", "messages": [
+            {"role": "user", "content": "前一轮"}, {"role": "assistant", "content": "回答"}, {"role": "user", "content": "这一轮"}]}
+        items, _ = build([exported], target="user")
+        self.assertEqual((items[0]["user_prompt"], items[0]["context"]), ("这一轮", "USER:\n前一轮\n\nASSISTANT:\n回答"))
 
 
 class PolicyTests(unittest.TestCase):
@@ -322,14 +365,15 @@ class FakeModel:
         self.reply = reply
 
     def request(self, body, timeout):
-        text = json.loads(body["messages"][1]["content"].split("\n", 1)[1])["assistant_text"]
+        shown = json.loads(body["messages"][1]["content"].split("\n", 1)[1])
+        text = shown["assistant_text"] if "assistant_text" in shown else shown["user_prompt"]
         payload = self.reply(text)
         if payload is None:
             return {"choices": [{"finish_reason": "content_filter", "message": {"content": ""}}]}
         return {"choices": [{"finish_reason": "stop", "message": {"content": json.dumps(payload, ensure_ascii=False)}}]}
 
 
-def run_flow(terms, reply):
+def run_flow(terms, reply, target="assistant"):
     fake = types.ModuleType("aster_flow")
     fake.Context = object
     fake.flow = lambda **_: (lambda fn: fn)
@@ -340,7 +384,8 @@ def run_flow(terms, reply):
     spec.loader.exec_module(flow_module)
     records = {}
     ctx = types.SimpleNamespace(
-        task=types.SimpleNamespace(instruction=json.dumps({"prompt_version": LEVEL_VERSION, "judge_version": PROMPT_VERSION,
+        task=types.SimpleNamespace(instruction=json.dumps({"prompt_version": LEVEL_VERSION, "target": target,
+                                                           "judge_version": PROMPT_VERSION if target == "assistant" else USER_PROMPT_VERSION,
                                                            "policy_digest": digest(), "group_key": "g0", "terms": terms})),
         models={"main": FakeModel(reply)},
         results=types.SimpleNamespace(record=lambda name, value: records.__setitem__(name, value)),
@@ -382,6 +427,18 @@ class FlowTests(unittest.TestCase):
         relabelled, _ = apply([rows], {"restates": "safe"})
         self.assertEqual(relabelled[0]["level"], "unsafe")
         self.assertNotEqual(relabelled[0]["onsets"]["controversial"]["cut"], labelled[0]["onsets"]["controversial"]["cut"])
+
+    def test_user_target_bisects_the_prompt(self):
+        prompt = "第一句占位，第二句占位，第三句占位。"
+        onset = prompt.index("第二句") + 3
+
+        def reply(prefix):
+            return facts([hit("R7", "requests", "general")]) if len(prefix) >= onset else facts()
+
+        records = run_flow([{"task_key": "k0:prompt:unsafe", "context": "", "user_prompt": prompt}], reply, target="user")
+        result = records["item_00000"]["result"]
+        self.assertEqual(result["status"], "located")
+        self.assertEqual(result["onsets"]["unsafe"]["cut"], min(c for c in clause_cuts(prompt) if c >= onset))
 
     def test_refusal_is_a_judge_error_and_fallback_fills_it(self):
         text = "第一句占位，第二句占位。"

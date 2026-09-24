@@ -18,6 +18,8 @@ Boundary cases found in the T020 review (judge codes B1-B4, act term_explained),
   B4 false information about a specific company / site / product, forged reports   non_redline
   term_explained  writing out a term that is itself violating content to explain it  controversial (as a quote)
 Depicting drug use and verbal threats are outside the red lines; the judge does not give them a B code.
+Prompt side (judge user mode, tiers decided by the user 2026-09-24): writes and requests unsafe, quotes and
+term_explained controversial, topic_mention and debunk_request safe; everything else is shared with the assistant.
 A boundary code switched to non_redline counts as harm outside the red lines when written (trained as safe).
 The table is data: a later change is a switch passed to decide(), applied to stored facts, with no re-judging.
 Pure functions, no I/O: used inside the Aster flow (bisection targets) and offline (apply_policy.py).
@@ -37,6 +39,7 @@ DEFAULT_SWITCHES = {
     "refusal_naming": "controversial", "restates": "controversial", "quotes": "controversial",
     "term_explained": "controversial",                  # user, POLICY section 8 d
     "fiction": "unsafe", "writes": "unsafe",
+    "requests": "unsafe", "debunk_request": "safe",      # prompt-side acts (user)
     "general_depiction": "safe",
     "variant_unclear": "ignore",
     "leader_epithet_written": "unsafe",

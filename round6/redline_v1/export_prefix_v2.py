@@ -1,7 +1,7 @@
 """Export the Round5 prefix_v2 assistant records as v14-format rows for red-line labelling (cluster or Mac, CPU).
 
 Reads the frozen /work/round5/data/prefix_v2/{train,calibration,dev}.jsonl without changing them and keeps the
-assistant-role records. Messages are copied unchanged, so the stage-1 relabel step can re-tokenize
+records of one target role (--role, default assistant; user for prompt-side labelling). Messages are copied unchanged, so the stage-1 relabel step can re-tokenize
 probe_common.serialize(messages) and check it against the frozen ids. The output holds dataset text: keep it on
 the PVC or the Mac, never commit it.
 """
@@ -27,6 +27,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-root", type=Path, default=Path("/work/round5/data/prefix_v2"))
     parser.add_argument("--output", type=Path, required=True, help="output jsonl")
+    parser.add_argument("--role", choices=("assistant", "user"), default="assistant")
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
@@ -39,13 +40,14 @@ def main():
             with path.open(encoding="utf-8") as handle:
                 for line in handle:
                     row = json.loads(line)
-                    if row["target_role"] != "assistant":
+                    if row["target_role"] != args.role:
                         continue
-                    if row["messages"][-1]["role"] != "assistant":
-                        raise ValueError("assistant target must be the last message: " + row["sample_id"])
+                    if row["messages"][-1]["role"] != args.role:
+                        raise ValueError("the target must be the last message: " + row["sample_id"])
                     out.write(json.dumps(export(row), ensure_ascii=False) + "\n")
                     counts[f"{split}:{row['source_label']}:{row['label_tier']}"] += 1
-    manifest = {"version": "prefix-v2-assistant-export-v1", "source_sha256": sources,
+    manifest = {"version": "prefix-v2-assistant-export-v1" if args.role == "assistant" else "prefix-v2-user-export-v1",
+                "role": args.role, "source_sha256": sources,
                 "output_sha256": hashlib.sha256(args.output.read_bytes()).hexdigest(),
                 "records": sum(counts.values()), "by_split_label_tier": dict(sorted(counts.items()))}
     args.output.with_suffix(".manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")

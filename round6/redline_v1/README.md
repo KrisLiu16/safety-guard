@@ -42,6 +42,10 @@ T020 的人工核对：剔除口径待定的样本后，Run A 91%、prefix_v2 10
 - `apply_policy.py --screen screen.jsonl --source <行文件>`：接入词表预筛（T012）。被判为领导人侮辱称呼或传言短语的词，只要回答里原样写出，从第一次出现处起标“风险”，词之前的位置保留裁判的等级（POLICY 第 8 节 e）。
 - `apply_policy.py` 新增两项输出：`boundary_hits_by_label`（各边界代码出现在哪些标签里），以及 `switch_sensitivity`（把每个待定开关翻过来，有多少条标签会变），供用户做决定时参考。
 
+## 提问模式（T024）
+
+提问也按同一份红线清单判（用户定稿），分档由用户按设计方建议定下：提问写出违规内容或请求生成红线内容为“风险”；引用违规原话、问违规词的意思为“有争议”；只问话题或请求辟谣（不引原话）为“安全”。`make_tasks.py --target user` 给每个不同的提问建一条任务（Run A 的编号是 `<task_key>:prompt:<label>`，与 T023 的用户头缓存一致）；flow 在提问上做同样的两级二分；`apply_policy.py --target user` 定标签，可带词表预筛。回答侧的裁判提示词逐字不变。
+
 ## 文件
 
 | 文件 | 在哪跑 | 作用 |
@@ -56,7 +60,7 @@ T020 的人工核对：剔除口径待定的样本后，Run A 91%、prefix_v2 10
 | `compare_judges.py` | Mac | 两个裁判在同一批回答上的标签一致率、截断一致率和起点偏移（各自单独 `apply_policy.py` 后比较） |
 | `export_prefix_v2.py` | 集群或 Mac | 把第五轮 prefix_v2 的助手侧记录导出成 v14 格式的行，原样保留 messages；输出含数据集原文，不提交 |
 | `review_sample.py` | Mac | 按“旧标签 → 新标签”分层抽样，生成本地人工核对表（在原文里标出起点分句）；输出在 `review/` 下，已加入 .gitignore，不提交 |
-| `test_redline_cpu.py` | Mac | 24 项 CPU 单测，含一个用假模型跑通 flow、抽取和重算的端到端测试 |
+| `test_redline_cpu.py` | Mac | 28 项 CPU 单测，含一个用假模型跑通 flow、抽取和重算的端到端测试 |
 
 ## 还没做的
 

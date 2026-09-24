@@ -41,13 +41,15 @@ def marked(text, onsets):
     return text
 
 
-def sheet(chosen, rows):
+def sheet(chosen, rows, target="assistant"):
+    """The labelled text is the last message: the answer (assistant) or the prompt itself (user)."""
+    before, labelled = ("【提问】", "【回答】") if target == "assistant" else ("【此前的对话】", "【提问（标注对象）】")
     parts = []
     for n, lab in enumerate(chosen, 1):
         row = rows[lab["sample_id"]]
         parts.append(f"## {n}. {lab['sample_id']}  旧 {lab['old_label']} → 新 {lab['label']}  分层 {lab['stratum']}\n"
-                     f"规则：{', '.join(lab['rules']) or '无'}\n\n【提问】\n{row['messages'][-2]['content'] if len(row['messages']) > 1 else ''}\n\n"
-                     f"【回答】\n{marked(row['messages'][-1]['content'], lab['onsets'])}\n\n"
+                     f"规则：{', '.join(lab['rules']) or '无'}\n\n{before}\n{row['messages'][-2]['content'] if len(row['messages']) > 1 else ''}\n\n"
+                     f"{labelled}\n{marked(row['messages'][-1]['content'], lab['onsets'])}\n\n"
                      "标签对不对（对 / 漏判红线 / 误判红线 / 档位错）：\n起点分句对不对（对 / 偏早 / 偏晚 / 不适用）：\n")
     return "\n".join(parts)
 
@@ -59,15 +61,20 @@ def main():
     parser.add_argument("--count", type=int, default=40)
     parser.add_argument("--seed", default="redline-review-v1")
     parser.add_argument("--out", type=Path, required=True, help="directory for review.txt (gitignored: review/)")
+    parser.add_argument("--target", choices=("assistant", "user"), default="assistant")
     args = parser.parse_args()
     with args.labels.open(encoding="utf-8") as handle:
         labels = [json.loads(line) for line in handle if line.strip()]
     wanted = {r["sample_id"] for r in labels}
     with args.source.open(encoding="utf-8") as handle:
-        rows = {r["sample_id"]: r for r in map(json.loads, handle) if r["sample_id"] in wanted}
+        source = [json.loads(line) for line in handle if line.strip()]
+    if args.target == "user":
+        from make_tasks import prompt_rows
+        source = prompt_rows(source)
+    rows = {r["sample_id"]: r for r in source if r["sample_id"] in wanted}
     chosen = pick(labels, args.count, args.seed)
     args.out.mkdir(parents=True, exist_ok=True)
-    (args.out / "review.txt").write_text(sheet(chosen, rows), encoding="utf-8")
+    (args.out / "review.txt").write_text(sheet(chosen, rows, args.target), encoding="utf-8")
     print(json.dumps(dict(collections.Counter(f"{r['old_label']}->{r['label']}" for r in chosen)), ensure_ascii=False))
 
 
