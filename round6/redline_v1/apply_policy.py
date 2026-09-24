@@ -25,6 +25,10 @@ the judged levels, prefixes ending inside it get no target.
   whole text, a plainly spelled topic mention of a leader not counting, and then at most at controversial.
   Single characters never fire. With --screen too, a seed word T012 calls evasion / unsure but the leader-form
   check calls formal or not_leader is treated as "no".
+  v1.2 (T026 step 9): once the terms carry the final check (field check), only its fire verdicts are matched, with
+  the check's category (event / figure / org / leader_negative / leader_variant). Latin-letter terms need at least
+  3 letters and match whole words only; two-character Chinese terms and pure digits are gated; the gate counts
+  only the Chinese political red lines (R1, R3-R6, R9), not terrorism or ethnic / racial hatred.
 """
 from __future__ import annotations
 
@@ -45,10 +49,13 @@ SCREEN_UNSAFE = ("insult", "rumor")
 SCREEN_VARIANT = ("evasion", "unsure")          # a leader named through another spelling (political high alert)
 SCREEN_NOT_EPITHET = ("no", "evasion", "unsure")
 POLITICAL = ("event", "figure", "org")
-POLITICAL_CODES = ("R1", "R3", "R4", "R5", "R6", "R7", "R8", "R9")    # the judge's political red lines
+POLITICAL_CODES = ("R1", "R3", "R4", "R5", "R6", "R9")    # Chinese political red lines (gate); not R7 / R8
 LEADER_FLAGGED = ("insult", "rumor", "evasion", "unsure")          # T012 verdicts
 LEADER_MATCHED = ("negative", "variant")                          # leader-form verdicts that fire (T026 v1.1)
 LEADER_NOT_VARIANT = ("formal", "not_leader")
+CHECK_KINDS = {"event": "political:event", "figure": "political:figure", "org": "political:org",
+               "leader_negative": "leader_word:negative", "leader_variant": "leader_word:variant"}
+MIN_LATIN = 3
 LEVEL_NAMES = ("safe", "controversial", "unsafe")
 
 
@@ -117,34 +124,56 @@ def screen_override(labelled, text, word, verdict, switches=None):
                                  "first_start": start, "first_end": start + len(word)}}
 
 
+def latin(word):
+    return word.isascii()
+
+
 def term_table(rows, switches=None):
     """political_terms.jsonl rows (T026, merged over passes) -> {word: (rule, level, gated)} for the words that are
-    matched verbatim in every text. Words at a switch level of safe and single characters are left out."""
+    matched verbatim in every text. Rows with a final check (v1.2) fire only on its fire verdicts; when any row has
+    one, rows without it never fire. Words at a switch level of safe, single characters and Latin-letter words
+    shorter than MIN_LATIN are left out; two-character Chinese words and pure digits are gated."""
     s = resolve(switches)
+    checked = any("check" in r for r in rows)
     table = {}
     for r in rows:
         word, verdict = r["word"], r["verdict"]
-        if len(word) < 2:
+        if len(word) < 2 or (latin(word) and len(word) < MIN_LATIN):
             continue
-        gated = bool(r["ambiguous"])
-        if verdict in POLITICAL:
-            entry = (f"political:{verdict}", s[f"political_{verdict}"])
-            gated = gated or (verdict == "figure" and s["figure_scope"] == "political_text")
+        if checked:
+            kind = CHECK_KINDS.get(r.get("check"))
+            if kind is None:
+                continue
+            verdict = r["check"]
+        elif verdict in POLITICAL:
+            kind = f"political:{verdict}"
         elif verdict == "leader" and r.get("leader_screen") in LEADER_FLAGGED and r.get("leader_form") in LEADER_MATCHED:
-            form = r["leader_form"]
-            entry = (f"leader_word:{form}", "unsafe" if form == "negative" else s["leader_variant"])
+            verdict = "leader_" + r["leader_form"]
+            kind = CHECK_KINDS[verdict]
         else:
             continue
-        if entry[1] != "safe":
-            table[word] = (*entry, gated)
+        if verdict == "leader_negative":
+            level = "unsafe"
+        elif verdict == "leader_variant":
+            level = s["leader_variant"]
+        else:
+            level = s[f"political_{verdict}"]
+        gated = (bool(r["ambiguous"]) or (verdict == "figure" and s["figure_scope"] == "political_text")
+                 or word.isdigit() or (len(word) == 2 and not latin(word)))
+        if level != "safe":
+            table[word] = (kind, level, gated)
     return table
 
 
 def screen_with_forms(screen, rows):
     """T012 verdicts with evasion / unsure turned into "no" for words the leader-form check calls formal or
-    not_leader (a traditional-script or pinyin name is not a variant). Returns (screen, number changed)."""
+    not_leader (a traditional-script or pinyin name is not a variant); every flagged T012 verdict, insult and rumor
+    included, turned into "no" where the final check (v1.2) was run and does not call it a leader word (e.g. a
+    vulgar phrase aimed at nobody). Returns (screen, number changed)."""
     formal = {r["word"] for r in rows if r.get("leader_form") in LEADER_NOT_VARIANT}
-    out = {w: ("no" if w in formal and v in SCREEN_VARIANT else v) for w, v in screen.items()}
+    not_leader = {r["word"] for r in rows if "check" in r and r["check"] not in ("leader_negative", "leader_variant")}
+    out = {w: ("no" if (w in not_leader and v in LEADER_FLAGGED) or (w in formal and v in SCREEN_VARIANT) else v)
+           for w, v in screen.items()}
     return out, sum(out[w] != screen[w] for w in screen)
 
 
@@ -155,8 +184,22 @@ def political_text(facts):
         for h in facts["hits"])
 
 
+def whole_word_at(text, word, start=0):
+    """First index >= start where word occurs with no ASCII letter or digit right before or after it, or -1."""
+    while True:
+        i = text.find(word, start)
+        if i < 0:
+            return -1
+        before = text[i - 1] if i else " "
+        after = text[i + len(word)] if i + len(word) < len(text) else " "
+        if not (before.isascii() and before.isalnum()) and not (after.isascii() and after.isalnum()):
+            return i
+        start = i + 1
+
+
 class TermIndex:
-    """Finds the first occurrence of every table word in a text (words indexed by their first two characters)."""
+    """Finds the first occurrence of every table word in a text (words indexed by their first two characters,
+    case-sensitive; Latin-letter words only as whole words)."""
 
     def __init__(self, table):
         self.table = table
@@ -166,7 +209,13 @@ class TermIndex:
 
     def first_occurrences(self, text):
         heads = {text[i:i + 2] for i in range(len(text) - 1)} & self.by_head.keys()
-        return {word: text.index(word) for head in heads for word in self.by_head[head] if word in text}
+        out = {}
+        for head in heads:
+            for word in self.by_head[head]:
+                i = whole_word_at(text, word) if latin(word) else text.find(word)
+                if i >= 0:
+                    out[word] = i
+        return out
 
 
 def term_raises(labelled, text, index, whole_facts):

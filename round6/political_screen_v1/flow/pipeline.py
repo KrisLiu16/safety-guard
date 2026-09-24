@@ -25,17 +25,25 @@ mode "leader" asks, for every word the screen put in `leader`, how it names the 
   not_leader  not about a leader (e.g. a leader's surname character glued to an ordinary noun)
   unsure
 Only negative (unsafe) and variant (leader_variant) words are matched downstream.
+v1.2 (T026 step 9: in-context hits on generic history, plain years, foreign organisations, words not aimed at any
+person): mode "check" is the final gate on every candidate (event / figure / org words and leader words with a
+negative or variant form). It asks whether the word by itself shows a text is about Chinese politically sensitive
+content: event / figure / org / leader_negative / leader_variant only for a specific Chinese sensitive item, "no"
+for generic, openly discussed, foreign or non-specific words, or unsure. Only the check's five fire verdicts are
+matched downstream, with the check's category. Several check passes must agree, otherwise the word is unsure.
 """
 from __future__ import annotations
 
 import json
 import re
 
-PROMPT_VERSION = "guard-political-screen-v1.1"
+PROMPT_VERSION = "guard-political-screen-v1.2"
 WIRE_APIS = ("responses", "chat_completions")
 VERDICTS = ("event", "figure", "org", "leader", "other_political", "unsure", "no")
 LEADER_VERDICTS = ("negative", "variant", "formal", "not_leader", "unsure")
-MODES = {"screen": VERDICTS, "leader": LEADER_VERDICTS}
+CHECK_VERDICTS = ("event", "figure", "org", "leader_negative", "leader_variant", "no", "unsure")
+CHECK_FIRE = ("event", "figure", "org", "leader_negative", "leader_variant")
+MODES = {"screen": VERDICTS, "leader": LEADER_VERDICTS, "check": CHECK_VERDICTS}
 MERGE_ORDER = ("event", "figure", "org", "leader", "unsure", "other_political", "no")   # most to least alerting
 LEADER_MERGE_ORDER = ("negative", "variant", "unsure", "formal", "not_leader")
 LEADERS = "现任和历任的政治局常委、总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席、开国领袖"
@@ -62,11 +70,27 @@ LEADER_SYSTEM_PROMPT = f"""你是内容安全词表审核员。给定一批据�
 - unsure：拿不准。
 另外逐条给出 ambiguous：这个字符串在普通文本里是否常常是别的意思（例如一个常用词、一个常见人名），以至于单凭它出现不能判断在说领导人。true 或 false。
 results 必须逐条对应输入的每个词条，index 和 word 原样照抄，不要遗漏、合并或改写。"""
-PROMPTS = {"screen": SYSTEM_PROMPT, "leader": LEADER_SYSTEM_PROMPT}
+CHECK_SYSTEM_PROMPT = f"""你是内容安全词表审核员。给定一批初筛认为可能与中国政治敏感内容有关的词条。逐条判断：一段文字里只要出现这个词，是否就足以说明它在谈中国政治敏感内容。只输出一个 JSON 对象。
+每个词条选一个 verdict：
+- event：特指一个在中国属于政治敏感的具体事件、运动、纪念日，或它们的代称、隐晦说法、谐音、数字写法。不包括：官方公开讨论并已定性的历史运动，泛指的战争、屠杀、革命，朝代更替时期的革命，外国的事件，普通年份。
+- figure：特指一个在中国政治敏感的具体人物，例如异见人士、维权人士、敏感事件的标志性人物、因政治原因被查处的官员，或他们的代称。不包括：正常履职的官员或军人、烈士、历史人物、宗教人物、普通公众人物、常见人名。
+- org：特指一个被中国取缔、或被定性为分裂、恐怖、邪教的具体组织，或它的口号、代称。不包括：外国组织（包括外国的恐怖组织）、一般宗教用语、同名的书名或教法名。
+- leader_negative：明确指向某一位具体的中国国家领导人（{LEADERS}）的侮辱、蔑称、嘲讽，或传言、丑闻、贬损评价。
+- leader_variant：明确指向某一位具体的中国国家领导人的规避写法（同音字、换字、拆字、拼音首字母缩写、隐晦代称），本身不贬损。
+- no：以上都不是，包括泛指的说法、普通词语、普通年份、外国的人物组织和事件、不指向具体某个人的粗俗用语、领导人的正常写法。
+- unsure：拿不准。
+另外逐条给出 ambiguous：这个字符串是否常常作为别的词的一部分出现，或在普通文本里常常是别的意思（例如两个字的人名片段、短的拼音或字母缩写、一个数字），以至于单凭它出现不能判断。true 或 false。
+results 必须逐条对应输入的每个词条，index 和 word 原样照抄，不要遗漏、合并或改写。"""
+PROMPTS = {"screen": SYSTEM_PROMPT, "leader": LEADER_SYSTEM_PROMPT, "check": CHECK_SYSTEM_PROMPT}
 
 
 def merge(verdicts, mode="screen"):
-    """Most alerting verdict across passes wins; a word is ambiguous if any pass said so."""
+    """Most alerting verdict across passes wins (check mode: the passes must agree, else unsure); a word is
+    ambiguous if any pass said so."""
+    if mode == "check":
+        present = {v for v, _ in verdicts if v in CHECK_VERDICTS}
+        verdict = present.pop() if len(present) == 1 else ("unsure" if present else "missing")
+        return verdict, any(a for _, a in verdicts)
     order = MERGE_ORDER if mode == "screen" else LEADER_MERGE_ORDER
     present = [v for v, _ in verdicts if v in order]
     verdict = min(present, key=order.index) if present else "missing"

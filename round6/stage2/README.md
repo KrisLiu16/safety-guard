@@ -17,7 +17,7 @@
 | 训练什么 | 整个主干全参训练，fp32 主权重，bf16 autocast，gradient checkpointing；两个角色的 projection 和 risk 层。category 头冻结，但主干变了，它的输出会漂移，这一轮不验证 |
 | 目标 | 每个目标 token 都有三类目标（0 safe、1 unsafe、2 controversial），取该前缀在红线探针上的等级（`levels.position_level`）。起点分句内部、按词规则改标的词内部，等级不确定，不训练 |
 | 数据 | 都是已有标签，不生成新数据：<br>- Run A 回答（第一阶段输入：train 8,000 词 + calibration），回答头；<br>- Run A 提问（每个不同的提问单独一条），提问头；<br>- prefix_v2 两个角色的记录（冻结的 ids，重新分词对不上的跳过），train 另加 augmentation 视图，权重减半 |
-| 标签 | T021、T024 的红线标签。T026 通过后改用政治专项版（`labels_political_v1/`，作业里用环境变量 `LABELS_DIR` 指定） |
+| 标签 | T021、T024 的红线标签。T026 通过后改用政治专项版（`labels_political_v2/`，作业里用环境变量 `LABELS_DIR` 指定） |
 | 权重 | 每个（来源, 角色）组内，各类别的总权重相等（记录权重计入）。组之间按 `--mix` 分：Run A 回答 1、prefix_v2 回答 1、Run A 提问 0.5、prefix_v2 提问 0.5 |
 | 优化 | 同 Round5 SFT：<br>- AdamW，主干 8e-6，头 5e-5，weight decay 0.01；<br>- 64 步 warmup，余弦衰减到 0.1，梯度裁剪 1.0；<br>- 每次更新 16 条记录，microbatch 不超过 4 条、16,384 个 padded token；<br>- 2 轮 |
 | 选择 | 训练前和每轮结束后，在 calibration 上算截断分数 1 − p(safe)，按（来源, 角色）分组给出位置级 AUC 和流式 AUC（整条流的最大分数；正例为整段等级不是 safe）。流式 AUC 均值最好的那一轮导出为 `best.safetensors`。没有一轮超过起点，就用起点。dev 不读 |

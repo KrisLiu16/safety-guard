@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT))
 sys.modules.pop("pipeline", None)
 from pipeline import (LEADER_SYSTEM_PROMPT, LEADER_VERDICTS, PROMPT_VERSION, SYSTEM_PROMPT, VERDICTS,  # noqa: E402
                       merge, parse, request_body, schema)
-from extract import join, matched_as, review_sheet, to_confirm  # noqa: E402
+from extract import candidate_kind, join, matched_as, review_sheet, to_confirm  # noqa: E402
 
 BATCH = {"batch_key": "political-p1-00000", "prompt_version": PROMPT_VERSION,
          "words": [{"word": "词甲"}, {"word": "词乙"}, {"word": "词丙"}]}
@@ -138,6 +138,23 @@ class ExtractTests(unittest.TestCase):
         self.assertIn("## org（1 个）\n词丁\t", sheet)
         self.assertNotIn("词乙", sheet)
 
+
+    def test_check_pass_is_the_final_gate(self):
+        def value(tag, verdicts, mode="screen"):
+            return {"batch_key": f"political-{tag}-00000", "mode": mode,
+                    "verdicts": [{"word": w, "verdict": v, "ambiguous": a} for w, v, a in verdicts]}
+        values = [value("p1", [("词甲", "event", False), ("词乙", "event", False), ("词丙", "org", False), ("词丁", "no", False)]),
+                  value("k1", [("词甲", "event", False), ("词乙", "no", False), ("词丙", "org", False)], "check"),
+                  value("k2", [("词甲", "event", False), ("词丙", "figure", True)], "check")]
+        rows, _ = join(values)
+        by_word = {r["word"]: r for r in rows}
+        self.assertEqual(by_word["词甲"]["check"], "event")
+        self.assertEqual(by_word["词丙"]["check"], "unsure")                 # the passes disagree
+        self.assertTrue(by_word["词丙"]["ambiguous"])
+        self.assertEqual({w: matched_as(r) for w, r in by_word.items()},
+                         {"词甲": "event", "词乙": None, "词丙": None, "词丁": None})
+        self.assertEqual({w for w, r in by_word.items() if candidate_kind(r)}, {"词甲", "词乙", "词丙"})
+        self.assertEqual(merge([("event", False), ("event", True)], "check"), ("event", True))
 
 if __name__ == "__main__":
     unittest.main()

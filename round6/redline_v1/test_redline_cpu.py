@@ -310,6 +310,43 @@ class PolicyTests(unittest.TestCase):
         _, summary = apply([probes], texts={k: (v + "多", None) for k, v in texts.items()}, terms=table)
         self.assertEqual((summary["political_rows"], summary["texts"]["length_mismatch"]), (0, 6))
 
+    def test_political_terms_after_the_final_check(self):
+        rows = [{"word": "事件甲", "verdict": "event", "ambiguous": False, "check": "event"},
+                {"word": "泛指词", "verdict": "event", "ambiguous": False, "check": "no"},        # generic history
+                {"word": "外国组", "verdict": "org", "ambiguous": False, "check": "no"},          # foreign organisation
+                {"word": "改类词", "verdict": "event", "ambiguous": False, "check": "figure"},    # the check sets the kind
+                {"word": "称呼戊", "verdict": "leader", "ambiguous": False, "leader_screen": "insult",
+                 "leader_form": "negative", "check": "leader_negative"},
+                {"word": "粗俗语", "verdict": "leader", "ambiguous": False, "leader_screen": "insult",
+                 "leader_form": "negative", "check": "no"},                                       # aimed at nobody
+                {"word": "未复核", "verdict": "event", "ambiguous": False},                         # no check: never
+                {"word": "双字", "verdict": "event", "ambiguous": False, "check": "event"},        # two characters: gated
+                {"word": "8964", "verdict": "event", "ambiguous": False, "check": "event"},       # digits: gated
+                {"word": "ab", "verdict": "leader", "ambiguous": False, "check": "leader_variant"},  # too short
+                {"word": "abc", "verdict": "leader", "ambiguous": False, "check": "leader_variant"}]
+        table = term_table(rows)
+        self.assertEqual(table, {"事件甲": ("political:event", "controversial", False),
+                                 "改类词": ("political:figure", "controversial", True),
+                                 "称呼戊": ("leader_word:negative", "unsafe", False),
+                                 "双字": ("political:event", "controversial", True),
+                                 "8964": ("political:event", "controversial", True),
+                                 "abc": ("leader_word:variant", "controversial", False)})
+        index = TermIndex(table)
+        self.assertEqual(index.first_occurrences("maximize abcd xabc abc."), {"abc": 19})   # whole words only
+        self.assertEqual(index.first_occurrences("abc"), {"abc": 0})
+        screen, changed = screen_with_forms({"粗俗语": "insult", "泛指词": "unsure", "称呼戊": "evasion"}, rows)
+        self.assertEqual((screen["泛指词"], screen["称呼戊"], screen["粗俗语"], changed), ("no", "evasion", "no", 2))
+
+        def row(sample_id, text, whole):
+            return {"sample_id": sample_id, "status": "located", "label": "safe", "response_chars": len(text),
+                    "probes": [{"cut": len(text), "facts": whole}]}
+        texts = {"t": "外国恐怖组织的说明，双字出现。", "p": "颠覆相关的话题，双字出现。"}
+        terror = facts([hit("R7", "topic_mention", "general")])        # terrorism does not open the political gate
+        subversion = facts([hit("R3", "topic_mention", "general")])
+        out, _ = apply([[row("t", texts["t"], terror), row("p", texts["p"], subversion)]],
+                       texts={k: (v, None) for k, v in texts.items()}, terms=table)
+        self.assertEqual({r["sample_id"]: r["label"] for r in out}, {"t": "safe", "p": "controversial"})
+
     def test_political_terms_cli_checks_the_source(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)

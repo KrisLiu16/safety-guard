@@ -10,6 +10,9 @@ missing_words.txt     : with --words, the words that have no verdict yet (re-scr
 leader_words.txt      : words whose merged verdict is leader, for the leader-form pass (make_batch.py --mode leader).
 Leader-form passes (v1.1) are merged apart from the screen passes into leader_form (most alerting across them);
 their ambiguous flag joins the word's. A leader word is matched only when leader_form is negative or variant.
+check_words.txt       : the candidates for the final check pass (v1.2, make_batch.py --mode check): event / figure /
+                        org words and leader words with a negative or variant form, ambiguous or not. Once a check
+                        pass is merged (field check; its passes must agree), only its fire verdicts are matched.
 review/terms_sample.txt: with --review-sample N, up to N words per matched_as kind for a local check (gitignored).
 summary.json          : counts only.
 Write --out under an extracted/ directory (gitignored text files); never commit the .jsonl or .txt files.
@@ -28,7 +31,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "flow"))
 sys.path.insert(0, str(HERE.parent))
 from aster_io import collect_archives  # noqa: E402
-from pipeline import merge  # noqa: E402
+from pipeline import CHECK_FIRE, merge  # noqa: E402
 
 CONFIRM = ("event", "figure", "org", "leader", "unsure")
 LEADER_FLAGGED = ("insult", "rumor", "evasion", "unsure")          # T012 verdicts
@@ -49,7 +52,7 @@ def batch_values(archives):
 def join(values, leader=None):
     """Pure: word -> merged row; the pass tag is the second field of the batch key (political-<tag>-NNNNN).
     leader: word -> T012 verdict, attached as leader_screen."""
-    per_word = {"screen": collections.defaultdict(dict), "leader": collections.defaultdict(dict)}
+    per_word = {mode: collections.defaultdict(dict) for mode in ("screen", "leader", "check")}
     errors = collections.Counter()
     for value in values:
         tag, mode = value["batch_key"].split("-")[1], value.get("mode", "screen")
@@ -67,6 +70,11 @@ def join(values, leader=None):
             row.update(leader_form=form, ambiguous=ambiguous or form_ambiguous,
                        leader_passes={tag: {"verdict": v, "ambiguous": a}
                                       for tag, (v, a) in sorted(per_word["leader"][word].items())})
+        if word in per_word["check"]:
+            check, check_ambiguous = merge(list(per_word["check"][word].values()), "check")
+            row.update(check=check, ambiguous=row["ambiguous"] or check_ambiguous,
+                       check_passes={tag: {"verdict": v, "ambiguous": a}
+                                     for tag, (v, a) in sorted(per_word["check"][word].items())})
         if leader is not None:
             row["leader_screen"] = leader.get(word, "missing")
         rows.append(row)
@@ -77,18 +85,23 @@ def to_confirm(row):
     return row["verdict"] in CONFIRM or row.get("leader_screen") in LEADER_FLAGGED
 
 
+def candidate_kind(row):
+    """What the screen and leader passes make of the word (the input of the check pass), or None."""
+    if row["verdict"] in MATCHED:
+        return row["verdict"]
+    if (row["verdict"] == "leader" and row.get("leader_screen") in LEADER_FLAGGED
+            and row.get("leader_form") in LEADER_MATCHED):
+        return "leader_" + row["leader_form"]
+    return None
+
+
 def matched_as(row):
-    """How apply_policy.py --political-terms uses the word (None: not matched); single characters never match."""
+    """How apply_policy.py --political-terms uses the word (None: not matched); single characters never match.
+    After a check pass, only its fire verdicts count and the check sets the kind."""
     if len(row["word"]) < 2:
         return None
-    if row["verdict"] in MATCHED:
-        kind = row["verdict"]
-    elif (row["verdict"] == "leader" and row.get("leader_screen") in LEADER_FLAGGED
-          and row.get("leader_form") in LEADER_MATCHED):
-        kind = "leader_" + row["leader_form"]
-    else:
-        return None
-    return kind + (":ambiguous" if row["ambiguous"] else "")
+    kind = (row["check"] if row["check"] in CHECK_FIRE else None) if "check" in row else candidate_kind(row)
+    return kind + (":ambiguous" if row["ambiguous"] else "") if kind else None
 
 
 def review_sheet(rows, per_kind, seed="political-review"):
@@ -125,6 +138,8 @@ def main():
         for row in rows:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
     (args.out / "confirm_words.txt").write_text("".join(r["word"] + "\n" for r in rows if to_confirm(r)), encoding="utf-8")
+    (args.out / "check_words.txt").write_text("".join(r["word"] + "\n" for r in rows if candidate_kind(r)),
+                                              encoding="utf-8")
     (args.out / "leader_words.txt").write_text("".join(r["word"] + "\n" for r in rows if r["verdict"] == "leader"),
                                                encoding="utf-8")
     missing = None
@@ -150,6 +165,10 @@ def main():
                                                  for s in sorted({r.get("leader_screen") for r in rows if "leader_form" in r})}
                                                 if leader is not None else None),
                "leader_words": sum(r["verdict"] == "leader" for r in rows),
+               "check_words": sum(bool(candidate_kind(r)) for r in rows),
+               "check_by_candidate": {k: dict(collections.Counter(r["check"] for r in rows
+                                                                  if "check" in r and candidate_kind(r) == k))
+                                      for k in sorted({candidate_kind(r) for r in rows if "check" in r and candidate_kind(r)})},
                "matched_as": dict(sorted(collections.Counter(m for m in map(matched_as, rows) if m).items())),
                "confirm_words": sum(map(to_confirm, rows))}
     (args.out / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

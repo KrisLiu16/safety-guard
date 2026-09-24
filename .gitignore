@@ -67,6 +67,7 @@ round6/word_screen_v1/manual_labels*.tsv
 
 # Local human-review sheets (hold dataset text)
 **/review/
+**/review_*/
 
 # Political screen (T026): word lists and review sheets, never committed (public repo)
 round6/political_screen_v1/**/confirm_words*.txt

@@ -1,6 +1,20 @@
 # T026 政治专项：政治敏感词预筛，按专项规则重出全部标签
 
-- 版本：v1.1
+- 版本：v1.2
+  - v1.1 停在第 9 步：放到原文里核对时，prefix_v2 有 37% 命中的词不是政治敏感词，Run A 的领导人词是 70%。原因：
+    - 短词被子串匹配：两个字母的拼音匹配到英文单词里，两个汉字的人名片段匹配到常用词里；
+    - 泛指的历史事件、公开讨论过的历史运动、普通年份被当成事件；
+    - 外国恐怖组织被当成组织；
+    - 不指向任何人的粗俗用语被当成领导人蔑称；
+    - 政治文本的门槛太低，种族、恐怖主义文本也会打开门槛。
+  - v1.2 的改动：
+    - 新增第 5c 步：对所有候选词做一遍“最终核对”，只有特指中国政治敏感内容的才匹配，类别以这一遍为准；
+    - 拉丁字母的词至少 3 个字母，只按完整单词匹配；
+    - 两个汉字的词和纯数字，只在政治文本里生效；
+    - 政治文本只看中国政治类红线（R1、R3–R6、R9），不再包括恐怖主义（R7）和民族仇恨（R8）；
+    - 最终核对判为非领导人的词，T012 预筛的侮辱或传言结论也不再用于种子词。
+  - v1.1 的六份标签留在本地的 `labels_political_v1/`，已提交的 summary 作为记录。v1.2 输出到 `labels_political_v2/`。第 1–5b 步不重跑。
+- 更早的版本：v1.1
   - v1 停在第 6 步：leader_unsure 一类里 15% 是普通词或不是政治敏感词，门槛是 10%。原因有三：
     - 领导人姓氏的单字和普通名词拼出来的词；
     - 繁体字、标准拼音的正常写法被当成变体；
@@ -15,7 +29,7 @@
   - 其他政治话题按现行红线规则判，再补专门数据、收紧阈值（放在后续任务）。
 
   设计说明见 [round6/political_screen_v1/README.md](../../round6/political_screen_v1/README.md)，标签改动见 [round6/redline_v1/README.md](../../round6/redline_v1/README.md) 的“政治专项”一节。
-- 目标：用 luna 对 T012 的全部 340,883 个词做一遍政治预筛，再复查一遍，得到本地词表 `political_terms.jsonl`。然后在 Mac 上按新规则表和这份词表，重出 T021、T024 的六份标签。新标签放到新目录 `labels_political_v1/`，旧标签不动。**不重判，不用 L20，不训练。** 用新标签重训放在后续任务，等 T018、T025 的结果出来再派。
+- 目标：用 luna 对 T012 的全部 340,883 个词做一遍政治预筛，再复查一遍，得到本地词表 `political_terms.jsonl`。然后在 Mac 上按新规则表和这份词表，重出 T021、T024 的六份标签。新标签放到新目录 `labels_political_v2/`，旧标签不动。**不重判，不用 L20，不训练。** 用新标签重训放在后续任务，等 T018、T025 的结果出来再派。
 - 依赖：T012 全量 ✓（Mac 上的 `word_screen_v1/full/words.jsonl` 和 `full/extracted/screen.jsonl`）；T021 ✓、T024 ✓（Mac 上各目录的 `probes.jsonl`、`trainable.jsonl`、`input/prefix_v2_*.jsonl`）。
   - Aster 部分可以和 T018、T025 的 L20 作业同时跑。同一账号的 Run 会排队，建议高优先级。
 - 步骤：
@@ -25,7 +39,7 @@
      .venv/bin/python -m unittest round6/redline_v1/test_redline_cpu.py
      .venv/bin/python -m unittest round6/word_screen_v1/test_word_screen_cpu.py
      ```
-     应分别是 8、36、12 项，全过（v1.1）。
+     应分别是 9、37、12 项，全过（v1.2）。
   2. **第一遍**（全部词）：
      ```bash
      .venv/bin/python round6/political_screen_v1/make_batch.py --output round6/political_screen_v1/full_p1
@@ -65,37 +79,47 @@
        .venv/bin/python round6/political_screen_v1/extract.py <p1> <r1> <c1> <l1> --attempts-json <四个，顺序相同> --words round6/word_screen_v1/full/words.jsonl --leader-screen round6/word_screen_v1/full/extracted/screen.jsonl --review-sample 40 --review-seed r2 --out round6/political_screen_v1/full/extracted
        ```
      - 删除 l1 的数据集。
-  6. **核对词表**（Mac，本地）。v1.1 用第 5b 步新抽的核对表，全部类别重新核对：打开 `full/extracted/review/terms_sample.txt`。每一类最多 40 个词，逐个回答：对 / 普通词（单独出现不该截）/ 类别错 / 不是政治敏感词。
+  5c. **（v1.2）最终核对**：
+     - 用 v1.2 的代码按第 5b 步最后那条合并命令再合并一次，得到 `check_words.txt`，即全部候选词：event、figure、org，以及形式为 negative 或 variant 的领导人词，约 2.8 万个。然后：
+       ```bash
+       .venv/bin/python round6/political_screen_v1/make_batch.py --only round6/political_screen_v1/full/extracted/check_words.txt --tag k1 --mode check --output round6/political_screen_v1/full_k1
+       ```
+       manifest 的 `mode` 应为 `check`。
+     - 提交方式同第 2 步。
+     - 冻结 attempt 列表后，把 k1 加在合并命令的末尾，改用 `--review-seed r3` 再合并一次。
+     - 删除 k1 的数据集。
+  6. **核对词表**（Mac，本地）。v1.2 用第 5c 步新抽的核对表，全部类别重新核对：打开 `full/extracted/review/terms_sample.txt`。每一类最多 40 个词，逐个回答：对 / 普通词（单独出现不该截）/ 类别错 / 不是政治敏感词。
      - 以下各类里，“普通词”加“不是政治敏感词”不超过 10%，才能继续：
        - 不带 `:ambiguous` 的 event、org、leader_negative、leader_variant；
+       - v1.2 起类别由最终核对决定，核对时特别看泛指的历史、普通年份、外国组织、不指向具体人的词还有没有漏过；
        - figure 也照这个门槛看，但它现在只在政治文本里生效。
 
        超过就停下写反馈，只报计数和理由，不写词本身。
-  7. **重出标签**（Mac CPU，每条命令约一分钟）。新标签输出到 `round6/redline_v1/labels_political_v1/`：
+  7. **重出标签**（Mac CPU，每条命令约一分钟）。新标签输出到 `round6/redline_v1/labels_political_v2/`：
      ```bash
      T=round6/political_screen_v1/full/extracted/political_terms.jsonl
      S=round6/word_screen_v1/full/extracted/screen.jsonl
      A=round6/response_v14/batch_50k/extracted/trainable.jsonl
      R=round6/redline_v1
-     .venv/bin/python $R/apply_policy.py $R/full_runA_stage1/extracted_ds/probes.jsonl $R/full_runA_stage1_fb/extracted/probes.jsonl --screen $S --political-terms $T --source $A --out $R/labels_political_v1/runA_stage1
-     .venv/bin/python $R/apply_policy.py $R/full_runA_dev/extracted_ds/probes.jsonl $R/full_runA_dev_fb/extracted/probes.jsonl --screen $S --political-terms $T --source $A --out $R/labels_political_v1/runA_dev
-     .venv/bin/python $R/apply_policy.py $R/full_pv2/extracted_ds/probes.jsonl $R/full_pv2_fb/extracted/probes.jsonl --political-terms $T --source $R/input/prefix_v2_assistant.jsonl --out $R/labels_political_v1/prefix_v2
-     .venv/bin/python $R/apply_policy.py $R/user_full_runA_stage1/extracted_ds/probes.jsonl $R/user_full_runA_stage1_fb/extracted/probes.jsonl --target user --screen $S --political-terms $T --source $A --out $R/labels_political_v1/user_runA_stage1
-     .venv/bin/python $R/apply_policy.py $R/user_full_runA_dev/extracted_ds/probes.jsonl $R/user_full_runA_dev_fb/extracted/probes.jsonl --target user --screen $S --political-terms $T --source $A --out $R/labels_political_v1/user_runA_dev
-     .venv/bin/python $R/apply_policy.py $R/user_full_pv2/extracted_ds/probes.jsonl $R/user_full_pv2_fb/extracted/probes.jsonl --target user --political-terms $T --source $R/input/prefix_v2_user.jsonl --out $R/labels_political_v1/user_prefix_v2
+     .venv/bin/python $R/apply_policy.py $R/full_runA_stage1/extracted_ds/probes.jsonl $R/full_runA_stage1_fb/extracted/probes.jsonl --screen $S --political-terms $T --source $A --out $R/labels_political_v2/runA_stage1
+     .venv/bin/python $R/apply_policy.py $R/full_runA_dev/extracted_ds/probes.jsonl $R/full_runA_dev_fb/extracted/probes.jsonl --screen $S --political-terms $T --source $A --out $R/labels_political_v2/runA_dev
+     .venv/bin/python $R/apply_policy.py $R/full_pv2/extracted_ds/probes.jsonl $R/full_pv2_fb/extracted/probes.jsonl --political-terms $T --source $R/input/prefix_v2_assistant.jsonl --out $R/labels_political_v2/prefix_v2
+     .venv/bin/python $R/apply_policy.py $R/user_full_runA_stage1/extracted_ds/probes.jsonl $R/user_full_runA_stage1_fb/extracted/probes.jsonl --target user --screen $S --political-terms $T --source $A --out $R/labels_political_v2/user_runA_stage1
+     .venv/bin/python $R/apply_policy.py $R/user_full_runA_dev/extracted_ds/probes.jsonl $R/user_full_runA_dev_fb/extracted/probes.jsonl --target user --screen $S --political-terms $T --source $A --out $R/labels_political_v2/user_runA_dev
+     .venv/bin/python $R/apply_policy.py $R/user_full_pv2/extracted_ds/probes.jsonl $R/user_full_pv2_fb/extracted/probes.jsonl --target user --political-terms $T --source $R/input/prefix_v2_user.jsonl --out $R/labels_political_v2/user_prefix_v2
      ```
      - 兜底目录以本地实际路径为准，和 T021、T024 定标签时用的相同，见各份旧 `labels/*/summary.json` 的 `inputs`。
      - `--source` 覆盖不到 99% 的编号时，脚本会报错。
      - 每份的 `texts.length_mismatch` 应为 0。不为 0 时报告条数；这些条目不套用按词规则，其余照常。
   8. **新旧对比**（Mac CPU），六份都做：
      ```bash
-     .venv/bin/python round6/redline_v1/compare_judges.py round6/redline_v1/labels/<名>/labels.jsonl round6/redline_v1/labels_political_v1/<名>/labels.jsonl --out round6/redline_v1/labels_political_v1/<名>/compare_old.json
+     .venv/bin/python round6/redline_v1/compare_judges.py round6/redline_v1/labels/<名>/labels.jsonl round6/redline_v1/labels_political_v2/<名>/labels.jsonl --out round6/redline_v1/labels_political_v2/<名>/compare_old.json
      ```
   9. **人工核对专项规则**（Mac，本地，表格不提交）：
      ```bash
-     .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --labels round6/redline_v1/labels_political_v1/runA_stage1/labels.jsonl --source round6/response_v14/batch_50k/extracted/trainable.jsonl --count 40 --out round6/redline_v1/labels_political_v1/review_runA
-     .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --labels round6/redline_v1/labels_political_v1/prefix_v2/labels.jsonl --source round6/redline_v1/input/prefix_v2_assistant.jsonl --count 30 --out round6/redline_v1/labels_political_v1/review_pv2
-     .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --target user --labels round6/redline_v1/labels_political_v1/user_prefix_v2/labels.jsonl --source round6/redline_v1/input/prefix_v2_user.jsonl --count 30 --out round6/redline_v1/labels_political_v1/review_user_pv2
+     .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --labels round6/redline_v1/labels_political_v2/runA_stage1/labels.jsonl --source round6/response_v14/batch_50k/extracted/trainable.jsonl --count 40 --out round6/redline_v1/labels_political_v2/review_runA
+     .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --labels round6/redline_v1/labels_political_v2/prefix_v2/labels.jsonl --source round6/redline_v1/input/prefix_v2_assistant.jsonl --count 30 --out round6/redline_v1/labels_political_v2/review_pv2
+     .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --target user --labels round6/redline_v1/labels_political_v2/user_prefix_v2/labels.jsonl --source round6/redline_v1/input/prefix_v2_user.jsonl --count 30 --out round6/redline_v1/labels_political_v2/review_user_pv2
      ```
      再用 `--only-rule leader_word` 对 runA_stage1 抽 20 条。
      - v1.1 的规则名：`political:<类>`、`political:<类>:gated`（只在政治文本里生效的词）、`leader_word:negative`、`leader_word:variant`。
@@ -104,11 +128,11 @@
        2. 新标签对不对？
      - 按“原分层”分开计数，`normal:` 开头的组是重点。
      - 门槛：问题 1 答“不是”的不超过 10%。
-  10. **拷到 PVC**：第 6 步和第 9 步都过了门槛，才把六份 `labels_political_v1/<名>/labels.jsonl` 拷到 PVC 的 `/work/round6/redline_v1/labels_political_v1/<名>/`，用 `sha256sum` 核对。旧的 `/work/round6/redline_v1/labels/` 不动，T018、T025 仍然用旧标签。
+  10. **拷到 PVC**：第 6 步和第 9 步都过了门槛，才把六份 `labels_political_v2/<名>/labels.jsonl` 拷到 PVC 的 `/work/round6/redline_v1/labels_political_v2/<名>/`，用 `sha256sum` 核对。旧的 `/work/round6/redline_v1/labels/` 不动，T018、T025 仍然用旧标签。
 - 预期产物：可提交的有：
   - `full_p1/`、`full_c1/`（以及 `full_r1/`）的 `manifest.json`、`run_no.txt`、`dataset_rm.json`；
   - `full/extracted/summary.json`；
-  - 六份 `labels_political_v1/*/summary.json` 和 `compare_old.json`。
+  - 六份 `labels_political_v2/*/summary.json` 和 `compare_old.json`。
 
   以下内容都含词或原文，**不提交**（.gitignore 已覆盖，提交前用 `git status` 再看一眼）：`political_terms.jsonl`、`confirm_words.txt`、`missing_words.txt`、`review/`、`labels.jsonl`、attempts、归档。
 - 验收：
@@ -127,5 +151,6 @@
   - 六份标签的 `labels_by_split`、`old_to_new`、`screen_overrides`、`political_table`、`political_rows`、`political_overrides`、`political_raised_from_stratum`、`texts`、`switch_sensitivity` 里的 `leader_variant=safe`；
   - 六份 `compare_old.json` 的 `label_agreement` 和 transitions；
   - （v1.1）第 5b 步的 run_no、合并后 `summary.json` 里的 `leader_form`、`leader_form_by_leader_screen`、`matched_as`；每份标签的 `screen_words_formal_by_leader_form`；
+  - （v1.2）第 5c 步的 run_no、`check_words`、`check_by_candidate`、新的 `matched_as`；第 9 步按同样的分组计数；
   - 第 9 步的计数和理由（不写原文、不写词）；
   - 产物 SHA256。
