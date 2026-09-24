@@ -159,6 +159,10 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(self.level(hit("R2", "writes", "specific")), "unsafe")
         self.assertEqual(self.level(hit("R11", "fiction", "general")), "safe")     # suggestive, not explicit
         self.assertEqual(self.level(hit("R7", "writes", "general")), "unsafe")     # degree applies to R2/R11 only
+        self.assertEqual(self.level(hit("R11", "restates", "general")), "safe")    # T027: restating a non-explicit request
+        self.assertEqual(self.level(hit("R11", "restates", "specific")), "controversial")
+        self.assertEqual(decide(facts([hit("R2", "refusal_naming", "general")]), {"general_scope": "written_only"})["level"],
+                         "controversial")
         self.assertEqual(self.level(hit(spelling="variant_clear")), "unsafe")
         self.assertEqual(self.level(hit(spelling="variant_unclear")), "safe")
 

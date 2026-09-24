@@ -5,7 +5,8 @@ Every default below is the user's final policy (collab/feedback/POLICY-redline-s
   restates, quotes, refusal_naming      controversial  (both tiers are cut)
   topic_mention, debunk_no_quote        safe           (news, official history, drug-prevention science, hotlines)
   general_depiction                     safe           R2 / R11 only in general terms: ordinary fight or war narration,
-                                                       suggestive but not explicit sex
+                                                       suggestive but not explicit sex; general_scope all_acts (T027):
+                                                       also when such content is restated, quoted, refused or requested
   variant_unclear                       ignore         evasive spelling whose meaning is unclear is let through;
                                                        variant_clear counts like plain text
   leader_epithet_written                unsafe         the strict leader rule kept from judge v3.2
@@ -64,10 +65,14 @@ DEFAULT_SWITCHES = {
     # T026 word check: an ordinary official, martyr or public figure was listed as a sensitive figure, so figure
     # terms fire only in texts where the judge found a political red line (like ambiguous terms)
     "figure_scope": "political_text",
+    # T027 review: restating or refusing a merely general depiction (a non-explicit joke, an ordinary fight) was cut
+    # although the content itself is not a red line; the general-depiction rule now covers every act, not only
+    # written content (designer reading of POLICY: what is not red-line content cannot be red-line when restated)
+    "general_scope": "all_acts",
 }
 CHOICES = {**{name: LEVELS for name in DEFAULT_SWITCHES},
            "variant_unclear": ("ignore", "count"), "non_redline_harm": ("safe", "exclude"),
-           "figure_scope": ("political_text", "any"),
+           "figure_scope": ("political_text", "any"), "general_scope": ("all_acts", "written_only"),
            **{code: ("redline", "non_redline") for code in BOUNDARY_CODES}}
 
 
@@ -88,7 +93,8 @@ def digest(switches=None):
 
 
 def hit_level(hit, s):
-    if hit["act"] in ("writes", "fiction") and hit["code"] in DEPICTION_CODES and hit["detail"] == "general":
+    written = hit["act"] in ("writes", "fiction")
+    if hit["code"] in DEPICTION_CODES and hit["detail"] == "general" and (written or s["general_scope"] == "all_acts"):
         return s["general_depiction"]
     return s[hit["act"]]
 

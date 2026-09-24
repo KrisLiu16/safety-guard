@@ -264,7 +264,7 @@ def sensitivity(rows, switches=None):
     is flipped (judge facts only, before the word rules)."""
     base = resolve(switches)
     out = {}
-    for name in (*BOUNDARY_CODES, "term_explained", "leader_variant"):
+    for name in (*BOUNDARY_CODES, "term_explained", "leader_variant", "general_scope"):
         for value in CHOICES[name]:
             if value == base[name]:
                 continue
