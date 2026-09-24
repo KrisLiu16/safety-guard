@@ -6,7 +6,7 @@ import json
 import time
 
 from aster_flow import Context, flow
-from pipeline import PROMPT_VERSION, WIRE_APIS, parse, request_body, response_text, stop_ok
+from pipeline import MODES, PROMPT_VERSION, WIRE_APIS, parse, request_body, response_text, stop_ok
 
 
 @flow(setup_timeout=60, finish_timeout=600, requires=["instruction"],
@@ -14,7 +14,7 @@ from pipeline import PROMPT_VERSION, WIRE_APIS, parse, request_body, response_te
               "memory_gib": 1, "storage_gib": 1, "wall_seconds": 7200})
 def run(ctx: Context):
     batch = json.loads(ctx.task.instruction)
-    if batch.get("prompt_version") != PROMPT_VERSION:
+    if batch.get("prompt_version") != PROMPT_VERSION or batch.get("mode", "screen") not in MODES:
         raise ValueError("Unexpected political screen contract")
     model = ctx.models["main"]
     if model.wire_api not in WIRE_APIS:
@@ -33,7 +33,8 @@ def run(ctx: Context):
     except Exception as exc:
         errors = ["request:" + type(exc).__name__ + ":" + str(exc)[:200]]
     ctx.results.record("batch", {
-        "batch_key": batch["batch_key"], "wire_api": model.wire_api, "words": len(batch["words"]),
+        "batch_key": batch["batch_key"], "mode": batch.get("mode", "screen"), "wire_api": model.wire_api,
+        "words": len(batch["words"]),
         "verdicts": verdicts, "errors": errors, "response": response, "seconds": time.monotonic() - started,
         "request_sha256": hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True).encode()).hexdigest()})
     ctx.evaluation.score({"reward": len(verdicts) / max(1, len(batch["words"]))},

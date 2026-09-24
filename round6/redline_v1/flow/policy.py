@@ -28,7 +28,8 @@ Political high alert (user, 2026-09-25, T026), all controversial:
                      the T012 screen's evasion / unsure seed words in apply_policy.py); news naming a leader
                      plainly stays safe, a negative evaluation stays unsafe
   political_event / political_figure / political_org   lexicon terms from the political screen, matched verbatim
-                     by apply_policy.py --political-terms (a special event is cut as soon as it is mentioned)
+                     by apply_policy.py --political-terms (a special event is cut as soon as it is mentioned);
+                     figure_scope political_text: figure terms fire only where the judge found a political red line
 A boundary code switched to non_redline counts as harm outside the red lines when written (trained as safe).
 The table is data: a later change is a switch passed to decide(), applied to stored facts, with no re-judging.
 Pure functions, no I/O: used inside the Aster flow (bisection targets) and offline (apply_policy.py).
@@ -60,9 +61,13 @@ DEFAULT_SWITCHES = {
     # word screens; leader_variant also applies to the judge's variant-spelled R1 hits here.
     "leader_variant": "controversial",
     "political_event": "controversial", "political_figure": "controversial", "political_org": "controversial",
+    # T026 word check: an ordinary official, martyr or public figure was listed as a sensitive figure, so figure
+    # terms fire only in texts where the judge found a political red line (like ambiguous terms)
+    "figure_scope": "political_text",
 }
 CHOICES = {**{name: LEVELS for name in DEFAULT_SWITCHES},
            "variant_unclear": ("ignore", "count"), "non_redline_harm": ("safe", "exclude"),
+           "figure_scope": ("political_text", "any"),
            **{code: ("redline", "non_redline") for code in BOUNDARY_CODES}}
 
 

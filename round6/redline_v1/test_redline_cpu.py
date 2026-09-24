@@ -16,8 +16,8 @@ from levels import LEVEL_VERSION, clause_cuts, locate, monotonic, position_level
 from pipeline import (ACTS, PROMPT_VERSION, REDLINES, SYSTEM_PROMPT, USER_ACTS, USER_PROMPT_VERSION,  # noqa: E402
                       USER_SYSTEM_PROMPT, WIRE_APIS, output_schema, parse, request_body, response_text, stop_ok)
 from policy import DEFAULT_SWITCHES, decide, digest, resolve  # noqa: E402
-from apply_policy import (TermIndex, apply, label_response, raise_from, screen_override, sensitivity,  # noqa: E402
-                          term_table)
+from apply_policy import (TermIndex, apply, label_response, raise_from, screen_override, screen_with_forms,  # noqa: E402
+                          sensitivity, term_table)
 from extract_probes import join  # noqa: E402
 from compare_judges import compare  # noqa: E402
 from export_prefix_v2 import export  # noqa: E402
@@ -256,50 +256,59 @@ class PolicyTests(unittest.TestCase):
 
     def test_political_terms(self):
         rows = [{"word": "事件甲", "verdict": "event", "ambiguous": False},
-                {"word": "人物乙", "verdict": "figure", "ambiguous": True},
+                {"word": "人物乙", "verdict": "figure", "ambiguous": False},          # figures: political texts only
                 {"word": "丙", "verdict": "event", "ambiguous": False},                  # single character: never
                 {"word": "组织丁", "verdict": "org", "ambiguous": False},
-                {"word": "称呼戊", "verdict": "leader", "ambiguous": False, "leader_screen": "insult"},
-                {"word": "称呼己", "verdict": "leader", "ambiguous": True, "leader_screen": "rumor"},
-                {"word": "写法庚", "verdict": "leader", "ambiguous": False, "leader_screen": "evasion"},
-                {"word": "正式名", "verdict": "leader", "ambiguous": False, "leader_screen": "no"},
+                {"word": "称呼戊", "verdict": "leader", "ambiguous": False, "leader_screen": "insult", "leader_form": "negative"},
+                {"word": "称呼己", "verdict": "leader", "ambiguous": True, "leader_screen": "rumor", "leader_form": "negative"},
+                {"word": "写法庚", "verdict": "leader", "ambiguous": False, "leader_screen": "evasion", "leader_form": "variant"},
+                {"word": "繁体名", "verdict": "leader", "ambiguous": False, "leader_screen": "evasion", "leader_form": "formal"},
+                {"word": "拼接词", "verdict": "leader", "ambiguous": False, "leader_screen": "unsure", "leader_form": "not_leader"},
+                {"word": "未复查", "verdict": "leader", "ambiguous": False, "leader_screen": "insult"},   # no leader-form pass
+                {"word": "正式名", "verdict": "leader", "ambiguous": False, "leader_screen": "no", "leader_form": "variant"},
                 {"word": "政策辛", "verdict": "other_political", "ambiguous": False}]
         table = term_table(rows)
         self.assertEqual(table, {"事件甲": ("political:event", "controversial", False),
                                  "人物乙": ("political:figure", "controversial", True),
                                  "组织丁": ("political:org", "controversial", False),
-                                 "称呼戊": ("leader_word:insult", "unsafe", False),
-                                 "称呼己": ("leader_word:rumor", "unsafe", True),
-                                 "写法庚": ("leader_word:evasion", "controversial", False)})
+                                 "称呼戊": ("leader_word:negative", "unsafe", False),
+                                 "称呼己": ("leader_word:negative", "unsafe", True),
+                                 "写法庚": ("leader_word:variant", "controversial", False)})
         self.assertNotIn("组织丁", term_table(rows, {"political_org": "safe"}))
+        self.assertFalse(term_table(rows, {"figure_scope": "any"})["人物乙"][2])
         self.assertEqual(TermIndex(table).first_occurrences("前文事件甲，又是事件甲和人物乙"), {"事件甲": 2, "人物乙": 12})
+        screen, changed = screen_with_forms({"繁体名": "evasion", "拼接词": "unsure", "称呼戊": "insult", "写法庚": "evasion"}, rows)
+        self.assertEqual((screen, changed), ({"繁体名": "no", "拼接词": "no", "称呼戊": "insult", "写法庚": "evasion"}, 2))
 
         def row(sample_id, text, whole):
             return {"sample_id": sample_id, "status": "safe" if whole == facts() else "located", "label": "safe",
                     "response_chars": len(text), "probes": [{"cut": len(text), "facts": whole}]}
         texts = {"a": "普通的占位文字，事件甲出现在这里。", "b": "普通的占位文字，人物乙出现在这里。",
-                 "c": "普通的占位文字，人物乙出现在这里。", "d": "占位，称呼己出现，称呼戊也出现。", "e": "普通文字。"}
+                 "c": "普通的占位文字，人物乙出现在这里。", "d": "占位，称呼己出现，称呼戊也出现。", "e": "普通文字。",
+                 "f": "新闻里提到人物乙和称呼己。"}
         topic = facts([hit("R3", "topic_mention", "general")])
+        news = facts([hit("R1", "topic_mention", "general", "plain")])          # a leader named in the news
         probes = [row("a", texts["a"], facts()), row("b", texts["b"], facts()), row("c", texts["c"], topic),
-                  row("d", texts["d"], topic), row("e", texts["e"], facts())]
+                  row("d", texts["d"], topic), row("e", texts["e"], facts()), row("f", texts["f"], news)]
         out, summary = apply([probes], texts={k: (v, None) for k, v in texts.items()}, terms=table)
         by_id = {r["sample_id"]: r for r in out}
         start = texts["a"].index("事件甲")
         self.assertEqual((by_id["a"]["label"], by_id["a"]["rules"]), ("controversial", ["political:event"]))
         self.assertEqual(by_id["a"]["onsets"]["controversial"], {"prev_cut": start, "cut": start + 3})
         self.assertEqual(position_level(start, by_id["a"]["probes"]), 0)
-        self.assertEqual(by_id["b"]["label"], "safe")                  # ambiguous word, no political red line in the text
-        self.assertEqual(by_id["c"]["rules"], ["political:figure:ambiguous"])
-        d = by_id["d"]                                                 # ambiguous insult: at most controversial
+        self.assertEqual(by_id["b"]["label"], "safe")                  # a figure in a text with no political red line
+        self.assertEqual(by_id["c"]["rules"], ["political:figure:gated"])
+        d = by_id["d"]                                                 # gated negative word: at most controversial
         self.assertEqual((d["label"], d["onsets"]["controversial"]["cut"], d["onsets"]["unsafe"]["cut"]),
                          ("unsafe", texts["d"].index("称呼己") + 3, texts["d"].index("称呼戊") + 3))
         self.assertEqual(by_id["e"]["label"], "safe")
+        self.assertEqual(by_id["f"]["label"], "safe")                  # plain news about a leader opens no gate
         self.assertEqual(summary["political_rows"], 3)
         self.assertEqual(summary["political_raised_from_stratum"], {"normal": 1, "redline_topic": 2})
         self.assertEqual(summary["political_overrides"]["political:event:safe->controversial"], 1)
-        self.assertEqual(summary["political_table"]["political:figure:ambiguous"], 1)
+        self.assertEqual(summary["political_table"]["political:figure:gated"], 1)
         _, summary = apply([probes], texts={k: (v + "多", None) for k, v in texts.items()}, terms=table)
-        self.assertEqual((summary["political_rows"], summary["texts"]["length_mismatch"]), (0, 5))
+        self.assertEqual((summary["political_rows"], summary["texts"]["length_mismatch"]), (0, 6))
 
     def test_political_terms_cli_checks_the_source(self):
         with tempfile.TemporaryDirectory() as tmp:

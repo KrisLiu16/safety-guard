@@ -16,17 +16,29 @@ so that its mere presence must not trigger a cut. Downstream (redline_v1/apply_p
 figure / org words, and leader words the T012 screen flags, are matched verbatim in every training text; an
 ambiguous one fires only in a text where the judge found a political red line. Nothing is generated; only words
 are sent.
+v1.1 (T026 word check: leader words that were ordinary composites, traditional-script or standard-pinyin names):
+mode "leader" asks, for every word the screen put in `leader`, how it names the leader:
+  negative    insult, mocking nickname, or tied to a rumour, scandal or derogatory claim
+  variant     an evasive spelling of the name or title, not derogatory by itself
+  formal      the normal way to write it: simplified or traditional name, title, neutral short form, standard pinyin or
+              English, neutral news or history phrasing
+  not_leader  not about a leader (e.g. a leader's surname character glued to an ordinary noun)
+  unsure
+Only negative (unsafe) and variant (leader_variant) words are matched downstream.
 """
 from __future__ import annotations
 
 import json
 import re
 
-PROMPT_VERSION = "guard-political-screen-v1"
+PROMPT_VERSION = "guard-political-screen-v1.1"
 WIRE_APIS = ("responses", "chat_completions")
 VERDICTS = ("event", "figure", "org", "leader", "other_political", "unsure", "no")
-MODES = {"screen": VERDICTS}
+LEADER_VERDICTS = ("negative", "variant", "formal", "not_leader", "unsure")
+MODES = {"screen": VERDICTS, "leader": LEADER_VERDICTS}
 MERGE_ORDER = ("event", "figure", "org", "leader", "unsure", "other_political", "no")   # most to least alerting
+LEADER_MERGE_ORDER = ("negative", "variant", "unsure", "formal", "not_leader")
+LEADERS = "现任和历任的政治局常委、总书记、国家主席和副主席、国务院总理、全国人大常委会委员长、全国政协主席、中央军委主席、开国领袖"
 
 SYSTEM_PROMPT = """你是内容安全词表审核员。给定一批词条，逐条判断它和中国政治敏感内容的关系，只输出一个 JSON 对象。
 每个词条选一个 verdict：
@@ -41,34 +53,48 @@ SYSTEM_PROMPT = """你是内容安全词表审核员。给定一批词条，逐�
 results 必须逐条对应输入的每个词条，index 和 word 原样照抄，不要遗漏、合并或改写。"""
 
 
-def merge(verdicts):
+LEADER_SYSTEM_PROMPT = f"""你是内容安全词表审核员。给定一批据初筛与党和国家领导人（{LEADERS}）有关的词条，逐条判断它是怎样提到领导人的，只输出一个 JSON 对象。
+每个词条选一个 verdict：
+- negative：侮辱、蔑称、贬损性谐音或绰号、嘲讽，或者把领导人和负面传言、丑闻、贬损性评价、不光彩的行为绑在一起。
+- variant：领导人姓名或称谓的规避写法，本身没有明显贬损：同音字、换字、倒序、拆字、拼音首字母缩写、隐晦代称。
+- formal：正常写法：简体或繁体的正式姓名、职务、正式称谓、中性简称；标准汉语拼音或英文译名（连写、分写、大小写不同都算）；普通新闻或历史叙述里的中性短语。繁体字本身不算规避写法。
+- not_leader：其实和领导人无关：例如只是某个字和领导人的姓相同，和会议、场馆、团体、普通名词拼在一起；或者这个字在这里是别的意思。
+- unsure：拿不准。
+另外逐条给出 ambiguous：这个字符串在普通文本里是否常常是别的意思（例如一个常用词、一个常见人名），以至于单凭它出现不能判断在说领导人。true 或 false。
+results 必须逐条对应输入的每个词条，index 和 word 原样照抄，不要遗漏、合并或改写。"""
+PROMPTS = {"screen": SYSTEM_PROMPT, "leader": LEADER_SYSTEM_PROMPT}
+
+
+def merge(verdicts, mode="screen"):
     """Most alerting verdict across passes wins; a word is ambiguous if any pass said so."""
-    present = [v for v, _ in verdicts if v in MERGE_ORDER]
-    verdict = min(present, key=MERGE_ORDER.index) if present else "missing"
+    order = MERGE_ORDER if mode == "screen" else LEADER_MERGE_ORDER
+    present = [v for v, _ in verdicts if v in order]
+    verdict = min(present, key=order.index) if present else "missing"
     return verdict, any(a for _, a in verdicts)
 
 
-def schema(count):
+def schema(count, mode="screen"):
     item = {"type": "object", "additionalProperties": False, "required": ["index", "word", "verdict", "ambiguous"],
             "properties": {"index": {"type": "integer"}, "word": {"type": "string"},
-                           "verdict": {"type": "string", "enum": list(VERDICTS)}, "ambiguous": {"type": "boolean"}}}
+                           "verdict": {"type": "string", "enum": list(MODES[mode])}, "ambiguous": {"type": "boolean"}}}
     return {"type": "object", "additionalProperties": False, "required": ["batch_key", "prompt_version", "results"],
             "properties": {"batch_key": {"type": "string"}, "prompt_version": {"type": "string"},
                            "results": {"type": "array", "items": item, "minItems": count, "maxItems": count}}}
 
 
 def request_body(model_name, batch, wire_api):
+    mode = batch.get("mode", "screen")
     words = [{"index": i, "word": w["word"]} for i, w in enumerate(batch["words"])]
     user = json.dumps({"batch_key": batch["batch_key"], "prompt_version": PROMPT_VERSION, "words": words,
-                       "output_schema": schema(len(words))}, ensure_ascii=False)
+                       "output_schema": schema(len(words), mode)}, ensure_ascii=False)
     if wire_api == "responses":
         return {"model": model_name, "reasoning": {"effort": "low"}, "max_output_tokens": 16000,
-                "input": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}],
+                "input": [{"role": "system", "content": PROMPTS[mode]}, {"role": "user", "content": user}],
                 "text": {"format": {"type": "json_schema", "name": "guard_political_screen_v1",
-                                    "strict": True, "schema": schema(len(words))}}}
+                                    "strict": True, "schema": schema(len(words), mode)}}}
     if wire_api == "chat_completions":
         return {"model": model_name, "stream": False, "max_tokens": 16000, "temperature": 0,
-                "messages": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}]}
+                "messages": [{"role": "system", "content": PROMPTS[mode]}, {"role": "user", "content": user}]}
     raise ValueError("unsupported wire API " + str(wire_api))
 
 
@@ -118,7 +144,7 @@ def parse(text, batch):
         if item.get("word") != words[index]["word"]:
             errors.append("word_changed")
             continue
-        if item.get("verdict") not in VERDICTS or not isinstance(item.get("ambiguous"), bool):
+        if item.get("verdict") not in MODES[batch.get("mode", "screen")] or not isinstance(item.get("ambiguous"), bool):
             errors.append("verdict")
             continue
         verdicts.append({**words[index], "verdict": item["verdict"], "ambiguous": item["ambiguous"]})

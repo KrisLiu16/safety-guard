@@ -1,6 +1,14 @@
 # T026 政治专项：政治敏感词预筛，按专项规则重出全部标签
 
-- 版本：v1
+- 版本：v1.1
+  - v1 停在第 6 步：leader_unsure 一类里 15% 是普通词或不是政治敏感词，门槛是 10%。原因有三：
+    - 领导人姓氏的单字和普通名词拼出来的词；
+    - 繁体字、标准拼音的正常写法被当成变体；
+    - figure 里混进了正常履职的官员、烈士和公众人物。
+  - v1.1 新增第 5b 步：对 leader 词单独做一遍“怎样提到领导人”的复查，只有 negative、variant 两类才匹配。
+  - figure 改为只在裁判找到政治红线的文本里生效。
+  - “政治红线”不再包括正式写法的领导人新闻报道。
+  - 第 1–5 步的产物不用重跑。
 - 背景：用户 2026-09-25 决定，最后针对中国政治敏感词和话题做专项加强（见任务总表“已定”）：
   - 特殊事件一提就截（有争议）；
   - 领导人：正常新闻照常放行；负面、嘲讽、谣言照旧是风险；用变体写法提到领导人，标有争议；
@@ -17,7 +25,7 @@
      .venv/bin/python -m unittest round6/redline_v1/test_redline_cpu.py
      .venv/bin/python -m unittest round6/word_screen_v1/test_word_screen_cpu.py
      ```
-     应分别是 7、35、12 项，全过。
+     应分别是 8、36、12 项，全过（v1.1）。
   2. **第一遍**（全部词）：
      ```bash
      .venv/bin/python round6/political_screen_v1/make_batch.py --output round6/political_screen_v1/full_p1
@@ -45,8 +53,24 @@
      .venv/bin/python round6/political_screen_v1/extract.py <run_no_p1> [<run_no_r1>] <run_no_c1> --attempts-json <对应的 attempts.json，顺序相同> --words round6/word_screen_v1/full/words.jsonl --leader-screen round6/word_screen_v1/full/extracted/screen.jsonl --review-sample 40 --out round6/political_screen_v1/full/extracted
      ```
      合并完成后，删除 p1、r1、c1 三个数据集。它们只是筛词用的，标签用的是本地的合并结果。
-  6. **核对词表**（Mac，本地）：打开 `full/extracted/review/terms_sample.txt`。每一类最多 40 个词，逐个回答：对 / 普通词（单独出现不该截）/ 类别错 / 不是政治敏感词。
-     - 不带 `:ambiguous` 的每一类里，“普通词”加“不是政治敏感词”不超过 10%，才能继续。超过就停下写反馈，只报计数和理由，不写词本身。
+  5b. **（v1.1）复查 leader 词**：
+     - 先用 v1.1 的代码在同一批 Run 上重跑第 5 步，输出到同一目录。归档已在本地，不会重新下载。这一遍会多出 `leader_words.txt`，约 14,295 个词。然后：
+       ```bash
+       .venv/bin/python round6/political_screen_v1/make_batch.py --only round6/political_screen_v1/full/extracted/leader_words.txt --tag l1 --mode leader --output round6/political_screen_v1/full_l1
+       ```
+       manifest 的 `mode` 应为 `leader`，约 72 个 Task。
+     - 提交方式同第 2 步：luna，`--flow round6/political_screen_v1/flow`，尝试 1 次，高优先级。
+     - 冻结 attempt 列表后，把 l1 的 run_no 和 attempts 加在第 5 步命令的末尾，**换一个核对种子**再合并一次：
+       ```bash
+       .venv/bin/python round6/political_screen_v1/extract.py <p1> <r1> <c1> <l1> --attempts-json <四个，顺序相同> --words round6/word_screen_v1/full/words.jsonl --leader-screen round6/word_screen_v1/full/extracted/screen.jsonl --review-sample 40 --review-seed r2 --out round6/political_screen_v1/full/extracted
+       ```
+     - 删除 l1 的数据集。
+  6. **核对词表**（Mac，本地）。v1.1 用第 5b 步新抽的核对表，全部类别重新核对：打开 `full/extracted/review/terms_sample.txt`。每一类最多 40 个词，逐个回答：对 / 普通词（单独出现不该截）/ 类别错 / 不是政治敏感词。
+     - 以下各类里，“普通词”加“不是政治敏感词”不超过 10%，才能继续：
+       - 不带 `:ambiguous` 的 event、org、leader_negative、leader_variant；
+       - figure 也照这个门槛看，但它现在只在政治文本里生效。
+
+       超过就停下写反馈，只报计数和理由，不写词本身。
   7. **重出标签**（Mac CPU，每条命令约一分钟）。新标签输出到 `round6/redline_v1/labels_political_v1/`：
      ```bash
      T=round6/political_screen_v1/full/extracted/political_terms.jsonl
@@ -74,6 +98,7 @@
      .venv/bin/python round6/redline_v1/review_sample.py --only-rule political --target user --labels round6/redline_v1/labels_political_v1/user_prefix_v2/labels.jsonl --source round6/redline_v1/input/prefix_v2_user.jsonl --count 30 --out round6/redline_v1/labels_political_v1/review_user_pv2
      ```
      再用 `--only-rule leader_word` 对 runA_stage1 抽 20 条。
+     - v1.1 的规则名：`political:<类>`、`political:<类>:gated`（只在政治文本里生效的词）、`leader_word:negative`、`leader_word:variant`。
      - 表里 ⟦P⟧…⟦P|⟧ 是命中的词。每条回答两个问题：
        1. 这个词在这里确实指政治敏感事件、人物、组织或领导人吗（是 / 不是，是普通用法）？
        2. 新标签对不对？
@@ -101,5 +126,6 @@
   - 第 6 步每一类的计数；
   - 六份标签的 `labels_by_split`、`old_to_new`、`screen_overrides`、`political_table`、`political_rows`、`political_overrides`、`political_raised_from_stratum`、`texts`、`switch_sensitivity` 里的 `leader_variant=safe`；
   - 六份 `compare_old.json` 的 `label_agreement` 和 transitions；
+  - （v1.1）第 5b 步的 run_no、合并后 `summary.json` 里的 `leader_form`、`leader_form_by_leader_screen`、`matched_as`；每份标签的 `screen_words_formal_by_leader_form`；
   - 第 9 步的计数和理由（不写原文、不写词）；
   - 产物 SHA256。

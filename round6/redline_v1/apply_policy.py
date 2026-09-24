@@ -18,10 +18,13 @@ the judged levels, prefixes ending inside it get no target.
   cut at the leader_variant level (controversial) from the word.
 --political-terms (political screen T026 political_terms.jsonl), matched verbatim in every text, seed or not:
   event / figure / org words at the political_event / _figure / _org level (controversial: special events are cut
-  as soon as they are mentioned); words the political screen calls leader and the T012 screen (field leader_screen)
-  calls insult / rumor (unsafe) or evasion / unsure (leader_variant). A word the political screen calls ambiguous
-  (often harmless in ordinary text) fires only when the judge found a political red line (R1, R3-R9) in the whole
-  text, and then at most at the controversial level. Single characters never fire.
+  as soon as they are mentioned); leader words (political screen: leader; T012: flagged) whose leader-form check
+  (v1.1) says negative (unsafe) or variant (leader_variant). Formal spellings (traditional script, standard pinyin),
+  words not about a leader and unsure ones never fire. A gated word (ambiguous: often harmless in ordinary text;
+  figure words under figure_scope political_text) fires only when the judge found a political red line in the
+  whole text, a plainly spelled topic mention of a leader not counting, and then at most at controversial.
+  Single characters never fire. With --screen too, a seed word T012 calls evasion / unsure but the leader-form
+  check calls formal or not_leader is treated as "no".
 """
 from __future__ import annotations
 
@@ -43,6 +46,9 @@ SCREEN_VARIANT = ("evasion", "unsure")          # a leader named through another
 SCREEN_NOT_EPITHET = ("no", "evasion", "unsure")
 POLITICAL = ("event", "figure", "org")
 POLITICAL_CODES = ("R1", "R3", "R4", "R5", "R6", "R7", "R8", "R9")    # the judge's political red lines
+LEADER_FLAGGED = ("insult", "rumor", "evasion", "unsure")          # T012 verdicts
+LEADER_MATCHED = ("negative", "variant")                          # leader-form verdicts that fire (T026 v1.1)
+LEADER_NOT_VARIANT = ("formal", "not_leader")
 LEVEL_NAMES = ("safe", "controversial", "unsafe")
 
 
@@ -112,25 +118,41 @@ def screen_override(labelled, text, word, verdict, switches=None):
 
 
 def term_table(rows, switches=None):
-    """political_terms.jsonl rows (T026, merged over passes) -> {word: (rule, level, ambiguous)} for the words that
-    are matched verbatim in every text. Words at a switch level of safe and single characters are left out."""
+    """political_terms.jsonl rows (T026, merged over passes) -> {word: (rule, level, gated)} for the words that are
+    matched verbatim in every text. Words at a switch level of safe and single characters are left out."""
     s = resolve(switches)
     table = {}
     for r in rows:
-        word, verdict, leader = r["word"], r["verdict"], r.get("leader_screen")
+        word, verdict = r["word"], r["verdict"]
         if len(word) < 2:
             continue
+        gated = bool(r["ambiguous"])
         if verdict in POLITICAL:
             entry = (f"political:{verdict}", s[f"political_{verdict}"])
-        elif verdict == "leader" and leader in SCREEN_UNSAFE:
-            entry = (f"leader_word:{leader}", "unsafe")
-        elif verdict == "leader" and leader in SCREEN_VARIANT:
-            entry = (f"leader_word:{leader}", s["leader_variant"])
+            gated = gated or (verdict == "figure" and s["figure_scope"] == "political_text")
+        elif verdict == "leader" and r.get("leader_screen") in LEADER_FLAGGED and r.get("leader_form") in LEADER_MATCHED:
+            form = r["leader_form"]
+            entry = (f"leader_word:{form}", "unsafe" if form == "negative" else s["leader_variant"])
         else:
             continue
         if entry[1] != "safe":
-            table[word] = (*entry, bool(r["ambiguous"]))
+            table[word] = (*entry, gated)
     return table
+
+
+def screen_with_forms(screen, rows):
+    """T012 verdicts with evasion / unsure turned into "no" for words the leader-form check calls formal or
+    not_leader (a traditional-script or pinyin name is not a variant). Returns (screen, number changed)."""
+    formal = {r["word"] for r in rows if r.get("leader_form") in LEADER_NOT_VARIANT}
+    out = {w: ("no" if w in formal and v in SCREEN_VARIANT else v) for w, v in screen.items()}
+    return out, sum(out[w] != screen[w] for w in screen)
+
+
+def political_text(facts):
+    """The judge found a political red line; a plainly spelled topic mention of a leader (news) does not count."""
+    return facts["leader_epithet_written"] or any(
+        h["code"] in POLITICAL_CODES and not (h["code"] == "R1" and h["act"] == "topic_mention" and h["spelling"] == "plain")
+        for h in facts["hits"])
 
 
 class TermIndex:
@@ -149,16 +171,16 @@ class TermIndex:
 
 def term_raises(labelled, text, index, whole_facts):
     """Pure. Applies the political-terms rule; returns (label row, list of fired rules with their spans).
-    Per rule, the occurrence that ends first fires. An ambiguous word fires only when the judge found a political
-    red line in the whole text, and then at most at controversial."""
-    political_text = any(h["code"] in POLITICAL_CODES for h in whole_facts["hits"]) or whole_facts["leader_epithet_written"]
+    Per rule, the occurrence that ends first fires. A gated word fires only in a political text (political_text()),
+    and then at most at controversial."""
+    political = political_text(whole_facts)
     first = {}
     for word, start in index.first_occurrences(text).items():
-        rule, level, ambiguous = index.table[word]
-        if ambiguous:
-            if not political_text:
+        rule, level, gated = index.table[word]
+        if gated:
+            if not political:
                 continue
-            rule, level = rule + ":ambiguous", LEVEL_NAMES[min(RANK[level], 1)]
+            rule, level = rule + ":gated", LEVEL_NAMES[min(RANK[level], 1)]
         end = start + len(word)
         if (rule, level) not in first or end < first[(rule, level)][1]:
             first[(rule, level)] = (start, end)
@@ -289,7 +311,7 @@ def apply(sources, switches=None, screen=None, texts=None, terms=None):
                    for r in usable if r.get("screen"))),
                "political_terms_used": bool(terms),
                "political_table": dict(sorted(collections.Counter(
-                   rule + (":ambiguous" if ambiguous else "") for rule, _, ambiguous in (terms or {}).values()).items())),
+                   rule + (":gated" if gated else "") for rule, _, gated in (terms or {}).values()).items())),
                "political_rows": len(political),
                "political_overrides": dict(collections.Counter(
                    f"{'+'.join(sorted({f['rule'] for f in p['fired']}))}:{p['label_before']}->{p['label_after']}"
@@ -337,12 +359,17 @@ def main():
         if not any(word in screen for _, word in texts.values() if word):
             # T021: stage1_runA_v1.jsonl carries no "word", so the screen silently did nothing
             parser.error("--screen matched no word of --source; use rows that carry the word (e.g. Run A trainable.jsonl)")
+    lowered = None
     if args.political_terms:
-        terms = term_table(read_jsonl(args.political_terms), switches)
+        term_rows = read_jsonl(args.political_terms)
+        terms = term_table(term_rows, switches)
         if not terms:
             parser.error("--political-terms gave no matchable word")
+        if screen:
+            screen, lowered = screen_with_forms(screen, term_rows)
     rows, summary = apply(sources, switches, screen, texts, terms)
     summary["inputs"] = [str(p) for p in args.probes] + [str(p) for p in (args.screen, args.political_terms, args.source) if p]
+    summary["screen_words_formal_by_leader_form"] = lowered
     args.out.mkdir(parents=True, exist_ok=True)
     with (args.out / "labels.jsonl").open("w", encoding="utf-8") as handle:
         for row in rows:

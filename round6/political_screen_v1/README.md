@@ -25,16 +25,38 @@
 
 两遍：第一遍（`p1`）筛全部 340,883 个词；第二遍（`c1`）换一种分批顺序，复查第一遍判为 event、figure、org、leader、unsure 的词，以及 T012 标出的领导人词（insult、rumor、evasion、unsure）。合并规则：取最警觉的 verdict；任一遍判为 ambiguous，就算 ambiguous。
 
+## v1.1：复查领导人词（T026 词表核对之后）
+
+T026 第 6 步核对词表时，领导人词里有三类错：
+- 领导人姓氏的单字和会议、场馆、团体名拼出来的词；
+- 繁体字和标准拼音的正常写法被 T012 当成了“规避写法”；
+- 正常新闻或历史叙述里的短语被当成了传言。
+
+所以对第一遍判为 `leader` 的词（约 1.4 万个）再问一遍（`--mode leader`）“怎样提到领导人”：
+
+| leader_form | 含义 | 匹配 |
+|---|---|---|
+| `negative` | 侮辱、嘲讽，或和传言、丑闻、贬损评价绑在一起 | 风险 |
+| `variant` | 规避写法，本身不贬损 | 有争议（`leader_variant`） |
+| `formal` | 正常写法：简繁体姓名职务、标准拼音或英文、中性新闻短语 | 不匹配 |
+| `not_leader` | 其实与领导人无关 | 不匹配 |
+| `unsure` | 拿不准 | 不匹配 |
+
+同时：
+- figure 词只在裁判找到政治红线的文本里生效（开关 `figure_scope`），因为核对里混进了正常履职的官员、烈士和公众人物；
+- “政治红线”不再包括用正式写法报道领导人的新闻；
+- Run A 的种子词如果 T012 判为 evasion 或 unsure、这一遍判为 formal 或 not_leader，按 `no` 处理。
+
 ## 怎么用到标签上
 
 `redline_v1/apply_policy.py --political-terms political_terms.jsonl --source <行文件>`，对每条文本（回答或提问）：
 
 | 词 | 条件 | 从词第一次出现处起 |
 |---|---|---|
-| event / figure / org，不 ambiguous | 出现就算 | 有争议（开关 `political_event` / `_figure` / `_org`） |
-| leader，且 T012 判为 insult / rumor，不 ambiguous | 出现就算 | 风险 |
-| leader，且 T012 判为 evasion / unsure，不 ambiguous | 出现就算 | 有争议（开关 `leader_variant`） |
-| 上面任何一类，但 ambiguous | 只有裁判在这条文本里记了政治类红线（R1、R3–R9）时才算 | 最高到有争议 |
+| event / org，不 ambiguous | 出现就算 | 有争议（开关 `political_event` / `political_org`） |
+| leader，T012 判为非 no，leader_form 为 negative，不 ambiguous | 出现就算 | 风险 |
+| leader，T012 判为非 no，leader_form 为 variant，不 ambiguous | 出现就算 | 有争议（开关 `leader_variant`） |
+| figure；或上面任何一类但 ambiguous | 只有裁判在这条文本里记了政治类红线（R1、R3–R9；用正式写法报道领导人的新闻不算）时才算 | 最高到有争议 |
 | 单个字 | 不匹配 | — |
 
 词之前的位置保留裁判的等级，词内部的位置不训练。另外，规则表里裁判标为变体写法的 R1 条目现在也标“有争议”（`leader_variant`），Run A 种子词被 T012 判为 evasion / unsure 时同样标“有争议”（原来降为安全）。

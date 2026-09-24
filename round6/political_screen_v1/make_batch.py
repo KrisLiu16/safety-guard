@@ -3,6 +3,8 @@
 Pass 1 screens every distinct word of the T012 word index (word_screen_v1/full/words.jsonl, Run A + Run B seeds).
 Pass 2 (--only confirm_words.txt from extract.py) re-screens the words pass 1 put in event / figure / org / unsure,
 in a different batch order with different neighbours; extract.py merges the passes (most alerting wins).
+--mode leader (v1.1, --only leader_words.txt) asks how each leader word names the leader (negative / variant /
+formal / not_leader / unsure); extract.py keeps it apart from the screen passes as leader_form.
 The word index and the output hold the words themselves: keep them local (gitignored), never commit them.
 """
 from __future__ import annotations
@@ -16,7 +18,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
-from pipeline import PROMPT_VERSION, SYSTEM_PROMPT  # noqa: E402
+from pipeline import MODES, PROMPT_VERSION, PROMPTS  # noqa: E402
 
 BATCH_WORDS = 200
 PART_TASKS = 2000          # Aster: at most 2,000 Tasks per Run
@@ -36,6 +38,7 @@ def main():
     parser.add_argument("--words", type=Path, default=ROOT.parent / "word_screen_v1/full/words.jsonl")
     parser.add_argument("--only", type=Path, help="screen only these words (one per line), e.g. confirm_words.txt")
     parser.add_argument("--tag", default="p1", help="pass tag; each pass gets its own batch order")
+    parser.add_argument("--mode", choices=sorted(MODES), default="screen")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if not args.tag.isalnum():
@@ -50,7 +53,7 @@ def main():
     for key, group in batches(words, args.tag):
         task = args.output / "tasks" / key
         (task / "tests").mkdir(parents=True)
-        batch = {"batch_key": key, "prompt_version": PROMPT_VERSION, "mode": "screen", "words": [{"word": w} for w in group]}
+        batch = {"batch_key": key, "prompt_version": PROMPT_VERSION, "mode": args.mode, "words": [{"word": w} for w in group]}
         (task / "instruction.md").write_text(json.dumps(batch, ensure_ascii=False), encoding="utf-8")
         (task / "task.toml").write_text(f'version = "1.0"\n\n[metadata]\nname = "{key}"\ncategory = "guard-political-screen"\n')
         test = task / "tests/test.sh"
@@ -64,12 +67,12 @@ def main():
             for task in part:
                 archive.add(task, arcname=task.name)
     sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
-    manifest = {"prompt_version": PROMPT_VERSION, "tag": args.tag, "words": len(words), "tasks": len(paths),
+    manifest = {"prompt_version": PROMPT_VERSION, "mode": args.mode, "tag": args.tag, "words": len(words), "tasks": len(paths),
                 "archives": {name: len(part) for name, part in zip(names, parts)}, "batch_words": BATCH_WORDS,
                 "sha256": {"pipeline": sha(ROOT / "flow/pipeline.py"), "flow": sha(ROOT / "flow/flow.py"),
-                           "system_prompt": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()}}
+                           "system_prompt": hashlib.sha256(PROMPTS[args.mode].encode()).hexdigest()}}
     (args.output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({k: manifest[k] for k in ("tag", "words", "tasks", "archives")}, ensure_ascii=False))
+    print(json.dumps({k: manifest[k] for k in ("mode", "tag", "words", "tasks", "archives")}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

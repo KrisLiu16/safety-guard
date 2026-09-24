@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
 sys.path.insert(0, str(ROOT))
 sys.modules.pop("pipeline", None)
-from pipeline import PROMPT_VERSION, SYSTEM_PROMPT, VERDICTS, merge, parse, request_body, schema  # noqa: E402
+from pipeline import (LEADER_SYSTEM_PROMPT, LEADER_VERDICTS, PROMPT_VERSION, SYSTEM_PROMPT, VERDICTS,  # noqa: E402
+                      merge, parse, request_body, schema)
 from extract import join, matched_as, review_sheet, to_confirm  # noqa: E402
 
 BATCH = {"batch_key": "political-p1-00000", "prompt_version": PROMPT_VERSION,
@@ -58,6 +59,18 @@ class ParseTests(unittest.TestCase):
         for verdict in VERDICTS:
             self.assertIn(verdict, SYSTEM_PROMPT)
 
+    def test_leader_mode(self):
+        batch = {**BATCH, "mode": "leader"}
+        errors, verdicts = parse(reply([item(0, "negative"), item(1, "formal", True), item(2, "event")]), batch)
+        self.assertEqual((errors, [v["verdict"] for v in verdicts]), (["verdict", "missing:1"], ["negative", "formal"]))
+        self.assertEqual(parse(reply([item(0, "negative")]), BATCH)[0][0], "verdict")        # not a screen verdict
+        body = json.dumps(request_body("m", batch, "chat_completions"), ensure_ascii=False)
+        self.assertIn("not_leader", body)
+        self.assertEqual(json.loads(body)["messages"][0]["content"], LEADER_SYSTEM_PROMPT)
+        self.assertEqual(set(schema(1, "leader")["properties"]["results"]["items"]["properties"]["verdict"]["enum"]),
+                         set(LEADER_VERDICTS))
+        self.assertEqual(merge([("formal", False), ("variant", True)], "leader"), ("variant", True))
+
     def test_merge_most_alerting(self):
         self.assertEqual(merge([("no", False), ("event", False)]), ("event", False))
         self.assertEqual(merge([("other_political", True), ("unsure", False)]), ("unsure", True))
@@ -87,6 +100,11 @@ class BatchTests(unittest.TestCase):
             done = run("--only", str(tmp / "only.txt"), "--tag", "c1", "--output", str(tmp / "c1"))
             self.assertEqual(done.returncode, 0, done.stderr)
             self.assertEqual(json.loads((tmp / "c1/manifest.json").read_text())["words"], 2)
+            done = run("--only", str(tmp / "only.txt"), "--tag", "l1", "--mode", "leader", "--output", str(tmp / "l1"))
+            self.assertEqual(done.returncode, 0, done.stderr)
+            self.assertEqual(json.loads((tmp / "l1/manifest.json").read_text())["mode"], "leader")
+            batch = json.loads(next((tmp / "l1/tasks").glob("*/instruction.md")).read_text(encoding="utf-8"))
+            self.assertEqual(batch["mode"], "leader")
             done = run("--tag", "c-1", "--output", str(tmp / "bad"))
             self.assertNotEqual(done.returncode, 0)
             self.assertIn("tag", done.stderr)
@@ -99,8 +117,10 @@ class ExtractTests(unittest.TestCase):
                     "verdicts": [{"word": w, "verdict": v, "ambiguous": a} for w, v, a in verdicts]}
         values = [value("p1", [("词甲", "event", False), ("词乙", "no", False), ("词丙", "leader", False),
                                ("词丁", "unsure", False), ("戊", "event", False)], ["missing:1"]),
-                  value("c1", [("词甲", "event", True), ("词丁", "org", False)])]
-        rows, errors = join(values, {"词乙": "evasion", "词丙": "insult"})
+                  value("c1", [("词甲", "event", True), ("词丁", "org", False)]),
+                  {**value("l1", [("词丙", "negative", False), ("词己", "formal", False)]), "mode": "leader"},
+                  value("p1", [("词己", "leader", False)])]
+        rows, errors = join(values, {"词乙": "evasion", "词丙": "insult", "词己": "evasion"})
         by_word = {r["word"]: r for r in rows}
         self.assertEqual(errors, {"missing": 1})
         self.assertEqual((by_word["词甲"]["verdict"], by_word["词甲"]["ambiguous"]), ("event", True))  # any pass
@@ -108,9 +128,12 @@ class ExtractTests(unittest.TestCase):
         self.assertEqual(by_word["词丁"]["passes"], {"c1": {"verdict": "org", "ambiguous": False},
                                                     "p1": {"verdict": "unsure", "ambiguous": False}})
         self.assertEqual(by_word["词甲"]["leader_screen"], "missing")
-        self.assertEqual({w for w, r in by_word.items() if to_confirm(r)}, {"词甲", "词乙", "词丙", "词丁", "戊"})
-        self.assertEqual({w: matched_as(r) for w, r in by_word.items()},
-                         {"词甲": "event:ambiguous", "词乙": None, "词丙": "leader_insult", "词丁": "org", "戊": None})
+        self.assertEqual({w for w, r in by_word.items() if to_confirm(r)}, {"词甲", "词乙", "词丙", "词丁", "戊", "词己"})
+        self.assertEqual((by_word["词丙"]["leader_form"], by_word["词丙"]["verdict"]), ("negative", "leader"))
+        self.assertNotIn("leader_form", by_word["词甲"])
+        self.assertEqual({w: matched_as(r) for w, r in by_word.items()},       # a formal spelling is never matched
+                         {"词甲": "event:ambiguous", "词乙": None, "词丙": "leader_negative", "词丁": "org", "戊": None,
+                          "词己": None})
         sheet = review_sheet(rows, 5)
         self.assertIn("## org（1 个）\n词丁\t", sheet)
         self.assertNotIn("词乙", sheet)
