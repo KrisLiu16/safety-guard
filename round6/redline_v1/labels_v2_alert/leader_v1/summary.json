@@ -1,0 +1,195 @@
+{
+  "policy_digest": "7392f66249998fc6",
+  "switches": {
+    "topic_mention": "safe",
+    "debunk_no_quote": "safe",
+    "refusal_naming": "controversial",
+    "restates": "controversial",
+    "quotes": "controversial",
+    "term_explained": "controversial",
+    "fiction": "unsafe",
+    "writes": "unsafe",
+    "requests": "unsafe",
+    "debunk_request": "safe",
+    "general_depiction": "safe",
+    "variant_unclear": "ignore",
+    "leader_epithet_written": "unsafe",
+    "non_redline_harm": "alert",
+    "harm_politics": "unsafe",
+    "B1": "redline",
+    "B2": "redline",
+    "B3": "redline",
+    "B4": "non_redline",
+    "B5": "redline",
+    "B6": "redline",
+    "B7": "non_redline",
+    "leader_variant": "controversial",
+    "political_event": "controversial",
+    "political_figure": "controversial",
+    "political_org": "controversial",
+    "figure_scope": "political_text",
+    "general_scope": "all_acts"
+  },
+  "responses": 2840,
+  "usable": 2837,
+  "by_source_rank": {
+    "0": 2437,
+    "-1": 400,
+    "None": 3
+  },
+  "labels_by_split": {
+    "calibration": {
+      "controversial": 53,
+      "safe": 68,
+      "unsafe": 12
+    },
+    "dev": {
+      "safe": 74,
+      "controversial": 53,
+      "unsafe": 11
+    },
+    "train": {
+      "safe": 1246,
+      "controversial": 1115,
+      "unsafe": 205,
+      "unusable": 3
+    }
+  },
+  "old_to_new": {
+    "safe->safe": 1388,
+    "unsafe->controversial": 1221,
+    "unsafe->unsafe": 228,
+    "safe->unusable": 3
+  },
+  "old_to_new_by_slot_style": {
+    "slot0:cartoon_china:safe->safe": 363,
+    "slot0:cartoon_only:safe->safe": 331,
+    "slot0:criticism_restated:unsafe->controversial": 322,
+    "slot0:criticism_restated:unsafe->unsafe": 71,
+    "slot0:harm_politics:unsafe->controversial": 373,
+    "slot0:harm_politics:unsafe->unsafe": 7,
+    "slot0:insult_assistant:safe->safe": 337,
+    "slot0:insult_assistant:safe->unusable": 3,
+    "slot0:leader_news:safe->safe": 357,
+    "slot0:rumor_restated:unsafe->controversial": 358,
+    "slot0:rumor_restated:unsafe->unsafe": 5,
+    "slot0:satire_restated:unsafe->controversial": 168,
+    "slot0:satire_restated:unsafe->unsafe": 145
+  },
+  "stratum_by_label": {
+    "controversial": {
+      "redline": 1221
+    },
+    "safe": {
+      "normal": 946,
+      "non_redline_harm": 174,
+      "other_sensitive": 233,
+      "redline_topic": 35
+    },
+    "unsafe": {
+      "redline": 228
+    }
+  },
+  "rules_non_safe": {
+    "source_floor": 494,
+    "source_floor_only": 400,
+    "R1:restates:general": 298,
+    "R1:refusal_naming:general": 198,
+    "R1:quotes:general": 158,
+    "leader_epithet_written": 136,
+    "R1:writes:general": 112,
+    "R1:quotes:specific": 34,
+    "R1:writes:specific": 27,
+    "political:event": 11,
+    "R1:restates:specific": 7,
+    "R10:quotes:general": 6,
+    "leader_word:variant": 4,
+    "leader_word:negative:gated": 3,
+    "leader_word:negative": 3,
+    "R10:quotes:specific": 2,
+    "R10:restates:general": 2,
+    "political:event:gated": 1,
+    "R6:restates:general": 1
+  },
+  "onset_clause_chars": {
+    "controversial": {
+      "median": 129,
+      "max": 301
+    },
+    "unsafe": {
+      "median": 143.0,
+      "max": 280
+    }
+  },
+  "boundary_hits_by_label": {
+    "controversial": {},
+    "safe": {},
+    "unsafe": {
+      "R1:term_explained": 73
+    }
+  },
+  "switch_sensitivity": {
+    "B1=non_redline": {},
+    "B2=non_redline": {},
+    "B3=non_redline": {},
+    "B4=redline": {},
+    "B5=non_redline": {},
+    "B6=non_redline": {},
+    "B7=redline": {},
+    "term_explained=safe": {},
+    "term_explained=unsafe": {},
+    "leader_variant=safe": {},
+    "leader_variant=unsafe": {},
+    "general_scope=written_only": {
+      "safe->controversial": 2
+    }
+  },
+  "texts": {
+    "given": true,
+    "usable_with_text": 2837,
+    "length_mismatch": 0
+  },
+  "screen_used": false,
+  "screen_overrides": {},
+  "political_terms_used": true,
+  "political_table": {
+    "leader_word:negative": 2479,
+    "leader_word:negative:gated": 1612,
+    "leader_word:variant": 2512,
+    "leader_word:variant:gated": 3231,
+    "political:event": 5603,
+    "political:event:gated": 3048,
+    "political:figure:gated": 3157,
+    "political:org": 1352,
+    "political:org:gated": 639
+  },
+  "political_rows": 21,
+  "political_overrides": {
+    "political:event:controversial->controversial": 7,
+    "leader_word:negative:gated:unsafe->unsafe": 3,
+    "leader_word:variant:safe->controversial": 3,
+    "political:event:safe->controversial": 3,
+    "leader_word:negative:safe->unsafe": 2,
+    "political:event+political:event:gated:controversial->controversial": 1,
+    "leader_word:negative:unsafe->unsafe": 1,
+    "leader_word:variant:unsafe->unsafe": 1
+  },
+  "political_raised_from_stratum": {
+    "redline_topic": 7,
+    "other_sensitive": 1
+  },
+  "alert_rows": {
+    "last_clause": 174
+  },
+  "harm_politics": {},
+  "inputs": [
+    "round6/redline_v1/leader_full/extracted/probes.jsonl",
+    "round6/political_screen_v1/full/extracted/political_terms.jsonl",
+    "round6/leader_v1/full/examples_all.jsonl"
+  ],
+  "screen_words_formal_by_leader_form": null,
+  "excluded_words": {
+    "listed": 41,
+    "in_candidates": 41
+  }
+}

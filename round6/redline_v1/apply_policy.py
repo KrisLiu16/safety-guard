@@ -418,8 +418,8 @@ def apply(sources, switches=None, screen=None, texts=None, terms=None):
                         else:
                             if screen or index is not None:
                                 labelled = word_rules(row, labelled, text, word, switches, screen, index)
+                            labelled = floor_rule(labelled, floor)          # before the alert: a floor is not safe
                             labelled = harm_rules(row, labelled, text, onset, switches)
-                            labelled = floor_rule(labelled, floor)
                     chosen[row["sample_id"]] = (rank, labelled, row)
     for sample_id, (rank, _, row) in list(chosen.items()):
         entry = (texts or {}).get(sample_id)
