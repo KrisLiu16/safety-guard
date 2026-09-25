@@ -17,6 +17,9 @@ backbone itself is trained here, as in Round5's SFT:
               the position AUC and the stream AUC (max over the stream's target positions; positive = whole level
               not safe). The best mean stream AUC is exported as best.safetensors (the start checkpoint if no epoch
               beats it). Dev is never read.
+v2 (T030, POLICY section 9): class 3 ("alert", harm outside the red lines) is a soft target: p(safe) = 1 - --alert-cut,
+p(controversial) = --alert-cut (default 0.4), so the cut score rises without reaching a threshold; for the class
+balance it counts with safe, and in the calibration AUCs it is a negative (the calibration report adds its mean score).
 Output (--output): epoch_<n>.safetensors, best.safetensors, losses.jsonl, calibration_<n>.json, summary.json.
 """
 from __future__ import annotations
@@ -40,7 +43,12 @@ SEED = 20260926
 START_SHA = "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2"
 START_PATH = Path("/work/output/round4/window/best.safetensors")
 EFFECTIVE_BATCH, MICROBATCH = 16, 4
-DEFAULT_MIX = "runA/assistant=1,prefix_v2/assistant=1,runA_prompts/user=0.5,prefix_v2/user=0.5"
+DEFAULT_MIX = "runA/assistant=1,prefix_v2/assistant=1,runA_prompts/user=0.5,prefix_v2/user=0.5,leader_v1/assistant=0.5"
+ALERT = 3
+
+
+def weight_class(c):
+    return 0 if c == ALERT else c
 
 
 def sha(path):
@@ -70,14 +78,15 @@ def token_weights(records, mix):
     totals = collections.defaultdict(collections.Counter)
     for row in records:
         for c in row["classes"]:
-            totals[group_of(row)][c] += row["weight"]
+            totals[group_of(row)][weight_class(c)] += row["weight"]
     unknown = sorted(g for g in totals if g not in mix)
     if unknown:
         raise ValueError(f"no --mix share for {unknown}")
     norm = sum(mix[g] for g in totals)
     for row in records:
         g = group_of(row)
-        row["token_weights"] = [mix[g] / norm * row["weight"] / (len(totals[g]) * totals[g][c]) for c in row["classes"]]
+        row["token_weights"] = [mix[g] / norm * row["weight"] / (len(totals[g]) * totals[g][weight_class(c)])
+                                for c in row["classes"]]
     return {g: {"share": mix[g] / norm, "class_weight_totals": {str(c): v for c, v in sorted(t.items())}}
             for g, t in sorted(totals.items())}
 
@@ -126,7 +135,14 @@ def risk_logits(model, hidden, index, row):
     return logits.float()
 
 
-def train_step(torch, model, optimizer, group, *, pad, device, micro_tokens, scale):
+def soft_targets(torch, classes, alert_cut, device):
+    """Target distributions (safe, unsafe, controversial): one-hot, or the alert mix for class 3."""
+    table = torch.tensor([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0 - alert_cut, 0.0, alert_cut]],
+                         device=device)
+    return table[torch.tensor(classes, device=device)]
+
+
+def train_step(torch, model, optimizer, group, *, pad, device, micro_tokens, scale, alert_cut=0.4):
     """One update over a group of records; returns loss and token accounting."""
     F = torch.nn.functional
     model.train()
@@ -138,9 +154,9 @@ def train_step(torch, model, optimizer, group, *, pad, device, micro_tokens, sca
         losses = []
         for index, row in enumerate(rows):
             logits = risk_logits(model, hidden, index, row)
-            target = torch.tensor(row["classes"], device=device)
+            target = soft_targets(torch, row["classes"], alert_cut, device)
             weight = torch.tensor(row["token_weights"], device=device, dtype=torch.float32)
-            losses.append((F.cross_entropy(logits, target, reduction="none") * weight).sum())
+            losses.append((-(target * F.log_softmax(logits, dim=-1)).sum(-1) * weight).sum())
         loss = torch.stack(losses).sum() * scale
         if not bool(torch.isfinite(loss)):
             raise RuntimeError("nonfinite loss")
@@ -178,12 +194,14 @@ def calibration_metrics(scored):
         groups[row["group"]].append(row)
     out = {}
     for g, rows in sorted(groups.items()):
-        pos = [s for r in rows for s, c in zip(r["cut"], r["classes"]) if c != 0]
-        neg = [s for r in rows for s, c in zip(r["cut"], r["classes"]) if c == 0]
+        pos = [s for r in rows for s, c in zip(r["cut"], r["classes"]) if c in (1, 2)]
+        neg = [s for r in rows for s, c in zip(r["cut"], r["classes"]) if c in (0, ALERT)]
         stream_pos = [max(r["cut"]) for r in rows if r["level"] != "safe"]
         stream_neg = [max(r["cut"]) for r in rows if r["level"] == "safe"]
+        alert = [s for r in rows for s, c in zip(r["cut"], r["classes"]) if c == ALERT]
         out[g] = {"records": len(rows), "position_auc": auc(pos, neg), "stream_auc": auc(stream_pos, stream_neg),
-                  "stream_positive": len(stream_pos)}
+                  "stream_positive": len(stream_pos),
+                  "alert_positions": len(alert), "alert_mean_cut": sum(alert) / len(alert) if alert else None}
     valid = [m["stream_auc"] for m in out.values() if m["stream_auc"] is not None]
     return {"groups": out, "mean_stream_auc": sum(valid) / len(valid) if valid else None}
 
@@ -223,6 +241,7 @@ def main():
     parser.add_argument("--backbone-lr", type=float, default=8e-6)
     parser.add_argument("--head-lr", type=float, default=5e-5)
     parser.add_argument("--micro-tokens", type=int, default=16384)
+    parser.add_argument("--alert-cut", type=float, default=0.4, help="cut probability of the soft alert target")
     parser.add_argument("--round4-code", type=Path, default=Path("/work/round4"))
     parser.add_argument("--smoke", type=int, default=0, help="stop after this many updates (no export), for a dry run")
     args = parser.parse_args()
@@ -246,7 +265,8 @@ def main():
     groups = [(epoch, g) for epoch in range(args.epochs) for g in epoch_groups(train, epoch)]
     scale = len(train) / EFFECTIVE_BATCH
     options = {"device": "cuda", "pad": pad, "micro_tokens": args.micro_tokens}
-    summary = {"version": "stage2-backbone-v1", "start_sha256": START_SHA, "targets_report_sha256": sha(args.targets / "report.json"),
+    alert_cut = args.alert_cut
+    summary = {"version": "stage2-backbone-v2", "start_sha256": START_SHA, "targets_report_sha256": sha(args.targets / "report.json"),
                "records": {"train": len(train), "calibration": len(calibration)}, "steps": len(groups),
                "settings": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()} | {"mix": mix},
                "group_weights": weights, "category_heads_trained": False, "dev_read": False, "epochs": {}}
@@ -264,7 +284,7 @@ def main():
         for step, (epoch, group) in enumerate(groups, 1):
             for spec in optimizer.param_groups:
                 spec["lr"] = spec["base_lr"] * lr_scale(step, len(groups))
-            record = train_step(torch, model, optimizer, group, scale=scale, **options)
+            record = train_step(torch, model, optimizer, group, scale=scale, alert_cut=alert_cut, **options)
             record.update(step=step, epoch=epoch, seconds=round(time.monotonic() - began, 1))
             log.write(json.dumps(record) + "\n")
             if step % 64 == 0:

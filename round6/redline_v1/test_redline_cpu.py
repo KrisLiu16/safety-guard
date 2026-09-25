@@ -365,6 +365,62 @@ class PolicyTests(unittest.TestCase):
                                  "跨组词": ("leader_word:negative", "unsafe", True),
                                  "人转领": ("political:figure", "controversial", True)})
 
+    def test_harm_alert_and_politics(self):
+        table = term_table([{"word": "事件甲", "verdict": "event", "ambiguous": False}])
+
+        def row(sample_id, text, whole):
+            return {"sample_id": sample_id, "status": "safe", "label": "safe", "response_chars": len(text),
+                    "probes": [{"cut": len(text), "facts": whole}]}
+        harm = facts(harm=True)
+        news = facts([hit("R1", "topic_mention", "general", "plain")], harm=True)   # harm plus a leader in the news
+        texts = {"a": "普通开头，后面是骚扰别人的话。", "b": "普通开头，第二句。最后一句骚扰。", "c": "借事件甲去骚扰别人的话。",
+                 "d": "普通开头，后面提到领导人和骚扰。", "e": "普通文字。"}
+        probes = [row("a", texts["a"], harm), row("b", texts["b"], harm), row("c", texts["c"], harm),
+                  row("d", texts["d"], news), row("e", texts["e"], facts())]
+        onsets = {"a": 5, "d": 5}
+        out, summary = apply([probes], texts={k: (v, None, onsets.get(k)) for k, v in texts.items()}, terms=table)
+        by_id = {r["sample_id"]: r for r in out}
+        self.assertEqual((by_id["a"]["label"], by_id["a"]["alert"]), ("safe", {"from": 5}))
+        self.assertEqual((by_id["b"]["label"], by_id["b"]["alert"]), ("safe", {"from": None}))   # no onset: last clause
+        c = by_id["c"]                                                  # harm + a political term: unsafe from the word
+        start = texts["c"].index("事件甲")
+        self.assertEqual((c["label"], c["onsets"]["unsafe"]["cut"], c["harm_politics"]["by_word"]),
+                         ("unsafe", start + 3, True))
+        self.assertNotIn("alert", c)
+        d = by_id["d"]                                                  # harm + a leader seen by the judge only
+        self.assertEqual((d["label"], d["harm_politics"]["start"], d["harm_politics"]["by_word"]), ("unsafe", 5, False))
+        self.assertEqual(position_level(4, d["probes"]), 0)
+        self.assertNotIn("alert", by_id["e"])
+        self.assertEqual(summary["alert_rows"], {"onset": 1, "last_clause": 1})
+        self.assertEqual(sorted(summary["harm_politics"]), ["non_redline_harm:safe->unsafe:judge",
+                                                            "redline:controversial->unsafe:word"])
+        old, _ = apply([probes], {"non_redline_harm": "safe", "harm_politics": "safe"},
+                       texts={k: (v, None) for k, v in texts.items()}, terms=table)
+        self.assertEqual([r["label"] for r in old], ["safe", "safe", "controversial", "safe", "safe"])
+        self.assertFalse(any(r.get("alert") for r in old))
+
+    def test_source_floor(self):
+        text = "普通开头。媒体报道过的对比出现在这里。后面继续。"
+        start = text.index("媒体")
+        end = text.index("。", start) + 1
+        good = {"sample_id": "a", "status": "safe", "label": "safe", "response_chars": len(text),
+                "probes": [{"cut": len(text), "facts": facts()}]}
+        failed = {"sample_id": "b", "status": "judge_error", "label": "safe", "response_chars": len(text),
+                  "probes": [], "errors": ["x"]}
+        news = {"sample_id": "c", "status": "judge_error", "label": "safe", "response_chars": len(text), "probes": []}
+        floor = ("controversial", start, end)
+        out, summary = apply([[good, failed, news]], texts={"a": (text, None, start, floor), "b": (text, None, start, floor),
+                                                            "c": (text, None, None, None)})
+        by_id = {r["sample_id"]: r for r in out}
+        a, b = by_id["a"], by_id["b"]
+        self.assertEqual((a["label"], a["rules"], a["source_rank"]), ("controversial", ["source_floor"], 0))
+        self.assertEqual((position_level(start, a["probes"]), position_level(end, a["probes"])), (0, 1))
+        self.assertEqual((b["label"], b["rules"], b["source_rank"]), ("controversial", ["source_floor_only"], -1))
+        self.assertEqual((position_level(start, b["probes"]), position_level(len(text), b["probes"])), (0, 1))
+        self.assertIsNone(position_level(start + 2, b["probes"]))            # inside the onset sentence: no target
+        self.assertEqual(by_id["c"]["label"], "unusable")                    # no floor, no judgement: dropped
+        self.assertEqual(summary["usable"], 2)
+
     def test_list_fired_words(self):
         text = "占位，事件甲在这里，还有组织丁。"
         a, b = text.index("事件甲"), text.index("组织丁")

@@ -1,0 +1,160 @@
+{
+  "prompt_version": "guard-leader-thinking-v1",
+  "seeds": 200,
+  "states": {
+    "complete": 176,
+    "skip": 24
+  },
+  "assistant_rows": 176,
+  "errors": {
+    "skip": 24
+  },
+  "length_units_by_language_kind": {
+    "en:cartoon_china": {
+      "p10": 173,
+      "p50": 188,
+      "p90": 345
+    },
+    "en:cartoon_only": {
+      "p10": 165,
+      "p50": 193,
+      "p90": 369
+    },
+    "en:criticism_restated": {
+      "p10": 178,
+      "p50": 305,
+      "p90": 346
+    },
+    "en:harm_politics": {
+      "p10": 176,
+      "p50": 297,
+      "p90": 321
+    },
+    "en:insult_assistant": {
+      "p10": 163,
+      "p50": 171,
+      "p90": 310
+    },
+    "en:leader_news": {
+      "p10": 159,
+      "p50": 194,
+      "p90": 325
+    },
+    "en:rumor_restated": {
+      "p10": 161,
+      "p50": 183,
+      "p90": 316
+    },
+    "en:satire_restated": {
+      "p10": 173,
+      "p50": 294,
+      "p90": 379
+    },
+    "zh:cartoon_china": {
+      "p10": 273,
+      "p50": 505,
+      "p90": 619
+    },
+    "zh:cartoon_only": {
+      "p10": 250,
+      "p50": 298,
+      "p90": 585
+    },
+    "zh:criticism_restated": {
+      "p10": 269,
+      "p50": 461,
+      "p90": 599
+    },
+    "zh:harm_politics": {
+      "p10": 265,
+      "p50": 328,
+      "p90": 525
+    },
+    "zh:insult_assistant": {
+      "p10": 242,
+      "p50": 287,
+      "p90": 457
+    },
+    "zh:leader_news": {
+      "p10": 440,
+      "p50": 443,
+      "p90": 557
+    },
+    "zh:rumor_restated": {
+      "p10": 242,
+      "p50": 424,
+      "p90": 506
+    },
+    "zh:satire_restated": {
+      "p10": 255,
+      "p50": 269,
+      "p90": 439
+    }
+  },
+  "quality_flags": {
+    "fiction_marker": 3
+  },
+  "by_kind_language": {
+    "cartoon_china:en": {
+      "complete": 17
+    },
+    "cartoon_china:zh": {
+      "complete": 6
+    },
+    "cartoon_only:en": {
+      "complete": 12
+    },
+    "cartoon_only:zh": {
+      "complete": 9
+    },
+    "criticism_restated:en": {
+      "complete": 21
+    },
+    "criticism_restated:zh": {
+      "complete": 8
+    },
+    "harm_politics:en": {
+      "complete": 23
+    },
+    "harm_politics:zh": {
+      "complete": 7
+    },
+    "insult_assistant:en": {
+      "complete": 14
+    },
+    "insult_assistant:zh": {
+      "complete": 6
+    },
+    "leader_news:en": {
+      "complete": 19
+    },
+    "leader_news:zh": {
+      "complete": 3
+    },
+    "rumor_restated:en": {
+      "complete": 16,
+      "skip": 4
+    },
+    "rumor_restated:zh": {
+      "complete": 5,
+      "skip": 2
+    },
+    "satire_restated:en": {
+      "complete": 7,
+      "skip": 13
+    },
+    "satire_restated:zh": {
+      "complete": 3,
+      "skip": 5
+    }
+  },
+  "synthetic_labels_are_gold": false,
+  "judge_verified": false,
+  "runs": [
+    {
+      "run_no": "aster-dev-370",
+      "status": "completed"
+    }
+  ],
+  "archives": 200
+}

@@ -1,0 +1,57 @@
+{
+  "prompt_version": "guard-leader-thinking-v1.1",
+  "seeds": 3000,
+  "offset": 200,
+  "leader_pools": true,
+  "tasks": 3000,
+  "archives": {
+    "pilot_part0.tar.gz": 2000,
+    "pilot_part1.tar.gz": 1000
+  },
+  "kinds": {
+    "satire_restated": 392,
+    "leader_news": 358,
+    "criticism_restated": 417,
+    "cartoon_china": 364,
+    "rumor_restated": 386,
+    "harm_politics": 385,
+    "cartoon_only": 333,
+    "insult_assistant": 365
+  },
+  "languages": {
+    "en": 2051,
+    "zh": 949
+  },
+  "leaders": {
+    "Mao Zedong": 158,
+    "Deng Xiaoping": 105,
+    "Ding Xuexiang": 61,
+    "Xi Jinping": 390,
+    "None": 1062,
+    "Li Xi": 75,
+    "Wang Qishan": 62,
+    "Hu Jintao": 161,
+    "Cai Qi": 69,
+    "Wang Huning": 69,
+    "Li Peng": 64,
+    "Jiang Zemin": 158,
+    "Li Qiang": 56,
+    "Zhu Rongji": 60,
+    "Li Keqiang": 116,
+    "Zhao Leji": 66,
+    "Wen Jiabao": 143,
+    "Han Zheng": 65,
+    "Zhou Enlai": 60
+  },
+  "splits": {
+    "train": 2717,
+    "calibration": 137,
+    "dev": 146
+  },
+  "sha256": {
+    "pipeline": "7de4c8399e67e531874215277935c572ae2f4bf26924aa3f2e7fd782b6760236",
+    "flow": "9d689ab7cc03b1e1766612a55bec558469fcadc7e63fb3be8772137faf7c2e51",
+    "schema": "a1469d9a2d9af9510e4d43619612893e7231ad1acb735e4dbc04662d2876b975",
+    "system_prompt": "597da4d4c019bf064244e9d0540bf30fd1418c3be7a4a3b93b4eb8256e7b4d56"
+  }
+}

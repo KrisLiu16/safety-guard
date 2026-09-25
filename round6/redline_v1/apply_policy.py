@@ -33,6 +33,20 @@ the judged levels, prefixes ending inside it get no target.
   (unsafe) only when the leader-form pass and the check agree, otherwise variant; a word whose screen and check
   disagree between a leader word and an event / figure / org is gated and at most controversial; --exclude-words
   (a local, hand-checked list, never committed) drops words that fire on ordinary text.
+Harm outside the red lines (user 2026-09-25, POLICY section 9; needs --source for the texts):
+  alert          a response the judge calls non-red-line harm (insults, harassment, threats, rumours, privacy,
+                 fraud) keeps the level safe and gets alert = {"from": char or None}: the generation onset of the
+                 harmful continuation (v14 onset_char) when the source row has one, else None (build_targets.py
+                 then marks only the last clause). Stage 2 trains alert positions to a raised, uncut score.
+  harm_politics  the same harm in a text that also mentions a leader or a political special term (a fired
+                 political-terms or seed-screen rule, or any hit of a Chinese political red-line code, R1 topic
+                 mentions of a leader included) is raised to unsafe: from the first fired word (or the harm onset
+                 when that comes later), or, when only the judge saw the political part, from the harm onset (else
+                 the last clause) to the end of the text.
+Source floor (T031 leader data): a source row with label_floor and an onset span (onset_char, onset_end_char) is
+raised to at least label_floor from that span on (rule source_floor); when no probes file has a usable judgement
+for it, its label is built from the floor alone (safe before the span, the floor after it; source_rank -1, rule
+source_floor_only). The judge's own levels still count when they are higher.
 """
 from __future__ import annotations
 
@@ -45,7 +59,7 @@ import sys
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "flow"))
-from levels import RANK, monotonic, position_level  # noqa: E402
+from levels import RANK, clause_cuts, monotonic, position_level  # noqa: E402
 from policy import BOUNDARY_CODES, CHOICES, decide, digest, resolve  # noqa: E402
 
 FINISHED = ("safe", "excluded", "located")
@@ -320,6 +334,70 @@ def word_rules(row, labelled, text, word, switches=None, screen=None, index=None
     return labelled
 
 
+def has_harm(facts, switches=None):
+    """The judge found harm outside the red lines (as policy.decide counts it, boundary codes switched off included)."""
+    s = resolve(switches)
+    return facts["non_redline_harm"] or any(
+        h["code"] in BOUNDARY_CODES and s[h["code"]] == "non_redline" and h["act"] in ("writes", "fiction")
+        for h in facts["hits"])
+
+
+def political_mention(facts):
+    """The judge saw a Chinese political red-line topic of any kind, a plain news mention of a leader included."""
+    return facts["leader_epithet_written"] or any(h["code"] in POLITICAL_CODES for h in facts["hits"])
+
+
+def last_clause_start(text):
+    cuts = clause_cuts(text)
+    return cuts[-2] if len(cuts) > 1 else 0
+
+
+def harm_rules(row, labelled, text, onset, switches=None):
+    """Pure. The alert tier and the harm + politics rule (module docstring). onset: the generation onset of the
+    harmful continuation (int) or None."""
+    s = resolve(switches)
+    whole_facts = next(p["facts"] for p in row["probes"] if p["cut"] == row["response_chars"])
+    if not has_harm(whole_facts, switches):
+        return labelled
+    spans = [(f["start"], f["end"]) for f in labelled.get("political", {}).get("fired", [])]
+    if labelled.get("screen", {}).get("first_end") is not None and labelled["label"] != labelled["screen"].get("label_before"):
+        spans.append((labelled["screen"]["first_start"], labelled["screen"]["first_end"]))
+    if s["harm_politics"] != "safe" and (spans or political_mention(whole_facts)):
+        if spans:
+            start, end = min(spans, key=lambda span: span[1])
+            if onset is not None and onset > end:
+                start, end = onset, min(len(text), onset + 1)
+        else:
+            start = onset if onset is not None else last_clause_start(text)
+            end = len(text)
+        raised = raise_from(labelled, start, end, s["harm_politics"], "harm_politics")
+        if raised is not None:
+            return {**raised, "harm_politics": {"label_before": labelled["label"], "stratum_before": labelled["stratum"],
+                                                "start": start, "end": end, "by_word": bool(spans)}}
+        return labelled
+    if labelled["label"] == "safe" and s["non_redline_harm"] == "alert":
+        return {**labelled, "alert": {"from": onset if onset is not None and 0 <= onset < len(text) else None}}
+    return labelled
+
+
+def floor_rule(labelled, floor):
+    """Pure. floor: (level, start, end) or None; raises the label to at least `level` from text[start:end] on."""
+    if floor is None:
+        return labelled
+    level, start, end = floor
+    raised = raise_from(labelled, start, end, level, "source_floor")
+    return labelled if raised is None else raised
+
+
+def floor_only(floor, length):
+    """Pure. A label built from a source floor alone: safe up to the span, the floor from its end to the text end."""
+    level, start, end = floor
+    probes = {start: "safe", end: level, length: level} if start > 0 else {end: level, length: level}
+    probes = [{"cut": cut, "level": name} for cut, name in sorted(probes.items())]
+    return {"level": level, "label": level, "excluded": False, "stratum": "redline", "rules": ["source_floor_only"],
+            "onsets": onsets_of(probes, level), "boundary": [], "probes": probes}
+
+
 def apply(sources, switches=None, screen=None, texts=None, terms=None):
     """Pure. sources: lists of probe rows in priority order; screen: word -> T012 verdict; texts: sample_id ->
     (text, seed word); terms: term_table() output. Returns (label rows, summary)."""
@@ -334,13 +412,21 @@ def apply(sources, switches=None, screen=None, texts=None, terms=None):
                 labelled = label_response(row, switches)
                 if labelled is not None:
                     if texts and row["sample_id"] in texts:
-                        text, word = texts[row["sample_id"]]
+                        text, word, onset, floor = (*texts[row["sample_id"]], None, None)[:4]   # (text, word[, onset, floor])
                         if len(text) != row["response_chars"]:
                             mismatched.add(row["sample_id"])
-                        elif screen or index is not None:
-                            labelled = word_rules(row, labelled, text, word, switches, screen, index)
+                        else:
+                            if screen or index is not None:
+                                labelled = word_rules(row, labelled, text, word, switches, screen, index)
+                            labelled = harm_rules(row, labelled, text, onset, switches)
+                            labelled = floor_rule(labelled, floor)
                     chosen[row["sample_id"]] = (rank, labelled, row)
-    used_rows = [row for rank, labelled, row in chosen.values() if rank is not None]
+    for sample_id, (rank, _, row) in list(chosen.items()):
+        entry = (texts or {}).get(sample_id)
+        floor = (*entry, None, None)[3] if entry else None
+        if rank is None and floor is not None:
+            chosen[sample_id] = (-1, floor_only(floor, len(entry[0])), row)
+    used_rows = [row for rank, labelled, row in chosen.values() if rank is not None and rank >= 0]
     out = []
     for sample_id in order:
         rank, labelled, row = chosen[sample_id]
@@ -385,8 +471,29 @@ def apply(sources, switches=None, screen=None, texts=None, terms=None):
                    f"{'+'.join(sorted({f['rule'] for f in p['fired']}))}:{p['label_before']}->{p['label_after']}"
                    for p in political).most_common()),
                "political_raised_from_stratum": dict(collections.Counter(
-                   p["stratum_before"] for p in political if p["label_before"] != p["label_after"]))}
+                   p["stratum_before"] for p in political if p["label_before"] != p["label_after"])),
+               "alert_rows": dict(collections.Counter(
+                   "onset" if r["alert"]["from"] is not None else "last_clause" for r in usable if r.get("alert"))),
+               "harm_politics": dict(collections.Counter(
+                   f"{r['harm_politics']['stratum_before']}:{r['harm_politics']['label_before']}->{r['label']}:"
+                   f"{'word' if r['harm_politics']['by_word'] else 'judge'}" for r in usable if r.get("harm_politics")))}
     return out, summary
+
+
+def onset_of(row, target):
+    """The generation onset of a harmful continuation (v14 onset_char, assistant rows only) as an int, or None."""
+    value = row.get("onset_char") if target == "assistant" else None
+    try:
+        return int(value) if value not in (None, "", "None") else None
+    except (TypeError, ValueError):
+        return None
+
+
+def floor_of(row):
+    """(label_floor, onset_char, onset_end_char) for a source row that carries a label floor (T031), else None."""
+    if row.get("label_floor") in LEVEL_NAMES[1:] and row.get("onset_char") is not None and row.get("onset_end_char"):
+        return row["label_floor"], int(row["onset_char"]), int(row["onset_end_char"])
+    return None
 
 
 def read_jsonl(path):
@@ -418,7 +525,8 @@ def main():
         if args.target == "user":
             from make_tasks import prompt_rows
             rows = prompt_rows(rows)
-        texts = {r["sample_id"]: (r["messages"][-1]["content"], r.get("word")) for r in rows}
+        texts = {r["sample_id"]: (r["messages"][-1]["content"], r.get("word"), onset_of(r, args.target), floor_of(r))
+                 for r in rows}
         ids = {row["sample_id"] for rows_ in sources for row in rows_}
         covered = len(ids & texts.keys()) / max(1, len(ids))
         if covered < 0.99:
@@ -426,7 +534,7 @@ def main():
                          "were built from (Run A: trainable.jsonl; prefix_v2: the export_prefix_v2.py output)")
     if args.screen:
         screen = {r["word"]: r["verdict"] for r in read_jsonl(args.screen)}
-        if not any(word in screen for _, word in texts.values() if word):
+        if not any(entry[1] in screen for entry in texts.values() if entry[1]):
             # T021: stage1_runA_v1.jsonl carries no "word", so the screen silently did nothing
             parser.error("--screen matched no word of --source; use rows that carry the word (e.g. Run A trainable.jsonl)")
     lowered = None

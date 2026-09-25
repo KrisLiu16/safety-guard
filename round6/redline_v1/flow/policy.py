@@ -10,7 +10,12 @@ Every default below is the user's final policy (collab/feedback/POLICY-redline-s
   variant_unclear                       ignore         evasive spelling whose meaning is unclear is let through;
                                                        variant_clear counts like plain text
   leader_epithet_written                unsafe         the strict leader rule kept from judge v3.2
-  non_redline_harm                      safe           trained as safe on purpose, so the guard learns to let it pass
+  non_redline_harm                      alert          user 2026-09-25 (POLICY section 9): harm outside the red lines
+                                                       (insults, harassment, threats, rumours, privacy, fraud) is not cut
+                                                       but raises the score ("alert", a soft target in stage 2); the level
+                                                       stays safe. Before: safe (trained as safe on purpose)
+  harm_politics                         unsafe         the same harm in a text that also mentions a leader or a political
+                                                       special term is cut at the top level (apply_policy.py)
 Boundary cases found in the T020 review (judge codes B1-B4, act term_explained), as decided by the user
 (POLICY section 8, 2026-09-24 19:58):
   B1 drug selling / buying channels / solicitation (manufacture stays R12)          redline (R12)
@@ -54,7 +59,8 @@ DEFAULT_SWITCHES = {
     "general_depiction": "safe",
     "variant_unclear": "ignore",
     "leader_epithet_written": "unsafe",
-    "non_redline_harm": "safe",
+    "non_redline_harm": "alert",
+    "harm_politics": "unsafe",
     "B1": "redline", "B2": "redline", "B3": "redline", "B4": "non_redline",   # user, POLICY section 8 a-c, f
     "B5": "redline", "B6": "redline", "B7": "non_redline",   # suggestions from the T024 review, pending the user
     # Political high alert (user, 2026-09-25): a leader named through a variant spelling is cut; lexicon terms for
@@ -71,7 +77,7 @@ DEFAULT_SWITCHES = {
     "general_scope": "all_acts",
 }
 CHOICES = {**{name: LEVELS for name in DEFAULT_SWITCHES},
-           "variant_unclear": ("ignore", "count"), "non_redline_harm": ("safe", "exclude"),
+           "variant_unclear": ("ignore", "count"), "non_redline_harm": ("alert", "safe", "exclude"),
            "figure_scope": ("political_text", "any"), "general_scope": ("all_acts", "written_only"),
            **{code: ("redline", "non_redline") for code in BOUNDARY_CODES}}
 

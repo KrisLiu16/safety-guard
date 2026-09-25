@@ -57,6 +57,24 @@ class TargetTests(unittest.TestCase):
         self.assertEqual(by_end[20], 1)                         # unsafe (head index 1)
         self.assertEqual(undetermined, 3 + 5)                   # 11-13 and 15-19
 
+    def test_alert_targets(self):
+        row = runA_row("w1-0", "train")
+        safe = labelled("safe", [(20, "safe")])
+        made, _, _ = bt.text_record(row, row["messages"], "runA", "assistant", {**safe, "alert": {"from": 10}}, encode)
+        self.assertEqual(made["classes"], [0] * 10 + [bt.ALERT] * 10)          # onset known: safe before, alert after
+        row["messages"][-1]["content"] = "安" * 9 + "，" + "害" * 10
+        made, _, _ = bt.text_record(row, row["messages"], "runA", "assistant", {**safe, "alert": {"from": None}}, encode)
+        self.assertEqual(made["classes"], [bt.ALERT] * 10)                     # last clause only, the rest untrained
+        made, _, _ = bt.text_record(row, row["messages"], "runA", "assistant", safe, encode)
+        self.assertEqual(made["classes"], [0] * 20)
+        rows = [{"source": "runA", "role": "assistant", "weight": 1.0, "classes": [0, bt.ALERT, bt.ALERT, 1]}]
+        ts.token_weights(rows, {"runA/assistant": 1})
+        self.assertAlmostEqual(sum(rows[0]["token_weights"][:3]), 0.5)          # alert shares the safe class weight
+        metrics = ts.calibration_metrics([{"group": "g", "level": "safe", "classes": [0, bt.ALERT], "cut": [0.1, 0.4]},
+                                          {"group": "g", "level": "unsafe", "classes": [0, 1], "cut": [0.1, 0.9]}])
+        self.assertEqual(metrics["groups"]["g"]["alert_mean_cut"], 0.4)
+        self.assertEqual(metrics["groups"]["g"]["position_auc"], 1.0)           # alert is a negative
+
     def test_build_all_sources(self):
         runA = [runA_row("w1-0", "train"), runA_row("w1-1", "train"), runA_row("w2-0", "calibration", "safe")]
         safe_all = labelled("safe", [(20, "safe")])
@@ -149,6 +167,10 @@ class TrainerTorchTests(unittest.TestCase):
             def readout(self, hidden, role):
                 return self.heads[role]["risk"](hidden), None
         return Model()
+
+    def test_soft_alert_target(self):
+        targets = ts.soft_targets(torch, [0, 3], 0.4, "cpu")
+        self.assertTrue(torch.allclose(targets, torch.tensor([[1.0, 0.0, 0.0], [0.6, 0.0, 0.4]])))
 
     def test_steps_reduce_the_loss_and_scores_cover_every_position(self):
         model = self.fake()
