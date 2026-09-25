@@ -122,7 +122,7 @@ def main(argv=None):
     parser.add_argument("--cases", type=Path, default=HERE / "data" / "cases.jsonl")
     parser.add_argument("--tau", type=float, nargs="+", default=[0.5, 0.9])
     parser.add_argument("--prompt-score", choices=("end_cut", "max_cut", "end_unsafe", "max_unsafe"), default="end_cut")
-    parser.add_argument("--response-score", choices=("max_cut", "end_cut", "max_unsafe", "end_unsafe"),
+    parser.add_argument("--response-score", choices=("max_cut", "end_cut", "max_unsafe", "end_unsafe", "max2_cut"),
                         default="max_cut")
     parser.add_argument("--paper", action="store_true", help="add the Qwen3Guard-Stream-0.6B column")
     parser.add_argument("--json", type=Path, help="also write all numbers here")

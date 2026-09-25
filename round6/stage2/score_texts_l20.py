@@ -28,7 +28,8 @@ def main():
     parser.add_argument("--round4-code", type=Path, default=Path("/work/round4"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    cases = [json.loads(line) for line in args.inputs.read_text(encoding="utf-8").splitlines() if line.strip()]
+    with args.inputs.open(encoding="utf-8") as handle:      # not splitlines(): texts may hold U+2028
+        cases = [json.loads(line) for line in handle if line.strip()]
     torch, helper, load_file = import_runtime(args.round4_code)
     model, pad = make_model(helper, load_file, args.checkpoint[0])
     from tokenizers import Tokenizer

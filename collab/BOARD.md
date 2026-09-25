@@ -36,7 +36,10 @@
 | [T026](assignments/T026-political-special.md) | 政治专项：luna 对全部 340,883 个词做政治预筛，再复查、做领导人词复查和最终核对；按专项规则在 Mac 上重出六份标签（代码见 round6/political_screen_v1/） | 执行方 | 完成（v1.3）：本地人工核对 539 个命中过的词，排除 41 个；第 9 步 runA 5%、prefix_v2 0%、user_prefix_v2 3.3%、领导人词 10%，都过了；usable 最多减少 0.52%（全部来自 `general_scope`）。六份标签已拷到 PVC 的 `labels_political_v2/`，第二阶段用这版 | T012 ✓、T021 ✓、T024 ✓ |
 | [T027](assignments/T027-official-redline-labels.md) | 官方 thinking 集按红线口径标注（1,059 条，DeepSeek + luna 兜底），在 T018 的逐位置分数上按我们的标签重算官方集 | 执行方 | 完成：usable 97.1%（只做观察，不补救）。按我们的标签，新头在官方集上并没有反着判（T018 full 流式 AUC 0.82，召回 45–56%），但“官方和我们都判 safe”的 401 条英文长思考里，T018 full 截了 14%，T028 截了 23%，现在的头是 0 → 训练数据缺英文长思考。核对还发现：复述笼统描写被判有争议（已改规则表 `general_scope`）；B2 用在伤害动物上、回答侧没有 B7，留到裁判 v4.3 | T018 ✓ |
 | [T028](assignments/T028-stage1-readout-ceiling.md) | 第一阶段读出上限诊断：full 训练 16 轮（两种设置），另加一个宽读出做对照（只看 calibration AUC，不部署），评测 16 轮的 full | 执行方 | 完成：三种做法都停在 calibration AUC 约 0.87（full 16 轮 0.874，wide 0.873，大学习率去 L2 0.871，T018 为 0.865）→ 瓶颈在主干特征，只重训读出头到顶了。16 轮的 full：流式 AUC 升到 Run A 0.85、prefix_v2 0.86，Run A 召回有争议 21–28%、风险 14–21%，normal 仍为 0 | T018 ✓、T025 ✓ |
-| [T029](assignments/T029-stage2-backbone-v1.md) | 第二阶段 v1：从 Round5 模型出发全参训练主干，回答头和提问头一起，按红线逐 token 标签（政治专项版）训练 2 轮，在 calibration 上选轮次，再评测回答侧（Run A、prefix_v2、官方 thinking）和提问侧 | 执行方（兼设计） | 执行中：作业 `safety-guard-stage2-backbone-v1-r1`，7 份 GPU 时间片 | T026 ✓、T028 ✓ |
+| [T029](assignments/T029-stage2-backbone-v1.md) | 第二阶段 v1：从 Round5 模型出发全参训练主干，回答头和提问头一起，按红线逐 token 标签（政治专项版）训练 2 轮，在 calibration 上选轮次，再评测回答侧（Run A、prefix_v2、官方 thinking）和提问侧 | 执行方（兼设计） | 完成：calibration 流式 AUC 0.638 → 0.938（选第 2 轮），测试台已换成 v1。问题：英文红线召回大降（Qwen3Guard 基准，见 T032），政治暗语词的日常用法被误截（见 T031 v1.3）→ T030 | T026 ✓、T028 ✓ |
+| [T030](assignments/T030-stage2-v2-alert-leader.md) | 第二阶段 v2：警觉档（软目标）、政治组合、领导人数据、普通用法数据、英文红线数据 | 执行方（兼设计） | 数据准备中，随后重训（作业 r3） | T029 ✓、T031、T032 |
+| [T031](assignments/T031-leader-data-v1.md) | 领导人敏感度数据（中英）+ 普通用法数据（v1.2 地名等，v1.3 按误截扫描补） | 执行方（兼设计） | 领导人 2,840 条已标；普通用法第一批 1,500（aster-dev-376）抽取中，第二批 2,500（aster-dev-381/382）生成中 | — |
+| [T032](assignments/T032-english-redline-v1.md) | 英文红线数据：Aegis 2.0 train 提问 4,727 + 回答 2,921，用红线裁判重标 | 执行方（兼设计） | 裁判跑完（aster-dev-379/380，0 失败），抽取中 | — |
 
 ## 不由设计方负责的事
 

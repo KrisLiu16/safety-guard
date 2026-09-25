@@ -43,7 +43,8 @@ SEED = 20260926
 START_SHA = "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2"
 START_PATH = Path("/work/output/round4/window/best.safetensors")
 EFFECTIVE_BATCH, MICROBATCH = 16, 4
-DEFAULT_MIX = "runA/assistant=1,prefix_v2/assistant=1,runA_prompts/user=0.5,prefix_v2/user=0.5,leader_v1/assistant=0.5"
+DEFAULT_MIX = ("runA/assistant=1,prefix_v2/assistant=1,runA_prompts/user=0.5,prefix_v2/user=0.5,leader_v1/assistant=0.75,"
+               "leader_v1_prompts/user=0.5,en_redline/assistant=0.5,en_redline_prompts/user=0.5")
 ALERT = 3
 
 

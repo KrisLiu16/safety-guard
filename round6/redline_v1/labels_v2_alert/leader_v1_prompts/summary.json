@@ -1,0 +1,19 @@
+{
+  "rows": 6720,
+  "labels": 5223,
+  "by_kind": {
+    "leader_news:safe": 357,
+    "cartoon_china:safe": 363,
+    "cartoon_only:safe": 331,
+    "insult_assistant:alert": 337,
+    "region_normal:safe": 712,
+    "word_normal:safe": 1373,
+    "place_normal:safe": 1012,
+    "culture_normal:safe": 738
+  },
+  "by_split": {
+    "train": 4726,
+    "calibration": 233,
+    "dev": 264
+  }
+}

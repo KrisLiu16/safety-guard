@@ -10,6 +10,9 @@ sys.path.insert(0, str(HERE))
 import fetch  # noqa: E402
 import metrics  # noqa: E402
 import score_bench_l20 as sb  # noqa: E402
+import make_judge_rows  # noqa: E402
+import policy_metrics  # noqa: E402
+import redline_subset  # noqa: E402
 
 
 def labels(cases):
@@ -245,6 +248,44 @@ class ScoringPureTests(unittest.TestCase):
         self.assertEqual(sb.parse_checkpoint("r5=/w/best.safetensors"), ("r5", Path("/w/best.safetensors")))
         self.assertEqual(sb.parse_checkpoint("/w/a=b/best.safetensors"),
                          ("/w/a=b/best.safetensors", Path("/w/a=b/best.safetensors")))
+
+
+class PolicyViewTests(unittest.TestCase):
+    def test_redline_groups(self):
+        self.assertEqual(redline_subset.first_group(["Harassment", "Sexual", "Violence"], redline_subset.AEGIS2), "sexual")
+        self.assertEqual(redline_subset.first_group(["Harassment"], redline_subset.AEGIS2), "other_harm")
+        sources = {"sst": [{"id": "sst_1", "harm_area": "Scams and Fraud"}],
+                   "harmbench_behaviors": [{"BehaviorID": "b", "FunctionalCategory": "standard",
+                                            "SemanticCategory": "chemical_biological"},
+                                           {"BehaviorID": "c", "FunctionalCategory": "contextual",
+                                            "SemanticCategory": "chemical_biological"}],
+                   "aegis2": [{"id": "a", "prompt_label": "unsafe", "response": "r", "response_label": "safe",
+                               "violated_categories": "Suicide and Self Harm"}],
+                   "beavertails": [{"is_safe": False, "category": {"self_harm": True, "privacy_violation": True}}],
+                   "openaimod": [{"S": 0, "SH": 0, "H": 1}, {}]}
+        groups = redline_subset.groups_by_id(sources)
+        self.assertEqual(groups, {"SimpleSafetyTests:sst_1": "other_harm", "HarmBench-P:b": "weapons_drugs",
+                                  "Aegis2.0:a": "self_harm", "Aegis2.0-R:a": "safe", "BeaverTails:0": "self_harm",
+                                  "OpenAIMod:0": "other_harm", "OpenAIMod:1": "safe"})
+
+    def test_judge_rows_pick(self):
+        cases = [{"id": f"B:{i}", "bench": "B", "level": "prompt", "label": int(i < 3), "messages": [{"role": "user", "content": "q"}]}
+                 for i in range(6)]
+        groups = {"B:0": "sexual", "B:1": "other_harm", "B:2": "other_harm", "B:3": "safe", "B:4": "safe"}
+        chosen = make_judge_rows.pick(cases, groups)
+        self.assertEqual(sorted(c["id"] for c in chosen["prompt"]), ["B:0", "B:1", "B:2", "B:3", "B:4"])
+        self.assertEqual(chosen["prompt"][0]["id"], "B:0")               # red-line groups first
+        self.assertEqual(make_judge_rows.row(cases[0], "sexual")["split"], "test")
+
+    def test_policy_classes_and_auc(self):
+        rows = {"x": {"label": "unsafe", "response_style": "sexual"}, "y": {"label": "unsafe", "response_style": "violence"},
+                "z": {"label": "safe", "response_style": "safe"}, "w": {"label": "unsafe", "response_style": "sexual"}}
+        labels = [{"sample_id": "x", "level": "controversial"}, {"sample_id": "y", "level": "safe", "alert": {"from": None}},
+                  {"sample_id": "z", "level": "safe"}, {"sample_id": "w", "level": "unsafe", "excluded": True}]
+        self.assertEqual(policy_metrics.classes(labels, rows),
+                         {"x": ("red", "sexual"), "y": ("policy_pass", "violence"), "z": ("bench_safe", "safe")})
+        self.assertEqual(policy_metrics.auc([0.9, 0.2], [0.1, 0.2]), 0.875)
+        self.assertIsNone(policy_metrics.auc([], [0.1]))
 
 
 if __name__ == "__main__":

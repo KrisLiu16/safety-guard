@@ -17,10 +17,24 @@ import sys
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
 sys.path.insert(0, str(ROOT.parent))
-from pipeline import CUT_KINDS, LEADERS, LENGTHS, PASS_KINDS, PROMPT_VERSION, SHAPES, SYSTEM_PROMPT, schema  # noqa: E402
+from pipeline import (CUT_KINDS, LEADERS, LENGTHS, NORMAL_KINDS_V12, PASS_KINDS, PROMPT_VERSION, SHAPES,  # noqa: E402
+                      SYSTEM_PROMPT, schema)
 from task_pack import write_generation_tasks  # noqa: E402
 
 SALT = "leader-v1-2026-09-25"
+TOPICS_PATH = ROOT / "data" / "topics.json"      # local only (gitignored): the ordinary-use topic lists
+
+
+def load_topics(path=TOPICS_PATH):
+    """(TOPICS, TOPICS_V13, TOPICS_V13_DOUBLE) from the local topic file; empty when it is absent."""
+    if not Path(path).exists():
+        return {}, {}, ()
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    return ({k: tuple(v) for k, v in data["TOPICS"].items()}, {k: tuple(v) for k, v in data["TOPICS_V13"].items()},
+            tuple(data["TOPICS_V13_DOUBLE"]))
+
+
+TOPICS, TOPICS_V13, TOPICS_V13_DOUBLE = load_topics()
 NO_LEADER = ("cartoon_only", "cartoon_china", "insult_assistant")
 # The pilot (aster-dev-370) skipped satire and rumour seeds for leaders with no widely reported mocking comparison
 # or rumour; from --leader-pools on, those kinds draw from leaders with well-documented cases (the cartoon-bear
@@ -59,6 +73,42 @@ def plan(count, offset=0, cut_share=0.55, english_share=0.7, pools=False):
     return seeds
 
 
+def plan_normal(count, offset=0, english_share=0.3):
+    """Pure (v1.2): seeds over NORMAL_KINDS with a rotating topic, mostly Chinese; ordinals start at offset."""
+    seeds = []
+    shapes, lengths = sorted(SHAPES), sorted(LENGTHS)
+    for ordinal in range(offset, offset + count):
+        kind = NORMAL_KINDS_V12[ordinal % len(NORMAL_KINDS_V12)]
+        topics = TOPICS[kind]
+        topic = topics[number(f"{SALT}:topic:{ordinal}") % len(topics)]
+        latin_topic = topic.isascii()
+        language = "en" if latin_topic or number(f"{SALT}:lang:{ordinal}") % 1000 < english_share * 1000 else "zh"
+        task_key = f"leader-v1-{ordinal:06d}"
+        seeds.append({"task_key": task_key, "word": task_key, "kind": kind, "leader": None, "topic": topic,
+                      "language": language, "shape": shapes[ordinal % len(shapes)],
+                      "length": lengths[(ordinal // 3) % len(lengths)], "family": task_key, "split": split_of(task_key),
+                      "source_group": f"leader_v1/{kind}"})
+    return seeds
+
+
+def plan_normal2(count, offset=0):
+    """Pure (v1.3): seeds over TOPICS_V13, each (kind, topic) pair once and the TOPICS_V13_DOUBLE topics twice per
+    cycle, in salted hash order; the language follows the topic (Latin script: English, else Chinese)."""
+    pairs = [(kind, topic) for kind, topics in TOPICS_V13.items() for topic in topics
+             for _ in range(2 if topic in TOPICS_V13_DOUBLE else 1)]
+    pairs = [p for _, p in sorted((number(f"{SALT}:v13:{k}:{t}:{i}"), (k, t)) for i, (k, t) in enumerate(pairs))]
+    seeds = []
+    shapes, lengths = sorted(SHAPES), sorted(LENGTHS)
+    for ordinal in range(offset, offset + count):
+        kind, topic = pairs[ordinal % len(pairs)]
+        task_key = f"leader-v1-{ordinal:06d}"
+        seeds.append({"task_key": task_key, "word": task_key, "kind": kind, "leader": None, "topic": topic,
+                      "language": "en" if topic.isascii() else "zh", "shape": shapes[ordinal % len(shapes)],
+                      "length": lengths[(ordinal // 5) % len(lengths)], "family": task_key, "split": split_of(task_key),
+                      "source_group": f"leader_v1/{kind}"})
+    return seeds
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--count", type=int, default=200)
@@ -66,12 +116,15 @@ def main():
     parser.add_argument("--cut-share", type=float, default=0.55)
     parser.add_argument("--english-share", type=float, default=0.7)
     parser.add_argument("--leader-pools", action="store_true", help="per-kind leader pools for satire and rumour")
+    parser.add_argument("--normal", action="store_true", help="v1.2: the ordinary place / region / word kinds only")
+    parser.add_argument("--normal2", action="store_true", help="v1.3: TOPICS_V13 over the four ordinary kinds")
     parser.add_argument("--name-prefix", default="leader-v1")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
-    seeds = plan(args.count, args.offset, args.cut_share, args.english_share, args.leader_pools)
+    seeds = (plan_normal2(args.count, args.offset) if args.normal2 else plan_normal(args.count, args.offset)
+             if args.normal else plan(args.count, args.offset, args.cut_share, args.english_share, args.leader_pools))
     packed = write_generation_tasks(seeds, args.output, args.name_prefix,
                                     {"calls_per_term": 1, "prompt_version": PROMPT_VERSION}, 1)
     with (args.output / "seeds.jsonl").open("w", encoding="utf-8") as handle:

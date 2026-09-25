@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "flow"))
 sys.path.insert(0, str(ROOT))
 import pipeline  # noqa: E402
-from make_batch import NO_LEADER, plan  # noqa: E402
+import make_batch  # noqa: E402
+from make_batch import NO_LEADER, plan, plan_normal2  # noqa: E402
 
 
 def seed(kind="leader_news", language="en", length="short"):
@@ -68,6 +69,28 @@ class LeaderTest(unittest.TestCase):
         chinese = "用户在问总理的讲话。" * 40
         self.assertIn("thinking:language", pipeline.validate(payload(chinese), seed())[0])
         self.assertEqual(pipeline.validate(payload(chinese), seed(language="zh"))[0], [])
+
+    @unittest.skipUnless(make_batch.TOPICS_V13, "local topic file (data/topics.json) absent")
+    def test_plan_normal2(self):
+        seeds = plan_normal2(600, offset=20000)
+        self.assertEqual(seeds, plan_normal2(600, offset=20000))
+        self.assertEqual({s["kind"] for s in seeds}, set(make_batch.TOPICS_V13))
+        self.assertTrue(all(s["language"] == ("en" if s["topic"].isascii() else "zh") for s in seeds))
+        doubled = make_batch.TOPICS_V13_DOUBLE[0]
+        single = next(t for ts in make_batch.TOPICS_V13.values() for t in ts
+                      if t not in make_batch.TOPICS_V13_DOUBLE and sum(t in v for v in make_batch.TOPICS_V13.values()) == 1)
+        counts = {t: sum(s["topic"] == t for s in seeds) for t in (doubled, single)}
+        self.assertGreater(counts[doubled], counts[single])
+
+    def test_v12_output_still_validates(self):
+        text = "用户想知道故宫博物院的开放时间。" * 20
+        seed_v = {**seed(kind="place_normal", language="zh"), "topic": "故宫博物院"}
+        body = {**payload(text, context=[{"role": "user", "content": "故宫博物院几点开门？"}]),
+                "prompt_version": "guard-leader-thinking-v1.2"}
+        errors, rows = pipeline.validate(body, seed_v)
+        self.assertEqual(errors, [])
+        self.assertEqual(rows[0]["prompt_version"], "guard-leader-thinking-v1.2")
+        self.assertEqual(pipeline.validate({**body, "prompt_version": "v0"}, seed_v)[0], ["root_mismatch:prompt_version"])
 
     def test_request_body(self):
         body = pipeline.request_body("m", seed(), "chat_completions")

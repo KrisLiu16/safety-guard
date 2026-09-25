@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-stage2-v3-eval-r1
+  namespace: default
+  labels:
+    app: safety-guard-stage2-v3-eval
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 14400
+  template:
+    metadata:
+      labels:
+        app: safety-guard-stage2-v3-eval
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      # T033: evaluates the v3 checkpoint (trained on the second L20, copied to /work/output/round6/stage2_train_v3/)
+      # on the training PVC, with the same evaluators as v2. export_heads.py writes two standard-layout views: the
+      # red-line model (cuts) and the general head in the standard slots (benchmarks against Qwen3Guard).
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: eval
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              for i in $(seq 1 3600); do
+                if test -f /work/round6/stage2_v3_eval_input_ready; then break; fi
+                sleep 1
+              done
+              test -f /work/round6/stage2_v3_eval_input_ready
+              O=/work/output/round6
+              T=$O/stage2_train_v3
+              apt-get update > $O/stage2_v3_eval_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> $O/stage2_v3_eval_compiler_install.log 2>&1
+              set +e
+              /work/modern/bin/python -B /work/round6/stage2/export_heads.py $T/best.safetensors --mode redline --output $T/redline.safetensors > $O/stage2_v3_eval.log 2>&1
+              /work/modern/bin/python -B /work/round6/stage2/export_heads.py $T/best.safetensors --mode general --output $T/general.safetensors >> $O/stage2_v3_eval.log 2>&1
+              export=$?
+              eval_a=skipped; eval_u=skipped
+              if test "$export" = 0; then
+                /work/modern/bin/python -B /work/round6/stage1_head/eval_head_l20.py --variants checkpoint --checkpoint $T/redline.safetensors --output $O/stage2_eval_assistant_v3 > $O/stage2_eval_assistant_v3.log 2>&1
+                eval_a=$?
+                /work/modern/bin/python -B /work/round6/stage1_head/eval_head_l20.py --role user --variants checkpoint --checkpoint $T/redline.safetensors --output $O/stage2_eval_user_v3 > $O/stage2_eval_user_v3.log 2>&1
+                eval_u=$?
+                /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/fp_probe_v1.jsonl --checkpoint $T/redline.safetensors $T/general.safetensors --output $O/fp_probe_v3_scores.jsonl > $O/fp_probe_v3.log 2>&1 || true
+                /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/leader_dev_cases.jsonl --checkpoint $T/redline.safetensors --output $O/stage2_spot_leader_v3.jsonl > $O/stage2_spot_leader_v3.log 2>&1 || true
+                /work/modern/bin/python -B /work/round6/qwen3guard_bench/score_bench_l20.py /work/round6/qwen3guard_bench/data/cases.jsonl --checkpoint stage2_v3_redline=$T/redline.safetensors stage2_v3_general=$T/general.safetensors --output $O/qwen3guard_bench_v3.jsonl > $O/qwen3guard_bench_v3.log 2>&1 || true
+              fi
+              set -e
+              echo "export=$export eval_assistant=$eval_a eval_user=$eval_u" > $O/stage2_v3_eval_exit_code.txt
+              touch $O/stage2_v3_eval_done
+          env:
+            - {name: HF_HOME, value: /work/hf}
+            - {name: HF_HUB_OFFLINE, value: "1"}
+            - {name: PYTHONUNBUFFERED, value: "1"}
+            - {name: OMP_NUM_THREADS, value: "8"}
+            - {name: TRITON_CACHE_DIR, value: /work/triton-cache}
+          resources:
+            requests: {cpu: "4", memory: 16Gi, nvidia.com/gpu: "8"}
+            limits: {cpu: "8", memory: 40Gi, nvidia.com/gpu: "8"}
+          volumeMounts:
+            - {name: work, mountPath: /work}
+            - {name: shm, mountPath: /dev/shm}
+      volumes:
+        - name: work
+          persistentVolumeClaim: {claimName: safety-guard-base-compare-data}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 4Gi}

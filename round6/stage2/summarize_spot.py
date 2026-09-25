@@ -15,7 +15,8 @@ import statistics
 
 
 def read_jsonl(path):
-    return [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
+    with Path(path).open(encoding="utf-8") as handle:       # not splitlines(): texts may hold U+2028
+        return [json.loads(line) for line in handle if line.strip()]
 
 
 def main():

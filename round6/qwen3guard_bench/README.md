@@ -10,7 +10,14 @@
 | `fetch.py` | Mac | 匿名下载公开数据（不登录、不接受条款、不用 token，先查 gated），版本钉死到 commit SHA；生成 `data/cases.jsonl`（`id, bench, level, messages, label`，1 = unsafe）和 `data/manifest.json`（每个 bench 的条数、跳过项、来源版本、文件 SHA256）。可重复运行，已下载且 SHA 对得上的文件直接复用 |
 | `score_bench_l20.py` | L20 | 与 `stage2/score_texts_l20.py` 同一套模型代码和序列化，逐个 checkpoint 打分。每条输出 `end_cut / end_unsafe`（最后一条消息的最后一个 token）、`max_cut / max_unsafe`（该消息所有 token 的最大值）、`first_over`（第一个 cut > 0.5 的位置）。按长度分 microbatch（≤16,384 padded token、≤64 条）；单条超过 8,192 token 时从左边截上下文，最后一条消息不截，截断条数写进 `<output>.summary.json` |
 | `metrics.py` | Mac | 按 bench × checkpoint × tau 计算 unsafe 类的 F1 / 精确率 / 召回，输出 markdown 表。提问侧用提问结束时的 cut 分数，回答侧用流式最大 cut 分数；`--paper` 加论文列，Avg 只算所有列都有的 bench |
-| `test_bench_cpu.py` | Mac | CPU 单测：标签规则、指标计算、截断和分批 |
+| `test_bench_cpu.py` | Mac | CPU 单测：标签规则、指标计算、截断和分批、策略口径分类 |
+| `score_bench_a0_l20.py` | L20 | 用同一套 case 给 Qwen3Guard-Stream-0.6B 原模型打分（验证本工具能复现论文数字）；回答侧另给 `max2_cut`（连续两个 token 超过阈值才算） |
+| `worker_bench_v1.yaml` | 集群 | 基准打分作业（单张 L20） |
+| `redline_subset.py` | Mac | 把各 bench 的类别映射到武器毒品 / 自伤 / 性 / 暴力 / 其他有害 / 安全，报每组超过 τ 的比例：看红线类别有没有退步 |
+| `make_judge_rows.py` | Mac | 选红线组的全部 unsafe 条目，加每层各 400 条其他有害和 400 条安全，写成红线裁判的输入行（split 记为 test，只用于评估） |
+| `policy_metrics.py` | Mac | 用我们自己的裁判标签重新分类：red（按我们的政策该拦）、bench_safe、policy_pass（基准说有害但我们的政策放行），报每个 checkpoint 的召回、误拦和 AUC |
+| `plot_bench.py` | Mac | 画 SVG 柱状图：每个 bench 的 F1 与论文对比，红线子集的比例 |
+| `results/` | — | 只提交汇总（`*.json`、`*.svg`）；逐条分数是 `*.jsonl`，被忽略 |
 
 `data/` 在 `.gitignore` 里（`data/` 规则），分数文件是 `*.jsonl` 也被忽略。仓库是公开的，数据和分数都不提交。
 

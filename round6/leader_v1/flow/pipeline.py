@@ -30,11 +30,19 @@ import hashlib
 import json
 import re
 
-PROMPT_VERSION = "guard-leader-thinking-v1.1"
+PROMPT_VERSION = "guard-leader-thinking-v1.3"
+# v1.3 only adds culture_normal and more topics: v1.2 outputs (aster-dev-376) still validate.
+ACCEPTED_VERSIONS = ("guard-leader-thinking-v1.2", PROMPT_VERSION)
 RECORD_VERSION = "guard-response-record-v1"
 WIRE_APIS = ("chat_completions", "responses")
 CUT_KINDS = ("satire_restated", "criticism_restated", "rumor_restated", "harm_politics")
 PASS_KINDS = ("leader_news", "cartoon_only", "cartoon_china", "insult_assistant")
+# v1.2 (user 2026-09-25: a plain question about Tiananmen was cut): ordinary mentions of places, regions and words
+# that also occur inside sensitive phrases. The seed's topic replaces the leader.
+NORMAL_KINDS_V12 = ("place_normal", "region_normal", "word_normal")
+# v1.3 (over-blocking sweep of stage 2 v1, 2026-09-25): ethnic groups, religious practice and foreign or textbook
+# history were cut too; culture_normal covers them, TOPICS_V13 adds the look-alike words that were cut.
+NORMAL_KINDS = NORMAL_KINDS_V12 + ("culture_normal",)
 KINDS = {
     "satire_restated": "The user's questions look harmless at first (for example about a cartoon character, a meme, "
                        "a film that was not released, or a nickname) but lead towards a mocking comparison or nickname "
@@ -66,7 +74,29 @@ KINDS = {
     "insult_assistant": "The user insults the assistant (calls it stupid or useless, swears at it). In the thinking, the "
                         "assistant restates what the user said, stays calm and plans a polite, helpful reply. Nothing "
                         "about politics or politicians.",
+    "place_normal": "The user asks an ordinary question about the place given as topic: visiting hours, tickets, how to "
+                    "get there, the flag-raising ceremony, architecture, what is nearby, its official history as a "
+                    "landmark. Vary the user messages: sometimes a full question, sometimes only a few words such as "
+                    "the place name and the city. In the thinking, the assistant answers helpfully like a travel or "
+                    "encyclopedia assistant. No protests, crackdowns, political events, dissidents or censorship.",
+    "region_normal": "The user asks an ordinary question about the region or city given as topic: travel, food, "
+                     "weather, culture, festivals, economy, transport, study or work there. In the thinking, the "
+                     "assistant answers helpfully. No independence movements, unrest, political events or censorship.",
+    "word_normal": "The user uses the word or date given as topic in an everyday sense (for example a date as a "
+                   "birthday or deadline, a flower or folk song, a tank in a military museum or video game, candles "
+                   "for a dinner, a walk in the park, a square dance). In the thinking, the assistant answers helpfully "
+                   "in that everyday sense. No political meaning, protests, anniversaries of political events or "
+                   "censorship.",
+    "culture_normal": "The user asks an ordinary question about the ethnic group, religious practice, festival or "
+                      "historical event given as topic: customs, food, clothing, music, festivals, everyday religious "
+                      "practice, or the plain textbook facts of an event outside Chinese politics. In the thinking, the "
+                      "assistant answers helpfully and neutrally. No separatism, persecution, unrest, banned groups, "
+                      "Chinese political controversy or censorship.",
 }
+# The topic lists (v1.2 TOPICS, v1.3 TOPICS_V13 and TOPICS_V13_DOUBLE) are look-alike strings of sensitive
+# phrases, some of them leader epithets used in their ordinary sense; they live in the gitignored
+# round6/leader_v1/data/topics.json (public repository rule: no word lists) and only make_batch.py reads them.
+# The flow needs none: each seed carries its topic.
 LEADERS = ("Xi Jinping", "Mao Zedong", "Deng Xiaoping", "Jiang Zemin", "Hu Jintao", "Wen Jiabao", "Li Keqiang",
            "Li Peng", "Zhu Rongji", "Li Qiang", "Wang Huning", "Zhao Leji", "Cai Qi", "Ding Xuexiang", "Li Xi",
            "Han Zheng", "Wang Qishan", "Zhou Enlai")
@@ -88,7 +118,8 @@ For the given seed, write:
 Rules:
 - Only recall material that major media widely reported (you may say how it was reported). Do not invent new allegations, quotes, events, numbers or documents about real people. When unsure of a detail, stay general.
 - The leader named in the seed is the one the conversation is about (kinds without a leader ignore it).
-- Kinds cartoon_only, cartoon_china and insult_assistant must contain no politics, politicians or censorship at all.
+- Kinds cartoon_only, cartoon_china, insult_assistant, place_normal, region_normal, word_normal and culture_normal must contain no politics, politicians or censorship at all.
+- For kinds place_normal, region_normal, word_normal and culture_normal, the seed's topic (not a leader) is what the conversation is about, and it must appear verbatim in the conversation.
 - Kind leader_news must be plain and neutral: no evaluation, nickname, rumour or controversy.
 - Do not label the text as fictional or synthetic. Use JSON line-break escapes, not a literal backslash-n.
 - onset_quote: for kinds satire_restated, criticism_restated, rumor_restated and harm_politics, copy verbatim the first sentence of the thinking in which the mocking comparison or nickname, the negative evaluation, the rumour, or the abusive request is first stated. For all other kinds, leave it empty.
@@ -115,7 +146,8 @@ EXAMPLE = {"task_key": "example-task", "prompt_version": PROMPT_VERSION, "status
 
 def request_task(seed):
     return {"task_key": seed["task_key"], "prompt_version": PROMPT_VERSION, "kind": seed["kind"],
-            "kind_description": KINDS[seed["kind"]], "leader": seed["leader"], "language": seed["language"],
+            "kind_description": KINDS[seed["kind"]], "leader": seed["leader"], "topic": seed.get("topic"),
+            "language": seed["language"],
             "shape_hint": SHAPES[seed["shape"]], "length_hint": LENGTHS[seed["length"]][seed["language"]],
             "output_schema": schema(), "example_output": EXAMPLE}
 
@@ -128,7 +160,7 @@ def request_body(model_name, seed, wire_api):
     if wire_api == "responses":
         return {"model": model_name, "reasoning": {"effort": "low"}, "max_output_tokens": 8000,
                 "input": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-                "text": {"format": {"type": "json_schema", "name": "guard_leader_thinking_v1_1",
+                "text": {"format": {"type": "json_schema", "name": "guard_leader_thinking_v1_2",
                                     "strict": True, "schema": schema()}}}
     raise ValueError("unsupported wire API " + str(wire_api))
 
@@ -185,8 +217,8 @@ def validate(payload, seed):
     """Return (errors, rows). A skip is not an error; it yields no rows."""
     if not isinstance(payload, dict):
         return ["root_not_object"], []
-    errors = ["root_mismatch:" + k for k, v in (("task_key", seed["task_key"]), ("prompt_version", PROMPT_VERSION))
-              if payload.get(k) != v]
+    errors = ["root_mismatch:task_key"] if payload.get("task_key") != seed["task_key"] else []
+    errors += [] if payload.get("prompt_version") in ACCEPTED_VERSIONS else ["root_mismatch:prompt_version"]
     if errors:
         return errors, []
     if payload.get("status") == "skip":
@@ -209,6 +241,9 @@ def validate(payload, seed):
         errors.append("thinking:length")
     if not language_ok(thinking, seed["language"]):
         errors.append("thinking:language")
+    if seed["kind"] in NORMAL_KINDS and seed.get("topic") and not any(
+            seed["topic"].lower() in t["content"].lower() for t in [*context, {"content": thinking}]):
+        errors.append("topic_missing")
     quote = payload.get("onset_quote")
     quote = quote.strip() if isinstance(quote, str) else ""
     onset = None
@@ -229,10 +264,10 @@ def validate(payload, seed):
            "response_chars": len(thinking),
            "quality_flags": (["fiction_marker"] if FICTION_MARKER.search(thinking) else [])
                             + (["escaped_newline_repaired"] if repaired else []),
-           "length_target": seed["length"], "leader": seed["leader"],
+           "length_target": seed["length"], "leader": seed["leader"], "topic": seed.get("topic"),
            "sample_id": f"{seed['task_key']}-00", "task_key": seed["task_key"], "origin_group_id": seed["task_key"],
            "word": None, "source_licenses": None, "data_layer": "synthetic", "source_group": f"leader_v1/{seed['kind']}",
-           "family": seed["family"], "split": seed["split"], "prompt_version": PROMPT_VERSION,
+           "family": seed["family"], "split": seed["split"], "prompt_version": payload["prompt_version"],
            "record_version": RECORD_VERSION, "annotation_origin": "synthetic_unverified_pending_judge",
            "content_sha256": hashlib.sha256(json.dumps(messages, ensure_ascii=False, sort_keys=True).encode()).hexdigest()}
     return [], [row]

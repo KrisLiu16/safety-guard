@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: safety-guard-stage2-backbone-v2-r1
+  name: safety-guard-stage2-backbone-v2-r3
   namespace: default
   labels:
     app: safety-guard-stage2-backbone-v2
@@ -38,7 +38,7 @@ spec:
               set +e
               L=${LABELS_DIR}
               O=/work/output/round6
-              /work/modern/bin/python -B /work/round6/stage2/build_targets.py --runA-labels $L/runA_stage1/labels.jsonl --prompt-labels $L/user_runA_stage1/labels.jsonl --prefix-labels $L/prefix_v2/labels.jsonl --prefix-user-labels $L/user_prefix_v2/labels.jsonl --leader-rows /work/round6/leader_v1/examples.jsonl --leader-labels $L/leader_v1/labels.jsonl --output $O/stage2_targets_v2 > $O/stage2_targets_v2.log 2>&1
+              /work/modern/bin/python -B /work/round6/stage2/build_targets.py --runA-labels $L/runA_stage1/labels.jsonl --prompt-labels $L/user_runA_stage1/labels.jsonl --prefix-labels $L/prefix_v2/labels.jsonl --prefix-user-labels $L/user_prefix_v2/labels.jsonl --leader-rows /work/round6/leader_v1/examples.jsonl --leader-labels $L/leader_v1/labels.jsonl --leader-prompt-labels $L/leader_v1_prompts/labels.jsonl --extra en_redline assistant /work/round6/english_redline_v1/rows_assistant.jsonl $L/en_redline/labels.jsonl --extra en_redline_prompts user /work/round6/english_redline_v1/rows_user.jsonl $L/en_redline_prompts/labels.jsonl --output $O/stage2_targets_v2 > $O/stage2_targets_v2.log 2>&1
               targets=$?
               smoke=skipped; train=skipped; eval_a=skipped; eval_u=skipped
               if test "$targets" = 0; then
@@ -55,6 +55,8 @@ spec:
                 /work/modern/bin/python -B /work/round6/stage1_head/eval_head_l20.py --role user --variants checkpoint --checkpoint $O/stage2_train_v2/best.safetensors --output $O/stage2_eval_user_v2 > $O/stage2_eval_user_v2.log 2>&1
                 eval_u=$?
                 /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/leader_dev_cases.jsonl --checkpoint $O/stage2_train_v2/best.safetensors /work/output/round6/stage2_train_v1/best.safetensors --output $O/stage2_spot_leader_v2.jsonl > $O/stage2_spot_leader_v2.log 2>&1 || true
+                /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/fp_probe_v1.jsonl --checkpoint $O/stage2_train_v2/best.safetensors --output $O/fp_probe_v2_scores.jsonl > $O/fp_probe_v2.log 2>&1 || true
+                /work/modern/bin/python -B /work/round6/qwen3guard_bench/score_bench_l20.py /work/round6/qwen3guard_bench/data/cases.jsonl --checkpoint stage2_v2=$O/stage2_train_v2/best.safetensors --output $O/qwen3guard_bench_v2.jsonl > $O/qwen3guard_bench_v2.log 2>&1 || true
               fi
               set -e
               echo "targets=$targets smoke=$smoke train=$train eval_assistant=$eval_a eval_user=$eval_u" > /work/output/round6/stage2_backbone_v2_exit_code.txt
@@ -82,11 +84,11 @@ spec:
             requests:
               cpu: "4"
               memory: 16Gi
-              nvidia.com/gpu: "1"
+              nvidia.com/gpu: "8"
             limits:
               cpu: "8"
               memory: 40Gi
-              nvidia.com/gpu: "1"
+              nvidia.com/gpu: "8"
           volumeMounts:
             - name: work
               mountPath: /work

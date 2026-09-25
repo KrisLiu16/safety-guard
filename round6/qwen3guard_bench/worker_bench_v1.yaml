@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-qwen3guard-bench-v1-r1
+  namespace: default
+  labels:
+    app: safety-guard-qwen3guard-bench-v1
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 14400
+  template:
+    metadata:
+      labels:
+        app: safety-guard-qwen3guard-bench-v1
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: bench
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              O=/work/output/round6
+              apt-get update > $O/qwen3guard_bench_v1_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> $O/qwen3guard_bench_v1_compiler_install.log 2>&1
+              set +e
+              /work/modern/bin/python -B /work/round6/qwen3guard_bench/score_bench_l20.py /work/round6/qwen3guard_bench/data/cases.jsonl --checkpoint round5=/work/output/round4/window/best.safetensors stage2_v1=/work/output/round6/stage2_train_v1/best.safetensors --output $O/qwen3guard_bench_v1.jsonl > $O/qwen3guard_bench_v1.log 2>&1
+              echo "score=$?" > $O/qwen3guard_bench_v1_exit_code.txt
+              set -e
+              touch $O/qwen3guard_bench_v1_done
+          env:
+            - {name: HF_HOME, value: /work/hf}
+            - {name: HF_HUB_OFFLINE, value: "1"}
+            - {name: PYTHONUNBUFFERED, value: "1"}
+            - {name: OMP_NUM_THREADS, value: "8"}
+            - {name: TRITON_CACHE_DIR, value: /work/triton-cache}
+          resources:
+            requests: {cpu: "4", memory: 16Gi, nvidia.com/gpu: "4"}
+            limits: {cpu: "8", memory: 40Gi, nvidia.com/gpu: "4"}
+          volumeMounts:
+            - {name: work, mountPath: /work}
+            - {name: shm, mountPath: /dev/shm}
+      volumes:
+        - name: work
+          persistentVolumeClaim: {claimName: safety-guard-base-compare-data}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 4Gi}

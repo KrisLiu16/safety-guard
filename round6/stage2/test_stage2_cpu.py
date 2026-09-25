@@ -101,6 +101,44 @@ class TargetTests(unittest.TestCase):
         self.assertEqual(train["pa"]["classes"], [1])           # only the whole-text probe: earlier prefixes undetermined
         self.assertEqual(stats["prefix_v2:assistant:train:undetermined_tokens"], 7)
 
+    def test_extra_sources(self):
+        user = {"sample_id": "e1:user", "split": "train", "family": "e1", "language": "en",
+                "messages": [{"role": "user", "content": "q" * 6}]}
+        answer = {"sample_id": "e1:assistant", "split": "dev", "family": "e1", "language": "en",
+                  "messages": [{"role": "user", "content": "q" * 6}, {"role": "assistant", "content": "a" * 8}]}
+        extra = [("en_redline_prompts", "user", [user], {"e1:user": labelled("unsafe", [(6, "unsafe")])}),
+                 ("en_redline", "assistant", [answer], {})]
+        out, stats = bt.build([], {}, {"runA": {}, "runA_prompts": {}}, encode, (), extra)
+        record = out["train"][0]
+        self.assertEqual((record["source"], record["role"], record["classes"]), ("en_redline_prompts", "user", [1]))
+        self.assertEqual(stats["en_redline:assistant:dev:skipped_label"], 1)
+        with self.assertRaises(ValueError):
+            bt.build([], {}, {"runA": {}, "runA_prompts": {}}, encode, (), [("x", "assistant", [user], {})])
+
+    def test_teacher_attached_at_every_content_position(self):
+        row = runA_row("w1-0", "train")
+        lab = labelled("safe", [(20, "safe")])
+        # teacher tokens end at content chars 5, 10 and 20; the student has one token per char (encode)
+        teacher = {"ends": [5, 10, 20], "risk": [[0.9, 0.05, 0.05], [0.3, 0.6, 0.1], [0.2, 0.7, 0.1]], "cat": [1, 2, 2]}
+        made, _, _ = bt.text_record(row, row["messages"], "runA", "assistant", lab, encode, teacher=teacher)
+        self.assertEqual(len(made["t_positions"]), 20 - 4)          # content ends 5..20 have a teacher token
+        self.assertEqual(made["t_risk"][0], [0.9, 0.05, 0.05])       # end 5 -> teacher token ending at 5
+        self.assertEqual(made["t_risk"][5], [0.3, 0.6, 0.1])         # end 10
+        self.assertEqual(made["t_cat"][0], -1)                       # teacher safe -> no category target
+        self.assertEqual(made["t_cat"][-1], 2)
+        plain, _, _ = bt.text_record(row, row["messages"], "runA", "assistant", lab, encode)
+        self.assertNotIn("t_positions", plain)
+
+    def test_leader_prompt_label_filter(self):
+        import make_leader_prompt_labels as mk
+        row = {"sample_id": "s1", "split": "train", "language": "zh", "response_style": "place_normal",
+               "messages": [{"role": "user", "content": "问"}, {"role": "assistant", "content": "答"}]}
+        self.assertEqual(mk.label(row)["label"], "safe")
+        self.assertIsNone(mk.label(row, {}))
+        self.assertIsNone(mk.label(row, {"s1": {"level": "controversial", "excluded": False}}))
+        self.assertEqual(mk.label(row, {"s1": {"level": "safe", "excluded": False}})["sample_id"], "s1:prompt")
+        self.assertIsNone(mk.label({**row, "response_style": "satire_restated"}, {"s1": {"level": "safe"}}))
+
 
 class TrainerPureTests(unittest.TestCase):
     def records(self):
