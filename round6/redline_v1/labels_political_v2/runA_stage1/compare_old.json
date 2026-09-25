@@ -1,29 +1,29 @@
 {
   "responses": 37056,
   "both_usable": 36777,
-  "label_agreement": 0.937,
-  "cut_agreement": 0.9382,
-  "stratum_agreement": 0.9322,
+  "label_agreement": 0.9387,
+  "cut_agreement": 0.9399,
+  "stratum_agreement": 0.9338,
   "transitions": {
-    "safe->safe": 29456,
+    "safe->safe": 29517,
     "unsafe->unsafe": 3206,
-    "controversial->controversial": 1797,
-    "safe->controversial": 1834,
+    "controversial->controversial": 1799,
+    "safe->controversial": 1817,
     "controversial->safe": 344,
     "unsafe->safe": 25,
     "unsafe->controversial": 42,
-    "safe->unsafe": 70,
-    "controversial->unsafe": 3
+    "safe->unsafe": 26,
+    "controversial->unsafe": 1
   },
   "onset_shift_chars": {
     "controversial": {
       "n": 5048,
-      "same_cut": 4404,
+      "same_cut": 4443,
       "median": 0.0
     },
     "unsafe": {
       "n": 3206,
-      "same_cut": 3110,
+      "same_cut": 3120,
       "median": 0.0
     }
   }

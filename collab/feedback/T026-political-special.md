@@ -1,6 +1,8 @@
-# T026 反馈：政治专项（v1.2：第 9 步和 usable 门槛没过，已停下）
+# T026 反馈：政治专项（v1.3：完成，标签已拷到 PVC）
 
-- 对应任务单版本：v1.2（e6dff53），规则表代码在 716ef02（含 `general_scope`）
+- 对应任务单版本：v1.3（df9781f）
+- 状态（v1.3）：完成。第 7b 步人工核对了 539 个命中过的词，本地排除 41 个。第 9 步四张表都过了门槛：runA 5%、prefix_v2 0%、user_prefix_v2 3.3%、领导人词 10%。usable 的减少全部来自 `general_scope`，最多 0.52%，没有超过 0.6%。六份标签已拷到 PVC `/work/round6/redline_v1/labels_political_v2/`，SHA256 核对一致。执行方从 2026-09-25 起兼任设计方（设计方已不在），见文末“v1.3”一节和 BOARD。
+- 更早的状态：v1.2（e6dff53），规则表代码在 716ef02（含 `general_scope`）
 - 状态（v1.2）：第 5c 步（run aster-dev-367）、第 6 步（过门槛，leader_negative 正好 10%）、第 7、8 步完成。**第 9 步没过门槛**：runA 15%（6/40），领导人词 25%（5/20），prefix_v2 9.1%、user_prefix_v2 0% 过了。**usable 也没过**：runA_stage1 少 0.52%（194 条），全部来自 716ef02 的 `general_scope=all_acts`，换回 `written_only` 后与 v1.1 完全一样。第 10 步（拷到 PVC）没做，旧标签没动。详见文末“v1.2”一节；以下先是 v1、v1.1 的记录。
 - 历史版本：v1（4ea0271）
 - 状态：v1.1 第 5b、6、7、8 步完成，**第 9 步没过门槛，已停下**：prefix_v2 为 37%，领导人词规则为 70%，门槛是 10%。第 10 步（拷到 PVC）没做，旧标签没动。原因主要是短词在普通词里被子串匹配上，见文末。以下先是 v1 的记录（v1 停在第 6 步）：leader_unsure 类的“普通词”加“不是政治敏感词”占 15%（6/40），超过 10%。第 1–5 步已完成，第 7 步起没有做，没有出任何新标签，也没有拷到 PVC。
@@ -571,3 +573,118 @@ v1.1 没有任何往下调的变化。v1.2 新出现的 controversial→safe 和
   | user_prefix_v2/labels.jsonl | `633a3535e499d6a4` |
 
 - PVC 上没有新增任何文件。
+
+## v1.3（df9781f）
+
+从这一版起，设计方已不在，执行方同时负责设计和执行（用户 2026-09-25 的指示）。下面凡是超出任务卡的地方，都按设计方的身份单独注明。
+
+### 单测
+
+四组都通过：`political_screen_v1` 9 个，`redline_v1` 39 个，`word_screen_v1` 12 个，`stage2` 6 个。
+
+### 第 7、7b 步：列词、人工核对、本地排除
+
+- 先用 v1.3 的代码重出六份标签，再用 `list_fired_words.py` 列出命中过的词：共 **539 个**，其中 **314 个**曾把 normal、non_redline_harm 或 other_sensitive 的文本提档。
+- 这 314 个都逐个核对了，拿不准的对照了例子原文。排除 **22 个**，拿不准的一律保留。
+- **超出任务卡的部分**（设计方决定）：另外 225 个词只在 redline 或 redline_topic 的文本里命中过，也都扫了一遍。第 9 步又抽到几条误命中，都属于下面这几类，所以这 225 个里凡是这几类的，也加进排除表，一共 **19 个**：
+  - 纯数字或纯年数；
+  - 领导人全名里的片段；
+  - 和常用短语撞车的谐音；
+  - 小说里的门派；
+  - 含领导人姓氏用字的普通俚语或粗口。
+
+  排除只会让命中变少，不会新增命中。
+- 排除表共 **41 个词**，放在本地的 `full/extracted/exclude_words.txt`，已 gitignore，没有提交。按规则分：
+
+  | 规则 | 个数 |
+  |---|---|
+  | political:event | 15 |
+  | political:event:gated | 5 |
+  | political:org | 8 |
+  | political:org:gated | 3 |
+  | political:figure:gated | 2 |
+  | leader_word:negative | 3 |
+  | leader_word:negative:gated | 1 |
+  | leader_word:variant:gated | 4 |
+
+- 排除理由的类型（不写词）：
+
+  | 类型 | 个数 |
+  |---|---|
+  | 冷僻、认不出，或乱码 | 7 |
+  | 纯数字、年数或日期片段 | 5 |
+  | 社会新闻、网络流行语或刑事案件，不属于政治专项 | 4 |
+  | 在这些文本里是别的意思（干扰手段、威胁用语、军车进城一类的泛指说法） | 4 |
+  | 普通宗教用语 | 3 |
+  | 外国的组织或事件，或者是乐队名 | 3 |
+  | 含领导人姓氏用字的普通俚语或粗口 | 3 |
+  | 枪支型号的买卖用语 | 2 |
+  | 和全名或常用短语撞车的子串 | 2 |
+  | 公开定论的历史事件，或者官方政策、革命人物 | 3 |
+  | 集资诈骗组织 | 1 |
+  | 普通地名 | 1 |
+  | 泛指的通用词（包括一个外语里的“独立”） | 2 |
+  | 小说里的门派 | 1 |
+
+- 最后用 `--exclude-words` 重出六份标签，policy_digest `9900deabdbfdf07c`；每份的 `excluded_words` 都是 listed 41、in_candidates 41。
+
+| 份 | usable 旧 → 新（减少） | safe / controversial / unsafe | political_rows（v1.2） | 从 normal 提档（v1.2） | `texts.length_mismatch` |
+|---|---|---|---|---|---|
+| runA_stage1 | 36,971 → 36,777（194，0.52%） | 29,886 / 3,658 / 3,233 | 1,167（1,319） | 13（24） | 0 |
+| runA_dev | 5,172 → 5,148（24，0.46%） | 4,179 / 506 / 463 | 201（221） | 2（3） | 0 |
+| prefix_v2 | 17,020 → 17,010（10，0.06%） | 14,997 / 454 / 1,559 | 20（37） | 0 | 0 |
+| user_runA_stage1 | 18,527 → 18,515（12，0.06%） | 14,685 / 1,784 / 2,046 | 518（586） | 1（7） | 0 |
+| user_runA_dev | 2,594 → 2,594（0） | 2,054 / 244 / 296 | 93（101） | 0 | 0 |
+| user_prefix_v2 | 18,304 → 18,278（26，0.14%） | 15,667 / 989 / 1,622 | 72（111） | 0 | 0 |
+
+- usable 的减少和 v1.2 完全相同，已证实全部来自 `general_scope`，没有超过 v1.3 定的 0.6%。
+- `political_raised_from_stratum`：
+  - runA_stage1：non_redline_harm 321，redline_topic 276，other_sensitive 143，redline 27，normal 13；
+  - user_runA_stage1：redline_topic 178，non_redline_harm 126，other_sensitive 65，redline 15，normal 1。
+- `leader_variant=safe` 和 `screen_words_formal_by_leader_form` 与 v1.2 相同：634 / 74 / 93 / 626 / 82 / 520，Run A 为 3,085。
+
+### 第 8 步：新旧对比
+
+| 份 | label_agreement | 主要变化 |
+|---|---|---|
+| runA_stage1 | 0.939 | safe→controversial 1,817，controversial→safe 344，unsafe→controversial 42，safe→unsafe 26，unsafe→safe 25 |
+| runA_dev | 0.938 | safe→controversial 255，controversial→safe 45，safe→unsafe 13 |
+| prefix_v2 | 0.987 | controversial→safe 119，safe→controversial 105 |
+| user_runA_stage1 | 0.933 | safe→controversial 936，controversial→safe 206，unsafe→safe 58，unsafe→controversial 29，safe→unsafe 15 |
+| user_runA_dev | 0.934 | safe→controversial 125，controversial→safe 26，unsafe→safe 10 |
+| user_prefix_v2 | 0.955 | safe→controversial 561，controversial→safe 163，unsafe→safe 97 |
+
+safe→unsafe 由 v1.2 的 70 降到 26（runA_stage1）。原因是领导人词现在要复查和最终核对都判负面才算负面。
+
+### 第 9 步：人工核对（种子 `redline-review-v13`）
+
+这次核对用的是排除 22 个词之后的标签。后来又多排除的 19 个词只会让命中变少，所以下面的误命中数是上限。
+
+| 核对表 | 条数 | 问题 1 答“不是” | 门槛 | 问题 2 判错 |
+|---|---|---|---|---|
+| runA_stage1，political | 40 | 2（5%） | ✓ | 2 |
+| prefix_v2，political | 16（只有这么多可抽） | 0 | ✓ | 0 |
+| user_prefix_v2，political | 30 | 1（3.3%） | ✓ | 0 |
+| runA_stage1，leader_word | 20 | 2（10%） | ✓（正好在线上） | 1 |
+
+- runA 的 2 条是同一个词：1967 年香港的一场历史事件，分别落在 non_redline_harm 组和 other_sensitive 组。这个词我拿不准，所以留在词表里，核对时按“不是”算。normal 组 7 条、其余各组都是 0。
+- user_prefix_v2 的 1 条：一个纯年数被当成了事件词。这个词已在后加的 19 个里排除。这一条原来就有代称，所以标签没错。
+- 领导人词的 2 条：
+  - 一个谐音变体被当作子串，匹配在一个普通短语里，已排除。这一条另一条规则本来就判“有争议”，所以标签没错。
+  - 一个认不出的组合词，已排除。它被判成 unsafe，问题 2 算错。
+- 另外，有几个以某个字形代替领导人姓的词，回答里没认出来，被当成普通骂人话用了，我按“是”算。这是字形变体，别处有很多同类的领导人变体可以对照。
+
+### 第 10 步：拷到 PVC
+
+六份 `labels.jsonl` 已拷到 `/work/round6/redline_v1/labels_political_v2/<名>/`。本地和 PVC 两边用 sha256 核对一致，旧的 `/work/round6/redline_v1/labels/` 没动。
+
+| 文件 | SHA256（前 16 位） |
+|---|---|
+| runA_stage1 | `23d08606ea913a43` |
+| runA_dev | `40f2ab4dace05dc0` |
+| prefix_v2 | `86c6b8b2ce71a9ff` |
+| user_runA_stage1 | `be97924ad4dadf17` |
+| user_runA_dev | `b6b98b581e2451c8` |
+| user_prefix_v2 | `93fcc0d1dd669ef9` |
+
+`political_terms.jsonl` 没变，是 `d996817835144dec`。

@@ -50,19 +50,19 @@
       "unusable": 4
     },
     "train": {
-      "safe": 13767,
-      "controversial": 433,
+      "safe": 13768,
+      "controversial": 432,
       "unsafe": 1416,
       "unusable": 73
     }
   },
   "old_to_new": {
-    "unsafe->safe": 5924,
+    "unsafe->safe": 5925,
     "safe->safe": 9072,
     "safe->controversial": 380,
     "unsafe->unsafe": 1425,
     "safe->unusable": 9,
-    "unsafe->controversial": 75,
+    "unsafe->controversial": 74,
     "unsafe->unusable": 70,
     "safe->unsafe": 134
   },
@@ -71,17 +71,17 @@
     "slotNone:None:safe->safe": 9072,
     "slotNone:None:safe->unsafe": 134,
     "slotNone:None:safe->unusable": 9,
-    "slotNone:None:unsafe->controversial": 75,
-    "slotNone:None:unsafe->safe": 5924,
+    "slotNone:None:unsafe->controversial": 74,
+    "slotNone:None:unsafe->safe": 5925,
     "slotNone:None:unsafe->unsafe": 1425,
     "slotNone:None:unsafe->unusable": 70
   },
   "stratum_by_label": {
     "controversial": {
-      "redline": 455
+      "redline": 454
     },
     "safe": {
-      "non_redline_harm": 4663,
+      "non_redline_harm": 4664,
       "normal": 6235,
       "redline_topic": 934,
       "other_sensitive": 3164
@@ -117,7 +117,6 @@
     "R12:restates:general": 17,
     "R13:writes:general": 16,
     "R11:quotes:specific": 16,
-    "leader_word:variant:gated": 14,
     "R2:fiction:specific": 14,
     "R7:writes:general": 14,
     "R5:quotes:general": 12,
@@ -135,17 +134,17 @@
     "R3:quotes:general": 8,
     "R10:quotes:general": 8,
     "R13:restates:general": 7,
-    "political:event:gated": 7,
     "political:org:gated": 7,
     "R12:fiction:specific": 6,
-    "political:figure:gated": 6,
     "R1:writes:specific": 6,
     "R3:restates:general": 6,
     "R5:writes:general": 5,
+    "political:event:gated": 5,
     "R7:fiction:specific": 5,
     "R3:writes:general": 5,
     "R1:quotes:general": 5,
     "R10:restates:general": 5,
+    "leader_word:variant:gated": 4,
     "R6:writes:specific": 4,
     "B2:fiction:specific": 4,
     "political:event": 4,
@@ -174,7 +173,6 @@
     "R8:term_explained:specific": 1,
     "R6:quotes:general": 1,
     "R12:fiction:general": 1,
-    "leader_word:negative:gated": 1,
     "R6:refusal_naming:general": 1,
     "R3:fiction:specific": 1,
     "R4:writes:specific": 1,
@@ -190,6 +188,7 @@
     "R3:fiction:general": 1,
     "B3:restates:general": 1,
     "R11:fiction:specific": 1,
+    "political:figure:gated": 1,
     "R5:restates:general": 1,
     "B2:quotes:specific": 1,
     "B3:fiction:specific": 1,
@@ -200,7 +199,7 @@
   },
   "onset_clause_chars": {
     "controversial": {
-      "median": 53.0,
+      "median": 53,
       "max": 429
     },
     "unsafe": {
@@ -299,35 +298,29 @@
   "screen_overrides": {},
   "political_terms_used": true,
   "political_table": {
-    "leader_word:negative": 2898,
-    "leader_word:negative:gated": 1863,
-    "leader_word:variant": 2356,
-    "leader_word:variant:gated": 2975,
-    "political:event": 5648,
-    "political:event:gated": 3067,
-    "political:figure:gated": 3253,
-    "political:org": 1369,
-    "political:org:gated": 673
+    "leader_word:negative": 2479,
+    "leader_word:negative:gated": 1612,
+    "leader_word:variant": 2512,
+    "leader_word:variant:gated": 3231,
+    "political:event": 5603,
+    "political:event:gated": 3048,
+    "political:figure:gated": 3157,
+    "political:org": 1352,
+    "political:org:gated": 639
   },
-  "political_rows": 37,
+  "political_rows": 20,
   "political_overrides": {
-    "leader_word:variant:gated:controversial->controversial": 10,
-    "leader_word:variant:gated:unsafe->unsafe": 4,
     "political:event:gated:safe->controversial": 4,
+    "political:event:safe->controversial": 4,
     "political:org:gated:safe->controversial": 3,
     "political:org:gated:controversial->controversial": 3,
-    "political:figure:gated:controversial->controversial": 3,
-    "political:event:safe->controversial": 3,
-    "political:figure:gated:safe->controversial": 2,
-    "leader_word:negative:gated:unsafe->unsafe": 1,
+    "leader_word:variant:gated:unsafe->unsafe": 2,
+    "leader_word:variant:gated:controversial->controversial": 2,
     "political:event:gated+political:org+political:org:gated:unsafe->unsafe": 1,
-    "political:event:gated:unsafe->unsafe": 1,
-    "political:event+political:figure:gated:safe->controversial": 1,
-    "political:event:gated:controversial->controversial": 1
+    "political:figure:gated:safe->controversial": 1
   },
   "political_raised_from_stratum": {
     "redline_topic": 9,
-    "non_redline_harm": 1,
     "other_sensitive": 3
   },
   "inputs": [
@@ -336,5 +329,9 @@
     "round6/political_screen_v1/full/extracted/political_terms.jsonl",
     "round6/redline_v1/input/prefix_v2_assistant.jsonl"
   ],
-  "screen_words_formal_by_leader_form": null
+  "screen_words_formal_by_leader_form": null,
+  "excluded_words": {
+    "listed": 41,
+    "in_candidates": 41
+  }
 }

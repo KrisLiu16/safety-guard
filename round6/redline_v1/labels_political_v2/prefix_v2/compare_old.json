@@ -5,16 +5,16 @@
   "cut_agreement": 0.9868,
   "stratum_agreement": 0.9868,
   "transitions": {
-    "safe->safe": 14877,
+    "safe->safe": 14878,
     "controversial->safe": 119,
     "controversial->controversial": 349,
     "unsafe->unsafe": 1559,
-    "safe->controversial": 106
+    "safe->controversial": 105
   },
   "onset_shift_chars": {
     "controversial": {
       "n": 1908,
-      "same_cut": 1874,
+      "same_cut": 1880,
       "median": 0.0
     },
     "unsafe": {
