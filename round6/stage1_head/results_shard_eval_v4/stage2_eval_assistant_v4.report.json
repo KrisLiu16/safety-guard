@@ -1,0 +1,46 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_stage1_eval_v1",
+  "role": "assistant",
+  "script_sha256": "f5415f0dd88e64d5632d7d39229f1fe235e24e9d61c4abb768b44cc662806e4a",
+  "official_used_for_fitting": false,
+  "generated_tokens": 0,
+  "variants": {
+    "checkpoint": {
+      "weights_sha256": "14b619df6aa9dd8cb60be0dda0c3061cd9818f9d861143e2d3f963b61ff657bd",
+      "counts": {
+        "runA_calibration": 5052,
+        "runA_skipped": 4,
+        "runA_dev": 5188,
+        "prefix_v2_calibration": 600,
+        "prefix_v2_dev": 800,
+        "official_unique_sequences": 1872
+      },
+      "files": {
+        "official_rows.jsonl.gz": "669b5f7e2cb4e35cb72ef082ec20f2f478915c1e8cd5d8deec61a9bf75157b04",
+        "official_sequences.jsonl.gz": "4f8e54177340a5144d4ec902fc7508b2bcb86684e94d63121cb0611938eb578e",
+        "prefix_v2_calibration.jsonl.gz": "499fe5e215b3bfad003edf970cf2a08b687f0645ca1f3f84d4d441004096ff31",
+        "prefix_v2_dev.jsonl.gz": "5d5c6c292019e52a4d4ea2a5f7636ba329ee836386f7acfec3a694d7a110c772",
+        "runA_calibration.jsonl.gz": "3fe0d90d4dfdab9e71f91202a71bfb68d0aa57b63445737a1679c0c0f0b616b4",
+        "runA_dev.jsonl.gz": "bfb4902876eb35390991cd9c5274df0440ad940c12fa5ca22cbc8b004ab62a29"
+      }
+    }
+  },
+  "elapsed_seconds": 2023.3304196968675,
+  "official_native_ids": {
+    "status": "passed",
+    "verified_rows": 2441,
+    "verified_source_tokens": 1717499,
+    "all_native_ids_and_start_sha256": "7d06577256bc325472a4efd1a2af212aa8f423056d2cd804657b2c4fbee8efb6",
+    "mismatched_rows": 0,
+    "replacement_ids_written": false,
+    "neural_forward_calls": 0
+  },
+  "phase": "finished",
+  "max_prob_diff": 1.0728836059570312e-06,
+  "totals": {
+    "sequences": 13512,
+    "forward_tokens": 2488608
+  }
+}

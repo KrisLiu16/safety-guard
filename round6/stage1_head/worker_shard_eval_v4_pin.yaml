@@ -1,0 +1,75 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-shard-eval-v4-pin-r1
+  namespace: default
+  labels:
+    app: safety-guard-shard-eval
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 7200
+  template:
+    metadata:
+      labels:
+        app: safety-guard-shard-eval
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      # T036: sharded eval with pinned autotuning (autotune_pin.py, shard_eval.py default) on the v4 checkpoint,
+      # compared line by line with the single-process v4 runs; 4 shards for both roles.
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: eval
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              for i in $(seq 1 3600); do
+                if test -f /work/round6/shard_eval_v4_pin_input_ready; then break; fi
+                sleep 1
+              done
+              test -f /work/round6/shard_eval_v4_pin_input_ready
+              O=/work/output/round6
+              X=/tmp/stage2_v4_export
+              S=/work/round6/stage1_head/shard_eval.py
+              mkdir -p $X
+              apt-get update > $O/shard_eval_v4_pin_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> $O/shard_eval_v4_pin_compiler_install.log 2>&1
+              set +e
+              (while true; do nvidia-smi --query-gpu=timestamp,utilization.gpu,memory.used,power.draw --format=csv,noheader; sleep 5; done) > $O/shard_eval_v4_pin_smi.log 2>&1 &
+              /work/modern/bin/python -B /work/round6/stage2/export_heads.py $O/stage2_train_v4/best.safetensors --mode redline --output $X/redline.safetensors > $O/shard_eval_v4_pin.log 2>&1
+              export=$?
+              user=skipped; assistant=skipped
+              if test "$export" = 0; then
+                echo "user 4 shards pinned $(date +%T)" >> $O/shard_eval_v4_pin.log
+                /work/modern/bin/python -B $S --shards 4 --output $O/stage2_eval_user_v4_pin4 --compare $O/stage2_eval_user_v4 -- --role user --variants checkpoint --checkpoint $X/redline.safetensors >> $O/shard_eval_v4_pin.log 2>&1
+                user=$?
+                echo "assistant 4 shards pinned $(date +%T)" >> $O/shard_eval_v4_pin.log
+                /work/modern/bin/python -B $S --shards 4 --output $O/stage2_eval_assistant_v4_pin4 --compare $O/stage2_eval_assistant_v4 -- --variants checkpoint --checkpoint $X/redline.safetensors >> $O/shard_eval_v4_pin.log 2>&1
+                assistant=$?
+                echo "end $(date +%T)" >> $O/shard_eval_v4_pin.log
+              fi
+              kill %1
+              set -e
+              echo "export=$export user=$user assistant=$assistant" > $O/shard_eval_v4_pin_exit_code.txt
+              touch $O/shard_eval_v4_pin_done
+          env:
+            - {name: HF_HOME, value: /work/hf}
+            - {name: HF_HUB_OFFLINE, value: "1"}
+            - {name: PYTHONUNBUFFERED, value: "1"}
+            - {name: TRITON_CACHE_DIR, value: /work/triton-cache}
+          resources:
+            requests: {cpu: "8", memory: 24Gi, nvidia.com/gpu: "8"}
+            limits: {cpu: "12", memory: 56Gi, nvidia.com/gpu: "8"}
+          volumeMounts:
+            - {name: work, mountPath: /work}
+            - {name: shm, mountPath: /dev/shm}
+      volumes:
+        - name: work
+          persistentVolumeClaim: {claimName: safety-guard-base-compare-data}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 4Gi}

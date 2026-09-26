@@ -1,0 +1,118 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_stage1_eval_v1",
+  "role": "assistant",
+  "script_sha256": "0045f9836302ed10c1004f560b23ff9b249ca22a9a0ef33dba77b1755f795c59",
+  "official_used_for_fitting": false,
+  "generated_tokens": 0,
+  "official_native_ids": {
+    "status": "passed",
+    "verified_rows": 2441,
+    "verified_source_tokens": 1717499,
+    "all_native_ids_and_start_sha256": "7d06577256bc325472a4efd1a2af212aa8f423056d2cd804657b2c4fbee8efb6",
+    "mismatched_rows": 0,
+    "replacement_ids_written": false,
+    "neural_forward_calls": 0
+  },
+  "phase": "finished",
+  "shards": 4,
+  "elapsed_seconds": 638.7490507345647,
+  "shard_elapsed_seconds": [
+    608.5796495582908,
+    592.5651756748557,
+    638.7490507345647,
+    630.9220367800444
+  ],
+  "max_prob_diff": 1.0728836059570312e-06,
+  "totals": {
+    "sequences": 13512,
+    "forward_tokens": 2488608
+  },
+  "variants": {
+    "checkpoint": {
+      "weights_sha256": "14b619df6aa9dd8cb60be0dda0c3061cd9818f9d861143e2d3f963b61ff657bd",
+      "counts": {
+        "runA_calibration": 5052,
+        "runA_dev": 5188,
+        "prefix_v2_calibration": 600,
+        "prefix_v2_dev": 800,
+        "official_unique_sequences": 1872,
+        "runA_skipped": 4
+      },
+      "files": {
+        "official_rows.jsonl.gz": "a9fbc50f4fdf45e143aeec42efc6700fd7918dad8592388c04dcb416670069e4",
+        "official_sequences.jsonl.gz": "ec0e9d196706d9074f990ce3f4b60a631150b3fb85a13adfa3d03692ee1977da",
+        "prefix_v2_calibration.jsonl.gz": "2c8350776e4e6b8463495ebfb7bdaa6bdb7771d90ee185958b31cc109425bc40",
+        "prefix_v2_dev.jsonl.gz": "934c5ef8e9cf3844709aa1cfbbb7280f4a15da2ea92594fe635eef60e80398a7",
+        "runA_calibration.jsonl.gz": "f4172b2aa935099b08829f53e33e30319d1afcb52a64c6d8728f6e9741c32b7c",
+        "runA_dev.jsonl.gz": "5b75831c213bbdc5020dbb1d13753aa81bd712b3306d51d18fd91d3afaa65010"
+      }
+    }
+  },
+  "wall_seconds": 640.4688042812049,
+  "compare": {
+    "checkpoint": {
+      "official_rows.jsonl.gz": {
+        "lines": [
+          2441,
+          2441
+        ],
+        "identical_lines": 2441,
+        "identical": true,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.0
+      },
+      "official_sequences.jsonl.gz": {
+        "lines": [
+          1872,
+          1872
+        ],
+        "identical_lines": 593,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.06156399999999995
+      },
+      "prefix_v2_calibration.jsonl.gz": {
+        "lines": [
+          600,
+          600
+        ],
+        "identical_lines": 171,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.05063700000000004
+      },
+      "prefix_v2_dev.jsonl.gz": {
+        "lines": [
+          800,
+          800
+        ],
+        "identical_lines": 241,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.07373600000000025
+      },
+      "runA_calibration.jsonl.gz": {
+        "lines": [
+          5052,
+          5052
+        ],
+        "identical_lines": 1550,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.10710599999999992
+      },
+      "runA_dev.jsonl.gz": {
+        "lines": [
+          5188,
+          5188
+        ],
+        "identical_lines": 1594,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.07454600000000022
+      }
+    }
+  }
+}

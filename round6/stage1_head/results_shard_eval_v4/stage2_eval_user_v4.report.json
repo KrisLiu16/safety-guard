@@ -1,0 +1,43 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_stage1_eval_v1",
+  "role": "user",
+  "script_sha256": "f5415f0dd88e64d5632d7d39229f1fe235e24e9d61c4abb768b44cc662806e4a",
+  "official_used_for_fitting": false,
+  "generated_tokens": 0,
+  "variants": {
+    "checkpoint": {
+      "weights_sha256": "14b619df6aa9dd8cb60be0dda0c3061cd9818f9d861143e2d3f963b61ff657bd",
+      "counts": {
+        "runA_prompts_calibration": 2526,
+        "runA_prompts_skipped": 2,
+        "runA_prompts_dev": 2594,
+        "prefix_v2_calibration": 300,
+        "prefix_v2_dev": 400
+      },
+      "files": {
+        "prefix_v2_calibration.jsonl.gz": "124dc6fa6f798df5f078f5e85012e4cb7aaa4420d2d12b54964b499684d0a910",
+        "prefix_v2_dev.jsonl.gz": "549ab36f8e7b5e3d7c93bbaf2db03fc135503e72320b7dedbcac74684f5db8d6",
+        "runA_prompts_calibration.jsonl.gz": "7a08b7d088cad9147aa18069c7250c9566665ca774e956c749ab50b158447c16",
+        "runA_prompts_dev.jsonl.gz": "71d1cfd5f5ba3f38705a86fb0e1c607834fae3101e1326f17ee3a5aa631e7b8d"
+      }
+    }
+  },
+  "elapsed_seconds": 252.59933855757117,
+  "official_native_ids": {
+    "status": "passed",
+    "verified_rows": 2441,
+    "verified_source_tokens": 1717499,
+    "all_native_ids_and_start_sha256": "7d06577256bc325472a4efd1a2af212aa8f423056d2cd804657b2c4fbee8efb6",
+    "mismatched_rows": 0,
+    "replacement_ids_written": false,
+    "neural_forward_calls": 0
+  },
+  "phase": "finished",
+  "max_prob_diff": 7.748603820800781e-07,
+  "totals": {
+    "sequences": 5820,
+    "forward_tokens": 232096
+  }
+}

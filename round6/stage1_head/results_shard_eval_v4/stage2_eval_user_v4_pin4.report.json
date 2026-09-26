@@ -1,0 +1,117 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_stage1_eval_v1",
+  "role": "user",
+  "script_sha256": "61e0bf67704803a26c85340b8ed08b870326a6335cfa1e88c5ab2d41ee37e0cf",
+  "official_used_for_fitting": false,
+  "generated_tokens": 0,
+  "official_native_ids": {
+    "status": "passed",
+    "verified_rows": 2441,
+    "verified_source_tokens": 1717499,
+    "all_native_ids_and_start_sha256": "7d06577256bc325472a4efd1a2af212aa8f423056d2cd804657b2c4fbee8efb6",
+    "mismatched_rows": 0,
+    "replacement_ids_written": false,
+    "neural_forward_calls": 0
+  },
+  "phase": "finished",
+  "autotune": [
+    {
+      "mode": "pin",
+      "pinned": 6,
+      "unpinned": []
+    },
+    {
+      "mode": "pin",
+      "pinned": 6,
+      "unpinned": []
+    },
+    {
+      "mode": "pin",
+      "pinned": 6,
+      "unpinned": []
+    },
+    {
+      "mode": "pin",
+      "pinned": 6,
+      "unpinned": []
+    }
+  ],
+  "shards": 4,
+  "elapsed_seconds": 86.12051394768059,
+  "shard_elapsed_seconds": [
+    82.11660487577319,
+    84.8828105777502,
+    83.04676759801805,
+    86.12051394768059
+  ],
+  "max_prob_diff": 7.748603820800781e-07,
+  "totals": {
+    "sequences": 5820,
+    "forward_tokens": 232096
+  },
+  "variants": {
+    "checkpoint": {
+      "weights_sha256": "b103fd32d951bcfc56386137f7de8c254320f8fddef2c06791e40575f37c72eb",
+      "counts": {
+        "runA_prompts_calibration": 2526,
+        "runA_prompts_dev": 2594,
+        "prefix_v2_calibration": 300,
+        "prefix_v2_dev": 400,
+        "runA_prompts_skipped": 2
+      },
+      "files": {
+        "prefix_v2_calibration.jsonl.gz": "c898763e2875d0cec65326059db2381b808b82a4796a8ff24c1c1d47b7ac18f4",
+        "prefix_v2_dev.jsonl.gz": "fe3b6a07d88f25398220251a45076cc2fab6fd6e0b772108525512e3e6b6c847",
+        "runA_prompts_calibration.jsonl.gz": "23c4b679f578238b8fcb88d556240c45276bf63c26058d1f1dbaa3bddf677ad8",
+        "runA_prompts_dev.jsonl.gz": "8d04f1cc525bd598c4a5483ed35107670cfc83ec10a90e91ba53988b3e07124a"
+      }
+    }
+  },
+  "wall_seconds": 124.15233368054032,
+  "compare": {
+    "checkpoint": {
+      "prefix_v2_calibration.jsonl.gz": {
+        "lines": [
+          300,
+          300
+        ],
+        "identical_lines": 300,
+        "identical": true,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.0
+      },
+      "prefix_v2_dev.jsonl.gz": {
+        "lines": [
+          400,
+          400
+        ],
+        "identical_lines": 400,
+        "identical": true,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.0
+      },
+      "runA_prompts_calibration.jsonl.gz": {
+        "lines": [
+          2526,
+          2526
+        ],
+        "identical_lines": 2526,
+        "identical": true,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.0
+      },
+      "runA_prompts_dev.jsonl.gz": {
+        "lines": [
+          2594,
+          2594
+        ],
+        "identical_lines": 2594,
+        "identical": true,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.0
+      }
+    }
+  }
+}

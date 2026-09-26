@@ -18,7 +18,10 @@ spec:
       # T037: evaluates the v5 checkpoint with the evaluators of the v4 job. The training PVC has under 1 GB free, so
       # the checkpoint is streamed from the demo PVC straight into this container (TCP port 19095) and checked
       # against the SHA256 in /work/round6/stage2_v5_expected_sha256.txt; exports stay on the container disk. The
-      # bench is scored on all cases; v5 metrics are reported on the held half (bench_split.py).
+      # bench is scored on all cases; v5 metrics are reported on the held half (bench_split.py). The red-line eval
+      # runs as 4 shards pinned to autotune_l20_v1.json (T036): any shard count and any rerun score alike. v4 under
+      # the same table is stage2_eval_assistant_v4_table4 (the unpinned single-process v4 run picked other configs;
+      # same AUCs to three decimals).
       nodeSelector:
         kubernetes.io/hostname: "172.19.1.144"
       containers:
@@ -51,9 +54,10 @@ spec:
               export=$?
               eval_a=skipped; eval_u=skipped
               if test "$export" = 0; then
-                /work/modern/bin/python -B /work/round6/stage1_head/eval_head_l20.py --variants checkpoint --checkpoint $X/redline.safetensors --output $O/stage2_eval_assistant_v5 > $O/stage2_eval_assistant_v5.log 2>&1
+                SE="/work/modern/bin/python -B /work/round6/stage1_head/shard_eval.py --shards 4 --autotune-file /work/round6/stage1_head/autotune_l20_v1.json"
+                $SE --output $O/stage2_eval_assistant_v5 -- --variants checkpoint --checkpoint $X/redline.safetensors > $O/stage2_eval_assistant_v5.log 2>&1
                 eval_a=$?
-                /work/modern/bin/python -B /work/round6/stage1_head/eval_head_l20.py --role user --variants checkpoint --checkpoint $X/redline.safetensors --output $O/stage2_eval_user_v5 > $O/stage2_eval_user_v5.log 2>&1
+                $SE --output $O/stage2_eval_user_v5 -- --role user --variants checkpoint --checkpoint $X/redline.safetensors > $O/stage2_eval_user_v5.log 2>&1
                 eval_u=$?
                 /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/fp_probe_v1.jsonl --checkpoint $X/redline.safetensors $X/general.safetensors --output $O/fp_probe_v5_scores.jsonl > $O/fp_probe_v5.log 2>&1 || true
                 /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/leader_dev_cases.jsonl --checkpoint $X/redline.safetensors --output $O/stage2_spot_leader_v5.jsonl > $O/stage2_spot_leader_v5.log 2>&1 || true

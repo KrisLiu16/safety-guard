@@ -1,0 +1,65 @@
+{
+ "fla.modules.l2norm.l2norm_fwd_kernel": {
+  "[128, 1, \"torch.bfloat16\", \"torch.bfloat16\", \"torch.float32\"]": {
+   "kwargs": {
+    "BT": 8
+   },
+   "maxnreg": null,
+   "num_ctas": 1,
+   "num_stages": 3,
+   "num_warps": 4
+  }
+ },
+ "fla.ops.common.chunk_delta_h.chunk_gated_delta_rule_fwd_kernel_h_blockdim64": {
+  "[16, 16, 128, 128, 64, false, \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.float32\", \"torch.bfloat16\", \"torch.float32\"]": {
+   "kwargs": {
+    "BV": 32
+   },
+   "maxnreg": null,
+   "num_ctas": 1,
+   "num_stages": 2,
+   "num_warps": 4
+  }
+ },
+ "fla.ops.common.chunk_o.chunk_fwd_kernel_o": {
+  "[16, 16, 128, 128, 64, false, \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.float32\", \"torch.bfloat16\"]": {
+   "kwargs": {
+    "BK": 64,
+    "BV": 64
+   },
+   "maxnreg": null,
+   "num_ctas": 1,
+   "num_stages": 3,
+   "num_warps": 4
+  }
+ },
+ "fla.ops.gated_delta_rule.chunk_fwd.chunk_gated_delta_rule_fwd_kkt_solve_kernel": {
+  "[16, 16, 128, 16, \"torch.bfloat16\", \"torch.float32\", \"torch.bfloat16\", \"torch.bfloat16\"]": {
+   "kwargs": {
+    "BK": 64
+   },
+   "maxnreg": null,
+   "num_ctas": 1,
+   "num_stages": 3,
+   "num_warps": 2
+  }
+ },
+ "fla.ops.gated_delta_rule.wy_fast.recompute_w_u_fwd_kernel": {
+  "[16, 16, 128, 128, 64, 64, 64, false, \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.bfloat16\", \"torch.float32\"]": {
+   "kwargs": {},
+   "maxnreg": null,
+   "num_ctas": 1,
+   "num_stages": 3,
+   "num_warps": 4
+  }
+ },
+ "fla.ops.utils.cumsum.chunk_local_cumsum_scalar_kernel": {
+  "[1, 16, 64, false, false, \"torch.float32\", \"torch.float32\"]": {
+   "kwargs": {},
+   "maxnreg": null,
+   "num_ctas": 1,
+   "num_stages": 3,
+   "num_warps": 2
+  }
+ }
+}

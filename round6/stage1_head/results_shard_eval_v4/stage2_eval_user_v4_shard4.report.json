@@ -1,0 +1,95 @@
+{
+  "status": "completed",
+  "integrity_pass": true,
+  "kind": "round6_stage1_eval_v1",
+  "role": "user",
+  "script_sha256": "0045f9836302ed10c1004f560b23ff9b249ca22a9a0ef33dba77b1755f795c59",
+  "official_used_for_fitting": false,
+  "generated_tokens": 0,
+  "official_native_ids": {
+    "status": "passed",
+    "verified_rows": 2441,
+    "verified_source_tokens": 1717499,
+    "all_native_ids_and_start_sha256": "7d06577256bc325472a4efd1a2af212aa8f423056d2cd804657b2c4fbee8efb6",
+    "mismatched_rows": 0,
+    "replacement_ids_written": false,
+    "neural_forward_calls": 0
+  },
+  "phase": "finished",
+  "shards": 4,
+  "elapsed_seconds": 109.65634276159108,
+  "shard_elapsed_seconds": [
+    105.27833207882941,
+    108.88313879445195,
+    106.77273325808346,
+    109.65634276159108
+  ],
+  "max_prob_diff": 7.748603820800781e-07,
+  "totals": {
+    "sequences": 5820,
+    "forward_tokens": 232096
+  },
+  "variants": {
+    "checkpoint": {
+      "weights_sha256": "14b619df6aa9dd8cb60be0dda0c3061cd9818f9d861143e2d3f963b61ff657bd",
+      "counts": {
+        "runA_prompts_calibration": 2526,
+        "runA_prompts_dev": 2594,
+        "prefix_v2_calibration": 300,
+        "prefix_v2_dev": 400,
+        "runA_prompts_skipped": 2
+      },
+      "files": {
+        "prefix_v2_calibration.jsonl.gz": "d9e915be47b4ef349d51b9bbe47743fcf73e08958f0a40938d900928cdbd8f89",
+        "prefix_v2_dev.jsonl.gz": "1ea01bd835c85e0f5dc9751e92b812cb1c5bcf9061d8c4a70eed852b24e3da07",
+        "runA_prompts_calibration.jsonl.gz": "3d6b2a432031450f739c7015b2dc50223c7e1fca20a4875335d677bc5e6cb93f",
+        "runA_prompts_dev.jsonl.gz": "cc36d6e14471826753c350b38d729e4654935616f2ad0958b041a993dc63e80a"
+      }
+    }
+  },
+  "wall_seconds": 111.37498525157571,
+  "compare": {
+    "checkpoint": {
+      "prefix_v2_calibration.jsonl.gz": {
+        "lines": [
+          300,
+          300
+        ],
+        "identical_lines": 260,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.03748400000000052
+      },
+      "prefix_v2_dev.jsonl.gz": {
+        "lines": [
+          400,
+          400
+        ],
+        "identical_lines": 318,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.04188800000000015
+      },
+      "runA_prompts_calibration.jsonl.gz": {
+        "lines": [
+          2526,
+          2526
+        ],
+        "identical_lines": 2024,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.06617799999999985
+      },
+      "runA_prompts_dev.jsonl.gz": {
+        "lines": [
+          2594,
+          2594
+        ],
+        "identical_lines": 2083,
+        "identical": false,
+        "other_field_differences": 0,
+        "max_abs_logprob_diff": 0.06617799999999985
+      }
+    }
+  }
+}

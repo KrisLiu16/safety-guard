@@ -4,8 +4,9 @@ eval_head_l20 streams one record at a time through the pinned canonical32 eager 
 about a quarter of its use (v4: 23% utilisation, 97 W, 2.2 GB, one CPU core at 100%). A record's computation does not
 depend on which process scores it, so the merged files hold the same lines in the same order as a single-process run
 (only the gzip headers differ) once the Triton kernel configs are fixed: processes sharing a GPU time each other's
-autotuning, so with --pin-autotune (default) one process first scores every 50th record alone and records the
-configs it picks (autotune_pin.py), and every shard then uses those. Merging checks that every shard passed its
+autotuning, and even a lone process can pick either of two near-equal configs from run to run (l2norm BT 8 or 32),
+so every shard is pinned (autotune_pin.py) to --autotune-file, or, without it, to what one process scoring every
+50th record alone picks first. Merging checks that every shard passed its
 integrity check, that all shards scored the same weights and that no record ordinal appears twice.
 
   shard_eval.py --shards 4 --output OUT [--compare DIR] -- <eval_head_l20.py arguments without --output>
@@ -121,6 +122,8 @@ def main(argv=None):
     parser.add_argument("--threads", type=int, default=2, help="OMP_NUM_THREADS of each shard process")
     parser.add_argument("--no-pin-autotune", dest="pin", action="store_false",
                         help="let every shard autotune for itself (records may differ slightly from one process)")
+    parser.add_argument("--autotune-file", type=Path,
+                        help="a recorded table (e.g. autotune_l20_v1.json) to pin every shard to, instead of a warm-up")
     parser.add_argument("rest", nargs=argparse.REMAINDER, help="-- then eval_head_l20.py arguments")
     args = parser.parse_args(argv)
     rest = args.rest[1:] if args.rest[:1] == ["--"] else args.rest
@@ -133,7 +136,9 @@ def main(argv=None):
     env = dict(os.environ, OMP_NUM_THREADS=str(args.threads))
     began = time.monotonic()
     pin = []
-    if args.pin:
+    if args.pin and args.autotune_file:
+        pin = ["--autotune", "pin", "--autotune-file", str(args.autotune_file)]
+    elif args.pin:
         table = work / "autotune.json"
         with (work / "warmup.log").open("w") as log:
             code = subprocess.run([sys.executable, "-B", str(HERE / "eval_head_l20.py"), *rest, "--shard", "0/50",
