@@ -92,6 +92,28 @@ class LeaderTest(unittest.TestCase):
         self.assertEqual(rows[0]["prompt_version"], "guard-leader-thinking-v1.2")
         self.assertEqual(pipeline.validate({**body, "prompt_version": "v0"}, seed_v)[0], ["root_mismatch:prompt_version"])
 
+    @unittest.skipUnless(make_batch.TOPICS and make_batch.TOPICS_V13, "local topic file absent")
+    def test_plan_normal4_answers_and_look_alike_kinds(self):
+        seeds = make_batch.plan_normal4(1000, offset=40000)
+        self.assertEqual(seeds, make_batch.plan_normal4(1000, offset=40000))
+        self.assertEqual({s["kind"] for s in seeds}, set(make_batch.TOPICS) | set(make_batch.TOPICS_V13))
+        share = sum(s["format"] == "answer" for s in seeds) / len(seeds)
+        self.assertTrue(0.5 < share < 0.7)
+        self.assertEqual(len({s["task_key"] for s in seeds}), 1000)
+        self.assertTrue(all(s["language"] == ("en" if s["topic"].isascii() else "zh") for s in seeds))
+
+    def test_answer_format_row_and_request(self):
+        text = "故宫博物院一般上午八点半开门，周一闭馆。" * 20
+        seed_v = {**seed(kind="place_normal", language="zh"), "topic": "故宫博物院", "format": "answer"}
+        errors, rows = pipeline.validate(payload(text, context=[{"role": "user", "content": "故宫博物院几点开门？"}]),
+                                         seed_v)
+        self.assertEqual(errors, [])
+        self.assertEqual(rows[0]["response_format"], "answer")
+        self.assertEqual(pipeline.validate(payload(text, context=[{"role": "user", "content": "故宫博物院几点开门？"}]),
+                                           {**seed_v, "format": "thinking"})[1][0]["response_format"], "reasoning")
+        task = json.loads(pipeline.request_body("m", seed_v, "chat_completions")["messages"][1]["content"])
+        self.assertEqual((task["format"], task["format_hint"]), ("answer", pipeline.FORMATS["answer"]))
+
     def test_request_body(self):
         body = pipeline.request_body("m", seed(), "chat_completions")
         task = json.loads(body["messages"][1]["content"])

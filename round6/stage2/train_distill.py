@@ -60,22 +60,24 @@ def general_readout(model, hidden, role):
     return model.heads[role]["general"](h).float(), model.heads[role]["general_category"](h).float()
 
 
-def train_step(torch, model, optimizer, group, *, pad, device, micro_tokens, scale, alert_cut, distill, category):
+def train_step(torch, model, optimizer, group, *, pad, device, micro_tokens, scale, alert_cut, distill, category,
+               rows_per_pass=ts.MICROBATCH):
     F = torch.nn.functional
     model.train()
     optimizer.zero_grad(set_to_none=True)
     total, parts, tokens = 0.0, collections.Counter(), 0
-    for rows in ts.microbatches(group, micro_tokens):
+    for rows in ts.microbatches(group, micro_tokens, size=rows_per_pass):
         ids, mask = ts.pad_batch(torch, rows, pad, device)
         hidden = model(ids, mask, use_cache=False).last_hidden_state
         losses = []
         for index, row in enumerate(rows):
-            logits = ts.risk_logits(model, hidden, index, row)
-            target = ts.soft_targets(torch, row["classes"], alert_cut, device)
-            weight = torch.tensor(row["token_weights"], device=device, dtype=torch.float32)
-            red = (-(target * F.log_softmax(logits, dim=-1)).sum(-1) * weight).sum()
-            losses.append(red)
-            parts["redline"] += float(red.detach())
+            if row["positions"]:                       # teacher-only rows (build_targets.py --distill-only) have none
+                logits = ts.risk_logits(model, hidden, index, row)
+                target = ts.soft_targets(torch, row["classes"], alert_cut, device)
+                weight = torch.tensor(row["token_weights"], device=device, dtype=torch.float32)
+                red = (-(target * F.log_softmax(logits, dim=-1)).sum(-1) * weight).sum()
+                losses.append(red)
+                parts["redline"] += float(red.detach())
             if row.get("t_positions") and row["distill_weight"] > 0:
                 g_logits, g_cat = general_readout(model, hidden[index, row["t_positions"]], row["role"])
                 q = torch.tensor(row["t_risk"], device=device, dtype=torch.float32).clamp_min(1e-6)
@@ -142,6 +144,12 @@ def main():
     parser.add_argument("--category-weight", type=float, default=0.25)
     parser.add_argument("--round4-code", type=Path, default=Path("/work/round4"))
     parser.add_argument("--smoke", type=int, default=0)
+    # T036 (profile_train.py): one 16-row pass per group, no checkpointing, batched loss, fused AdamW took a group
+    # from 0.854 s to 0.242 s. The defaults keep the v4 step; without checkpointing use --micro-tokens 8192.
+    parser.add_argument("--rows-per-pass", type=int, default=ts.MICROBATCH)
+    parser.add_argument("--no-checkpointing", action="store_true")
+    parser.add_argument("--batched-loss", action="store_true", help="batched_loss.train_step: one host sync per step")
+    parser.add_argument("--fused-adam", action="store_true")
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
@@ -156,13 +164,15 @@ def main():
     args.output.mkdir(parents=True)
     model, pad = ts.make_model(helper, load_file, ts.START_PATH)
     helper.training_mode(model)
+    if args.no_checkpointing:
+        model.backbone.gradient_checkpointing_disable()
     add_general_heads(model)
     model.to("cuda")
     backbone = [p for n, p in model.named_parameters() if n.startswith("backbone.") and p.requires_grad]
     heads = [p for n, p in model.named_parameters() if n.startswith("heads.") and p.requires_grad]
     optimizer = torch.optim.AdamW([{"params": backbone, "lr": args.backbone_lr, "base_lr": args.backbone_lr},
                                    {"params": heads, "lr": args.head_lr, "base_lr": args.head_lr}],
-                                  weight_decay=0.01, eps=1e-6)
+                                  weight_decay=0.01, eps=1e-6, **({"fused": True} if args.fused_adam else {}))
     groups = [(epoch, g) for epoch in range(args.epochs) for g in ts.epoch_groups(train, epoch)]
     scale = len(train) / ts.EFFECTIVE_BATCH
     options = {"device": "cuda", "pad": pad, "micro_tokens": args.micro_tokens}
@@ -182,13 +192,22 @@ def main():
     if not args.smoke:
         summary["epochs"]["0"] = evaluate(0)
     best = (summary["epochs"].get("0", {}).get("mean_stream_auc") or -1.0, 0)
+    if args.batched_loss:
+        import batched_loss as bl
+        table = bl.alert_table(torch, args.alert_cut, "cuda")
     began = time.monotonic()
     with (args.output / "losses.jsonl").open("w") as log:
         for step, (epoch, group) in enumerate(groups, 1):
             for spec in optimizer.param_groups:
                 spec["lr"] = spec["base_lr"] * ts.lr_scale(step, len(groups))
-            record = train_step(torch, model, optimizer, group, scale=scale, alert_cut=args.alert_cut,
-                                distill=args.distill_weight, category=args.category_weight, **options)
+            if args.batched_loss:
+                record = bl.train_step(torch, model, optimizer, group, scale=scale, rows=args.rows_per_pass,
+                                       distill=args.distill_weight, category=args.category_weight, table=table,
+                                       **options)
+            else:
+                record = train_step(torch, model, optimizer, group, scale=scale, alert_cut=args.alert_cut,
+                                    distill=args.distill_weight, category=args.category_weight,
+                                    rows_per_pass=args.rows_per_pass, **options)
             record.update(step=step, epoch=epoch, seconds=round(time.monotonic() - began, 1))
             log.write(json.dumps(record) + "\n")
             if step % 64 == 0:

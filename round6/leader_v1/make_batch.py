@@ -151,6 +151,28 @@ def plan_normal3(count, offset=0):
     return seeds
 
 
+def plan_normal4(count, offset=0, answer_share=0.6):
+    """Pure (v1.5, T037): only the political look-alike kinds, over the v1.2 topics (TOPICS) and the v1.3 topics
+    (TOPICS_V13, the TOPICS_V13_DOUBLE ones twice), cycled in salted hash order with new ordinals so the texts are
+    new; answer_share of the seeds ask for the assistant's final answer instead of its thinking. Aimed at v4's
+    over-blocking sweep failures, which are ordinary answers (dates, a history lesson, Beijing places)."""
+    pairs = sorted({(kind, topic) for kind, topics in TOPICS.items() for topic in topics}
+                   | {(kind, topic) for kind, topics in TOPICS_V13.items() for topic in topics})
+    pairs += [(kind, topic) for kind, topics in TOPICS_V13.items() for topic in topics if topic in TOPICS_V13_DOUBLE]
+    pairs.sort(key=lambda p: number(f"{SALT}:v15order:{p[0]}:{p[1]}"))
+    seeds = []
+    shapes, lengths = sorted(SHAPES), sorted(LENGTHS)
+    for ordinal in range(offset, offset + count):
+        kind, topic = pairs[ordinal % len(pairs)]
+        answer = number(f"{SALT}:v15format:{ordinal}") % 100 < answer_share * 100
+        task_key = f"leader-v1-{ordinal:06d}"
+        seeds.append({"task_key": task_key, "word": task_key, "kind": kind, "leader": None, "topic": topic,
+                      "language": "en" if topic.isascii() else "zh", "format": "answer" if answer else "thinking",
+                      "shape": shapes[ordinal % len(shapes)], "length": lengths[(ordinal // 5) % len(lengths)],
+                      "family": task_key, "split": split_of(task_key), "source_group": f"leader_v1/{kind}"})
+    return seeds
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--count", type=int, default=200)
@@ -161,12 +183,14 @@ def main():
     parser.add_argument("--normal", action="store_true", help="v1.2: the ordinary place / region / word kinds only")
     parser.add_argument("--normal2", action="store_true", help="v1.3: TOPICS_V13 over the four ordinary kinds")
     parser.add_argument("--normal3", action="store_true", help="v1.4: English everyday, everyday look-alikes, TOPICS_V13")
+    parser.add_argument("--normal4", action="store_true", help="v1.5: political look-alikes, 60% answers")
     parser.add_argument("--name-prefix", default="leader-v1")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
-    seeds = (plan_normal3(args.count, args.offset) if args.normal3 else
+    seeds = (plan_normal4(args.count, args.offset) if args.normal4 else
+             plan_normal3(args.count, args.offset) if args.normal3 else
              plan_normal2(args.count, args.offset) if args.normal2 else plan_normal(args.count, args.offset)
              if args.normal else plan(args.count, args.offset, args.cut_share, args.english_share, args.leader_pools))
     packed = write_generation_tasks(seeds, args.output, args.name_prefix,
@@ -179,6 +203,7 @@ def main():
                 "leader_pools": args.leader_pools, "tasks": packed["tasks"],
                 "archives": packed["archives"],
                 "kinds": dict(collections.Counter(s["kind"] for s in seeds)),
+                "formats": dict(collections.Counter(s.get("format", "thinking") for s in seeds)),
                 "languages": dict(collections.Counter(s["language"] for s in seeds)),
                 "leaders": dict(collections.Counter(str(s["leader"]) for s in seeds)),
                 "splits": dict(collections.Counter(s["split"] for s in seeds)),
@@ -186,7 +211,7 @@ def main():
                            "schema": hashlib.sha256(json.dumps(schema(), sort_keys=True).encode()).hexdigest(),
                            "system_prompt": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest()}}
     (args.output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({k: manifest[k] for k in ("seeds", "tasks", "archives", "kinds", "languages", "splits")},
+    print(json.dumps({k: manifest[k] for k in ("seeds", "tasks", "archives", "kinds", "formats", "languages", "splits")},
                      ensure_ascii=False))
 
 

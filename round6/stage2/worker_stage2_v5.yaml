@@ -1,0 +1,91 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-stage2-distill-v5-r1
+  namespace: default
+  labels:
+    app: safety-guard-stage2-distill-v5
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 57600
+  template:
+    metadata:
+      labels:
+        app: safety-guard-stage2-distill-v5
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      # T037 v5 on the second L20 (demo node), same environment as v4. New data: English long thinking
+      # (thinking_en_v1) and ordinary look-alike answers (leader_v1 normal4) with red-line labels; teacher-only rows
+      # (bench fit half, unused Aegis 2.0 train texts, build_targets.py --distill-only). Alert tier 0.3 instead of
+      # 0.4 (v4's non-red-line harm scores sat just under the 0.5 cut). The T036 step: one 16-row pass, no
+      # checkpointing, batched loss, fused AdamW. Checkpoints go to the container disk as in v4.
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.2.175"
+      containers:
+        - name: train
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              nvidia-smi --query-gpu=name,uuid,memory.total --format=csv,noheader
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              mkdir -p /work/output/round6
+              for i in $(seq 1 3600); do
+                if test -f /work/round6/stage2_distill_v5_input_ready; then break; fi
+                sleep 1
+              done
+              test -f /work/round6/stage2_distill_v5_input_ready
+              apt-get update > /work/output/round6/stage2_distill_v5_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> /work/output/round6/stage2_distill_v5_compiler_install.log 2>&1
+              set +e
+              L=${LABELS_DIR}
+              O=/work/output/round6
+              T=/tmp/stage2_train_v5
+              D=/work/round6/distill_v5
+              MIX="$DEFAULT_MIX,thinking_en/assistant=0.75,normal4/assistant=0.5,bench_fit/user=0.5,bench_fit/assistant=0.5,aegis_distill/user=0.25,aegis_distill/assistant=0.25"
+              FAST="--rows-per-pass 16 --no-checkpointing --batched-loss --fused-adam --micro-tokens 8192"
+              /work/modern/bin/python -B /work/round6/stage2/build_targets.py --runA-labels $L/runA_stage1/labels.jsonl --prompt-labels $L/user_runA_stage1/labels.jsonl --prefix-labels $L/prefix_v2/labels.jsonl --prefix-user-labels $L/user_prefix_v2/labels.jsonl --leader-rows /work/round6/leader_v1/examples_v14.jsonl --leader-labels $L/leader_v1_v14/labels.jsonl --leader-prompt-labels $L/leader_v1_prompts_v14/labels.jsonl --extra en_redline assistant /work/round6/english_redline_v1/rows_assistant.jsonl $L/en_redline/labels.jsonl --extra en_redline_prompts user /work/round6/english_redline_v1/rows_user.jsonl $L/en_redline_prompts/labels.jsonl --extra thinking_en assistant /work/round6/thinking_en_v1/examples.jsonl $L/thinking_en/labels.jsonl --extra normal4 assistant /work/round6/leader_v1/normal4_examples.jsonl $L/normal4/labels.jsonl --distill-only bench_fit user $D/rows_bench_fit_user.jsonl --distill-only bench_fit assistant $D/rows_bench_fit_assistant.jsonl --distill-only aegis_distill user $D/rows_aegis_distill_user.jsonl --distill-only aegis_distill assistant $D/rows_aegis_distill_assistant.jsonl --teacher /work/teacher/teacher_4b_v4.jsonl.gz --teacher /work/teacher/teacher_4b_distill_v5.jsonl.gz --teacher /work/teacher/teacher_4b_new_v5.jsonl.gz --teacher-end /work/teacher/teacher_4b_end_user_v4.jsonl.gz --teacher-end /work/teacher/teacher_4b_end_user_distill_v5.jsonl.gz --output $O/stage2_targets_v5 > $O/stage2_targets_v5.log 2>&1
+              targets=$?
+              smoke=skipped; train=skipped
+              if test "$targets" = 0; then
+                /work/modern/bin/python -B /work/round6/stage2/train_distill.py $O/stage2_targets_v5 --smoke 4 --alert-cut 0.3 --mix "$MIX" $FAST --output /tmp/stage2_smoke_v5 > $O/stage2_smoke_v5.log 2>&1
+                smoke=$?
+              fi
+              if test "$smoke" = 0; then
+                /work/modern/bin/python -B /work/round6/stage2/train_distill.py $O/stage2_targets_v5 --alert-cut 0.3 --mix "$MIX" $FAST --output $T > $O/stage2_train_v5.log 2>&1
+                train=$?
+                mkdir -p $O/stage2_train_v5
+                cp $T/*.json $T/*.jsonl $O/stage2_train_v5/ 2>/dev/null
+                test -f $T/best.safetensors && cp $T/best.safetensors $O/stage2_train_v5/
+              fi
+              set -e
+              echo "targets=$targets smoke=$smoke train=$train" > /work/output/round6/stage2_distill_v5_exit_code.txt
+              touch /work/output/round6/stage2_distill_v5_done
+              for i in $(seq 1 3600); do
+                if test -f /work/output/round6/stage2_distill_v5_collected; then exit 0; fi
+                sleep 1
+              done
+              echo 'collection timed out' >&2
+              exit 1
+          env:
+            - {name: LABELS_DIR, value: /work/round6/redline_v1/labels_v2_alert}
+            - {name: DEFAULT_MIX, value: "runA/assistant=1,prefix_v2/assistant=1,runA_prompts/user=0.5,prefix_v2/user=0.5,leader_v1/assistant=0.75,leader_v1_prompts/user=0.5,en_redline/assistant=0.5,en_redline_prompts/user=0.5"}
+            - {name: HF_HOME, value: /work/hf}
+            - {name: HF_HUB_OFFLINE, value: "1"}
+            - {name: PYTHONUNBUFFERED, value: "1"}
+            - {name: OMP_NUM_THREADS, value: "8"}
+            - {name: TRITON_CACHE_DIR, value: /work/triton-cache}
+          resources:
+            requests: {cpu: "4", memory: 24Gi, nvidia.com/gpu: "8"}
+            limits: {cpu: "12", memory: 56Gi, nvidia.com/gpu: "8"}
+          volumeMounts:
+            - {name: work, mountPath: /work}
+            - {name: shm, mountPath: /dev/shm}
+      volumes:
+        - name: work
+          persistentVolumeClaim: {claimName: safety-guard-demo-data}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 4Gi}

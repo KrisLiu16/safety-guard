@@ -288,5 +288,17 @@ class PolicyViewTests(unittest.TestCase):
         self.assertIsNone(policy_metrics.auc([], [0.1]))
 
 
+
+class BenchSplitTests(unittest.TestCase):
+    def test_halves(self):
+        from bench_split import half
+        case = lambda bench, prompt, response=None: {"bench": bench, "id": "x", "messages": [
+            {"role": "user", "content": prompt}] + ([{"role": "assistant", "content": response}] if response else [])}
+        self.assertEqual(half(case("Think", "a", "b")), "held")                       # held whole
+        self.assertEqual({half(case("BeaverTails", "same prompt", r)) for r in ("r1", "r2", "r3")},
+                         {half(case("BeaverTails", "same prompt"))})                 # one prompt, one half
+        halves = [half(case("ToxicChat", f"prompt {i}")) for i in range(400)]
+        self.assertTrue(150 < halves.count("fit") < 250)
+
 if __name__ == "__main__":
     unittest.main()

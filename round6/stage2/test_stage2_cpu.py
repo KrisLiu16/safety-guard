@@ -9,6 +9,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import build_targets as bt  # noqa: E402
 import train_stage2 as ts  # noqa: E402
+import train_distill as td  # noqa: E402
 
 try:
     import torch
@@ -147,6 +148,30 @@ class TargetTests(unittest.TestCase):
         safe_end = bt.end_targets([4, 5], {"end_risk": [0.7, 0.2, 0.1], "end_cat": 3})
         self.assertEqual(safe_end["t_cat"], [-1])                             # teacher safe: no category target
 
+    def test_distill_only_rows_carry_teacher_targets_and_no_redline_positions(self):
+        answer = {"sample_id": "bench:X:1", "split": "train", "language": "en",
+                  "messages": [{"role": "user", "content": "问" * 6}, {"role": "assistant", "content": "答" * 12}]}
+        prompt = {"sample_id": "bench:X:2", "split": "train", "language": "en",
+                  "messages": [{"role": "user", "content": "问" * 8}]}
+        per_token = {"ends": [3, 6, 12], "risk": [[0.9, 0.05, 0.05], [0.8, 0.1, 0.1], [0.2, 0.7, 0.1]], "cat": [0, 0, 2]}
+        teacher = {("bench:X:1", "assistant"): per_token}
+        end = {"bench:X:2": {"end_risk": [0.1, 0.8, 0.1], "end_cat": 4}}
+        out, stats = bt.build([], {}, {}, encode, teacher=teacher, teacher_end=end,
+                              distill_only=[("bench_fit", "assistant", [answer]), ("bench_fit", "user", [prompt])])
+        rows = {r["sample_id"]: r for r in out["train"]}
+        a, p = rows["bench:X:1"], rows["bench:X:2"]
+        self.assertEqual((a["positions"], a["classes"], p["positions"], p["classes"]), ([], [], [], []))
+        self.assertEqual(len(a["t_positions"]), 12 - 2)                      # per token from the teacher's first end
+        self.assertEqual((p["t_positions"], p["t_risk"]), ([len(p["ids"]) - 1], [[0.1, 0.8, 0.1]]))
+        self.assertEqual((stats["bench_fit:assistant:train:records"], stats["bench_fit:user:train:records"]), (1, 1))
+        info = ts.token_weights(list(rows.values()), ts.parse_mix("runA/assistant=1"))
+        self.assertEqual((a["token_weights"], info), ([], {}))                # no red-line weight, no mix needed
+        _, stats = bt.build([], {}, {}, encode, teacher={}, teacher_end={},
+                            distill_only=[("bench_fit", "assistant", [answer])])
+        self.assertEqual(stats["bench_fit:assistant:train:skipped_no_teacher"], 1)
+        with self.assertRaises(ValueError):
+            bt.build([], {}, {}, encode, teacher=teacher, distill_only=[("bench_fit", "assistant", [{**answer, "split": "dev"}])])
+
     def test_leader_prompt_label_filter(self):
         import make_leader_prompt_labels as mk
         row = {"sample_id": "s1", "split": "train", "language": "zh", "response_style": "place_normal",
@@ -246,6 +271,76 @@ class TrainerTorchTests(unittest.TestCase):
         self.assertEqual(sorted(len(s["cut"]) for s in scored), [8] * 16)
         self.assertGreater(ts.calibration_metrics(scored)["mean_stream_auc"], 0.9)
 
+
+@unittest.skipIf(torch is None, "torch not installed")
+class BatchedStepTests(unittest.TestCase):
+    def model(self):
+        torch.manual_seed(1)
+
+        class Output:
+            def __init__(self, hidden):
+                self.last_hidden_state = hidden
+
+        def head(cats):
+            return torch.nn.ModuleDict({
+                "projection": torch.nn.Sequential(torch.nn.Linear(8, 6), torch.nn.LayerNorm(6), torch.nn.SiLU()),
+                "risk": torch.nn.Linear(6, 3), "category": torch.nn.Linear(6, cats),
+                "general_projection": torch.nn.Sequential(torch.nn.Linear(8, 6), torch.nn.LayerNorm(6), torch.nn.SiLU()),
+                "general": torch.nn.Linear(6, 3), "general_category": torch.nn.Linear(6, cats)})
+
+        class Model(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.embed = torch.nn.Embedding(64, 8)
+                self.heads = torch.nn.ModuleDict({"user": head(9), "assistant": head(8)})
+
+            def forward(self, ids, mask=None, use_cache=False):
+                return Output(torch.cumsum(self.embed(ids), dim=1))
+
+            def readout(self, hidden, role):
+                h = self.heads[role]["projection"](hidden.float())
+                return self.heads[role]["risk"](h), self.heads[role]["category"](h)
+        return Model()
+
+    def rows(self):
+        out = []
+        for i in range(10):
+            n = 5 + i % 4
+            row = {"sample_id": str(i), "source": "runA", "role": ("assistant", "user")[i % 2], "weight": 1.0,
+                   "ids": [(7 * i + k) % 60 + 1 for k in range(n)], "positions": list(range(2, n)),
+                   "classes": [(i + k) % 4 for k in range(n - 2)], "split": "train"}
+            if i % 3:
+                row.update(t_positions=list(range(1, n)), t_risk=[[0.6, 0.3, 0.1]] * (n - 1),
+                           t_cat=[-1 if k % 2 else i % 7 for k in range(n - 1)])
+            out.append(row)
+        out.append({"sample_id": "t", "source": "bench_fit", "role": "user", "weight": 1.0, "ids": [4, 5, 6],
+                    "positions": [], "classes": [], "split": "train", "t_positions": [2], "t_risk": [[0.2, 0.7, 0.1]],
+                    "t_cat": [3]})                                    # teacher-only row
+        mix = {"runA/assistant": 1.0, "runA/user": 1.0, "bench_fit/user": 0.5}
+        ts.token_weights(out, mix)
+        td.distill_weights(out, mix)
+        return out
+
+    def test_batched_step_equals_per_row_step(self):
+        import batched_loss as bl
+        grads, results = [], []
+        for batched in (False, True):
+            model = self.model()
+            optimizer = torch.optim.SGD(model.parameters(), lr=0.0)
+            common = {"pad": 0, "device": "cpu", "micro_tokens": 64, "scale": 2.0, "distill": 0.5, "category": 0.25}
+            if batched:
+                out = bl.train_step(torch, model, optimizer, self.rows(), rows=16,
+                                    table=bl.alert_table(torch, 0.4, "cpu"), **common)
+            else:
+                out = td.train_step(torch, model, optimizer, self.rows(), alert_cut=0.4, rows_per_pass=16, **common)
+            results.append(out)
+            grads.append(torch.cat([p.grad.flatten() for p in model.parameters() if p.grad is not None]))
+        a, b = results
+        for key in ("loss", "redline", "distill", "gradient_norm"):
+            self.assertAlmostEqual(a[key], b[key], places=4, msg=key)
+        self.assertEqual(a["input_tokens"], b["input_tokens"])
+        self.assertGreater(a["distill"], 0)
+        self.assertTrue(torch.allclose(grads[0], grads[1], rtol=1e-4, atol=1e-6))
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,6 +16,10 @@ user-role records; the official thinking set is assistant-side and is skipped.
 --checkpoint (stage 2, round6/stage2): the variant "checkpoint" loads a whole trained model (backbone and heads,
 strict key match) into the live model in place of the fixed Round5 weights; it must come last, since the head
 variants before it are scored on the fixed backbone. The same integrity check then proves the runtime reads it.
+--shard I/N (T036): score only every N-th record of each file starting at I, and write order.json next to the
+files (each line's record ordinal); shard_eval.py runs N such processes on one GPU and merges them back into the
+single-process files. --autotune record / pin (autotune_pin.py) fixes the Triton kernel configs across processes,
+so a record scores the same in any process.
 """
 from __future__ import annotations
 
@@ -38,11 +42,24 @@ from cache_features_l20 import Capture  # noqa: E402
 from probe_common import position_classes, serialize  # noqa: E402
 
 
-def eval_runA(capture, probs_of, fast, hf_tokenizer, rows, output):
+def mine(shard, k):
+    """Whether the k-th record of a file belongs to this process (--shard i/n: every n-th record from i)."""
+    return shard is None or k % shard[1] == shard[0]
+
+
+def note(order, name, k):
+    if order is not None:
+        order.setdefault(name, []).append(k)
+
+
+def eval_runA(capture, probs_of, fast, hf_tokenizer, rows, output, shard=None, order=None):
     counts = collections.Counter()
     for split in ("calibration", "dev"):
-        with gzip.open(output / f"runA_{split}.jsonl.gz", "wb") as out:
-            for row in (r for r in rows if r["split"] == split):
+        name = f"runA_{split}.jsonl.gz"
+        with gzip.open(output / name, "wb") as out:
+            for k, row in enumerate(r for r in rows if r["split"] == split):
+                if not mine(shard, k):
+                    continue
                 text = serialize(row["messages"])
                 content_start = len(text) - len(row["messages"][-1]["content"])
                 encoding = fast.encode(text, add_special_tokens=False)
@@ -63,21 +80,26 @@ def eval_runA(capture, probs_of, fast, hf_tokenizer, rows, output):
                                  "response_style": row["response_style"], "classes": classes,
                                  "char_ends": [encoding.offsets[q][1] - content_start for q in positions],
                                  "logprobs": [log_row(probs[q]) for q in positions]})
+                note(order, name, k)
                 counts[f"runA_{split}"] += 1
     return counts
 
 
-def eval_runA_prompts(capture, probs_of, fast, hf_tokenizer, rows, output):
+def eval_runA_prompts(capture, probs_of, fast, hf_tokenizer, rows, output, shard=None, order=None):
     """Each distinct Run A prompt alone (the user message), every position of it scored by the user head."""
     counts = collections.Counter()
     for split in ("calibration", "dev"):
         seen = set()
-        with gzip.open(output / f"runA_prompts_{split}.jsonl.gz", "wb") as out:
+        name = f"runA_prompts_{split}.jsonl.gz"
+        with gzip.open(output / name, "wb") as out:
             for row in (r for r in rows if r["split"] == split):
                 sample_id = f"{row['task_key']}:prompt:{row['prompt_label']}"
                 if sample_id in seen:
                     continue
                 seen.add(sample_id)
+                k = len(seen) - 1
+                if not mine(shard, k):
+                    continue
                 messages = [row["messages"][0]]
                 text = serialize(messages)
                 content_start = len(text) - len(messages[0]["content"])
@@ -97,28 +119,32 @@ def eval_runA_prompts(capture, probs_of, fast, hf_tokenizer, rows, output):
                                  "language": row["language"], "label": row["prompt_label"],
                                  "char_ends": [encoding.offsets[q][1] - content_start for q in positions],
                                  "logprobs": [log_row(probs[q]) for q in positions]})
+                note(order, name, k)
                 counts[f"runA_prompts_{split}"] += 1
     return counts
 
 
-def eval_prefix_v2(capture, probs_of, data, output, role="assistant"):
+def eval_prefix_v2(capture, probs_of, data, output, role="assistant", shard=None, order=None):
     counts = collections.Counter()
     for split in ("calibration", "dev"):
-        with gzip.open(output / f"prefix_v2_{split}.jsonl.gz", "wb") as out:
-            for row in data[split]:
-                if row["target_role"] != role:
+        name = f"prefix_v2_{split}.jsonl.gz"
+        with gzip.open(output / name, "wb") as out:
+            for k, row in enumerate(data[split]):
+                if row["target_role"] != role or not mine(shard, k):
                     continue
                 capture(row["ids"])
                 probs = probs_of()
                 write_line(out, {"sample_id": row["sample_id"], "family": row["family"], "language": row["language"],
                                  "target_role": row["target_role"], "source_label": row["source_label"], "split": split,
                                  "logprobs": [log_row(probs[p]) for p in row["target_token_positions"]]})
+                note(order, name, k)
                 counts[f"prefix_v2_{split}"] += 1
     return counts
 
 
-def eval_official(capture, probs_of, official, official_data, output):
-    seen = {}
+def eval_official(capture, probs_of, official, official_data, output, shard=None, order=None):
+    """Sequences are sharded by first-appearance ordinal; the row file needs no model and comes from shard 0."""
+    seen, r = {}, 0
     with gzip.open(output / "official_sequences.jsonl.gz", "wb") as seq_out, \
             gzip.open(output / "official_rows.jsonl.gz", "wb") as rows_out:
         for split in official.SPLITS:
@@ -126,14 +152,20 @@ def eval_official(capture, probs_of, official, official_data, output):
                 key = official.sequence_key(row)
                 sequence_id = hashlib.sha256(json.dumps(key).encode()).hexdigest()[:24]
                 if key not in seen:
-                    capture(row["ids"])
-                    probs = probs_of()
-                    start = row["eval_start_index"]
-                    write_line(seq_out, {"sequence_id": sequence_id, "input_tokens": len(row["ids"]), "eval_start_index": start,
-                                         "logprobs": [log_row(p) for p in probs[start:]]})
+                    k = len(seen)
+                    if mine(shard, k):
+                        capture(row["ids"])
+                        probs = probs_of()
+                        start = row["eval_start_index"]
+                        write_line(seq_out, {"sequence_id": sequence_id, "input_tokens": len(row["ids"]),
+                                             "eval_start_index": start, "logprobs": [log_row(p) for p in probs[start:]]})
+                        note(order, "official_sequences.jsonl.gz", k)
                     seen[key] = sequence_id
-                write_line(rows_out, {"sample_id": row["sample_id"], "split": split, "row_index": row["row_index"],
-                                      "unique_id": row["unique_id"], "label": row["label"], "sequence_id": seen[key]})
+                if shard is None or shard[0] == 0:
+                    write_line(rows_out, {"sample_id": row["sample_id"], "split": split, "row_index": row["row_index"],
+                                          "unique_id": row["unique_id"], "label": row["label"], "sequence_id": seen[key]})
+                    note(order, "official_rows.jsonl.gz", r)
+                r += 1
     if len(seen) != official.EXPECTED_UNIQUE:
         raise ValueError(f"official unique-sequence coverage {len(seen)} differs from {official.EXPECTED_UNIQUE}")
     return {"official_unique_sequences": len(seen)}
@@ -165,7 +197,22 @@ def main(argv=None):
     parser.add_argument("--runA", type=Path, default=Path("/work/round6/probe/input_v1/probe_input_v1.jsonl"))
     parser.add_argument("--output", type=Path, default=Path("/work/output/round6/stage1_eval_v1"))
     parser.add_argument("--checkpoint", type=Path, help='stage-2 model (safetensors) for the variant "checkpoint"')
+    parser.add_argument("--shard", help="I/N: score every N-th record from I (see shard_eval.py)")
+    parser.add_argument("--autotune", choices=("record", "pin"),
+                        help="autotune_pin.py: record the Triton configs chosen, or use recorded ones (--autotune-file)")
+    parser.add_argument("--autotune-file", type=Path)
     options = parser.parse_args(argv)
+    shard = None
+    if options.shard:
+        i, n = (int(v) for v in options.shard.split("/"))
+        if not 0 <= i < n:
+            parser.error("--shard needs 0 <= I < N")
+        shard = (i, n)
+    if options.autotune:
+        if options.autotune_file is None:
+            parser.error("--autotune needs --autotune-file")
+        import autotune_pin
+        autotune_pin.install(options.autotune, options.autotune_file)
     variants = options.variants.split(",")
     if "checkpoint" in variants and (options.checkpoint is None or variants[-1] != "checkpoint"):
         parser.error('the variant "checkpoint" needs --checkpoint and must be the last variant')
@@ -176,7 +223,7 @@ def main(argv=None):
         raise FileExistsError(options.output)
     options.output.mkdir(parents=True)
     report = {"status": "running", "integrity_pass": False, "kind": "round6_stage1_eval_v1", "role": options.role, "script_sha256": sha(__file__),
-              "official_used_for_fitting": False, "generated_tokens": 0, "variants": {}}
+              "official_used_for_fitting": False, "generated_tokens": 0, "variants": {}, "shard": shard}
     began = time.monotonic()
 
     def save():
@@ -227,13 +274,18 @@ def main(argv=None):
                 output.mkdir()
                 report.update(phase=variant)
                 save()
+                order = {} if shard else None
+                part = {"shard": shard, "order": order}
                 if options.role == "assistant":
-                    counts = eval_runA(capture, lambda: capture.last, fast, hf_tokenizer, runA_rows, output)
-                    counts.update(eval_prefix_v2(capture, lambda: capture.last, data, output))
-                    counts.update(eval_official(capture, lambda: capture.last, official, official_data, output))
+                    counts = eval_runA(capture, lambda: capture.last, fast, hf_tokenizer, runA_rows, output, **part)
+                    counts.update(eval_prefix_v2(capture, lambda: capture.last, data, output, **part))
+                    counts.update(eval_official(capture, lambda: capture.last, official, official_data, output, **part))
                 else:
-                    counts = eval_runA_prompts(capture, lambda: capture.last, fast, hf_tokenizer, runA_rows, output)
-                    counts.update(eval_prefix_v2(capture, lambda: capture.last, data, output, role="user"))
+                    counts = eval_runA_prompts(capture, lambda: capture.last, fast, hf_tokenizer, runA_rows, output,
+                                               **part)
+                    counts.update(eval_prefix_v2(capture, lambda: capture.last, data, output, role="user", **part))
+                if shard:
+                    (output / "order.json").write_text(json.dumps(order) + "\n")
                 report["variants"][variant] = {"weights_sha256": sha(weights_path), "counts": dict(counts),
                                                "files": {p.name: sha(p) for p in sorted(output.glob("*.jsonl.gz"))}}
                 save()
@@ -241,6 +293,8 @@ def main(argv=None):
                 raise ValueError("checkpoint bytes changed during evaluation")
             report.update(max_prob_diff=capture.max_prob_diff, totals=dict(capture.totals),
                           phase="finished", status="completed", integrity_pass=True)
+            if options.autotune:
+                report["autotune"] = autotune_pin.state()
         finally:
             if capture is not None:
                 capture.close()

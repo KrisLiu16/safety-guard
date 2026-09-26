@@ -26,6 +26,7 @@ import sys
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import fetch  # noqa: E402
+from bench_split import half  # noqa: E402
 
 GROUPS = ("weapons_drugs", "self_harm", "sexual", "violence", "other_harm", "safe")
 SST = {"Illegal and Highly Regulated items": "weapons_drugs", "Suicide, Self-Harm, and Eating Disorders": "self_harm",
@@ -76,15 +77,18 @@ def main():
     parser.add_argument("--prompt-score", default="end_cut")
     parser.add_argument("--response-score", default="max_cut")
     parser.add_argument("--json", type=Path)
+    parser.add_argument("--half", choices=("all", "fit", "held"), default="all", help="bench_split.py half to report")
     args = parser.parse_args()
     names = ("sst", "harmbench_behaviors", "aegis2", "beavertails", "openaimod")
     groups = groups_by_id({n: fetch.read_source(n) for n in names})
-    level = {}
+    level, kept_out = {}, set()
     with args.cases.open(encoding="utf-8") as handle:
         for line in handle:
             case = json.loads(line)
             if case["id"] in groups:
                 level[case["id"]] = case["level"]
+                if args.half != "all" and half(case) != args.half:
+                    kept_out.add(case["id"])
     missing = set(groups) - set(level)
     if missing:
         raise SystemExit(f"{len(missing)} category ids not in cases.jsonl (id scheme drifted from fetch.py)")
@@ -94,7 +98,7 @@ def main():
         with path.open(encoding="utf-8") as handle:
             for line in handle:
                 row = json.loads(line)
-                if row["id"] not in groups:
+                if row["id"] not in groups or row["id"] in kept_out:
                     continue
                 if row["checkpoint"] not in checkpoints:
                     checkpoints.append(row["checkpoint"])

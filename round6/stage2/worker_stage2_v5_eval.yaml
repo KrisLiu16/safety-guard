@@ -1,0 +1,83 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-stage2-v5-eval-r1
+  namespace: default
+  labels:
+    app: safety-guard-stage2-v5-eval
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 14400
+  template:
+    metadata:
+      labels:
+        app: safety-guard-stage2-v5-eval
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      # T037: evaluates the v5 checkpoint with the evaluators of the v4 job. The training PVC has under 1 GB free, so
+      # the checkpoint is streamed from the demo PVC straight into this container (TCP port 19095) and checked
+      # against the SHA256 in /work/round6/stage2_v5_expected_sha256.txt; exports stay on the container disk. The
+      # bench is scored on all cases; v5 metrics are reported on the held half (bench_split.py).
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.1.144"
+      containers:
+        - name: eval
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              X=/tmp/stage2_v5_export
+              T=/tmp/stage2_v5
+              mkdir -p $X $T
+              python3 -c "
+              import shutil, socket, sys
+              s = socket.socket(); s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1); s.bind(('0.0.0.0', 19095)); s.listen(1)
+              c, _ = s.accept()
+              with c, c.makefile('rb') as f:
+                  shutil.copyfileobj(f, sys.stdout.buffer, 1 << 22)
+              " | tar xf - -C $T
+              test "$(sha256sum $T/best.safetensors | cut -c1-64)" = "$(cat /work/round6/stage2_v5_expected_sha256.txt)"
+              echo "checkpoint received"
+              O=/work/output/round6
+              apt-get update > $O/stage2_v5_eval_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> $O/stage2_v5_eval_compiler_install.log 2>&1
+              set +e
+              /work/modern/bin/python -B /work/round6/stage2/export_heads.py $T/best.safetensors --mode redline --output $X/redline.safetensors > $O/stage2_v5_eval.log 2>&1
+              /work/modern/bin/python -B /work/round6/stage2/export_heads.py $T/best.safetensors --mode general --output $X/general.safetensors >> $O/stage2_v5_eval.log 2>&1
+              export=$?
+              eval_a=skipped; eval_u=skipped
+              if test "$export" = 0; then
+                /work/modern/bin/python -B /work/round6/stage1_head/eval_head_l20.py --variants checkpoint --checkpoint $X/redline.safetensors --output $O/stage2_eval_assistant_v5 > $O/stage2_eval_assistant_v5.log 2>&1
+                eval_a=$?
+                /work/modern/bin/python -B /work/round6/stage1_head/eval_head_l20.py --role user --variants checkpoint --checkpoint $X/redline.safetensors --output $O/stage2_eval_user_v5 > $O/stage2_eval_user_v5.log 2>&1
+                eval_u=$?
+                /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/fp_probe_v1.jsonl --checkpoint $X/redline.safetensors $X/general.safetensors --output $O/fp_probe_v5_scores.jsonl > $O/fp_probe_v5.log 2>&1 || true
+                /work/modern/bin/python -B /work/round6/stage2/score_texts_l20.py /work/round6/stage2_spot/leader_dev_cases.jsonl --checkpoint $X/redline.safetensors --output $O/stage2_spot_leader_v5.jsonl > $O/stage2_spot_leader_v5.log 2>&1 || true
+                /work/modern/bin/python -B /work/round6/qwen3guard_bench/score_bench_l20.py /work/round6/qwen3guard_bench/data/cases.jsonl --checkpoint stage2_v5_redline=$X/redline.safetensors stage2_v5_general=$X/general.safetensors --output $O/qwen3guard_bench_v5.jsonl > $O/qwen3guard_bench_v5.log 2>&1 || true
+              fi
+              set -e
+              echo "export=$export eval_assistant=$eval_a eval_user=$eval_u" > $O/stage2_v5_eval_exit_code.txt
+              touch $O/stage2_v5_eval_done
+          env:
+            - {name: HF_HOME, value: /work/hf}
+            - {name: HF_HUB_OFFLINE, value: "1"}
+            - {name: PYTHONUNBUFFERED, value: "1"}
+            - {name: OMP_NUM_THREADS, value: "8"}
+            - {name: TRITON_CACHE_DIR, value: /work/triton-cache}
+          resources:
+            requests: {cpu: "4", memory: 16Gi, nvidia.com/gpu: "8"}
+            limits: {cpu: "8", memory: 40Gi, nvidia.com/gpu: "8"}
+          ports:
+            - {containerPort: 19095}
+          volumeMounts:
+            - {name: work, mountPath: /work}
+            - {name: shm, mountPath: /dev/shm}
+      volumes:
+        - name: work
+          persistentVolumeClaim: {claimName: safety-guard-base-compare-data}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 4Gi}

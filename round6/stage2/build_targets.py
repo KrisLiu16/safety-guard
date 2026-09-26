@@ -147,6 +147,23 @@ def text_record(row, messages, source, role, labelled, encode, sample_id=None, t
     return made, None, undetermined
 
 
+def distill_record(row, source, role, encode, teacher):
+    """Pure (v5, T037): a text with teacher targets only. No red-line positions, so it moves the general head (and the
+    shared backbone through it) and never the red-line head. Returns (record or None, skip reason or None)."""
+    if teacher is None:
+        return None, "no_teacher"
+    ids, all_positions, all_ends = content_targets(encode, row["messages"])
+    if not 1 <= len(ids) <= MAX_TOKENS:
+        return None, "length"
+    made = {"sample_id": row["sample_id"], "source": source, "role": role, "split": row["split"],
+            "family": row.get("family") or row.get("task_key"), "language": row.get("language"), "weight": 1.0,
+            "level": "distill_only", "ids": ids, "positions": [], "classes": []}
+    made.update(attach(all_positions, all_ends, teacher))
+    if not made["t_positions"]:
+        return None, "no_target"
+    return made, None
+
+
 def prefix_records(row, split, labelled, encode, teacher=None):
     """prefix_v2 record (and its augmented view in train). Returns (records, skip reason or None, undetermined).
     teacher (v3): attached to the main record at every content position; the augmented view gets none."""
@@ -182,12 +199,13 @@ def prompt_rows(rows):
             yield row, sample_id
 
 
-def build(runA_rows, prefix_data, labels, encode, leader_rows=(), extra=(), teacher=None, teacher_end=None):
+def build(runA_rows, prefix_data, labels, encode, leader_rows=(), extra=(), teacher=None, teacher_end=None,
+          distill_only=()):
     """Pure. runA_rows: stage-1 Run A input rows; prefix_data: split -> prefix_v2 rows; labels: name -> {sample_id:
     labels.jsonl row} for runA, runA_prompts, prefix_v2, prefix_v2_user. extra: (source, role, rows, {sample_id:
     label row}) for other v14-row sources whose last message is the role's (e.g. T032 English). teacher_end (v4):
-    {sample_id: end-of-turn row}; when given, user texts take only that target (end_targets). Returns (split ->
-    records, stats)."""
+    {sample_id: end-of-turn row}; when given, user texts take only that target (end_targets). distill_only (v5):
+    (source, role, rows) of teacher-only texts, train split only (distill_record). Returns (split -> records, stats)."""
     out, stats = collections.defaultdict(list), collections.Counter()
 
     def t(sid, role):
@@ -267,6 +285,15 @@ def build(runA_rows, prefix_data, labels, encode, leader_rows=(), extra=(), teac
             made, reason, undetermined = prefix_records(row, split, labelled, encode,
                                                         teacher=t(row["sample_id"], row["target_role"]))
             add(key, made, reason, undetermined)
+    for source, role, rows in distill_only:
+        for row in rows:
+            key = f"{source}:{role}:{row['split']}"
+            if row["split"] != "train":
+                raise ValueError(f"{source}: teacher-only rows must be train rows ({row['sample_id']})")
+            if row["messages"][-1]["role"] != role:
+                raise ValueError(f"{source}: {row['sample_id']} does not end with a {role} message")
+            made, reason = distill_record(row, source, role, encode, t(row["sample_id"], role))
+            add(key, [made] if made else [], reason, 0)
     return dict(out), dict(sorted(stats.items()))
 
 
@@ -293,9 +320,13 @@ def main():
                         help="user-side labels for the leader rows (make_leader_prompt_labels.py)")
     parser.add_argument("--extra", nargs=4, action="append", default=[], metavar=("SOURCE", "ROLE", "ROWS", "LABELS"),
                         help="another v14-row source (repeatable): rows ending with a ROLE message, apply_policy labels")
-    parser.add_argument("--teacher", type=Path, help="v3: teacher_label_l20.py output (jsonl.gz) to attach")
-    parser.add_argument("--teacher-end", type=Path,
-                        help="v4: teacher_label_l20.py --end-user output (jsonl.gz); user texts take only this target")
+    parser.add_argument("--distill-only", nargs=3, action="append", default=[], metavar=("SOURCE", "ROLE", "ROWS"),
+                        help="v5: teacher-only v14 rows (repeatable, train split): no red-line label, general head only")
+    parser.add_argument("--teacher", type=Path, action="append", default=[],
+                        help="teacher_label_l20.py output (jsonl.gz) to attach (repeatable)")
+    parser.add_argument("--teacher-end", type=Path, action="append", default=[],
+                        help="v4: teacher_label_l20.py --end-user output (jsonl.gz, repeatable); user texts take only "
+                             "this target")
     parser.add_argument("--tokenizer", type=Path, default=Path("/work/models/qwen35/tokenizer.json"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -319,20 +350,29 @@ def main():
     extra = [(source, role, read_jsonl(rows), read_labels([labels_path])) for source, role, rows, labels_path in args.extra]
     if any(role not in ("assistant", "user") for _, role, _, _ in extra):
         raise ValueError("--extra ROLE must be assistant or user")
+    import gzip
     teacher = None
-    if args.teacher:
-        import gzip
-        teacher = {}
-        with gzip.open(args.teacher, "rt", encoding="utf-8") as handle:
+    for path in args.teacher:
+        teacher = teacher or {}
+        with gzip.open(path, "rt", encoding="utf-8") as handle:
             for line in handle:
                 row = json.loads(line)
+                if (row["id"], row["role"]) in teacher:
+                    raise ValueError(f"teacher case {row['id']} ({row['role']}) appears twice")
                 teacher[(row["id"], row["role"])] = row
     teacher_end = None
-    if args.teacher_end:
-        import gzip
-        with gzip.open(args.teacher_end, "rt", encoding="utf-8") as handle:
-            teacher_end = {row["id"]: row for row in map(json.loads, handle)}
-    records, stats = build(read_jsonl(args.runA), prefix_data, labels, encode, leader_rows, extra, teacher, teacher_end)
+    for path in args.teacher_end:
+        teacher_end = teacher_end or {}
+        with gzip.open(path, "rt", encoding="utf-8") as handle:
+            for row in map(json.loads, handle):
+                if row["id"] in teacher_end:
+                    raise ValueError(f"end-of-turn teacher case {row['id']} appears twice")
+                teacher_end[row["id"]] = row
+    if args.distill_only and any(role not in ("assistant", "user") for _, role, _ in args.distill_only):
+        raise ValueError("--distill-only ROLE must be assistant or user")
+    distill_only = [(source, role, read_jsonl(rows)) for source, role, rows in args.distill_only]
+    records, stats = build(read_jsonl(args.runA), prefix_data, labels, encode, leader_rows, extra, teacher, teacher_end,
+                           distill_only)
     if teacher is not None or teacher_end is not None:
         stats["teacher_records"] = sum(1 for rows in records.values() for r in rows if "t_positions" in r)
         stats["teacher_records_user"] = sum(1 for rows in records.values() for r in rows
@@ -342,12 +382,13 @@ def main():
         with (args.output / f"records_{split}.jsonl").open("w", encoding="utf-8") as handle:
             for row in rows:
                 handle.write(json.dumps(row, ensure_ascii=False) + "\n")
-    report = {"version": "stage2-targets-v4" if teacher_end is not None else "stage2-targets-v3", "class_index": {"safe": 0, "unsafe": 1, "controversial": 2, "alert": ALERT},
+    report = {"version": "stage2-targets-v5" if distill_only else "stage2-targets-v4" if teacher_end is not None
+              else "stage2-targets-v3", "class_index": {"safe": 0, "unsafe": 1, "controversial": 2, "alert": ALERT},
               "inputs": {str(p): sha(p) for p in [args.runA, args.tokenizer, *[p for ps in label_paths.values() for p in ps],
                                                   *([args.leader_rows] if args.leader_rows else []),
-                                                  *([args.teacher] if args.teacher else []),
-                                                  *([args.teacher_end] if args.teacher_end else []),
+                                                  *args.teacher, *args.teacher_end,
                                                   *[Path(p) for e in args.extra for p in e[2:]],
+                                                  *[Path(e[2]) for e in args.distill_only],
                                                   *[args.prefix_data / f"{s}.jsonl" for s in prefix_data]]},
               "records": {split: len(rows) for split, rows in records.items()},
               "tokens": {split: sum(len(r["ids"]) for r in rows) for split, rows in records.items()},

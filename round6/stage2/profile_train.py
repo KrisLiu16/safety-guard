@@ -36,6 +36,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import train_stage2 as ts  # noqa: E402
 import train_distill as td  # noqa: E402
+from batched_loss import alert_table, batched_loss, loss_plan, plan_tensors  # noqa: E402,F401
 
 L20_BF16_TFLOPS = 119.5          # datasheet, dense FP16/BF16 tensor
 L20_HBM_GBS = 864                # datasheet
@@ -107,32 +108,6 @@ def attention_flops(lengths, window, heads, head_dim, layers):
     return per_key * keys
 
 
-def loss_plan(rows, distill, category):
-    """Pure: per role, the flattened gather indices, targets and per-position coefficients such that one batched loss
-    equals train_distill.train_step's per-row sum: red-line soft CE x token weight; distill x distill_weight x mean KL
-    over the row's teacher positions; category x distill_weight x mean CE over its positions with a teacher category
-    (only when category > 0 and the row has one)."""
-    plan = {}
-    for i, row in enumerate(rows):
-        p = plan.setdefault(row["role"], {k: [] for k in ("red_b", "red_p", "red_cls", "red_w", "gen_b", "gen_p",
-                                                          "q", "kl_coef", "cats", "ce_coef")})
-        n = len(row["positions"])
-        p["red_b"] += [i] * n
-        p["red_p"] += list(row["positions"])
-        p["red_cls"] += list(row["classes"])
-        p["red_w"] += list(row["token_weights"])
-        if row.get("t_positions") and row["distill_weight"] > 0:
-            m, w = len(row["t_positions"]), row["distill_weight"]
-            valid = sum(1 for c in row["t_cat"] if c >= 0) if category > 0 else 0
-            p["gen_b"] += [i] * m
-            p["gen_p"] += list(row["t_positions"])
-            p["q"] += [list(v) for v in row["t_risk"]]
-            p["kl_coef"] += [distill * w / m] * m
-            p["cats"] += [c if valid and c >= 0 else -1 for c in row["t_cat"]]
-            p["ce_coef"] += [category * w / valid if valid and c >= 0 else 0.0 for c in row["t_cat"]]
-    return plan
-
-
 def merge_groups(groups, k):
     return [sum(groups[i:i + k], []) for i in range(0, len(groups) - k + 1, k)]
 
@@ -162,50 +137,6 @@ def loop_loss(torch, model, hidden, rows, *, alert_cut, distill, category, devic
             losses.append(term)
             parts["distill"] += float(term.detach())
     return losses, parts
-
-
-def plan_tensors(torch, plan, device, pin):
-    """Host tensors for loss_plan, copied without a host sync (pinned memory, non_blocking)."""
-    def move(values, dtype):
-        t = torch.tensor(values, dtype=dtype)
-        return t.pin_memory().to(device, non_blocking=True) if pin else t.to(device)
-    out = {}
-    for role, p in plan.items():
-        d = {"red": bool(p["red_b"]), "gen": bool(p["gen_b"]), "cat": any(c > 0 for c in p["ce_coef"])}
-        if d["red"]:
-            d.update(red_b=move(p["red_b"], torch.long), red_p=move(p["red_p"], torch.long),
-                     red_cls=move(p["red_cls"], torch.long), red_w=move(p["red_w"], torch.float32))
-        if d["gen"]:
-            d.update(gen_b=move(p["gen_b"], torch.long), gen_p=move(p["gen_p"], torch.long),
-                     q=move(p["q"], torch.float32), kl_coef=move(p["kl_coef"], torch.float32),
-                     cats=move(p["cats"], torch.long), ce_coef=move(p["ce_coef"], torch.float32))
-        out[role] = d
-    return out
-
-
-def batched_loss(torch, model, hidden, tensors, table):
-    """Sum of the red-line and distillation terms of one pass from plan_tensors; returns (red, distill) tensors."""
-    F = torch.nn.functional
-    red = hidden.new_zeros((), dtype=torch.float32)
-    dist = hidden.new_zeros((), dtype=torch.float32)
-    for role, d in tensors.items():
-        if d["red"]:
-            logits = model.readout(hidden[d["red_b"], d["red_p"]], role)[0].float()
-            red = red + (-(table[d["red_cls"]] * F.log_softmax(logits, dim=-1)).sum(-1) * d["red_w"]).sum()
-        if d["gen"]:
-            g_logits, g_cat = td.general_readout(model, hidden[d["gen_b"], d["gen_p"]], role)
-            q = d["q"].clamp_min(1e-6)
-            q = q / q.sum(-1, keepdim=True)
-            dist = dist + ((q * (q.log() - F.log_softmax(g_logits, dim=-1))).sum(-1) * d["kl_coef"]).sum()
-            if d["cat"]:
-                ce = F.cross_entropy(g_cat, d["cats"], ignore_index=-1, reduction="none")
-                dist = dist + (ce * d["ce_coef"]).sum()
-    return red, dist
-
-
-def alert_table(torch, alert_cut, device):
-    return torch.tensor([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [1.0 - alert_cut, 0.0, alert_cut]],
-                        device=device)
 
 
 # ----------------------------------------------------------------------------------------------- one step

@@ -30,10 +30,15 @@ import hashlib
 import json
 import re
 
-PROMPT_VERSION = "guard-leader-thinking-v1.4"
-# v1.3 added culture_normal and more topics; v1.4 (T035) adds everyday_normal and english_everyday. Earlier outputs
-# (aster-dev-376, 381/382) still validate.
-ACCEPTED_VERSIONS = ("guard-leader-thinking-v1.2", "guard-leader-thinking-v1.3", PROMPT_VERSION)
+PROMPT_VERSION = "guard-leader-thinking-v1.5"
+# v1.3 added culture_normal and more topics; v1.4 (T035) adds everyday_normal and english_everyday; v1.5 (T037) adds
+# the answer format: v4 still cut 5 of 198 ordinary answers in the over-blocking sweep (dates, a history lesson,
+# Beijing places), and every ordinary look-alike text so far was thinking. Earlier outputs still validate.
+ACCEPTED_VERSIONS = ("guard-leader-thinking-v1.2", "guard-leader-thinking-v1.3", "guard-leader-thinking-v1.4",
+                     PROMPT_VERSION)
+FORMATS = {"thinking": "Write the assistant's first-person thinking before its reply (the reply itself is not written).",
+           "answer": "Write the assistant's final reply to the last user message: a direct, helpful answer, not "
+                     "reasoning about how to answer."}
 RECORD_VERSION = "guard-response-record-v1"
 WIRE_APIS = ("chat_completions", "responses")
 CUT_KINDS = ("satire_restated", "criticism_restated", "rumor_restated", "harm_politics")
@@ -127,6 +132,7 @@ The classifier audits an AI assistant's thinking (the reasoning it writes before
 For the given seed, write:
 - context: 1-3 earlier conversation turns (role user / assistant, alternating, starting and ending with user). Short, natural messages. The last user message is the one the assistant is about to answer.
 - thinking: the assistant's first-person thinking before its reply, in the seed's language, following kind_description, shape_hint and length_hint. Write only the thinking, not the final reply. Natural reasoning-model style.
+  If the seed's format is "answer", this field holds the assistant's final reply to the last user message instead: a direct, natural, helpful answer in the seed's language and length (shape_hint then only guides how the answer is organised). It must not be reasoning about how to answer.
 
 Rules:
 - Only recall material that major media widely reported (you may say how it was reported). Do not invent new allegations, quotes, events, numbers or documents about real people. When unsure of a detail, stay general.
@@ -161,7 +167,8 @@ EXAMPLE = {"task_key": "example-task", "prompt_version": PROMPT_VERSION, "status
 def request_task(seed):
     return {"task_key": seed["task_key"], "prompt_version": PROMPT_VERSION, "kind": seed["kind"],
             "kind_description": KINDS[seed["kind"]], "leader": seed["leader"], "topic": seed.get("topic"),
-            "language": seed["language"],
+            "language": seed["language"], "format": seed.get("format", "thinking"),
+            "format_hint": FORMATS[seed.get("format", "thinking")],
             "shape_hint": SHAPES[seed["shape"]], "length_hint": LENGTHS[seed["length"]][seed["language"]],
             "output_schema": schema(), "example_output": EXAMPLE}
 
@@ -271,7 +278,8 @@ def validate(payload, seed):
     messages.append({"role": "assistant", "content": thinking})
     row = {"index": 0, "language": seed["language"], "target_role": "assistant",
            "label": "unsafe" if seed["kind"] in CUT_KINDS else "safe", "prompt_label": None,
-           "response_style": seed["kind"], "response_format": "reasoning", "shape": seed["shape"], "messages": messages,
+           "response_style": seed["kind"], "shape": seed["shape"], "messages": messages,
+           "response_format": "answer" if seed.get("format") == "answer" else "reasoning",
            "harm_basis": "leader_sensitivity", "onset_quote": quote if onset is not None else "",
            "onset_char": onset, "onset_end_char": onset + len(quote) if onset is not None else None,
            "label_floor": "controversial" if onset is not None else None,

@@ -74,3 +74,6 @@ round6/political_screen_v1/**/confirm_words*.txt
 round6/political_screen_v1/**/missing_words*.txt
 round6/political_screen_v1/**/*.txt
 !round6/political_screen_v1/**/run_no*.txt
+
+# Aster receipts and generated batches (sample text)
+round6/thinking_en_v1/batch/

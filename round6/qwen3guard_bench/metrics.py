@@ -17,6 +17,8 @@ from pathlib import Path
 import sys
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+from bench_split import half  # noqa: E402
 PROMPT_BENCHES = ("ToxicChat", "OpenAIMod", "Aegis", "Aegis2.0", "SimpleSafetyTests", "HarmBench-P", "WildGuardTest-P")
 RESPONSE_BENCHES = ("HarmBench-R", "SafeRLHF", "BeaverTails", "XSTest-Resp", "Aegis2.0-R", "WildGuardTest-R", "Think")
 LEVEL = {**{b: "prompt" for b in PROMPT_BENCHES}, **{b: "response" for b in RESPONSE_BENCHES}}
@@ -126,8 +128,10 @@ def main(argv=None):
                         default="max_cut")
     parser.add_argument("--paper", action="store_true", help="add the Qwen3Guard-Stream-0.6B column")
     parser.add_argument("--json", type=Path, help="also write all numbers here")
+    parser.add_argument("--half", choices=("all", "fit", "held"), default="all",
+                        help="bench_split.py half to report (v5 onwards: held; the fit half may be distilled)")
     args = parser.parse_args(argv)
-    cases = read_jsonl(args.cases)
+    cases = [c for c in read_jsonl(args.cases) if args.half == "all" or half(c) == args.half]
     scores = [row for path in args.scores for row in read_jsonl(path)]
     results, checkpoints, missing = evaluate(cases, scores, args.tau, args.prompt_score, args.response_score)
     for checkpoint, count in missing.items():
