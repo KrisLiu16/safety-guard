@@ -35,6 +35,20 @@ def load_topics(path=TOPICS_PATH):
 
 
 TOPICS, TOPICS_V13, TOPICS_V13_DOUBLE = load_topics()
+
+
+def load_everyday(path=TOPICS_PATH):
+    """v1.4: the everyday_normal topics (non-political look-alike words, local file); empty when absent."""
+    if not Path(path).exists():
+        return ()
+    return tuple(json.loads(Path(path).read_text(encoding="utf-8")).get("TOPICS_V14_EVERYDAY", ()))
+
+
+TOPICS_V14_EVERYDAY = load_everyday()
+ENGLISH_DOMAINS = ("cooking", "travel planning", "programming", "maths homework", "science homework", "personal finance",
+                   "fitness", "gardening", "writing help", "product comparison", "general health information",
+                   "career advice", "language learning", "pets", "home repair", "history homework", "music practice",
+                   "parenting", "email etiquette", "data analysis")
 NO_LEADER = ("cartoon_only", "cartoon_china", "insult_assistant")
 # The pilot (aster-dev-370) skipped satire and rumour seeds for leaders with no widely reported mocking comparison
 # or rumour; from --leader-pools on, those kinds draw from leaders with well-documented cases (the cartoon-bear
@@ -109,6 +123,34 @@ def plan_normal2(count, offset=0):
     return seeds
 
 
+def plan_normal3(count, offset=0):
+    """Pure (v1.4, T035): 40% english_everyday over ENGLISH_DOMAINS, 35% everyday_normal over TOPICS_V14_EVERYDAY
+    (language follows the topic's script), 25% the four political look-alike kinds over TOPICS_V13 again (new
+    ordinals, so new texts). Aimed at the v3 failures: ordinary English streams and thinking that restates an
+    ordinary question."""
+    political = [(kind, topic) for kind, topics in TOPICS_V13.items() for topic in topics]
+    seeds = []
+    shapes, lengths = sorted(SHAPES), sorted(LENGTHS)
+    for ordinal in range(offset, offset + count):
+        r = number(f"{SALT}:v14:{ordinal}") % 100
+        pick = number(f"{SALT}:v14topic:{ordinal}")
+        if r < 40:
+            kind, topic = "english_everyday", ENGLISH_DOMAINS[pick % len(ENGLISH_DOMAINS)]
+            language = "en"
+        elif r < 75:
+            kind, topic = "everyday_normal", TOPICS_V14_EVERYDAY[pick % len(TOPICS_V14_EVERYDAY)]
+            language = "en" if topic.isascii() else "zh"
+        else:
+            kind, topic = political[pick % len(political)]
+            language = "en" if topic.isascii() else "zh"
+        task_key = f"leader-v1-{ordinal:06d}"
+        seeds.append({"task_key": task_key, "word": task_key, "kind": kind, "leader": None, "topic": topic,
+                      "language": language, "shape": shapes[ordinal % len(shapes)],
+                      "length": lengths[(ordinal // 5) % len(lengths)], "family": task_key, "split": split_of(task_key),
+                      "source_group": f"leader_v1/{kind}"})
+    return seeds
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--count", type=int, default=200)
@@ -118,12 +160,14 @@ def main():
     parser.add_argument("--leader-pools", action="store_true", help="per-kind leader pools for satire and rumour")
     parser.add_argument("--normal", action="store_true", help="v1.2: the ordinary place / region / word kinds only")
     parser.add_argument("--normal2", action="store_true", help="v1.3: TOPICS_V13 over the four ordinary kinds")
+    parser.add_argument("--normal3", action="store_true", help="v1.4: English everyday, everyday look-alikes, TOPICS_V13")
     parser.add_argument("--name-prefix", default="leader-v1")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
-    seeds = (plan_normal2(args.count, args.offset) if args.normal2 else plan_normal(args.count, args.offset)
+    seeds = (plan_normal3(args.count, args.offset) if args.normal3 else
+             plan_normal2(args.count, args.offset) if args.normal2 else plan_normal(args.count, args.offset)
              if args.normal else plan(args.count, args.offset, args.cut_share, args.english_share, args.leader_pools))
     packed = write_generation_tasks(seeds, args.output, args.name_prefix,
                                     {"calls_per_term": 1, "prompt_version": PROMPT_VERSION}, 1)

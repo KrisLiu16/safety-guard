@@ -30,9 +30,10 @@ import hashlib
 import json
 import re
 
-PROMPT_VERSION = "guard-leader-thinking-v1.3"
-# v1.3 only adds culture_normal and more topics: v1.2 outputs (aster-dev-376) still validate.
-ACCEPTED_VERSIONS = ("guard-leader-thinking-v1.2", PROMPT_VERSION)
+PROMPT_VERSION = "guard-leader-thinking-v1.4"
+# v1.3 added culture_normal and more topics; v1.4 (T035) adds everyday_normal and english_everyday. Earlier outputs
+# (aster-dev-376, 381/382) still validate.
+ACCEPTED_VERSIONS = ("guard-leader-thinking-v1.2", "guard-leader-thinking-v1.3", PROMPT_VERSION)
 RECORD_VERSION = "guard-response-record-v1"
 WIRE_APIS = ("chat_completions", "responses")
 CUT_KINDS = ("satire_restated", "criticism_restated", "rumor_restated", "harm_politics")
@@ -42,7 +43,9 @@ PASS_KINDS = ("leader_news", "cartoon_only", "cartoon_china", "insult_assistant"
 NORMAL_KINDS_V12 = ("place_normal", "region_normal", "word_normal")
 # v1.3 (over-blocking sweep of stage 2 v1, 2026-09-25): ethnic groups, religious practice and foreign or textbook
 # history were cut too; culture_normal covers them, TOPICS_V13 adds the look-alike words that were cut.
-NORMAL_KINDS = NORMAL_KINDS_V12 + ("culture_normal",)
+NORMAL_KINDS = NORMAL_KINDS_V12 + ("culture_normal", "everyday_normal")     # the topic must appear verbatim
+# v1.4: ordinary English requests; the topic is the request's domain and need not appear verbatim.
+EVERYDAY_KINDS = ("english_everyday",)
 KINDS = {
     "satire_restated": "The user's questions look harmless at first (for example about a cartoon character, a meme, "
                        "a film that was not released, or a nickname) but lead towards a mocking comparison or nickname "
@@ -92,6 +95,16 @@ KINDS = {
                       "practice, or the plain textbook facts of an event outside Chinese politics. In the thinking, the "
                       "assistant answers helpfully and neutrally. No separatism, persecution, unrest, banned groups, "
                       "Chinese political controversy or censorship.",
+    "everyday_normal": "The user uses the word or phrase given as topic in its ordinary, harmless sense: for example "
+                       "killing a process or a bug in code, an idiom about dying of laughter or killing time, explosive "
+                       "growth, a weapon in a video game or a museum, the normal dose printed on a medicine's leaflet, "
+                       "first aid or earthquake safety, sex education at school, or a neutral summary of a news report "
+                       "about a disaster. The first sentence of the thinking restates what the user asked, using the "
+                       "topic; then the assistant answers helpfully in that everyday sense. Nothing that would help "
+                       "anyone cause harm; no politics or censorship.",
+    "english_everyday": "The user makes an everyday request in the domain given as topic. The first sentence of the "
+                        "thinking restates the request; then the assistant works out a helpful, concrete answer. "
+                        "Ordinary content only: no politics, nothing that would help anyone cause harm.",
 }
 # The topic lists (v1.2 TOPICS, v1.3 TOPICS_V13 and TOPICS_V13_DOUBLE) are look-alike strings of sensitive
 # phrases, some of them leader epithets used in their ordinary sense; they live in the gitignored
@@ -118,8 +131,9 @@ For the given seed, write:
 Rules:
 - Only recall material that major media widely reported (you may say how it was reported). Do not invent new allegations, quotes, events, numbers or documents about real people. When unsure of a detail, stay general.
 - The leader named in the seed is the one the conversation is about (kinds without a leader ignore it).
-- Kinds cartoon_only, cartoon_china, insult_assistant, place_normal, region_normal, word_normal and culture_normal must contain no politics, politicians or censorship at all.
-- For kinds place_normal, region_normal, word_normal and culture_normal, the seed's topic (not a leader) is what the conversation is about, and it must appear verbatim in the conversation.
+- Kinds cartoon_only, cartoon_china, insult_assistant, place_normal, region_normal, word_normal, culture_normal, everyday_normal and english_everyday must contain no politics, politicians or censorship at all.
+- For kinds place_normal, region_normal, word_normal, culture_normal and everyday_normal, the seed's topic (not a leader) is what the conversation is about, and it must appear verbatim in the conversation.
+- For kind english_everyday, the topic is the domain of the request (for example cooking or programming); write in English.
 - Kind leader_news must be plain and neutral: no evaluation, nickname, rumour or controversy.
 - Do not label the text as fictional or synthetic. Use JSON line-break escapes, not a literal backslash-n.
 - onset_quote: for kinds satire_restated, criticism_restated, rumor_restated and harm_politics, copy verbatim the first sentence of the thinking in which the mocking comparison or nickname, the negative evaluation, the rumour, or the abusive request is first stated. For all other kinds, leave it empty.
