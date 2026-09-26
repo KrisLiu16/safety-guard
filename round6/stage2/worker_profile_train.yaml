@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: safety-guard-stage2-profile-r2
+  namespace: default
+  labels:
+    app: safety-guard-stage2-profile
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 10800
+  template:
+    metadata:
+      labels:
+        app: safety-guard-stage2-profile
+    spec:
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 60
+      # T036: where a stage-2 training step spends its time on the second L20 (demo node, where the v4 targets are).
+      # Same image, environment and start checkpoint as the v4 run; nothing is trained to completion.
+      nodeSelector:
+        kubernetes.io/hostname: "172.19.2.175"
+      containers:
+        - name: profile
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          imagePullPolicy: IfNotPresent
+          command: [bash, -lc]
+          args:
+            - |
+              set -euo pipefail
+              nvidia-smi --query-gpu=name,uuid,memory.total,clocks.max.sm,power.limit --format=csv,noheader
+              python -c 'import torch; assert torch.cuda.device_count()==1; assert "L20" in torch.cuda.get_device_name(0)'
+              mkdir -p /work/output/round6
+              R=/work/output/round6/$RUN
+              for i in $(seq 1 3600); do
+                if test -f /work/round6/${RUN}_input_ready; then break; fi
+                sleep 1
+              done
+              test -f /work/round6/${RUN}_input_ready
+              apt-get update > ${R}_compiler_install.log 2>&1
+              apt-get install -y --no-install-recommends gcc libc6-dev >> ${R}_compiler_install.log 2>&1
+              set +e
+              (while true; do nvidia-smi --query-gpu=timestamp,utilization.gpu,memory.used,clocks.sm,power.draw --format=csv,noheader; sleep 5; done) > ${R}_smi.log 2>&1 &
+              /work/modern/bin/python -B /work/round6/stage2/profile_train.py /work/output/round6/stage2_targets_v4 --output $R --parts $PARTS > $R.log 2>&1
+              code=$?
+              kill %1
+              set -e
+              echo "profile=$code" > ${R}_exit_code.txt
+              touch ${R}_done
+          env:
+            # r1 = profile_train_v1 (all parts; check stopped on a head without gradient), r2 = the remaining parts
+            - {name: RUN, value: profile_train_v2}
+            - {name: PARTS, value: "check,steps,trace"}
+            - {name: HF_HOME, value: /work/hf}
+            - {name: HF_HUB_OFFLINE, value: "1"}
+            - {name: PYTHONUNBUFFERED, value: "1"}
+            - {name: OMP_NUM_THREADS, value: "8"}
+            - {name: TRITON_CACHE_DIR, value: /work/triton-cache}
+          resources:
+            requests: {cpu: "4", memory: 24Gi, nvidia.com/gpu: "8"}
+            limits: {cpu: "12", memory: 56Gi, nvidia.com/gpu: "8"}
+          volumeMounts:
+            - {name: work, mountPath: /work}
+            - {name: shm, mountPath: /dev/shm}
+      volumes:
+        - name: work
+          persistentVolumeClaim: {claimName: safety-guard-demo-data}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 4Gi}
