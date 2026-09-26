@@ -1,0 +1,462 @@
+{
+  "version": "stage2-distill-v3",
+  "start_sha256": "bb16a3a6f87748ce302d6db125822b31add9a7d5210cd44804d9416be44f30d2",
+  "targets_report_sha256": "5f3db084a1fe4b4e9f658a417e046b9d3f2f3099e87f100765d39bc2588e0e6d",
+  "records": {
+    "train": 137435,
+    "calibration": 9671,
+    "train_with_teacher": 104246
+  },
+  "steps": 17180,
+  "settings": {
+    "targets": "/work/output/round6/stage2_targets_v4",
+    "output": "/tmp/stage2_train_v4",
+    "epochs": 2,
+    "mix": {
+      "runA/assistant": 1.0,
+      "prefix_v2/assistant": 1.0,
+      "runA_prompts/user": 0.5,
+      "prefix_v2/user": 0.5,
+      "leader_v1/assistant": 0.75,
+      "leader_v1_prompts/user": 0.5,
+      "en_redline/assistant": 0.5,
+      "en_redline_prompts/user": 0.5
+    },
+    "backbone_lr": 8e-06,
+    "head_lr": 5e-05,
+    "micro_tokens": 16384,
+    "alert_cut": 0.4,
+    "distill_weight": 0.5,
+    "category_weight": 0.25,
+    "round4_code": "/work/round4",
+    "smoke": 0
+  },
+  "group_weights": {
+    "en_redline/assistant": {
+      "share": 0.09523809523809523,
+      "class_weight_totals": {
+        "0": 207726.0,
+        "1": 27819.0,
+        "2": 2551.0
+      }
+    },
+    "en_redline_prompts/user": {
+      "share": 0.09523809523809523,
+      "class_weight_totals": {
+        "0": 177636.0,
+        "1": 18626.0,
+        "2": 8.0
+      }
+    },
+    "leader_v1/assistant": {
+      "share": 0.14285714285714285,
+      "class_weight_totals": {
+        "0": 2062367.0,
+        "1": 35093.0,
+        "2": 298226.0
+      }
+    },
+    "leader_v1_prompts/user": {
+      "share": 0.09523809523809523,
+      "class_weight_totals": {
+        "0": 117290.0
+      }
+    },
+    "prefix_v2/assistant": {
+      "share": 0.19047619047619047,
+      "class_weight_totals": {
+        "0": 777170.6000010314,
+        "1": 122008.39999999056,
+        "2": 10953.899999999629
+      }
+    },
+    "prefix_v2/user": {
+      "share": 0.09523809523809523,
+      "class_weight_totals": {
+        "0": 392164.6000006505,
+        "1": 18575.30000000101,
+        "2": 1956.2999999999402
+      }
+    },
+    "runA/assistant": {
+      "share": 0.19047619047619047,
+      "class_weight_totals": {
+        "0": 1857804.0,
+        "1": 114238.0,
+        "2": 142068.0
+      }
+    },
+    "runA_prompts/user": {
+      "share": 0.09523809523809523,
+      "class_weight_totals": {
+        "0": 241878.0,
+        "1": 12812.0,
+        "2": 11053.0
+      }
+    }
+  },
+  "distill_weights": {
+    "en_redline/assistant": {
+      "share": 0.09523809523809523,
+      "records": 2627
+    },
+    "en_redline_prompts/user": {
+      "share": 0.09523809523809523,
+      "records": 4235
+    },
+    "leader_v1/assistant": {
+      "share": 0.14285714285714285,
+      "records": 8910
+    },
+    "leader_v1_prompts/user": {
+      "share": 0.09523809523809523,
+      "records": 7539
+    },
+    "prefix_v2/assistant": {
+      "share": 0.19047619047619047,
+      "records": 15614
+    },
+    "prefix_v2/user": {
+      "share": 0.09523809523809523,
+      "records": 17575
+    },
+    "runA/assistant": {
+      "share": 0.19047619047619047,
+      "records": 31759
+    },
+    "runA_prompts/user": {
+      "share": 0.09523809523809523,
+      "records": 15987
+    }
+  },
+  "dev_read": false,
+  "epochs": {
+    "0": {
+      "groups": {
+        "en_redline/assistant": {
+          "records": 139,
+          "position_auc": 0.8693108824474036,
+          "stream_auc": 0.8171296296296297,
+          "stream_positive": 27,
+          "alert_positions": 830,
+          "alert_mean_cut": 0.8896047961999135
+        },
+        "en_redline_prompts/user": {
+          "records": 242,
+          "position_auc": 0.8514462677839844,
+          "stream_auc": 0.7967708333333333,
+          "stream_positive": 50,
+          "alert_positions": 1203,
+          "alert_mean_cut": 0.5346371328840628
+        },
+        "leader_v1/assistant": {
+          "records": 458,
+          "position_auc": 0.8615873462316793,
+          "stream_auc": 0.9261413843888071,
+          "stream_positive": 70,
+          "alert_positions": 131,
+          "alert_mean_cut": 0.09278806156784523
+        },
+        "leader_v1_prompts/user": {
+          "records": 388,
+          "position_auc": null,
+          "stream_auc": null,
+          "stream_positive": 0,
+          "alert_positions": 134,
+          "alert_mean_cut": 0.7702038114640251
+        },
+        "prefix_v2/assistant": {
+          "records": 598,
+          "position_auc": 0.849720863686565,
+          "stream_auc": 0.7678053545807003,
+          "stream_positive": 61,
+          "alert_positions": 2990,
+          "alert_mean_cut": 0.817195400147135
+        },
+        "prefix_v2/user": {
+          "records": 300,
+          "position_auc": 0.9507231942405664,
+          "stream_auc": 0.7998150241496249,
+          "stream_positive": 37,
+          "alert_positions": 644,
+          "alert_mean_cut": 0.6960695094388464
+        },
+        "runA/assistant": {
+          "records": 5018,
+          "position_auc": 0.5249709137498902,
+          "stream_auc": 0.5358636081353827,
+          "stream_positive": 950,
+          "alert_positions": 83871,
+          "alert_mean_cut": 0.7045687659916654
+        },
+        "runA_prompts/user": {
+          "records": 2528,
+          "position_auc": 0.528638860856753,
+          "stream_auc": 0.525900369176904,
+          "stream_positive": 549,
+          "alert_positions": 14295,
+          "alert_mean_cut": 0.606549022050953
+        }
+      },
+      "mean_stream_auc": 0.738489457627769,
+      "general": {
+        "groups": {
+          "en_redline/assistant": {
+            "mean_kl": 0.8895800692892151,
+            "stream_auc_vs_teacher": 0.9021901443504231
+          },
+          "en_redline_prompts/user": {
+            "mean_kl": 1.4849193352998584,
+            "stream_auc_vs_teacher": 0.9106481971026753
+          },
+          "leader_v1/assistant": {
+            "mean_kl": 0.4691842367403757,
+            "stream_auc_vs_teacher": 0.8993006993006993
+          },
+          "leader_v1_prompts/user": {
+            "mean_kl": 0.9875665124184416,
+            "stream_auc_vs_teacher": 0.3535008449048564
+          },
+          "prefix_v2/assistant": {
+            "mean_kl": 0.7917036273281611,
+            "stream_auc_vs_teacher": 0.9237649015179604
+          },
+          "prefix_v2/user": {
+            "mean_kl": 1.6580478705344528,
+            "stream_auc_vs_teacher": 0.9152221872045383
+          },
+          "runA/assistant": {
+            "mean_kl": 0.5631592342671052,
+            "stream_auc_vs_teacher": 0.8686733762342412
+          },
+          "runA_prompts/user": {
+            "mean_kl": 1.7733560432101128,
+            "stream_auc_vs_teacher": 0.8601746628678321
+          }
+        },
+        "mean_stream_auc_vs_teacher": 0.8291843766854033
+      }
+    },
+    "1": {
+      "groups": {
+        "en_redline/assistant": {
+          "records": 139,
+          "position_auc": 0.9557572343181441,
+          "stream_auc": 0.8974867724867724,
+          "stream_positive": 27,
+          "alert_positions": 830,
+          "alert_mean_cut": 0.1786019639078393
+        },
+        "en_redline_prompts/user": {
+          "records": 242,
+          "position_auc": 0.8886142546378901,
+          "stream_auc": 0.8725,
+          "stream_positive": 50,
+          "alert_positions": 1203,
+          "alert_mean_cut": 0.25206587097591293
+        },
+        "leader_v1/assistant": {
+          "records": 458,
+          "position_auc": 0.9999603678882,
+          "stream_auc": 0.9987113402061856,
+          "stream_positive": 70,
+          "alert_positions": 131,
+          "alert_mean_cut": 0.01361669156387562
+        },
+        "leader_v1_prompts/user": {
+          "records": 388,
+          "position_auc": null,
+          "stream_auc": null,
+          "stream_positive": 0,
+          "alert_positions": 134,
+          "alert_mean_cut": 0.4165403215742823
+        },
+        "prefix_v2/assistant": {
+          "records": 598,
+          "position_auc": 0.9216860295184016,
+          "stream_auc": 0.887779711206765,
+          "stream_positive": 61,
+          "alert_positions": 2990,
+          "alert_mean_cut": 0.29838287096757155
+        },
+        "prefix_v2/user": {
+          "records": 300,
+          "position_auc": 0.9950847292979881,
+          "stream_auc": 0.9058678450313431,
+          "stream_positive": 37,
+          "alert_positions": 644,
+          "alert_mean_cut": 0.2724730638058289
+        },
+        "runA/assistant": {
+          "records": 5018,
+          "position_auc": 0.9136430878991231,
+          "stream_auc": 0.9182220669668271,
+          "stream_positive": 950,
+          "alert_positions": 83871,
+          "alert_mean_cut": 0.4240774921196542
+        },
+        "runA_prompts/user": {
+          "records": 2528,
+          "position_auc": 0.9218964323414242,
+          "stream_auc": 0.9203292126527077,
+          "stream_positive": 549,
+          "alert_positions": 14295,
+          "alert_mean_cut": 0.39932934325989744
+        }
+      },
+      "mean_stream_auc": 0.914413849792943,
+      "general": {
+        "groups": {
+          "en_redline/assistant": {
+            "mean_kl": 0.1731117535904275,
+            "stream_auc_vs_teacher": 0.9581881533101045
+          },
+          "en_redline_prompts/user": {
+            "mean_kl": 0.24453191021779622,
+            "stream_auc_vs_teacher": 0.9496669133974833
+          },
+          "leader_v1/assistant": {
+            "mean_kl": 0.02577180923495285,
+            "stream_auc_vs_teacher": 0.9928265283103993
+          },
+          "leader_v1_prompts/user": {
+            "mean_kl": 0.04964857081351286,
+            "stream_auc_vs_teacher": 0.9645139960326207
+          },
+          "prefix_v2/assistant": {
+            "mean_kl": 0.21642293210527871,
+            "stream_auc_vs_teacher": 0.9604723542432108
+          },
+          "prefix_v2/user": {
+            "mean_kl": 0.3489462265226757,
+            "stream_auc_vs_teacher": 0.9362928278780784
+          },
+          "runA/assistant": {
+            "mean_kl": 0.06317586541625764,
+            "stream_auc_vs_teacher": 0.9860921689441272
+          },
+          "runA_prompts/user": {
+            "mean_kl": 0.10880560133045228,
+            "stream_auc_vs_teacher": 0.9711480098239763
+          }
+        },
+        "mean_stream_auc_vs_teacher": 0.9649001189925
+      },
+      "checkpoint_sha256": "aba4916866c8da06fa7534573cb4ba5eb65a29121ed7d5c3a603d416dda6b910",
+      "seconds": 7110.490073686466
+    },
+    "2": {
+      "groups": {
+        "en_redline/assistant": {
+          "records": 139,
+          "position_auc": 0.9691253701422687,
+          "stream_auc": 0.8991402116402116,
+          "stream_positive": 27,
+          "alert_positions": 830,
+          "alert_mean_cut": 0.2303256659622652
+        },
+        "en_redline_prompts/user": {
+          "records": 242,
+          "position_auc": 0.964696311497756,
+          "stream_auc": 0.9039583333333333,
+          "stream_positive": 50,
+          "alert_positions": 1203,
+          "alert_mean_cut": 0.22639610300634866
+        },
+        "leader_v1/assistant": {
+          "records": 458,
+          "position_auc": 0.9999545859567003,
+          "stream_auc": 0.9984904270986745,
+          "stream_positive": 70,
+          "alert_positions": 131,
+          "alert_mean_cut": 0.06761421411092045
+        },
+        "leader_v1_prompts/user": {
+          "records": 388,
+          "position_auc": null,
+          "stream_auc": null,
+          "stream_positive": 0,
+          "alert_positions": 134,
+          "alert_mean_cut": 0.3943260143052286
+        },
+        "prefix_v2/assistant": {
+          "records": 598,
+          "position_auc": 0.9551434782851215,
+          "stream_auc": 0.9239857129773789,
+          "stream_positive": 61,
+          "alert_positions": 2990,
+          "alert_mean_cut": 0.30678725998138506
+        },
+        "prefix_v2/user": {
+          "records": 300,
+          "position_auc": 0.9821860428719454,
+          "stream_auc": 0.9124447641557908,
+          "stream_positive": 37,
+          "alert_positions": 644,
+          "alert_mean_cut": 0.2473641942191568
+        },
+        "runA/assistant": {
+          "records": 5018,
+          "position_auc": 0.907043322937122,
+          "stream_auc": 0.9201446462764581,
+          "stream_positive": 950,
+          "alert_positions": 83871,
+          "alert_mean_cut": 0.42955576536619067
+        },
+        "runA_prompts/user": {
+          "records": 2528,
+          "position_auc": 0.897409891202818,
+          "stream_auc": 0.9256629951466722,
+          "stream_positive": 549,
+          "alert_positions": 14295,
+          "alert_mean_cut": 0.3578677943345757
+        }
+      },
+      "mean_stream_auc": 0.9262610129469314,
+      "general": {
+        "groups": {
+          "en_redline/assistant": {
+            "mean_kl": 0.11247903620276267,
+            "stream_auc_vs_teacher": 0.9833250373320059
+          },
+          "en_redline_prompts/user": {
+            "mean_kl": 0.19173997179073501,
+            "stream_auc_vs_teacher": 0.9627788939409961
+          },
+          "leader_v1/assistant": {
+            "mean_kl": 0.018889828810771874,
+            "stream_auc_vs_teacher": 0.9944055944055944
+          },
+          "leader_v1_prompts/user": {
+            "mean_kl": 0.031914407324330034,
+            "stream_auc_vs_teacher": 0.9773712438468886
+          },
+          "prefix_v2/assistant": {
+            "mean_kl": 0.12851409052135168,
+            "stream_auc_vs_teacher": 0.97733733328839
+          },
+          "prefix_v2/user": {
+            "mean_kl": 0.2505330031660318,
+            "stream_auc_vs_teacher": 0.9554725136193778
+          },
+          "runA/assistant": {
+            "mean_kl": 0.044480144630569526,
+            "stream_auc_vs_teacher": 0.9900186981390671
+          },
+          "runA_prompts/user": {
+            "mean_kl": 0.09732970162220973,
+            "stream_auc_vs_teacher": 0.9761449605320096
+          }
+        },
+        "mean_stream_auc_vs_teacher": 0.9771067843880412
+      },
+      "checkpoint_sha256": "e1ebac8ee97ba2133bbc3eb96a3aac74e4cc54494dd5ff5d49d8745d46e1d097",
+      "seconds": 14187.23966095224
+    }
+  },
+  "status": "completed",
+  "chosen_epoch": 2,
+  "chosen_mean_stream_auc": 0.9262610129469314,
+  "best_sha256": "e1ebac8ee97ba2133bbc3eb96a3aac74e4cc54494dd5ff5d49d8745d46e1d097",
+  "seconds": 14189.17723436281
+}

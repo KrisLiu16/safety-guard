@@ -1,0 +1,2460 @@
+{
+  "version": "round6-stage1-compare-redline-v1",
+  "role": "assistant",
+  "model_calls": 0,
+  "cut_score": "1 - p(safe)",
+  "fitted_on": "Run A calibration + prefix_v2 calibration (assistant), per source/language stratum",
+  "official_used_for_fitting": false,
+  "dev_used_for_fitting": false,
+  "official_labels": "red-line policy (T027)",
+  "scorers": {
+    "v1": {
+      "skipped_streams": {
+        "runA_calibration:unusable": 38,
+        "prefix_v2_calibration:unusable": 2,
+        "runA_dev:unusable": 40,
+        "prefix_v2_dev:unusable": 4,
+        "official_thinking:unusable": 31
+      },
+      "temperature": 1.6,
+      "temperature_endpoint_nll": 0.268808823550008,
+      "rules": {
+        "threshold": {
+          "tau": 0.718162,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.040279787747226244,
+            "recall": 0.6806387225548902,
+            "fpr_ci95": [
+              0.03315306842229015,
+              0.04860943168077388
+            ],
+            "recall_ci95": [
+              0.6376518218623481,
+              0.7230499561787905
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.6263
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.715
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0068
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0456
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.1014
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0423
+              }
+            },
+            "early_fire": {
+              "detected": 682,
+              "before_onset_clause": 57,
+              "share": 0.0836
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.03473227206946455,
+            "recall": 0.6857142857142857,
+            "fpr_ci95": [
+              0.02170767004341534,
+              0.050073637702503684
+            ],
+            "recall_ci95": [
+              0.5964912280701754,
+              0.7787610619469026
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.6471
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.6932
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0072
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0717
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0571
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0156
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.05125148986889154,
+            "recall": 0.6402116402116402,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4608
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8506
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0727
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1081
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0354
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4643
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0449
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.4444
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0571
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8506
+              }
+            }
+          }
+        },
+        "consecutive_2": {
+          "tau": 0.498813,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03183791606367583,
+            "recall": 0.6157684630738522,
+            "fpr_ci95": [
+              0.02481329800048181,
+              0.039196472317491425
+            ],
+            "recall_ci95": [
+              0.5723404255319149,
+              0.6583690987124463
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.6211
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.6124
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0057
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0309
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.087
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0423
+              }
+            },
+            "early_fire": {
+              "detected": 617,
+              "before_onset_clause": 46,
+              "share": 0.0746
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.03328509406657019,
+            "recall": 0.6571428571428571,
+            "fpr_ci95": [
+              0.020864381520119227,
+              0.04852941176470588
+            ],
+            "recall_ci95": [
+              0.5581395348837209,
+              0.75
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.5882
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.6705
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0036
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0717
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0571
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0156
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.066746126340882,
+            "recall": 0.6931216931216931,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.5392
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8736
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0843
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.2162
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0514
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.5476
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0623
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.5
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0708
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8736
+              }
+            }
+          }
+        },
+        "ema_0.1": {
+          "tau": 0.498813,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.02653159671972986,
+            "recall": 0.5888223552894212,
+            "fpr_ci95": [
+              0.020305781175346392,
+              0.0333885863130476
+            ],
+            "recall_ci95": [
+              0.5455455455455456,
+              0.6304128902316214
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.6005
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.5814
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0045
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.023
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0797
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0391
+              }
+            },
+            "early_fire": {
+              "detected": 590,
+              "before_onset_clause": 29,
+              "share": 0.0492
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.02604920405209841,
+            "recall": 0.6095238095238096,
+            "fpr_ci95": [
+              0.01440922190201729,
+              0.04
+            ],
+            "recall_ci95": [
+              0.5048543689320388,
+              0.7079646017699115
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.4118
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.6477
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0036
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0558
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0156
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.04648390941597139,
+            "recall": 0.6031746031746031,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.3922
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8506
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.064
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1081
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0322
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4048
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0399
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.3333
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0525
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8506
+              }
+            }
+          }
+        },
+        "ema_0.3": {
+          "tau": 0.498813,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03087313072841293,
+            "recall": 0.627744510978044,
+            "fpr_ci95": [
+              0.0241280458671763,
+              0.038254046101029913
+            ],
+            "recall_ci95": [
+              0.5855472901168969,
+              0.6693227091633466
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.6289
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.627
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0045
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0284
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0978
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0412
+              }
+            },
+            "early_fire": {
+              "detected": 629,
+              "before_onset_clause": 46,
+              "share": 0.0731
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.03183791606367583,
+            "recall": 0.638095238095238,
+            "fpr_ci95": [
+              0.019316493313521546,
+              0.04644412191582003
+            ],
+            "recall_ci95": [
+              0.5428571428571428,
+              0.7317073170731707
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.5294
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.6591
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0036
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0677
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0571
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0156
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.054827175208581644,
+            "recall": 0.656084656084656,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4804
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8621
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0727
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1081
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.045
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.5
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0499
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.3889
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0594
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8621
+              }
+            }
+          }
+        }
+      },
+      "stream_auc_max_score": {
+        "runA_calibration": 0.9345267952152652,
+        "prefix_v2_calibration": 0.9464541929969167,
+        "runA_dev": 0.9179463070963717,
+        "prefix_v2_dev": 0.9396320033078355,
+        "official_thinking": 0.9035826222953756
+      }
+    },
+    "v2": {
+      "skipped_streams": {
+        "runA_calibration:unusable": 38,
+        "prefix_v2_calibration:unusable": 2,
+        "runA_dev:unusable": 40,
+        "prefix_v2_dev:unusable": 4,
+        "official_thinking:unusable": 31
+      },
+      "temperature": 1.7,
+      "temperature_endpoint_nll": 0.5869570903939562,
+      "rules": {
+        "threshold": {
+          "tau": 0.943766,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03473227206946455,
+            "recall": 0.5508982035928144,
+            "fpr_ci95": [
+              0.026404224675948152,
+              0.04341498908561727
+            ],
+            "recall_ci95": [
+              0.501953125,
+              0.594515181194907
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5696
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.5391
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0136
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0294
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0797
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0529
+              }
+            },
+            "early_fire": {
+              "detected": 552,
+              "before_onset_clause": 42,
+              "share": 0.0761
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.00723589001447178,
+            "recall": 0.4095238095238095,
+            "fpr_ci95": [
+              0.0014684287812041115,
+              0.014164305949008499
+            ],
+            "recall_ci95": [
+              0.3111111111111111,
+              0.509090909090909
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.4706
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.3977
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.012
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.033373063170441,
+            "recall": 0.5343915343915344,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4118
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.6782
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.032
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1351
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0386
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4405
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0399
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.2778
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0274
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.6782
+              }
+            }
+          }
+        },
+        "consecutive_2": {
+          "tau": 0.936904,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.034491075735648816,
+            "recall": 0.5439121756487026,
+            "fpr_ci95": [
+              0.026435952895938475,
+              0.04332216371469603
+            ],
+            "recall_ci95": [
+              0.4945382323733863,
+              0.5881207400194742
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5696
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.5277
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0136
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0299
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0688
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0539
+              }
+            },
+            "early_fire": {
+              "detected": 545,
+              "before_onset_clause": 39,
+              "share": 0.0716
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.00723589001447178,
+            "recall": 0.4,
+            "fpr_ci95": [
+              0.0014684287812041115,
+              0.014164305949008499
+            ],
+            "recall_ci95": [
+              0.29591836734693877,
+              0.5043478260869565
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.3529
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.4091
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.012
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.03575685339690107,
+            "recall": 0.544973544973545,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4216
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.6897
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0378
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1351
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0386
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4524
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0399
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.2778
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.032
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.6897
+              }
+            }
+          }
+        },
+        "ema_0.1": {
+          "tau": 0.920567,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.035214664737095995,
+            "recall": 0.5239520958083832,
+            "fpr_ci95": [
+              0.026759884281581485,
+              0.04431929480901078
+            ],
+            "recall_ci95": [
+              0.47658688865764826,
+              0.5670202507232401
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5696
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.4951
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0136
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0304
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0725
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.055
+              }
+            },
+            "early_fire": {
+              "detected": 525,
+              "before_onset_clause": 28,
+              "share": 0.0533
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.008683068017366137,
+            "recall": 0.3904761904761905,
+            "fpr_ci95": [
+              0.002849002849002849,
+              0.015988372093023256
+            ],
+            "recall_ci95": [
+              0.29357798165137616,
+              0.4864864864864865
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.3529
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.3977
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0159
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.03694874851013111,
+            "recall": 0.5661375661375662,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.402
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.7586
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0378
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1622
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0386
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4286
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0399
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.2778
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0342
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.7586
+              }
+            }
+          }
+        },
+        "ema_0.3": {
+          "tau": 0.929205,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03642064640617462,
+            "recall": 0.5489021956087824,
+            "fpr_ci95": [
+              0.028118240807498196,
+              0.04553201850499148
+            ],
+            "recall_ci95": [
+              0.49898373983739835,
+              0.5937813440320963
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5722
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.5342
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0136
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0319
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0761
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.056
+              }
+            },
+            "early_fire": {
+              "detected": 550,
+              "before_onset_clause": 41,
+              "share": 0.0745
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.008683068017366137,
+            "recall": 0.41904761904761906,
+            "fpr_ci95": [
+              0.0028653295128939827,
+              0.015759312320916905
+            ],
+            "recall_ci95": [
+              0.3157894736842105,
+              0.5163934426229508
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.3529
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.4318
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0159
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.03575685339690107,
+            "recall": 0.5661375661375662,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4216
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.7356
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0378
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1351
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0386
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4524
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0399
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.2778
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.032
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.7356
+              }
+            }
+          }
+        }
+      },
+      "stream_auc_max_score": {
+        "runA_calibration": 0.9212304789012062,
+        "prefix_v2_calibration": 0.918704399059743,
+        "runA_dev": 0.887580362670703,
+        "prefix_v2_dev": 0.9173316794156158,
+        "official_thinking": 0.8868141085065996
+      }
+    },
+    "v3": {
+      "skipped_streams": {
+        "runA_calibration:unusable": 38,
+        "prefix_v2_calibration:unusable": 2,
+        "runA_dev:unusable": 40,
+        "prefix_v2_dev:unusable": 4,
+        "official_thinking:unusable": 31
+      },
+      "temperature": 1.6,
+      "temperature_endpoint_nll": 0.5695721604878121,
+      "rules": {
+        "threshold": {
+          "tau": 0.936904,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03497346840328027,
+            "recall": 0.6007984031936128,
+            "fpr_ci95": [
+              0.026987242394504417,
+              0.043403629230014715
+            ],
+            "recall_ci95": [
+              0.5511482254697286,
+              0.6484210526315789
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5876
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.6091
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0136
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0358
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0616
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0455
+              }
+            },
+            "early_fire": {
+              "detected": 602,
+              "before_onset_clause": 46,
+              "share": 0.0764
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.001447178002894356,
+            "recall": 0.4,
+            "fpr_ci95": [
+              0.0,
+              0.004484304932735426
+            ],
+            "recall_ci95": [
+              0.29591836734693877,
+              0.5075757575757576
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.5294
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.375
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.004
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.025029797377830752,
+            "recall": 0.4656084656084656,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4118
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.5287
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0068
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0174
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1351
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0289
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4405
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0399
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.2778
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0114
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.5287
+              }
+            }
+          }
+        },
+        "consecutive_2": {
+          "tau": 0.9,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03786782440906898,
+            "recall": 0.6167664670658682,
+            "fpr_ci95": [
+              0.029753265602322207,
+              0.047081902893575285
+            ],
+            "recall_ci95": [
+              0.5693069306930693,
+              0.6631578947368421
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.6005
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.627
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0136
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0377
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0688
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0518
+              }
+            },
+            "early_fire": {
+              "detected": 618,
+              "before_onset_clause": 47,
+              "share": 0.0761
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.008683068017366137,
+            "recall": 0.47619047619047616,
+            "fpr_ci95": [
+              0.0028530670470756064,
+              0.017142857142857144
+            ],
+            "recall_ci95": [
+              0.37719298245614036,
+              0.575
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.4706
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.4773
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0199
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.03694874851013111,
+            "recall": 0.5502645502645502,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4608
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.6552
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0068
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.032
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1892
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0386
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4881
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0474
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.3333
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0274
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.6552
+              }
+            }
+          }
+        },
+        "ema_0.1": {
+          "tau": 0.874107,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03762662807525326,
+            "recall": 0.6047904191616766,
+            "fpr_ci95": [
+              0.029613313754282916,
+              0.04656745079212674
+            ],
+            "recall_ci95": [
+              0.5588235294117647,
+              0.6506147540983607
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5979
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.6091
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0124
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0377
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0688
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0518
+              }
+            },
+            "early_fire": {
+              "detected": 606,
+              "before_onset_clause": 30,
+              "share": 0.0495
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.005788712011577424,
+            "recall": 0.44761904761904764,
+            "fpr_ci95": [
+              0.0014104372355430183,
+              0.01199400299850075
+            ],
+            "recall_ci95": [
+              0.3493975903614458,
+              0.5483870967741935
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.4118
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.4545
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0159
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.03575685339690107,
+            "recall": 0.544973544973545,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4216
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.6897
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0068
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0378
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1351
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0354
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4524
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0399
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.2778
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.032
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.6897
+              }
+            }
+          }
+        },
+        "ema_0.3": {
+          "tau": 0.887798,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.03979739507959479,
+            "recall": 0.6347305389221557,
+            "fpr_ci95": [
+              0.0313975448536355,
+              0.04912451361867704
+            ],
+            "recall_ci95": [
+              0.5872340425531914,
+              0.6807653575025177
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.6057
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.6531
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0136
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0407
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0725
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0529
+              }
+            },
+            "early_fire": {
+              "detected": 636,
+              "before_onset_clause": 46,
+              "share": 0.0723
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.008683068017366137,
+            "recall": 0.47619047619047616,
+            "fpr_ci95": [
+              0.0028530670470756064,
+              0.017142857142857144
+            ],
+            "recall_ci95": [
+              0.37383177570093457,
+              0.5777777777777777
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.4706
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.4773
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0199
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.03694874851013111,
+            "recall": 0.5555555555555556,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.451
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.6782
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0068
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0349
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.1622
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0386
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4881
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0449
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.2778
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0297
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.6782
+              }
+            }
+          }
+        }
+      },
+      "stream_auc_max_score": {
+        "runA_calibration": 0.929074950391232,
+        "prefix_v2_calibration": 0.9231919894984278,
+        "runA_dev": 0.9022069223829234,
+        "prefix_v2_dev": 0.9313348494245745,
+        "official_thinking": 0.8826771603887218
+      }
+    },
+    "v4": {
+      "skipped_streams": {
+        "runA_calibration:unusable": 38,
+        "prefix_v2_calibration:unusable": 2,
+        "runA_dev:unusable": 40,
+        "prefix_v2_dev:unusable": 4,
+        "official_thinking:unusable": 31
+      },
+      "temperature": 1.5,
+      "temperature_endpoint_nll": 0.504225624726524,
+      "rules": {
+        "threshold": {
+          "tau": 0.887798,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.031114327062228653,
+            "recall": 0.6497005988023952,
+            "fpr_ci95": [
+              0.024495677233429394,
+              0.03859060402684564
+            ],
+            "recall_ci95": [
+              0.6060913705583756,
+              0.69267364414843
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5284
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.7264
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0034
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0451
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0362
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0254
+              }
+            },
+            "early_fire": {
+              "detected": 651,
+              "before_onset_clause": 40,
+              "share": 0.0614
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.02170767004341534,
+            "recall": 0.7142857142857143,
+            "fpr_ci95": [
+              0.011644832605531296,
+              0.03463855421686747
+            ],
+            "recall_ci95": [
+              0.6237623762376238,
+              0.8073394495412844
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.5294
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.75
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0036
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0518
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.06197854588796186,
+            "recall": 0.6296296296296297,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4608
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8276
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0727
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.2703
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.045
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4762
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0648
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.3889
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0594
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8276
+              }
+            }
+          }
+        },
+        "consecutive_2": {
+          "tau": 0.748811,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.029908345393150026,
+            "recall": 0.627744510978044,
+            "fpr_ci95": [
+              0.023080660835762875,
+              0.03745410036719706
+            ],
+            "recall_ci95": [
+              0.5840336134453782,
+              0.671120246659815
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5773
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.6596
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0034
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0324
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.058
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0412
+              }
+            },
+            "early_fire": {
+              "detected": 629,
+              "before_onset_clause": 48,
+              "share": 0.0763
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.023154848046309694,
+            "recall": 0.7142857142857143,
+            "fpr_ci95": [
+              0.012658227848101266,
+              0.0350140056022409
+            ],
+            "recall_ci95": [
+              0.6203703703703703,
+              0.8076923076923077
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.4118
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.7727
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0036
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0478
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0156
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.08700834326579261,
+            "recall": 0.6613756613756614,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.5
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8506
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.093
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.3784
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0772
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.5119
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0898
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.4444
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0845
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8506
+              }
+            }
+          }
+        },
+        "ema_0.1": {
+          "tau": 0.718162,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.029184756391702846,
+            "recall": 0.6127744510978044,
+            "fpr_ci95": [
+              0.022345026429601154,
+              0.036840837948470984
+            ],
+            "recall_ci95": [
+              0.5686475409836066,
+              0.656731757451182
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.5696
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.6401
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0034
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0319
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.058
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0391
+              }
+            },
+            "early_fire": {
+              "detected": 614,
+              "before_onset_clause": 34,
+              "share": 0.0554
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.02170767004341534,
+            "recall": 0.6476190476190476,
+            "fpr_ci95": [
+              0.011251758087201125,
+              0.034139402560455195
+            ],
+            "recall_ci95": [
+              0.5454545454545454,
+              0.7468354430379747
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.3529
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.7045
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0036
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0478
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0078
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.07151370679380215,
+            "recall": 0.6455026455026455,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4706
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8506
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0872
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.2973
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0514
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4881
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0698
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.3889
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0731
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8506
+              }
+            }
+          }
+        },
+        "ema_0.3": {
+          "tau": 0.776128,
+          "runA_dev": {
+            "n_safe": 4146,
+            "n_unsafe": 1002,
+            "fpr": 0.031114327062228653,
+            "recall": 0.6307385229540918,
+            "fpr_ci95": [
+              0.02407318247472316,
+              0.038726538370159186
+            ],
+            "recall_ci95": [
+              0.5860696517412936,
+              0.6717850287907869
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 388,
+                "recall": 0.567
+              },
+              "unsafe": {
+                "n": 614,
+                "recall": 0.671
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 884,
+                "fpr": 0.0034
+              },
+              "non_redline_harm": {
+                "n": 2040,
+                "fpr": 0.0363
+              },
+              "redline_topic": {
+                "n": 276,
+                "fpr": 0.0543
+              },
+              "other_sensitive": {
+                "n": 946,
+                "fpr": 0.0391
+              }
+            },
+            "early_fire": {
+              "detected": 632,
+              "before_onset_clause": 43,
+              "share": 0.068
+            }
+          },
+          "prefix_v2_dev": {
+            "n_safe": 691,
+            "n_unsafe": 105,
+            "fpr": 0.024602026049204053,
+            "recall": 0.6857142857142857,
+            "fpr_ci95": [
+              0.013196480938416423,
+              0.03757225433526012
+            ],
+            "recall_ci95": [
+              0.5904761904761905,
+              0.7818181818181819
+            ],
+            "recall_by_level": {
+              "controversial": {
+                "n": 17,
+                "recall": 0.3529
+              },
+              "unsafe": {
+                "n": 88,
+                "recall": 0.75
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 277,
+                "fpr": 0.0036
+              },
+              "non_redline_harm": {
+                "n": 251,
+                "fpr": 0.0518
+              },
+              "redline_topic": {
+                "n": 35,
+                "fpr": 0.0286
+              },
+              "other_sensitive": {
+                "n": 128,
+                "fpr": 0.0156
+              }
+            }
+          },
+          "official_thinking": {
+            "n_safe": 839,
+            "n_unsafe": 189,
+            "fpr": 0.06912991656734208,
+            "recall": 0.6402116402116402,
+            "recall_by_level": {
+              "controversial": {
+                "n": 102,
+                "recall": 0.4706
+              },
+              "unsafe": {
+                "n": 87,
+                "recall": 0.8391
+              }
+            },
+            "fpr_by_stratum": {
+              "normal": {
+                "n": 147,
+                "fpr": 0.0204
+              },
+              "non_redline_harm": {
+                "n": 344,
+                "fpr": 0.0785
+              },
+              "redline_topic": {
+                "n": 37,
+                "fpr": 0.2973
+              },
+              "other_sensitive": {
+                "n": 311,
+                "fpr": 0.0547
+              }
+            },
+            "crosstab": {
+              "official_safe:controversial": {
+                "n": 84,
+                "fired": 0.4881
+              },
+              "official_safe:safe": {
+                "n": 401,
+                "fired": 0.0723
+              },
+              "official_unsafe:controversial": {
+                "n": 18,
+                "fired": 0.3889
+              },
+              "official_unsafe:safe": {
+                "n": 438,
+                "fired": 0.0662
+              },
+              "official_unsafe:unsafe": {
+                "n": 87,
+                "fired": 0.8391
+              }
+            }
+          }
+        }
+      },
+      "stream_auc_max_score": {
+        "runA_calibration": 0.9199499181503933,
+        "prefix_v2_calibration": 0.9278016912415666,
+        "runA_dev": 0.8902638524205809,
+        "prefix_v2_dev": 0.9336227689339122,
+        "official_thinking": 0.8543050116351666
+      }
+    }
+  }
+}

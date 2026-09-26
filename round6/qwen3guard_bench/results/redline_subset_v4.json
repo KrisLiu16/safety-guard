@@ -1,0 +1,74 @@
+{
+  "0.5/prompt/weapons_drugs": {
+    "n": 211,
+    "stage2_v3_1_general": 92.41706161137441,
+    "stage2_v4_redline": 58.76777251184834,
+    "stage2_v4_general": 93.8388625592417
+  },
+  "0.5/prompt/self_harm": {
+    "n": 116,
+    "stage2_v3_1_general": 81.03448275862068,
+    "stage2_v4_redline": 17.24137931034483,
+    "stage2_v4_general": 85.34482758620689
+  },
+  "0.5/prompt/sexual": {
+    "n": 338,
+    "stage2_v3_1_general": 97.92899408284023,
+    "stage2_v4_redline": 54.73372781065089,
+    "stage2_v4_general": 97.92899408284023
+  },
+  "0.5/prompt/violence": {
+    "n": 158,
+    "stage2_v3_1_general": 92.40506329113924,
+    "stage2_v4_redline": 34.177215189873415,
+    "stage2_v4_general": 94.9367088607595
+  },
+  "0.5/prompt/other_harm": {
+    "n": 1097,
+    "stage2_v3_1_general": 82.8623518687329,
+    "stage2_v4_redline": 13.764813126709207,
+    "stage2_v4_general": 85.41476754785779
+  },
+  "0.5/prompt/safe": {
+    "n": 2063,
+    "stage2_v3_1_general": 33.446437227338826,
+    "stage2_v4_redline": 3.005332040717402,
+    "stage2_v4_general": 35.28841492971401
+  },
+  "0.5/response/weapons_drugs": {
+    "n": 235,
+    "stage2_v3_1_general": 92.34042553191489,
+    "stage2_v4_redline": 64.68085106382979,
+    "stage2_v4_general": 94.46808510638297
+  },
+  "0.5/response/self_harm": {
+    "n": 23,
+    "stage2_v3_1_general": 78.26086956521739,
+    "stage2_v4_redline": 47.82608695652174,
+    "stage2_v4_general": 82.6086956521739
+  },
+  "0.5/response/sexual": {
+    "n": 150,
+    "stage2_v3_1_general": 85.33333333333333,
+    "stage2_v4_redline": 16.0,
+    "stage2_v4_general": 86.0
+  },
+  "0.5/response/violence": {
+    "n": 73,
+    "stage2_v3_1_general": 94.52054794520548,
+    "stage2_v4_redline": 46.57534246575342,
+    "stage2_v4_general": 97.26027397260275
+  },
+  "0.5/response/other_harm": {
+    "n": 1646,
+    "stage2_v3_1_general": 82.5030376670717,
+    "stage2_v4_redline": 17.98298906439854,
+    "stage2_v4_general": 84.99392466585662
+  },
+  "0.5/response/safe": {
+    "n": 1707,
+    "stage2_v3_1_general": 21.499707088459285,
+    "stage2_v4_redline": 5.62390158172232,
+    "stage2_v4_general": 23.667252489748098
+  }
+}

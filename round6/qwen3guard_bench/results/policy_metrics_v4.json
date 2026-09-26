@@ -1,0 +1,126 @@
+{
+  "0.5/prompt/recall: all red-line": {
+    "n": 365,
+    "qwen3guard_stream_0.6b": 97.8082191780822,
+    "stage2_v3_1_general": 98.08219178082192,
+    "stage2_v4_redline": 73.97260273972603,
+    "stage2_v4_general": 99.45205479452055
+  },
+  "0.5/prompt/recall: weapons_drugs": {
+    "n": 98,
+    "qwen3guard_stream_0.6b": 98.9795918367347,
+    "stage2_v3_1_general": 100.0,
+    "stage2_v4_redline": 87.75510204081633,
+    "stage2_v4_general": 100.0
+  },
+  "0.5/prompt/recall: self_harm": {
+    "n": 31,
+    "qwen3guard_stream_0.6b": 83.87096774193549,
+    "stage2_v3_1_general": 93.54838709677419,
+    "stage2_v4_redline": 45.16129032258065,
+    "stage2_v4_general": 100.0
+  },
+  "0.5/prompt/recall: sexual": {
+    "n": 148,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v3_1_general": 99.32432432432432,
+    "stage2_v4_redline": 80.4054054054054,
+    "stage2_v4_general": 100.0
+  },
+  "0.5/prompt/recall: violence": {
+    "n": 40,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v3_1_general": 97.5,
+    "stage2_v4_redline": 67.5,
+    "stage2_v4_general": 100.0
+  },
+  "0.5/prompt/recall: other_harm": {
+    "n": 41,
+    "qwen3guard_stream_0.6b": 95.1219512195122,
+    "stage2_v3_1_general": 95.1219512195122,
+    "stage2_v4_redline": 48.78048780487805,
+    "stage2_v4_general": 97.5609756097561
+  },
+  "0.5/prompt/false pos.: bench safe": {
+    "n": 389,
+    "qwen3guard_stream_0.6b": 30.591259640102827,
+    "stage2_v3_1_general": 30.077120822622106,
+    "stage2_v4_redline": 2.3136246786632393,
+    "stage2_v4_general": 33.419023136246786
+  },
+  "0.5/prompt/false pos.: bench unsafe, policy passes": {
+    "n": 803,
+    "qwen3guard_stream_0.6b": 89.78829389788294,
+    "stage2_v3_1_general": 86.05230386052304,
+    "stage2_v4_redline": 14.694894146948942,
+    "stage2_v4_general": 88.4184308841843
+  },
+  "0.5/prompt/auc": {
+    "qwen3guard_stream_0.6b": 0.8239783488094143,
+    "stage2_v3_1_general": 0.7555713891698078,
+    "stage2_v4_redline": 0.8605199043854004,
+    "stage2_v4_general": 0.7728532683644387
+  },
+  "0.5/response/recall: all red-line": {
+    "n": 230,
+    "qwen3guard_stream_0.6b": 93.47826086956522,
+    "stage2_v3_1_general": 92.6086956521739,
+    "stage2_v4_redline": 84.34782608695652,
+    "stage2_v4_general": 92.6086956521739
+  },
+  "0.5/response/recall: weapons_drugs": {
+    "n": 99,
+    "qwen3guard_stream_0.6b": 97.97979797979798,
+    "stage2_v3_1_general": 98.98989898989899,
+    "stage2_v4_redline": 95.95959595959596,
+    "stage2_v4_general": 98.98989898989899
+  },
+  "0.5/response/recall: self_harm": {
+    "n": 11,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v3_1_general": 100.0,
+    "stage2_v4_redline": 100.0,
+    "stage2_v4_general": 90.9090909090909
+  },
+  "0.5/response/recall: sexual": {
+    "n": 29,
+    "qwen3guard_stream_0.6b": 96.55172413793103,
+    "stage2_v3_1_general": 96.55172413793103,
+    "stage2_v4_redline": 48.275862068965516,
+    "stage2_v4_general": 96.55172413793103
+  },
+  "0.5/response/recall: violence": {
+    "n": 23,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v3_1_general": 91.30434782608695,
+    "stage2_v4_redline": 91.30434782608695,
+    "stage2_v4_general": 95.65217391304348
+  },
+  "0.5/response/recall: other_harm": {
+    "n": 51,
+    "qwen3guard_stream_0.6b": 92.15686274509804,
+    "stage2_v3_1_general": 92.15686274509804,
+    "stage2_v4_redline": 80.3921568627451,
+    "stage2_v4_general": 92.15686274509804
+  },
+  "0.5/response/false pos.: bench safe": {
+    "n": 383,
+    "qwen3guard_stream_0.6b": 18.798955613577025,
+    "stage2_v3_1_general": 17.754569190600524,
+    "stage2_v4_redline": 2.6109660574412534,
+    "stage2_v4_general": 21.409921671018278
+  },
+  "0.5/response/false pos.: bench unsafe, policy passes": {
+    "n": 652,
+    "qwen3guard_stream_0.6b": 83.8957055214724,
+    "stage2_v3_1_general": 82.20858895705521,
+    "stage2_v4_redline": 14.570552147239264,
+    "stage2_v4_general": 85.7361963190184
+  },
+  "0.5/response/auc": {
+    "qwen3guard_stream_0.6b": 0.794282713715606,
+    "stage2_v3_1_general": 0.7690443184204999,
+    "stage2_v4_redline": 0.9243814324721698,
+    "stage2_v4_general": 0.7471812644402437
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "groups": {
+    "en_redline/assistant": {
+      "records": 139,
+      "position_auc": 0.9557572343181441,
+      "stream_auc": 0.8974867724867724,
+      "stream_positive": 27,
+      "alert_positions": 830,
+      "alert_mean_cut": 0.1786019639078393
+    },
+    "en_redline_prompts/user": {
+      "records": 242,
+      "position_auc": 0.8886142546378901,
+      "stream_auc": 0.8725,
+      "stream_positive": 50,
+      "alert_positions": 1203,
+      "alert_mean_cut": 0.25206587097591293
+    },
+    "leader_v1/assistant": {
+      "records": 458,
+      "position_auc": 0.9999603678882,
+      "stream_auc": 0.9987113402061856,
+      "stream_positive": 70,
+      "alert_positions": 131,
+      "alert_mean_cut": 0.01361669156387562
+    },
+    "leader_v1_prompts/user": {
+      "records": 388,
+      "position_auc": null,
+      "stream_auc": null,
+      "stream_positive": 0,
+      "alert_positions": 134,
+      "alert_mean_cut": 0.4165403215742823
+    },
+    "prefix_v2/assistant": {
+      "records": 598,
+      "position_auc": 0.9216860295184016,
+      "stream_auc": 0.887779711206765,
+      "stream_positive": 61,
+      "alert_positions": 2990,
+      "alert_mean_cut": 0.29838287096757155
+    },
+    "prefix_v2/user": {
+      "records": 300,
+      "position_auc": 0.9950847292979881,
+      "stream_auc": 0.9058678450313431,
+      "stream_positive": 37,
+      "alert_positions": 644,
+      "alert_mean_cut": 0.2724730638058289
+    },
+    "runA/assistant": {
+      "records": 5018,
+      "position_auc": 0.9136430878991231,
+      "stream_auc": 0.9182220669668271,
+      "stream_positive": 950,
+      "alert_positions": 83871,
+      "alert_mean_cut": 0.4240774921196542
+    },
+    "runA_prompts/user": {
+      "records": 2528,
+      "position_auc": 0.9218964323414242,
+      "stream_auc": 0.9203292126527077,
+      "stream_positive": 549,
+      "alert_positions": 14295,
+      "alert_mean_cut": 0.39932934325989744
+    }
+  },
+  "mean_stream_auc": 0.914413849792943,
+  "general": {
+    "groups": {
+      "en_redline/assistant": {
+        "mean_kl": 0.1731117535904275,
+        "stream_auc_vs_teacher": 0.9581881533101045
+      },
+      "en_redline_prompts/user": {
+        "mean_kl": 0.24453191021779622,
+        "stream_auc_vs_teacher": 0.9496669133974833
+      },
+      "leader_v1/assistant": {
+        "mean_kl": 0.02577180923495285,
+        "stream_auc_vs_teacher": 0.9928265283103993
+      },
+      "leader_v1_prompts/user": {
+        "mean_kl": 0.04964857081351286,
+        "stream_auc_vs_teacher": 0.9645139960326207
+      },
+      "prefix_v2/assistant": {
+        "mean_kl": 0.21642293210527871,
+        "stream_auc_vs_teacher": 0.9604723542432108
+      },
+      "prefix_v2/user": {
+        "mean_kl": 0.3489462265226757,
+        "stream_auc_vs_teacher": 0.9362928278780784
+      },
+      "runA/assistant": {
+        "mean_kl": 0.06317586541625764,
+        "stream_auc_vs_teacher": 0.9860921689441272
+      },
+      "runA_prompts/user": {
+        "mean_kl": 0.10880560133045228,
+        "stream_auc_vs_teacher": 0.9711480098239763
+      }
+    },
+    "mean_stream_auc_vs_teacher": 0.9649001189925
+  }
+}
