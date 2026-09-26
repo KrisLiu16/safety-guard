@@ -88,7 +88,7 @@ v2 和 v3 在使用 Graph 与不用 Graph 时输出完全一致。最大差值�
 - **剖析（192 个会话，每步 1 个 token）**：会话数从 128 增加到 192，GDN 内核从 3.0 ms 涨到 6.5 ms。原因是 192 个会话会补齐到 256 的档位，补齐的空行照样读写一整份状态（fp16 下每个会话约 18 MB），而且所有空行共用一个 scratch 槽。按带宽算，128 个会话时 GDN 已经达到约 89% 的带宽上限。
 - **未测到的方向**：400 条序列里有 386 条会被截断，“流式把本不该截的截了”这一方向几乎没测到。
 
-## v6（T007 v3，设计，待实测）
+## v6（T007 v3，结果目录 `results_v6/`：208 个会话时 P95 18.0 ms，8,817 token/s）
 
 | 改动 | 文件 |
 |---|---|
@@ -97,3 +97,43 @@ v2 和 v3 在使用 Graph 与不用 Graph 时输出完全一致。最大差值�
 | 判决一致性加测 prefix_v2 dev 的助手侧记录（第五轮留出集，一半是 safe），按来源标签分开报告 | [bench_v6_l20.py](bench_v6_l20.py) |
 
 [bench_v6_l20.py](bench_v6_l20.py) 同时跑细档位和原档位，把“空行不读写”和“加密档位”两项的收益分开。
+
+## v7 / v8（T034，2026-09-25/26，结果目录 `results_v7/`、`results_v8/`）：输出与 v6 逐位相同
+
+用户的要求是“不损失精度”。v7 和 v8 只做**输出与 v6 逐位相同**的改动：每一步都保留 PyTorch 的舍入点和运算顺序，
+所以阈值、评测结果都原样沿用，不用重新标定。第二张 L20，Round5 权重。
+
+| 版本 | 改动 | 文件 |
+|---|---|---|
+| v7 | 主机侧：每个档位一块锁页缓冲区，用 numpy 填好后一次异步拷贝（v6 是逐行 Python 循环 + 4 次会阻塞的拷贝）；结果整块拷回（v6 是 clone + 约 154 次拼接）；会话长度放进 numpy 数组。图内：去掉原地 ring 模式下用不到的掩码，读出头的 bf16 权重只转一次，去掉算完就丢的类别头 | [slot_engine_v7.py](slot_engine_v7.py) |
+| v8 | 每层的逐元素胶水融合成 Triton kernel：RMSNorm（残差加 + 平方 → `torch.mean` → 收尾）、SiLU×up、短卷积 + SiLU + 卷积状态更新、门控 RMSNorm、q/k norm + 部分 RoPE + 布局；GDN kernel 直接按步长读 q/k/v、自己写 padding 位置的零和平方；ring kernel 直接读 v 和 gate、乘 sigmoid(gate)，单 token 时顺手写回 ring | [slot_engine_v8.py](slot_engine_v8.py)、[fused_kernels.py](fused_kernels.py) |
+
+**怎样保证逐位相同**（[fused_kernels.py](fused_kernels.py) 开头有完整说明）：
+
+- 归约不重写：平方和的均值仍由 `torch.mean` 在同形状、同布局的张量上算，kernel 只负责前后两段；
+- exp、rsqrt 用 libdevice，和 PyTorch 里 CUDA 的 `expf`、`rsqrtf` 同源；
+- 两处 Triton 默认行为会改变结果，用内联 PTX 固定：
+  - Triton 会把“bf16 乘、再 bf16 加”合并成一条 `fma.rn.bf16x2`，只舍入一次（RoPE 里 100 万个值有 25 万个不同）→ 加法用 `add.rn.f32`；
+  - Triton 的 `/` 是近似除法，libdevice 又开着 flush-to-zero，而卷积输出里确实有 1e-38 量级的非规格化数 → 除法用 `div.rn.f32`；
+- 单测 [test_fused_l20.py](test_fused_l20.py)：每个融合算子对照 v6 的 PyTorch 代码，8 种 (会话, token) 档位，128 项全部逐位相同。
+
+**结果**
+
+| | v6 | v7 | v8 |
+|---|---|---|---|
+| 与 v6 的差（400 条思考序列 374,953 个位置 / prefix_v2 dev 106,788 个位置） | — | **0 / 0** | **0 / 0** |
+| 每个 tick 的 kernel 数（208 个会话，77 行 × 1 token，eager） | 1,647 | 1,647 | **614** |
+| 每个 tick 的墙钟时间 / 其中 GPU 图 | 8.49 / 8.11 ms | 8.15 / 8.05 ms | **5.96 / 5.88 ms** |
+| P95 ≤ 20 ms 时的会话数 | 208 | 240 | **352** |
+| 此时的 token/s | 8,817 | 10,355 | **15,188** |
+
+- 容量按两个种子里较差的一个算，每点 10 秒。v6 一列是 v6 原来的模拟器；换成向量化模拟器（同样的到达模型和随机数）后 v6 是 224，
+  差的 16 个会话是模拟器自己每个 tick 用 Python 扫一遍所有会话的开销。
+- v8 在 368 个会话时 P95 24 ms，400 以上开始有会话一个 tick 攒到 2 个 token，整个 tick 被补齐到 Lb=2，P95 跳到 54 ms（`sim_high.json`）。
+  这是调研报告里的第 5 项（变长打包），只影响边缘负载。
+- 顺带测过、没有采用的：cuBLASLt（GPU 时间反而多 0.2 ms，且结果不再逐位相同：概率最大差 0.27，argmax 翻转 325/374,953）；
+  矩阵乘法拼接（96 行时整 tick 只省约 0.12 ms，gate+up 拼起来反而更慢）。
+
+**v8 之后的 GPU 时间**（5.88 ms）：GEMM 2.77 ms（291 个 kernel）、GDN 1.63 ms（已到带宽下限）、ring 约 0.9 ms、
+其余约 0.6 ms。再往下要改 GEMM 算法或 ring 的分块顺序，结果就不再逐位相同，需要另走精度门槛。
+
