@@ -1,0 +1,16 @@
+{
+  "verify_official_dump.json": {
+    "positions": 512,
+    "max_abs_prob_diff": 0.019282817840576172,
+    "max_abs_cut_diff": 0.019282817840576172,
+    "argmax_agree": 0.998046875,
+    "decision_agree_tau_0.5": 0.994140625
+  },
+  "verify_rc_dump.json": {
+    "positions": 512,
+    "max_abs_prob_diff": 0.01887047290802002,
+    "max_abs_cut_diff": 0.01887047290802002,
+    "argmax_agree": 0.998046875,
+    "decision_agree_tau_0.5": 0.990234375
+  }
+}

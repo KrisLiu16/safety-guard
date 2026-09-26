@@ -1,0 +1,60 @@
+{
+  "status": "completed",
+  "kind": "qwen3guard_stream_0.6b_official_sglang",
+  "training": false,
+  "settings": {
+    "mode": "sglang",
+    "model": "/tmp/guard06",
+    "data": "/work/validation/official_adapted_v1/thinking.jsonl",
+    "output": "/tmp/official_bench/sglang_rc_fine_2048.json",
+    "contexts": "2048",
+    "sessions": "2,3,4,6",
+    "seconds": "10.0",
+    "seeds": "2",
+    "budget_ms": "20.0",
+    "mem_fraction": "0.85",
+    "log_level": "info",
+    "verify_out": "None",
+    "label": "radix_cache",
+    "service_tokens": "16"
+  },
+  "gpu": "NVIDIA L20",
+  "sglang_version": "0.5.3rc0",
+  "sglang_file": "/tmp/sglang_src_rc/python/sglang/__init__.py",
+  "variant": "radix_cache",
+  "mem_fraction_static": 0.85,
+  "service": [
+    {
+      "context": 2048,
+      "p50_ms": 12.052714824676514,
+      "p95_ms": 13.344332575798035
+    }
+  ],
+  "arrival_simulation": [
+    {
+      "sessions": 2,
+      "context": 2048,
+      "offered_tokens_per_s": 117.11585276845797,
+      "itps": 116.1,
+      "tokens_measured": 1161,
+      "latency_p50_ms": 40.94380512833595,
+      "latency_p95_ms": 55.88090047240257,
+      "latency_p99_ms": 59.06138755381107,
+      "seed": 0
+    },
+    {
+      "sessions": 2,
+      "context": 2048,
+      "offered_tokens_per_s": 88.26595824100147,
+      "itps": 86.6,
+      "tokens_measured": 866,
+      "latency_p50_ms": 39.681850001215935,
+      "latency_p95_ms": 54.76628057658672,
+      "latency_p99_ms": 58.20065177977085,
+      "seed": 1
+    }
+  ],
+  "capacity_at_p95_20ms": {
+    "2048": 0
+  }
+}

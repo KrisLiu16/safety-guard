@@ -170,8 +170,10 @@ def run_sglang(args, report, save):
     from transformers import AutoTokenizer
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     engine = Engine(model_path=str(args.model), context_length=10000, page_size=1, tp_size=1,
-                    mem_fraction_static=args.mem_fraction, chunked_prefill_size=131072)          # as on the model card
-    report.update(gpu=torch.cuda.get_device_name(0), sglang_version=sglang.__version__, mem_fraction_static=args.mem_fraction)
+                    mem_fraction_static=args.mem_fraction, chunked_prefill_size=131072,          # as on the model card
+                    log_level=args.log_level)
+    report.update(gpu=torch.cuda.get_device_name(0), sglang_version=sglang.__version__, sglang_file=sglang.__file__,
+                  variant=args.label, mem_fraction_static=args.mem_fraction)
     contexts = list(map(int, args.contexts.split(",")))
     sources = guard_sources(tokenizer, args.data, max(contexts) + 1024)
     loop = asyncio.get_event_loop()                                                         # the engine's own loop
@@ -234,7 +236,8 @@ def run_sglang(args, report, save):
             print("flush_cache:", error, flush=True)
 
     # single-stream service time (back-to-back one-token appends)
-    async def service(ctx, tokens=48, warm=8):
+    async def service(ctx, tokens=None, warm=4):
+        tokens = tokens or args.service_tokens
         stream = stream_of(sources, 0, 10_000 + ctx)
         counter[0] += 1
         rid = f"svc{counter[0]}"
@@ -247,6 +250,26 @@ def run_sglang(args, report, save):
                 times.append(time.perf_counter() - began)
         return {"context": ctx, "p50_ms": percentile(times, .5) * 1e3, "p95_ms": percentile(times, .95) * 1e3}
 
+    async def verify(streams=8, prime=256, appends=64):
+        """Per-token assistant risk probabilities of `appends` one-token appends after `prime` tokens, for
+        verify_l20 (compared there with one full-sequence forward of the transformers model)."""
+        out = []
+        for s in range(streams):
+            stream = stream_of(sources, s, 50_000)
+            counter[0] += 1
+            rid = f"verify{counter[0]}"
+            check(await request(stream[:prime], rid, True), prime, prime=True)
+            probs = []
+            for i in range(appends):
+                result = await request(stream[prime + i:prime + i + 1], rid, i < appends - 1)
+                logits = torch.tensor(result["risk_level_logits"], dtype=torch.float32).view(-1, 3)
+                probs.append(torch.softmax(logits[-1], -1).tolist())
+            out.append({"ids": list(map(int, stream[:prime + appends])), "prime": prime, "probs": probs})
+        return out
+
+    if args.verify_out:
+        args.verify_out.write_text(json.dumps(loop.run_until_complete(verify())) + "\n")
+        flush()
     report["service"], report["arrival_simulation"], report["capacity_at_p95_20ms"] = [], [], {}
     for ctx in contexts:
         row = loop.run_until_complete(service(ctx))
@@ -255,8 +278,13 @@ def run_sglang(args, report, save):
         print("service", json.dumps(row), flush=True)
         flush()
     grid = list(map(int, args.sessions.split(",")))
-    for ctx in contexts:
+    for ctx, svc in zip(contexts, report["service"]):
         best = 0
+        if svc["p50_ms"] > args.budget_ms:                     # one token alone misses the budget: capacity 0
+            report["capacity_at_p95_20ms"][str(ctx)] = 0
+            report.setdefault("skipped_simulation", {})[str(ctx)] = "single-token service time over budget"
+            save()
+            continue
         for n in grid:
             rows = []
             for seed in range(args.seeds):
@@ -286,6 +314,10 @@ def main():
     parser.add_argument("--seeds", type=int, default=2)
     parser.add_argument("--budget-ms", type=float, default=20.0)
     parser.add_argument("--mem-fraction", type=float, default=0.85)
+    parser.add_argument("--log-level", default="error", help="SGLang log level (info prints every batch)")
+    parser.add_argument("--verify-out", type=Path, help="sglang: also dump per-token probabilities for verify_l20.py")
+    parser.add_argument("--label", default="official", help="sglang: official branch or a named variant")
+    parser.add_argument("--service-tokens", type=int, default=48, help="sglang: back-to-back appends timed per context")
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     report = {"status": "running", "kind": f"qwen3guard_stream_0.6b_official_{args.mode}", "training": False,

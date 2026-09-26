@@ -1,0 +1,180 @@
+{
+  "status": "completed",
+  "kind": "qwen3guard_stream_0.6b_official_hf",
+  "training": false,
+  "settings": {
+    "mode": "hf",
+    "model": "/tmp/guard06",
+    "data": "/work/validation/official_adapted_v1/thinking.jsonl",
+    "output": "/tmp/official_bench/hf.json",
+    "contexts": "512,1024,2048,4096,8000",
+    "sessions": "1,8,16,24,32,48,64,80,96,128,160,192,224,256,288,320,352",
+    "seconds": "10.0",
+    "seeds": "2",
+    "budget_ms": "20.0",
+    "mem_fraction": "0.85"
+  },
+  "gpu": "NVIDIA L20",
+  "use_cache_in_config": false,
+  "service": [
+    {
+      "context": 512,
+      "p50_ms": 38.617465645074844,
+      "p95_ms": 39.221951737999916,
+      "max_streams_throughput": 0.575444862862366
+    },
+    {
+      "context": 1024,
+      "p50_ms": 56.158892810344696,
+      "p95_ms": 56.638430804014206,
+      "max_streams_throughput": 0.39570264138342837
+    },
+    {
+      "context": 2048,
+      "p50_ms": 116.757707670331,
+      "p95_ms": 118.01345646381378,
+      "max_streams_throughput": 0.19032766800259007
+    },
+    {
+      "context": 4096,
+      "p50_ms": 272.3279520869255,
+      "p95_ms": 276.07106789946556,
+      "max_streams_throughput": 0.08160095962212875
+    },
+    {
+      "context": 8000,
+      "p50_ms": 676.8414452672005,
+      "p95_ms": 789.5424198359251,
+      "max_streams_throughput": 0.03283224214121438
+    }
+  ],
+  "arrival_simulation": [
+    {
+      "sessions": 1,
+      "context": 512,
+      "offered_tokens_per_s": 34.03092732337204,
+      "itps": 22.2,
+      "tokens_measured": 222,
+      "latency_p50_ms": 1204.161522909999,
+      "latency_p95_ms": 2705.182645469904,
+      "latency_p99_ms": 2852.881159633398,
+      "seed": 0,
+      "undelivered_at_end": 89
+    },
+    {
+      "sessions": 1,
+      "context": 512,
+      "offered_tokens_per_s": 53.899529038799116,
+      "itps": 26.0,
+      "tokens_measured": 260,
+      "latency_p50_ms": 2840.342039242387,
+      "latency_p95_ms": 5871.08133547008,
+      "latency_p99_ms": 6184.73394215107,
+      "seed": 1,
+      "undelivered_at_end": 275
+    },
+    {
+      "sessions": 1,
+      "context": 1024,
+      "offered_tokens_per_s": 34.03092732337204,
+      "itps": 18.0,
+      "tokens_measured": 180,
+      "latency_p50_ms": 2625.8361749351025,
+      "latency_p95_ms": 5436.001528054476,
+      "latency_p99_ms": 5729.598490521312,
+      "seed": 0,
+      "undelivered_at_end": 131
+    },
+    {
+      "sessions": 1,
+      "context": 1024,
+      "offered_tokens_per_s": 53.899529038799116,
+      "itps": 16.8,
+      "tokens_measured": 168,
+      "latency_p50_ms": 3443.7504708766937,
+      "latency_p95_ms": 6870.007706806064,
+      "latency_p99_ms": 7199.432952329516,
+      "seed": 1,
+      "undelivered_at_end": 367
+    },
+    {
+      "sessions": 1,
+      "context": 2048,
+      "offered_tokens_per_s": 34.03092732337204,
+      "itps": 12.8,
+      "tokens_measured": 128,
+      "latency_p50_ms": 5687.218891456723,
+      "latency_p95_ms": 11092.498010024428,
+      "latency_p99_ms": 11555.59122748673,
+      "seed": 0,
+      "undelivered_at_end": 183
+    },
+    {
+      "sessions": 1,
+      "context": 2048,
+      "offered_tokens_per_s": 53.899529038799116,
+      "itps": 10.9,
+      "tokens_measured": 109,
+      "latency_p50_ms": 5580.050630494952,
+      "latency_p95_ms": 10668.145237490535,
+      "latency_p99_ms": 11079.148583114147,
+      "seed": 1,
+      "undelivered_at_end": 426
+    },
+    {
+      "sessions": 1,
+      "context": 4096,
+      "offered_tokens_per_s": 34.03092732337204,
+      "itps": 7.4,
+      "tokens_measured": 74,
+      "latency_p50_ms": 9180.368609726429,
+      "latency_p95_ms": 17751.060528680682,
+      "latency_p99_ms": 18489.81754668057,
+      "seed": 0,
+      "undelivered_at_end": 237
+    },
+    {
+      "sessions": 1,
+      "context": 4096,
+      "offered_tokens_per_s": 53.899529038799116,
+      "itps": 7.9,
+      "tokens_measured": 79,
+      "latency_p50_ms": 10322.142349556088,
+      "latency_p95_ms": 19663.76968473196,
+      "latency_p99_ms": 20437.618112191558,
+      "seed": 1,
+      "undelivered_at_end": 456
+    },
+    {
+      "sessions": 1,
+      "context": 8000,
+      "offered_tokens_per_s": 34.03092732337204,
+      "itps": 2.4,
+      "tokens_measured": 24,
+      "latency_p50_ms": 7895.8336394280195,
+      "latency_p95_ms": 15242.300517857075,
+      "latency_p99_ms": 15875.991715118289,
+      "seed": 0,
+      "undelivered_at_end": 287
+    },
+    {
+      "sessions": 1,
+      "context": 8000,
+      "offered_tokens_per_s": 53.899529038799116,
+      "itps": 3.7,
+      "tokens_measured": 37,
+      "latency_p50_ms": 12718.519076704979,
+      "latency_p95_ms": 24120.19074521959,
+      "latency_p99_ms": 24780.88810481131,
+      "seed": 1,
+      "undelivered_at_end": 498
+    }
+  ],
+  "capacity_at_p95_20ms": {
+    "512": 0,
+    "1024": 0,
+    "2048": 0,
+    "4096": 0,
+    "8000": 0
+  }
+}

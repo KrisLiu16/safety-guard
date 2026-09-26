@@ -137,3 +137,28 @@ v2 和 v3 在使用 Graph 与不用 Graph 时输出完全一致。最大差值�
 **v8 之后的 GPU 时间**（5.88 ms）：GEMM 2.77 ms（291 个 kernel）、GDN 1.63 ms（已到带宽下限）、ring 约 0.9 ms、
 其余约 0.6 ms。再往下要改 GEMM 算法或 ring 的分块顺序，结果就不再逐位相同，需要另走精度门槛。
 
+
+## Qwen3Guard-Stream-0.6B served as documented vs. v8 (T034, same L20)
+
+`bench_official_l20.py` runs Qwen3Guard-Stream-0.6B the two ways its model card documents and once with the SGLang
+prefix cache left on; `bench_context_l20.py` runs v8 with 512 to 8,000 tokens already in every stream. Same arrival
+simulation as v7/v8 (U(30, 60) tokens/s per stream, 10 s, worse of two seeds). Results in `results_official/`.
+
+| Tokens in stream | transformers ms/token | SGLang ms/token | SGLang+cache ms/token | v8 ms/token | streams at P95 <= 20 ms (transformers / SGLang / SGLang+cache / v8) |
+|---|---|---|---|---|---|
+| 512 | 38.6 | 11.8 | 11.7 | 2.38 | 0 / 1 / 1 / 352 |
+| 1,024 | 56.2 | 16.4 | 11.8 | 2.38 | 0 / 0 / 1 / 352 |
+| 2,048 | 116.8 | 32.7 | 11.7 | 2.38 | 0 / 0 / 1 / 352 |
+| 4,096 | 272.3 | 74.2 | 12.2 | 2.38 | 0 / 0 / 1 / 352 |
+| 8,000 | 676.8 | 175.0 | 12.7 | 2.38 | 0 / 0 / 1 / 352 |
+
+- transformers: the released config has `use_cache=false`, so `stream_generate` re-runs the whole sequence per token.
+- SGLang branch `support_qwen3_guard` (commit 9a06537): `model_runner.py` sets `disable_radix_cache=True` for
+  `Qwen3ForGuardModel`, so each resumable append re-prefills the whole stream (`#cached-token: 0`), and earlier KV is
+  freed only when the stream ends; one 512-token stream fills the pool (token usage 0 -> 0.96) in about 10 s and the
+  scheduler stalls. `sglang_*.json` are 3 s runs for that reason.
+- SGLang+cache: the same branch without that one line. `verify.json`: against one full-sequence transformers forward,
+  max |dp| 0.019 and tau = 0.5 decisions agree at 99.0% (unmodified branch: 0.019, 99.4%). `sglang_rc_fine_*.json`
+  tried 2/3/4/6 streams; 2 already has P95 53-57 ms, so capacity stays 1.
+- Environment: the pod image has no CUDA toolkit; SGLang needs `CUDA_HOME` with nvcc 12.8 (FlashInfer JIT), `libnuma1`,
+  and `SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1` for the model card's `context_length=10000`.

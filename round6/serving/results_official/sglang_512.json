@@ -1,0 +1,60 @@
+{
+  "status": "completed",
+  "kind": "qwen3guard_stream_0.6b_official_sglang",
+  "training": false,
+  "settings": {
+    "mode": "sglang",
+    "model": "/tmp/guard06",
+    "data": "/work/validation/official_adapted_v1/thinking.jsonl",
+    "output": "/tmp/official_bench/sglang_512.json",
+    "contexts": "512",
+    "sessions": "1,2",
+    "seconds": "3.0",
+    "seeds": "1",
+    "budget_ms": "20.0",
+    "mem_fraction": "0.85",
+    "log_level": "info",
+    "verify_out": "None",
+    "label": "official",
+    "service_tokens": "16"
+  },
+  "gpu": "NVIDIA L20",
+  "sglang_version": "0.5.3rc0",
+  "sglang_file": "/tmp/sglang_src/python/sglang/__init__.py",
+  "variant": "official",
+  "mem_fraction_static": 0.85,
+  "service": [
+    {
+      "context": 512,
+      "p50_ms": 11.785134673118591,
+      "p95_ms": 12.193124741315842
+    }
+  ],
+  "arrival_simulation": [
+    {
+      "sessions": 1,
+      "context": 512,
+      "offered_tokens_per_s": 34.03092732337204,
+      "itps": 24.333333333333332,
+      "tokens_measured": 73,
+      "latency_p50_ms": 12.556007131934166,
+      "latency_p95_ms": 13.297440484166145,
+      "latency_p99_ms": 15.026126056909561,
+      "seed": 0
+    },
+    {
+      "sessions": 2,
+      "context": 512,
+      "offered_tokens_per_s": 117.11585276845797,
+      "itps": 113.66666666666667,
+      "tokens_measured": 341,
+      "latency_p50_ms": 37.67518885433674,
+      "latency_p95_ms": 226.81035660207272,
+      "latency_p99_ms": 269.64755915105343,
+      "seed": 0
+    }
+  ],
+  "capacity_at_p95_20ms": {
+    "512": 1
+  }
+}

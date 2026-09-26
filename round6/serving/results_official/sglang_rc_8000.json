@@ -1,0 +1,82 @@
+{
+  "status": "completed",
+  "kind": "qwen3guard_stream_0.6b_official_sglang",
+  "training": false,
+  "settings": {
+    "mode": "sglang",
+    "model": "/tmp/guard06",
+    "data": "/work/validation/official_adapted_v1/thinking.jsonl",
+    "output": "/tmp/official_bench/sglang_rc_8000.json",
+    "contexts": "8000",
+    "sessions": "1,8,16,32,48,64,96,128,160,192,224,256,288,320,352",
+    "seconds": "10.0",
+    "seeds": "2",
+    "budget_ms": "20.0",
+    "mem_fraction": "0.85",
+    "log_level": "info",
+    "verify_out": "None",
+    "label": "radix_cache",
+    "service_tokens": "48"
+  },
+  "gpu": "NVIDIA L20",
+  "sglang_version": "0.5.3rc0",
+  "sglang_file": "/tmp/sglang_src_rc/python/sglang/__init__.py",
+  "variant": "radix_cache",
+  "mem_fraction_static": 0.85,
+  "service": [
+    {
+      "context": 8000,
+      "p50_ms": 12.658480554819107,
+      "p95_ms": 13.000639155507088
+    }
+  ],
+  "arrival_simulation": [
+    {
+      "sessions": 1,
+      "context": 8000,
+      "offered_tokens_per_s": 34.03092732337204,
+      "itps": 31.1,
+      "tokens_measured": 311,
+      "latency_p50_ms": 14.062877744436264,
+      "latency_p95_ms": 15.177469700574875,
+      "latency_p99_ms": 15.571782365441322,
+      "seed": 0
+    },
+    {
+      "sessions": 1,
+      "context": 8000,
+      "offered_tokens_per_s": 53.899529038799116,
+      "itps": 53.5,
+      "tokens_measured": 535,
+      "latency_p50_ms": 14.382252469658852,
+      "latency_p95_ms": 16.247782856225967,
+      "latency_p99_ms": 16.595447435975075,
+      "seed": 1
+    },
+    {
+      "sessions": 8,
+      "context": 8000,
+      "offered_tokens_per_s": 346.83903422307685,
+      "itps": 331.5,
+      "tokens_measured": 3315,
+      "latency_p50_ms": 60.401057824492455,
+      "latency_p95_ms": 85.2604154497385,
+      "latency_p99_ms": 92.2608245164156,
+      "seed": 0
+    },
+    {
+      "sessions": 8,
+      "context": 8000,
+      "offered_tokens_per_s": 389.72071748100495,
+      "itps": 373.3,
+      "tokens_measured": 3733,
+      "latency_p50_ms": 60.81663444638252,
+      "latency_p95_ms": 85.72515472769737,
+      "latency_p99_ms": 91.80575609207153,
+      "seed": 1
+    }
+  ],
+  "capacity_at_p95_20ms": {
+    "8000": 1
+  }
+}
