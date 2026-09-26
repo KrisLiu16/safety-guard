@@ -1,0 +1,144 @@
+{
+  "0.5/prompt/recall: all red-line": {
+    "n": 191,
+    "qwen3guard_stream_0.6b": 98.42931937172774,
+    "stage2_v4_redline": 76.43979057591623,
+    "stage2_v4_general": 99.47643979057591,
+    "stage2_v5_redline": 78.53403141361257,
+    "stage2_v5_general": 97.38219895287958
+  },
+  "0.5/prompt/recall: weapons_drugs": {
+    "n": 59,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 91.52542372881356,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 88.13559322033899,
+    "stage2_v5_general": 100.0
+  },
+  "0.5/prompt/recall: self_harm": {
+    "n": 18,
+    "qwen3guard_stream_0.6b": 83.33333333333333,
+    "stage2_v4_redline": 50.0,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 50.0,
+    "stage2_v5_general": 83.33333333333333
+  },
+  "0.5/prompt/recall: sexual": {
+    "n": 71,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 81.69014084507042,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 87.32394366197182,
+    "stage2_v5_general": 100.0
+  },
+  "0.5/prompt/recall: violence": {
+    "n": 18,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 72.22222222222223,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 66.66666666666667,
+    "stage2_v5_general": 94.44444444444444
+  },
+  "0.5/prompt/recall: other_harm": {
+    "n": 20,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 50.0,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 65.0,
+    "stage2_v5_general": 100.0
+  },
+  "0.5/prompt/false pos.: bench safe": {
+    "n": 178,
+    "qwen3guard_stream_0.6b": 31.46067415730337,
+    "stage2_v4_redline": 2.808988764044944,
+    "stage2_v4_general": 37.07865168539326,
+    "stage2_v5_redline": 0.5617977528089888,
+    "stage2_v5_general": 26.96629213483146
+  },
+  "0.5/prompt/false pos.: bench unsafe, policy passes": {
+    "n": 397,
+    "qwen3guard_stream_0.6b": 93.19899244332494,
+    "stage2_v4_redline": 15.365239294710328,
+    "stage2_v4_general": 91.68765743073048,
+    "stage2_v5_redline": 16.3727959697733,
+    "stage2_v5_general": 90.68010075566751
+  },
+  "0.5/prompt/auc": {
+    "qwen3guard_stream_0.6b": 0.8036284998861826,
+    "stage2_v4_redline": 0.8647803323469155,
+    "stage2_v4_general": 0.7549191896198497,
+    "stage2_v5_redline": 0.8929296608240382,
+    "stage2_v5_general": 0.7646710676075574
+  },
+  "0.5/response/recall: all red-line": {
+    "n": 114,
+    "qwen3guard_stream_0.6b": 92.10526315789474,
+    "stage2_v4_redline": 86.84210526315789,
+    "stage2_v4_general": 92.10526315789474,
+    "stage2_v5_redline": 86.84210526315789,
+    "stage2_v5_general": 91.2280701754386
+  },
+  "0.5/response/recall: weapons_drugs": {
+    "n": 49,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 97.95918367346938,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 93.87755102040816,
+    "stage2_v5_general": 100.0
+  },
+  "0.5/response/recall: self_harm": {
+    "n": 8,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 100.0,
+    "stage2_v4_general": 87.5,
+    "stage2_v5_redline": 87.5,
+    "stage2_v5_general": 87.5
+  },
+  "0.5/response/recall: sexual": {
+    "n": 13,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 61.53846153846154,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 84.61538461538461,
+    "stage2_v5_general": 100.0
+  },
+  "0.5/response/recall: violence": {
+    "n": 9,
+    "qwen3guard_stream_0.6b": 100.0,
+    "stage2_v4_redline": 88.88888888888889,
+    "stage2_v4_general": 100.0,
+    "stage2_v5_redline": 100.0,
+    "stage2_v5_general": 100.0
+  },
+  "0.5/response/recall: other_harm": {
+    "n": 25,
+    "qwen3guard_stream_0.6b": 88.0,
+    "stage2_v4_redline": 72.0,
+    "stage2_v4_general": 88.0,
+    "stage2_v5_redline": 68.0,
+    "stage2_v5_general": 84.0
+  },
+  "0.5/response/false pos.: bench safe": {
+    "n": 203,
+    "qwen3guard_stream_0.6b": 22.167487684729064,
+    "stage2_v4_redline": 3.4482758620689653,
+    "stage2_v4_general": 22.167487684729064,
+    "stage2_v5_redline": 3.4482758620689653,
+    "stage2_v5_general": 14.77832512315271
+  },
+  "0.5/response/false pos.: bench unsafe, policy passes": {
+    "n": 324,
+    "qwen3guard_stream_0.6b": 85.49382716049382,
+    "stage2_v4_redline": 14.506172839506172,
+    "stage2_v4_general": 85.18518518518519,
+    "stage2_v5_redline": 12.962962962962964,
+    "stage2_v5_general": 81.79012345679013
+  },
+  "0.5/response/auc": {
+    "qwen3guard_stream_0.6b": 0.7819334864675921,
+    "stage2_v4_redline": 0.9308731981757049,
+    "stage2_v4_general": 0.740270981057958,
+    "stage2_v5_redline": 0.9443223809048237,
+    "stage2_v5_general": 0.7591880555278139
+  }
+}

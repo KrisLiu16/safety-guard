@@ -14,6 +14,11 @@ import argparse
 import collections
 import json
 from pathlib import Path
+import sys
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+from bench_split import half  # noqa: E402
 
 CUT = ("controversial", "unsafe")
 
@@ -65,7 +70,10 @@ def main():
     parser.add_argument("--rows-assistant", type=Path, required=True)
     parser.add_argument("--tau", type=float, nargs="+", default=[0.5])
     parser.add_argument("--json", type=Path)
+    parser.add_argument("--cases", type=Path, default=HERE / "data" / "cases.jsonl")
+    parser.add_argument("--half", choices=("all", "fit", "held"), default="all", help="bench_split.py half to report")
     args = parser.parse_args()
+    kept = None if args.half == "all" else {c["id"] for c in read_jsonl(args.cases) if half(c) == args.half}
     kinds = {}
     for labels, rows in ((args.labels_user, args.rows_user), (args.labels_assistant, args.rows_assistant)):
         kinds.update(classes(read_jsonl(labels), {r["sample_id"]: r for r in read_jsonl(rows)}))
@@ -73,7 +81,7 @@ def main():
     level_of, checkpoints = {}, []
     for path in args.scores:
         for row in read_jsonl(path):
-            if row["id"] not in kinds:
+            if row["id"] not in kinds or (kept is not None and row["id"] not in kept):
                 continue
             level = "prompt" if row["id"].split(":")[0] in ("ToxicChat", "OpenAIMod", "Aegis", "Aegis2.0",
                                                              "SimpleSafetyTests", "HarmBench-P", "WildGuardTest-P") \
