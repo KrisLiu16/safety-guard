@@ -1,0 +1,554 @@
+{
+  "version": "stage2-v3.1-user-general",
+  "checkpoint_sha256": "63554ff7ac09de40248dfc2ada6b6e5b7180071819fa40a4d5474be7a1d03aff",
+  "teacher_end_sha256": "93497e57ff32c6ad6414a926b2f101665e2c9fe6602cdbaefe8aeb835fad6e82",
+  "records": {
+    "train": 42523,
+    "calibration": 3303
+  },
+  "records_by_source": {
+    "train": {
+      "runA_prompts": 15987,
+      "leader_v1_prompts": 4726,
+      "en_redline_prompts": 4235,
+      "prefix_v2": 17575
+    },
+    "calibration": {
+      "runA_prompts": 2528,
+      "leader_v1_prompts": 233,
+      "en_redline_prompts": 242,
+      "prefix_v2": 300
+    }
+  },
+  "settings": {
+    "checkpoint": "/work/output/round6/stage2_train_v3/best.safetensors",
+    "general_view": "/tmp/v3_general.safetensors",
+    "targets": "/work/output/round6/stage2_targets_v3",
+    "teacher_end": "/work/teacher/teacher_4b_end_user.jsonl.gz",
+    "output": "/work/output/round6/stage2_train_v3_1",
+    "epochs": 16,
+    "lr": 0.001,
+    "batch": 256,
+    "category_weight": 0.25,
+    "micro_tokens": 32768,
+    "round4_code": "/work/round4"
+  },
+  "feature_seconds": 371.3705220595002,
+  "epochs": {
+    "0": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.7407440543174744,
+          "auc_vs_teacher": 0.9382468013111981,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.646797776222229,
+          "auc_vs_teacher": 0.526984126984127,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.836544930934906,
+          "auc_vs_teacher": 0.9310251677096933,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.5063991546630859,
+          "auc_vs_teacher": 0.8697394313412492,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.6826214790344238
+    },
+    "1": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.23429541289806366,
+          "auc_vs_teacher": 0.9626731521624193,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.0648309662938118,
+          "auc_vs_teacher": 0.9526695526695527,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.3206997215747833,
+          "auc_vs_teacher": 0.9461528071676196,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.13435600697994232,
+          "auc_vs_teacher": 0.9686214536230413,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.18854552693665028,
+      "train_loss": 0.3263710093117527
+    },
+    "2": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.25674763321876526,
+          "auc_vs_teacher": 0.9641535370624934,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.06293152272701263,
+          "auc_vs_teacher": 0.9636363636363636,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.2897995710372925,
+          "auc_vs_teacher": 0.950069785241547,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.11312353610992432,
+          "auc_vs_teacher": 0.9695862827222869,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.18065056577324867,
+      "train_loss": 0.2333611907743234
+    },
+    "3": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.2761010527610779,
+          "auc_vs_teacher": 0.9577032885693137,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.06994319707155228,
+          "auc_vs_teacher": 0.9611832611832611,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.29969894886016846,
+          "auc_vs_teacher": 0.9506100580793301,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.14205920696258545,
+          "auc_vs_teacher": 0.9683586456967542,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.19695060141384602,
+      "train_loss": 0.2156561369946873
+    },
+    "4": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.24010592699050903,
+          "auc_vs_teacher": 0.9582319974621973,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.057894885540008545,
+          "auc_vs_teacher": 0.9636363636363636,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.28455883264541626,
+          "auc_vs_teacher": 0.9509702399711855,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.11230520904064178,
+          "auc_vs_teacher": 0.9701781405727197,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.1737162135541439,
+      "train_loss": 0.20346562727846706
+    },
+    "5": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.24503403902053833,
+          "auc_vs_teacher": 0.9563286454478165,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.07751372456550598,
+          "auc_vs_teacher": 0.9581529581529582,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.2735499143600464,
+          "auc_vs_teacher": 0.9536265814236189,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.1078023836016655,
+          "auc_vs_teacher": 0.9710788877392542,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17597501538693905,
+      "train_loss": 0.19502727674358056
+    },
+    "6": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.2664184868335724,
+          "auc_vs_teacher": 0.9518874907475944,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.0561969131231308,
+          "auc_vs_teacher": 0.96002886002886,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.2838817536830902,
+          "auc_vs_teacher": 0.9520958083832335,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.11784521490335464,
+          "auc_vs_teacher": 0.97069223607784,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.181085592135787,
+      "train_loss": 0.18280400281087242
+    },
+    "7": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.24780404567718506,
+          "auc_vs_teacher": 0.9479750449402559,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.06874583661556244,
+          "auc_vs_teacher": 0.9556998556998557,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.2929498255252838,
+          "auc_vs_teacher": 0.9525910584845347,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.1126871258020401,
+          "auc_vs_teacher": 0.9721963614422611,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.18054670840501785,
+      "train_loss": 0.17360722247288715
+    },
+    "8": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.2743813991546631,
+          "auc_vs_teacher": 0.9403616368827323,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.059164661914110184,
+          "auc_vs_teacher": 0.9562770562770563,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.2960837483406067,
+          "auc_vs_teacher": 0.9493944441943182,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.11130823194980621,
+          "auc_vs_teacher": 0.9712963342974424,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.18523451033979654,
+      "train_loss": 0.16259901924386225
+    },
+    "9": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.2578498423099518,
+          "auc_vs_teacher": 0.9571745796764302,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05669573321938515,
+          "auc_vs_teacher": 0.9624819624819625,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.27780890464782715,
+          "auc_vs_teacher": 0.9531763540587997,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.10835918039083481,
+          "auc_vs_teacher": 0.9726146940591728,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17517841514199972,
+      "train_loss": 0.1540162006153778
+    },
+    "10": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.2558921277523041,
+          "auc_vs_teacher": 0.9544252934334355,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05404796078801155,
+          "auc_vs_teacher": 0.9627705627705627,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.28161531686782837,
+          "auc_vs_teacher": 0.9528611949034262,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.10486757755279541,
+          "auc_vs_teacher": 0.9723842871100993,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17410574574023485,
+      "train_loss": 0.14203460908529297
+    },
+    "11": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.24700309336185455,
+          "auc_vs_teacher": 0.956117161890663,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05647551640868187,
+          "auc_vs_teacher": 0.9559884559884559,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.2849785387516022,
+          "auc_vs_teacher": 0.9542118769978839,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.1035933718085289,
+          "auc_vs_teacher": 0.9729347437118704,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17301263008266687,
+      "train_loss": 0.13289571281450588
+    },
+    "12": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.24771615862846375,
+          "auc_vs_teacher": 0.9522047160833246,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05129677429795265,
+          "auc_vs_teacher": 0.9611832611832611,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.28477779030799866,
+          "auc_vs_teacher": 0.9534014677412093,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.10399952530860901,
+          "auc_vs_teacher": 0.9728393408345196,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17194756213575602,
+      "train_loss": 0.12432468959101196
+    },
+    "13": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.2633189260959625,
+          "auc_vs_teacher": 0.9517817489690177,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05272356793284416,
+          "auc_vs_teacher": 0.9614718614718615,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.27970272302627563,
+          "auc_vs_teacher": 0.9528161721669443,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.10460071265697479,
+          "auc_vs_teacher": 0.9725743728430849,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17508648242801428,
+      "train_loss": 0.11791549138163246
+    },
+    "14": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.257666677236557,
+          "auc_vs_teacher": 0.9519932325261711,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05151832476258278,
+          "auc_vs_teacher": 0.9603174603174603,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.28128692507743835,
+          "auc_vs_teacher": 0.9533114222682455,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.10330703854560852,
+          "auc_vs_teacher": 0.9730560673709919,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17344474140554667,
+      "train_loss": 0.11337092576836989
+    },
+    "15": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.25951945781707764,
+          "auc_vs_teacher": 0.9522047160833246,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05182810127735138,
+          "auc_vs_teacher": 0.9603174603174603,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.28125083446502686,
+          "auc_vs_teacher": 0.9525910584845347,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.10328561067581177,
+          "auc_vs_teacher": 0.9728890223329135,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.1739710010588169,
+      "train_loss": 0.11015261511874665
+    },
+    "16": {
+      "groups": {
+        "en_redline_prompts": {
+          "n": 242,
+          "mean_kl": 0.26087555289268494,
+          "auc_vs_teacher": 0.951676007190441,
+          "teacher_positive": 193
+        },
+        "leader_v1_prompts": {
+          "n": 233,
+          "mean_kl": 0.05113724619150162,
+          "auc_vs_teacher": 0.9604617604617605,
+          "teacher_positive": 35
+        },
+        "prefix_v2": {
+          "n": 300,
+          "mean_kl": 0.28111401200294495,
+          "auc_vs_teacher": 0.9534014677412093,
+          "teacher_positive": 167
+        },
+        "runA_prompts": {
+          "n": 2528,
+          "mean_kl": 0.10314644873142242,
+          "auc_vs_teacher": 0.9729833451776906,
+          "teacher_positive": 1721
+        }
+      },
+      "mean_kl": 0.17406831495463848,
+      "train_loss": 0.10877191718769631
+    }
+  },
+  "status": "completed",
+  "chosen_epoch": 12,
+  "chosen_mean_kl": 0.17194756213575602,
+  "replaced_tensors": 8,
+  "output_sha256": "fab1346e57010c57369470edfea8618594a293ca09adb70f20e04f97906a065f",
+  "seconds": 380.2941311802715
+}

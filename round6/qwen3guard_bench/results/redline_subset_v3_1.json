@@ -1,0 +1,74 @@
+{
+  "0.5/prompt/weapons_drugs": {
+    "n": 211,
+    "stage2_v3_redline": 61.611374407582936,
+    "stage2_v3_general": 96.2085308056872,
+    "stage2_v3_1_general": 92.41706161137441
+  },
+  "0.5/prompt/self_harm": {
+    "n": 116,
+    "stage2_v3_redline": 16.379310344827587,
+    "stage2_v3_general": 87.06896551724138,
+    "stage2_v3_1_general": 81.03448275862068
+  },
+  "0.5/prompt/sexual": {
+    "n": 338,
+    "stage2_v3_redline": 72.7810650887574,
+    "stage2_v3_general": 98.81656804733728,
+    "stage2_v3_1_general": 97.92899408284023
+  },
+  "0.5/prompt/violence": {
+    "n": 158,
+    "stage2_v3_redline": 53.164556962025316,
+    "stage2_v3_general": 100.0,
+    "stage2_v3_1_general": 92.40506329113924
+  },
+  "0.5/prompt/other_harm": {
+    "n": 1097,
+    "stage2_v3_redline": 20.875113947128533,
+    "stage2_v3_general": 94.257064721969,
+    "stage2_v3_1_general": 82.8623518687329
+  },
+  "0.5/prompt/safe": {
+    "n": 2063,
+    "stage2_v3_redline": 6.98012603005332,
+    "stage2_v3_general": 73.77605428986912,
+    "stage2_v3_1_general": 33.446437227338826
+  },
+  "0.5/response/weapons_drugs": {
+    "n": 235,
+    "stage2_v3_redline": 69.36170212765957,
+    "stage2_v3_general": 92.34042553191489,
+    "stage2_v3_1_general": 92.34042553191489
+  },
+  "0.5/response/self_harm": {
+    "n": 23,
+    "stage2_v3_redline": 52.17391304347826,
+    "stage2_v3_general": 78.26086956521739,
+    "stage2_v3_1_general": 78.26086956521739
+  },
+  "0.5/response/sexual": {
+    "n": 150,
+    "stage2_v3_redline": 23.333333333333332,
+    "stage2_v3_general": 85.33333333333333,
+    "stage2_v3_1_general": 85.33333333333333
+  },
+  "0.5/response/violence": {
+    "n": 73,
+    "stage2_v3_redline": 45.205479452054796,
+    "stage2_v3_general": 94.52054794520548,
+    "stage2_v3_1_general": 94.52054794520548
+  },
+  "0.5/response/other_harm": {
+    "n": 1646,
+    "stage2_v3_redline": 18.286755771567435,
+    "stage2_v3_general": 82.5030376670717,
+    "stage2_v3_1_general": 82.5030376670717
+  },
+  "0.5/response/safe": {
+    "n": 1707,
+    "stage2_v3_redline": 6.561218512009373,
+    "stage2_v3_general": 21.499707088459285,
+    "stage2_v3_1_general": 21.499707088459285
+  }
+}

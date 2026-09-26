@@ -1,0 +1,39 @@
+{
+  "version": "qwen3guard-bench-scores-v1",
+  "cases": 18098,
+  "cases_sha256": "1b3e634116e023c34e853389e5aaf49ec2198e7930911af7b73d3e1d84131998",
+  "limit": 0,
+  "settings": {
+    "cases": "/work/round6/qwen3guard_bench/data/cases.jsonl",
+    "checkpoint": [
+      "stage2_v2=/work/output/round6/stage2_train_v2/best.safetensors"
+    ],
+    "output": "/work/output/round6/qwen3guard_bench_v2.jsonl",
+    "round4_code": "/work/round4",
+    "tokenizer": "/work/models/qwen35/tokenizer.json",
+    "max_tokens": 8192,
+    "micro_tokens": 16384,
+    "max_rows": 64,
+    "first_tau": 0.5,
+    "limit": 0
+  },
+  "input_tokens": 3378518,
+  "truncated": {
+    "none": 18098
+  },
+  "truncated_by_bench": {},
+  "empty_scored_message": 0,
+  "microbatches": 375,
+  "tokenize_seconds": 1.3,
+  "checkpoints": [
+    {
+      "name": "stage2_v2",
+      "path": "/work/output/round6/stage2_train_v2/best.safetensors",
+      "sha256": "86f80afd08c964ac6009493f37c705a6493aa2c6c829090040e579281fd7a7ce",
+      "seconds": 127.6,
+      "tokens_per_second": 26486
+    }
+  ],
+  "seconds": 131.4,
+  "output_sha256": "403b492032ec24d749e851d6efd6cb585d5b4fe85004b5546e03539de9951493"
+}

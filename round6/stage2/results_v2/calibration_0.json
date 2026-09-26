@@ -1,0 +1,69 @@
+{
+  "groups": {
+    "en_redline/assistant": {
+      "records": 139,
+      "position_auc": 0.8693324777561702,
+      "stream_auc": 0.8171296296296297,
+      "stream_positive": 27,
+      "alert_positions": 830,
+      "alert_mean_cut": 0.8896047224481421
+    },
+    "en_redline_prompts/user": {
+      "records": 242,
+      "position_auc": 0.8514689472407679,
+      "stream_auc": 0.7967708333333333,
+      "stream_positive": 50,
+      "alert_positions": 1203,
+      "alert_mean_cut": 0.5346370782836318
+    },
+    "leader_v1/assistant": {
+      "records": 301,
+      "position_auc": 0.8979602443328574,
+      "stream_auc": 0.9515273920727089,
+      "stream_positive": 68,
+      "alert_positions": 131,
+      "alert_mean_cut": 0.09278806156784523
+    },
+    "leader_v1_prompts/user": {
+      "records": 233,
+      "position_auc": null,
+      "stream_auc": null,
+      "stream_positive": 0,
+      "alert_positions": 134,
+      "alert_mean_cut": 0.7702038114640251
+    },
+    "prefix_v2/assistant": {
+      "records": 598,
+      "position_auc": 0.8497613148294827,
+      "stream_auc": 0.7678053545807003,
+      "stream_positive": 61,
+      "alert_positions": 2990,
+      "alert_mean_cut": 0.8171789349520884
+    },
+    "prefix_v2/user": {
+      "records": 300,
+      "position_auc": 0.9507131832311545,
+      "stream_auc": 0.7998150241496249,
+      "stream_positive": 37,
+      "alert_positions": 644,
+      "alert_mean_cut": 0.6960694899099954
+    },
+    "runA/assistant": {
+      "records": 5018,
+      "position_auc": 0.5249687206760737,
+      "stream_auc": 0.5358602442684883,
+      "stream_positive": 950,
+      "alert_positions": 83871,
+      "alert_mean_cut": 0.7045687659916654
+    },
+    "runA_prompts/user": {
+      "records": 2528,
+      "position_auc": 0.528638860856753,
+      "stream_auc": 0.525900369176904,
+      "stream_positive": 549,
+      "alert_positions": 14295,
+      "alert_mean_cut": 0.606549022050953
+    }
+  },
+  "mean_stream_auc": 0.7421155496016272
+}

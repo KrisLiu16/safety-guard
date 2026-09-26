@@ -7,6 +7,10 @@ messages -- at every token of that message, as in streaming. Output per case (JS
          maps its own token ends onto these: the teacher token with the largest end <= the student's end)
   risk   [p(Safe), p(Unsafe), p(Controversial)] per token, 4 decimals
   cat    argmax category per token; catp its probability (category maps of the checkpoint's config)
+--end-user (v3.1): only user cases, and only the query head at the turn's closing <|im_end|> token, which is where
+Qwen3Guard-Stream is trained and read for prompts (the per-token query outputs inside the prompt are not trained and
+made the v3 user general head flag ordinary prompts). Output per case: end_risk [p(Safe), p(Unsafe),
+p(Controversial)], end_cat, end_catp.
 Cases are sorted by length and packed (right padding) into micro-batches of at most --micro-tokens padded tokens; a
 case longer than --max-tokens loses context from the left, never the scored message. Texts and outputs stay out of
 the repository.
@@ -44,6 +48,7 @@ def main():
     parser.add_argument("--max-rows", type=int, default=32)
     parser.add_argument("--max-tokens", type=int, default=8192)
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--end-user", action="store_true", help="user cases only, read at the closing <|im_end|>")
     args = parser.parse_args()
     import torch
     from transformers import AutoModel, AutoTokenizer
@@ -54,8 +59,11 @@ def main():
                                       torch_dtype=torch.bfloat16).to("cuda").eval()
     with args.inputs.open(encoding="utf-8") as handle:
         cases = [json.loads(line) for line in handle if line.strip()]
+    if args.end_user:
+        cases = [c for c in cases if c["role"] == "user"]
     if args.limit:
         cases = cases[:args.limit]
+    im_end = tok.convert_tokens_to_ids("<|im_end|>")
     prepared, skipped, truncated = [], 0, 0
     for case in cases:
         messages = case["messages"]
@@ -80,6 +88,9 @@ def main():
             drop = min(len(ids) - args.max_tokens, scored[0])
             truncated += 1
         ends = [min(offsets[i][1], end) - start for i in scored]
+        if args.end_user and ids[-1] != im_end:
+            skipped += 1
+            continue
         prepared.append((case, ids[drop:], [i - drop for i in scored], ends))
     prepared.sort(key=lambda p: len(p[1]))
     began, done = time.monotonic(), 0
@@ -100,6 +111,13 @@ def main():
             output = model(input_ids=x, attention_mask=mask, position_ids=(mask.cumsum(-1) - 1).clamp(min=0),
                            use_cache=False, logits_to_keep=0)
             for row, (case, ids, scored, ends) in enumerate(batch):
+                if args.end_user:                                        # the closing <|im_end|> is the last real token
+                    risk = output.query_risk_level_logits[row, len(ids) - 1].float().softmax(-1).cpu()
+                    cat = output.query_category_logits[row, len(ids) - 1].float().softmax(-1).cpu()
+                    out.write(json.dumps({"id": case["id"], "source": case["source"], "role": "user",
+                                          "end_risk": [round(v, 4) for v in risk.tolist()], "end_cat": int(cat.argmax()),
+                                          "end_catp": round(float(cat.max()), 3)}) + "\n")
+                    continue
                 user = case["role"] == "user"
                 risk = (output.query_risk_level_logits if user else output.risk_level_logits)[row, scored].float()
                 cat = (output.query_category_logits if user else output.category_logits)[row, scored].float()
