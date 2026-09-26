@@ -113,6 +113,22 @@ def teacher_targets(positions, ends, teacher, min_cat=0.5):
     return out
 
 
+def end_targets(positions, teacher_end, min_cat=0.5):
+    """Pure (v4, T035): Qwen3Guard-Stream trains and reads its query head only at the closing <|im_end|> of the user
+    turn, so its outputs inside a prompt are untrained (v3 learned them and flagged 189 of 194 ordinary questions). A
+    user text gets one teacher target, the end-of-turn output of teacher_label_l20.py --end-user, at the student's
+    last content position."""
+    if not positions:
+        return {"t_positions": [], "t_risk": [], "t_cat": []}
+    risk = teacher_end["end_risk"]
+    return {"t_positions": [positions[-1]], "t_risk": [risk],
+            "t_cat": [teacher_end["end_cat"] if 1 - risk[0] > min_cat else -1]}
+
+
+def attach(positions, ends, teacher):
+    return end_targets(positions, teacher) if "end_risk" in teacher else teacher_targets(positions, ends, teacher)
+
+
 def text_record(row, messages, source, role, labelled, encode, sample_id=None, teacher=None):
     """Run A answer or prompt. Returns (record or None, skip reason or None, undetermined count). teacher (v3): the
     teacher's output for this text; its distributions are attached at every content position (teacher_targets)."""
@@ -127,7 +143,7 @@ def text_record(row, messages, source, role, labelled, encode, sample_id=None, t
             "family": row.get("family") or row.get("task_key"), "language": row.get("language")}
     made = record(meta, ids, positions, classes, labelled, 1.0)
     if teacher is not None:
-        made.update(teacher_targets(all_positions, all_ends, teacher))
+        made.update(attach(all_positions, all_ends, teacher))
     return made, None, undetermined
 
 
@@ -145,7 +161,7 @@ def prefix_records(row, split, labelled, encode, teacher=None):
             "family": row["family"], "language": row["language"]}
     out = [record(meta, ids, kept, classes, labelled, float(row["weight"]))] if kept else []
     if out and teacher is not None:
-        out[0].update(teacher_targets(positions, ends, teacher))
+        out[0].update(attach(positions, ends, teacher))
     if split == "train" and row.get("augmentation", {}).get("anchors"):
         whole = CLASS_INDEX[LEVEL_RANK[labelled["level"]]]
         if whole == 0 and labelled.get("alert"):
@@ -166,13 +182,18 @@ def prompt_rows(rows):
             yield row, sample_id
 
 
-def build(runA_rows, prefix_data, labels, encode, leader_rows=(), extra=(), teacher=None):
+def build(runA_rows, prefix_data, labels, encode, leader_rows=(), extra=(), teacher=None, teacher_end=None):
     """Pure. runA_rows: stage-1 Run A input rows; prefix_data: split -> prefix_v2 rows; labels: name -> {sample_id:
     labels.jsonl row} for runA, runA_prompts, prefix_v2, prefix_v2_user. extra: (source, role, rows, {sample_id:
-    label row}) for other v14-row sources whose last message is the role's (e.g. T032 English). Returns (split ->
+    label row}) for other v14-row sources whose last message is the role's (e.g. T032 English). teacher_end (v4):
+    {sample_id: end-of-turn row}; when given, user texts take only that target (end_targets). Returns (split ->
     records, stats)."""
     out, stats = collections.defaultdict(list), collections.Counter()
-    t = (lambda sid, role: teacher.get((sid, role))) if teacher else (lambda sid, role: None)
+
+    def t(sid, role):
+        if role == "user" and teacher_end is not None:
+            return teacher_end.get(sid)
+        return teacher.get((sid, role)) if teacher else None
 
     def add(key, made, reason, undetermined):
         stats[f"{key}:undetermined_tokens"] += undetermined
@@ -273,6 +294,8 @@ def main():
     parser.add_argument("--extra", nargs=4, action="append", default=[], metavar=("SOURCE", "ROLE", "ROWS", "LABELS"),
                         help="another v14-row source (repeatable): rows ending with a ROLE message, apply_policy labels")
     parser.add_argument("--teacher", type=Path, help="v3: teacher_label_l20.py output (jsonl.gz) to attach")
+    parser.add_argument("--teacher-end", type=Path,
+                        help="v4: teacher_label_l20.py --end-user output (jsonl.gz); user texts take only this target")
     parser.add_argument("--tokenizer", type=Path, default=Path("/work/models/qwen35/tokenizer.json"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -304,17 +327,26 @@ def main():
             for line in handle:
                 row = json.loads(line)
                 teacher[(row["id"], row["role"])] = row
-    records, stats = build(read_jsonl(args.runA), prefix_data, labels, encode, leader_rows, extra, teacher)
-    if teacher is not None:
+    teacher_end = None
+    if args.teacher_end:
+        import gzip
+        with gzip.open(args.teacher_end, "rt", encoding="utf-8") as handle:
+            teacher_end = {row["id"]: row for row in map(json.loads, handle)}
+    records, stats = build(read_jsonl(args.runA), prefix_data, labels, encode, leader_rows, extra, teacher, teacher_end)
+    if teacher is not None or teacher_end is not None:
         stats["teacher_records"] = sum(1 for rows in records.values() for r in rows if "t_positions" in r)
+        stats["teacher_records_user"] = sum(1 for rows in records.values() for r in rows
+                                            if "t_positions" in r and r["role"] == "user")
     args.output.mkdir(parents=True)
     for split, rows in records.items():
         with (args.output / f"records_{split}.jsonl").open("w", encoding="utf-8") as handle:
             for row in rows:
                 handle.write(json.dumps(row, ensure_ascii=False) + "\n")
-    report = {"version": "stage2-targets-v3", "class_index": {"safe": 0, "unsafe": 1, "controversial": 2, "alert": ALERT},
+    report = {"version": "stage2-targets-v4" if teacher_end is not None else "stage2-targets-v3", "class_index": {"safe": 0, "unsafe": 1, "controversial": 2, "alert": ALERT},
               "inputs": {str(p): sha(p) for p in [args.runA, args.tokenizer, *[p for ps in label_paths.values() for p in ps],
                                                   *([args.leader_rows] if args.leader_rows else []),
+                                                  *([args.teacher] if args.teacher else []),
+                                                  *([args.teacher_end] if args.teacher_end else []),
                                                   *[Path(p) for e in args.extra for p in e[2:]],
                                                   *[args.prefix_data / f"{s}.jsonl" for s in prefix_data]]},
               "records": {split: len(rows) for split, rows in records.items()},

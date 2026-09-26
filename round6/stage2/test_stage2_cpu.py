@@ -129,6 +129,24 @@ class TargetTests(unittest.TestCase):
         plain, _, _ = bt.text_record(row, row["messages"], "runA", "assistant", lab, encode)
         self.assertNotIn("t_positions", plain)
 
+    def test_teacher_end_only_for_user_texts(self):
+        runA = [runA_row("w1-0", "train")]
+        labels = {"runA": {"w1-0": labelled("safe", [(20, "safe")])},
+                  "runA_prompts": {"w1:prompt:unsafe": labelled("unsafe", [(6, "unsafe")])}}
+        per_token = {"ends": [3, 6, 20], "risk": [[0.9, 0.05, 0.05], [0.8, 0.1, 0.1], [0.2, 0.7, 0.1]], "cat": [0, 0, 2]}
+        teacher = {("w1-0", "assistant"): per_token, ("w1:prompt:unsafe", "user"): per_token}
+        end = {"w1:prompt:unsafe": {"end_risk": [0.1, 0.8, 0.1], "end_cat": 4}}
+        out, _ = bt.build(runA, {}, labels, encode, teacher=teacher, teacher_end=end)
+        rows = {r["sample_id"]: r for r in out["train"]}
+        prompt, answer = rows["w1:prompt:unsafe"], rows["w1-0"]
+        self.assertEqual(prompt["t_positions"], [len(prompt["ids"]) - 1])     # the last prompt token only
+        self.assertEqual((prompt["t_risk"], prompt["t_cat"]), ([[0.1, 0.8, 0.1]], [4]))
+        self.assertEqual(len(answer["t_positions"]), 20 - 2)                  # answers keep per-token targets
+        out, _ = bt.build(runA, {}, labels, encode, teacher=teacher, teacher_end={})
+        self.assertNotIn("t_positions", {r["sample_id"]: r for r in out["train"]}["w1:prompt:unsafe"])
+        safe_end = bt.end_targets([4, 5], {"end_risk": [0.7, 0.2, 0.1], "end_cat": 3})
+        self.assertEqual(safe_end["t_cat"], [-1])                             # teacher safe: no category target
+
     def test_leader_prompt_label_filter(self):
         import make_leader_prompt_labels as mk
         row = {"sample_id": "s1", "split": "train", "language": "zh", "response_style": "place_normal",
